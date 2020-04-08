@@ -3,6 +3,6 @@
 /// More dartdocs go here.
 library fusionauth_dart_client;
 
-export 'src/fusionauth_dart_client_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/FusionAuthClient.dart';
+export 'src/FusionAuthDomain.dart';
+export 'src/FusionAuthRESTClient.dart';

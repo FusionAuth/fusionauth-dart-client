@@ -15,7 +15,7 @@
  */
 savantVersion = "1.0.0"
 
-project(group: "io.fusionauth", name: "fusionauth-typescript-client", version: "1.15.8", licenses: ["ApacheV2_0"]) {
+project(group: "io.fusionauth", name: "fusionauth-dart-client", version: "1.15.8", licenses: ["ApacheV2_0"]) {
   workflow {
     standard()
   }
@@ -26,7 +26,7 @@ project(group: "io.fusionauth", name: "fusionauth-typescript-client", version: "
 
   publications {
     main {
-      publication(name: "fusionauth-typescript-client", type: "zip", file: "build/fusionauth-typescript-client.zip")
+      publication(name: "fusionauth-dart-client", type: "zip", file: "build/fusionauth-dart-client.zip")
     }
   }
 }
@@ -43,19 +43,19 @@ target(name: "clean", description: "Cleans build directory") {
   }
 }
 
-target(name: "build", description: "Builds the js files") {
-  def proc = 'npm install'.execute()
-  proc.consumeProcessOutput(System.out, System.err)
-  proc.waitFor()
+target(name: "build", description: "Builds the generated file") {
+  if (new ProcessBuilder('pub', 'run', 'build_runner', 'build').inheritIO().start().waitFor() != 0) {
+    fail('Failed to build the generated files')
+  }
 }
 
 target(name: "int", description: "Releases a local integration build of the project", dependsOn: ["build"]) {
   file.delete {
-    fileSet(dir: "build", includePatterns: [~/fusionauth-typescript-client.+\.zip/])
+    fileSet(dir: '.', includePatterns: [~/fusionauth-dart-client.+\.zip/])
   }
 
-  file.zip(file: "build/fusionauth-typescript-client.zip") {
-    fileSet(dir: "build/src", includePatterns: [])
+  file.zip(file: "fusionauth-dart-client.zip") {
+    fileSet(dir: '.', excludePatterns: [~/^\..+/])
   }
 }
 
@@ -64,14 +64,15 @@ target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
 }
 
 target(name: "test", description: "Runs the tests", dependsOn: ["build"]) {
-  if (new ProcessBuilder('npm', 'test').inheritIO().start().waitFor() != 0) {
+  if (new ProcessBuilder('pub', 'run', 'test', ).inheritIO().start().waitFor() != 0) {
     fail("Tests failed")
   }
 }
 
 target(name: "publish", description: "Publish in NPM", dependsOn: ["clean", "int"]) {
-  def npmPublish = 'npm publish --access=public'.execute()
-  npmPublish.consumeProcessOutput(System.out, System.err)
+  if (new ProcessBuilder('pub', 'publish').inheritIO().start().waitFor() != 0) {
+    fail("Failed to publish")
+  }
 }
 
 target(name: "release", description: "Releases a full version of the project", dependsOn: ["int"]) {
