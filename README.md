@@ -1,4 +1,7 @@
-# FusionAuth Dart Client
+# FusionAuth Dart Client ![semver 2.0.0 compliant](http://img.shields.io/badge/semver-2.0.0-brightgreen.svg?style=flat-square)
+If you're integrating FusionAuth with a Dart or Flutter application, this library will speed up your development time.
+
+For additional information and documentation on FusionAuth refer to [https://fusionauth.io](https://fusionauth.io).
 
 A library for FusionAuth Dart developers.
 
