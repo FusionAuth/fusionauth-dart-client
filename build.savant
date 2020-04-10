@@ -58,7 +58,7 @@ target(name: "build", description: "Builds the generated file") {
     fail('Failed to build the generated files')
   }
 
-  if (new ProcessBuilder('pub', 'run', 'build_runner', 'build').inheritIO().start().waitFor() != 0) {
+  if (new ProcessBuilder('pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs').inheritIO().start().waitFor() != 0) {
     fail('Failed to build the generated files')
   }
 }
