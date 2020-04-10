@@ -43,7 +43,21 @@ target(name: "clean", description: "Cleans build directory") {
   }
 }
 
+target(name: "setup", description: "Setup Dart build tools") {
+  if (new ProcessBuilder('brew', 'tap', 'dart-lang/dart').inheritIO().start().waitFor() != 0) {
+    fail('Failed to brew tap dart-lang/dart')
+  }
+
+  if (new ProcessBuilder('brew', 'install', 'dart').inheritIO().start().waitFor() != 0) {
+    fail('Failed to brew install dart')
+  }
+}
+
 target(name: "build", description: "Builds the generated file") {
+  if (new ProcessBuilder('pub', 'get').inheritIO().start().waitFor() != 0) {
+    fail('Failed to build the generated files')
+  }
+
   if (new ProcessBuilder('pub', 'run', 'build_runner', 'build').inheritIO().start().waitFor() != 0) {
     fail('Failed to build the generated files')
   }
