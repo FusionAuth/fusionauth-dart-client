@@ -1273,6 +1273,8 @@ Map<String, dynamic> _$EmailAddressToJson(EmailAddress instance) {
 
 EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) {
   return EmailConfiguration(
+    defaultFromEmail: json['defaultFromEmail'] as String,
+    defaultFromName: json['defaultFromName'] as String,
     forgotPasswordEmailTemplateId:
         json['forgotPasswordEmailTemplateId'] as String,
     host: json['host'] as String,
@@ -1299,6 +1301,8 @@ Map<String, dynamic> _$EmailConfigurationToJson(EmailConfiguration instance) {
     }
   }
 
+  writeNotNull('defaultFromEmail', instance.defaultFromEmail);
+  writeNotNull('defaultFromName', instance.defaultFromName);
   writeNotNull(
       'forgotPasswordEmailTemplateId', instance.forgotPasswordEmailTemplateId);
   writeNotNull('host', instance.host);
@@ -1582,6 +1586,7 @@ const _$EventTypeEnumMap = {
   EventType.UserReactivate: 'UserReactivate',
   EventType.UserAction: 'UserAction',
   EventType.JWTRefreshTokenRevoke: 'JWTRefreshTokenRevoke',
+  EventType.JWTRefresh: 'JWTRefresh',
   EventType.JWTPublicKeyUpdate: 'JWTPublicKeyUpdate',
   EventType.UserLoginSuccess: 'UserLoginSuccess',
   EventType.UserLoginFailed: 'UserLoginFailed',
@@ -2546,9 +2551,6 @@ Map<String, dynamic> _$HistoryItemToJson(HistoryItem instance) {
 HYPRApplicationConfiguration _$HYPRApplicationConfigurationFromJson(
     Map<String, dynamic> json) {
   return HYPRApplicationConfiguration(
-    licensingEnabled: json['licensingEnabled'] as bool,
-    licensingEnabledOverride: json['licensingEnabledOverride'] as bool,
-    licensingURL: json['licensingURL'] as String,
     relyingPartyApplicationId: json['relyingPartyApplicationId'] as String,
     relyingPartyURL: json['relyingPartyURL'] as String,
   )
@@ -2570,9 +2572,6 @@ Map<String, dynamic> _$HYPRApplicationConfigurationToJson(
   writeNotNull('enabled', instance.enabled);
   writeNotNull('createRegistration', instance.createRegistration);
   writeNotNull('data', instance.data);
-  writeNotNull('licensingEnabled', instance.licensingEnabled);
-  writeNotNull('licensingEnabledOverride', instance.licensingEnabledOverride);
-  writeNotNull('licensingURL', instance.licensingURL);
   writeNotNull('relyingPartyApplicationId', instance.relyingPartyApplicationId);
   writeNotNull('relyingPartyURL', instance.relyingPartyURL);
   return val;
@@ -2580,8 +2579,6 @@ Map<String, dynamic> _$HYPRApplicationConfigurationToJson(
 
 HYPRIdentityProvider _$HYPRIdentityProviderFromJson(Map<String, dynamic> json) {
   return HYPRIdentityProvider(
-    licensingEnabled: json['licensingEnabled'] as bool,
-    licensingURL: json['licensingURL'] as String,
     relyingPartyApplicationId: json['relyingPartyApplicationId'] as String,
     relyingPartyURL: json['relyingPartyURL'] as String,
   )
@@ -2619,8 +2616,6 @@ Map<String, dynamic> _$HYPRIdentityProviderToJson(
   writeNotNull('id', instance.id);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
-  writeNotNull('licensingEnabled', instance.licensingEnabled);
-  writeNotNull('licensingURL', instance.licensingURL);
   writeNotNull('relyingPartyApplicationId', instance.relyingPartyApplicationId);
   writeNotNull('relyingPartyURL', instance.relyingPartyURL);
   return val;
@@ -3194,6 +3189,39 @@ Map<String, dynamic> _$JWTPublicKeyUpdateEventToJson(
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationIds', instance.applicationIds?.toList());
+  return val;
+}
+
+JWTRefreshEvent _$JWTRefreshEventFromJson(Map<String, dynamic> json) {
+  return JWTRefreshEvent(
+    applicationId: json['applicationId'] as String,
+    original: json['original'] as String,
+    refreshToken: json['refreshToken'] as String,
+    token: json['token'] as String,
+    userId: json['userId'] as String,
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..tenantId = json['tenantId'] as String;
+}
+
+Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('original', instance.original);
+  writeNotNull('refreshToken', instance.refreshToken);
+  writeNotNull('token', instance.token);
+  writeNotNull('userId', instance.userId);
   return val;
 }
 
@@ -4759,6 +4787,7 @@ Map<String, dynamic> _$RecentLoginResponseToJson(RecentLoginResponse instance) {
 RefreshRequest _$RefreshRequestFromJson(Map<String, dynamic> json) {
   return RefreshRequest(
     refreshToken: json['refreshToken'] as String,
+    token: json['token'] as String,
   );
 }
 
@@ -4772,6 +4801,7 @@ Map<String, dynamic> _$RefreshRequestToJson(RefreshRequest instance) {
   }
 
   writeNotNull('refreshToken', instance.refreshToken);
+  writeNotNull('token', instance.token);
   return val;
 }
 
@@ -4952,6 +4982,7 @@ RegistrationResponse _$RegistrationResponseFromJson(Map<String, dynamic> json) {
         ? null
         : UserRegistration.fromJson(
             json['registration'] as Map<String, dynamic>),
+    token: json['token'] as String,
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
@@ -4969,6 +5000,7 @@ Map<String, dynamic> _$RegistrationResponseToJson(
   }
 
   writeNotNull('registration', instance.registration);
+  writeNotNull('token', instance.token);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -5487,6 +5519,31 @@ Map<String, dynamic> _$SystemConfigurationResponseToJson(
   }
 
   writeNotNull('systemConfiguration', instance.systemConfiguration);
+  return val;
+}
+
+SystemLogsExportRequest _$SystemLogsExportRequestFromJson(
+    Map<String, dynamic> json) {
+  return SystemLogsExportRequest(
+    lastNBytes: json['lastNBytes'] as num,
+  )
+    ..dateTimeSecondsFormat = json['dateTimeSecondsFormat'] as String
+    ..zoneId = json['zoneId'] as String;
+}
+
+Map<String, dynamic> _$SystemLogsExportRequestToJson(
+    SystemLogsExportRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('dateTimeSecondsFormat', instance.dateTimeSecondsFormat);
+  writeNotNull('zoneId', instance.zoneId);
+  writeNotNull('lastNBytes', instance.lastNBytes);
   return val;
 }
 
@@ -7312,6 +7369,7 @@ Map<String, dynamic> _$UserRequestToJson(UserRequest instance) {
 
 UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
   return UserResponse(
+    token: json['token'] as String,
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
@@ -7327,6 +7385,7 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) {
     }
   }
 
+  writeNotNull('token', instance.token);
   writeNotNull('user', instance.user);
   return val;
 }

@@ -988,6 +988,8 @@ class EmailAddress {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class EmailConfiguration {
+  String defaultFromEmail;
+  String defaultFromName;
   String forgotPasswordEmailTemplateId;
   String host;
   String password;
@@ -1002,6 +1004,8 @@ class EmailConfiguration {
   bool verifyEmailWhenChanged;
 
   EmailConfiguration({
+      this.defaultFromEmail,
+      this.defaultFromName,
       this.forgotPasswordEmailTemplateId,
       this.host,
       this.password,
@@ -1346,6 +1350,8 @@ enum EventType {
   UserAction,
   @JsonValue('JWTRefreshTokenRevoke')
   JWTRefreshTokenRevoke,
+  @JsonValue('JWTRefresh')
+  JWTRefresh,
   @JsonValue('JWTPublicKeyUpdate')
   JWTPublicKeyUpdate,
   @JsonValue('UserLoginSuccess')
@@ -1877,16 +1883,10 @@ enum HTTPMethod {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class HYPRApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
-  bool licensingEnabled;
-  bool licensingEnabledOverride;
-  String licensingURL;
   String relyingPartyApplicationId;
   String relyingPartyURL;
 
   HYPRApplicationConfiguration({
-      this.licensingEnabled,
-      this.licensingEnabledOverride,
-      this.licensingURL,
       this.relyingPartyApplicationId,
       this.relyingPartyURL
   });
@@ -1898,14 +1898,10 @@ class HYPRApplicationConfiguration extends BaseIdentityProviderApplicationConfig
 /// @author Daniel DeGroff
 @JsonSerializable()
 class HYPRIdentityProvider extends BaseIdentityProvider<HYPRApplicationConfiguration> {
-  bool licensingEnabled;
-  String licensingURL;
   String relyingPartyApplicationId;
   String relyingPartyURL;
 
   HYPRIdentityProvider({
-      this.licensingEnabled,
-      this.licensingURL,
       this.relyingPartyApplicationId,
       this.relyingPartyURL
   });
@@ -2318,6 +2314,29 @@ class JWTPublicKeyUpdateEvent extends BaseEvent {
 
   factory JWTPublicKeyUpdateEvent.fromJson(Map<String, dynamic> json) => _$JWTPublicKeyUpdateEventFromJson(json);
   Map<String, dynamic> toJson() => _$JWTPublicKeyUpdateEventToJson(this);
+}
+
+/// Models the JWT Refresh Event. This event will be fired when a JWT is "refreshed" (generated) using a Refresh Token.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class JWTRefreshEvent extends BaseEvent {
+  String applicationId;
+  String original;
+  String refreshToken;
+  String token;
+  String userId;
+
+  JWTRefreshEvent({
+      this.applicationId,
+      this.original,
+      this.refreshToken,
+      this.token,
+      this.userId
+  });
+
+  factory JWTRefreshEvent.fromJson(Map<String, dynamic> json) => _$JWTRefreshEventFromJson(json);
+  Map<String, dynamic> toJson() => _$JWTRefreshEventToJson(this);
 }
 
 /// Models the Refresh Token Revoke Event (and can be converted to JSON). This event might be for a single token, a user
@@ -3438,9 +3457,11 @@ class RecentLoginResponse {
 @JsonSerializable()
 class RefreshRequest {
   String refreshToken;
+  String token;
 
   RefreshRequest({
-      this.refreshToken
+      this.refreshToken,
+      this.token
   });
 
   factory RefreshRequest.fromJson(Map<String, dynamic> json) => _$RefreshRequestFromJson(json);
@@ -3561,10 +3582,12 @@ class RegistrationRequest {
 @JsonSerializable()
 class RegistrationResponse {
   UserRegistration registration;
+  String token;
   User user;
 
   RegistrationResponse({
       this.registration,
+      this.token,
       this.user
   });
 
@@ -3905,6 +3928,19 @@ class SystemConfigurationResponse {
 
   factory SystemConfigurationResponse.fromJson(Map<String, dynamic> json) => _$SystemConfigurationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SystemConfigurationResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class SystemLogsExportRequest extends BaseExportRequest {
+  num lastNBytes;
+
+  SystemLogsExportRequest({
+      this.lastNBytes
+  });
+
+  factory SystemLogsExportRequest.fromJson(Map<String, dynamic> json) => _$SystemLogsExportRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$SystemLogsExportRequestToJson(this);
 }
 
 @JsonSerializable()
@@ -5151,9 +5187,11 @@ class UserRequest {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class UserResponse {
+  String token;
   User user;
 
   UserResponse({
+      this.token,
       this.user
   });
 
