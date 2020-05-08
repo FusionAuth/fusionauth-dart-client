@@ -1912,13 +1912,17 @@ class HYPRIdentityProvider extends BaseIdentityProvider<HYPRApplicationConfigura
 
 @JsonSerializable()
 class IdentityProviderDetails {
+  List<String> applicationIds;
   String id;
+  String idpEndpoint;
   String name;
   IdentityProviderOauth2Configuration oauth2;
   IdentityProviderType type;
 
   IdentityProviderDetails({
+      this.applicationIds,
       this.id,
+      this.idpEndpoint,
       this.name,
       this.oauth2,
       this.type
