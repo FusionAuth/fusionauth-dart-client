@@ -2624,7 +2624,10 @@ Map<String, dynamic> _$HYPRIdentityProviderToJson(
 IdentityProviderDetails _$IdentityProviderDetailsFromJson(
     Map<String, dynamic> json) {
   return IdentityProviderDetails(
+    applicationIds:
+        (json['applicationIds'] as List)?.map((e) => e as String)?.toList(),
     id: json['id'] as String,
+    idpEndpoint: json['idpEndpoint'] as String,
     name: json['name'] as String,
     oauth2: json['oauth2'] == null
         ? null
@@ -2644,7 +2647,9 @@ Map<String, dynamic> _$IdentityProviderDetailsToJson(
     }
   }
 
+  writeNotNull('applicationIds', instance.applicationIds);
   writeNotNull('id', instance.id);
+  writeNotNull('idpEndpoint', instance.idpEndpoint);
   writeNotNull('name', instance.name);
   writeNotNull('oauth2', instance.oauth2);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
