@@ -162,6 +162,105 @@ Map<String, dynamic> _$ActionResponseToJson(ActionResponse instance) {
   return val;
 }
 
+AppleApplicationConfiguration _$AppleApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return AppleApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    keyId: json['keyId'] as String,
+    scope: json['scope'] as String,
+    servicesId: json['servicesId'] as String,
+    teamId: json['teamId'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$AppleApplicationConfigurationToJson(
+    AppleApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('keyId', instance.keyId);
+  writeNotNull('scope', instance.scope);
+  writeNotNull('servicesId', instance.servicesId);
+  writeNotNull('teamId', instance.teamId);
+  return val;
+}
+
+AppleIdentityProvider _$AppleIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return AppleIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    keyId: json['keyId'] as String,
+    scope: json['scope'] as String,
+    servicesId: json['servicesId'] as String,
+    teamId: json['teamId'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : AppleApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$AppleIdentityProviderToJson(
+    AppleIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('keyId', instance.keyId);
+  writeNotNull('scope', instance.scope);
+  writeNotNull('servicesId', instance.servicesId);
+  writeNotNull('teamId', instance.teamId);
+  return val;
+}
+
+const _$IdentityProviderTypeEnumMap = {
+  IdentityProviderType.ExternalJWT: 'ExternalJWT',
+  IdentityProviderType.OpenIDConnect: 'OpenIDConnect',
+  IdentityProviderType.Facebook: 'Facebook',
+  IdentityProviderType.Google: 'Google',
+  IdentityProviderType.Twitter: 'Twitter',
+  IdentityProviderType.SAMLv2: 'SAMLv2',
+  IdentityProviderType.HYPR: 'HYPR',
+  IdentityProviderType.Apple: 'Apple',
+};
+
 Application _$ApplicationFromJson(Map<String, dynamic> json) {
   return Application(
     active: json['active'] as bool,
@@ -679,20 +778,11 @@ Map<String, dynamic> _$BaseIdentityProviderToJson<
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   return val;
 }
-
-const _$IdentityProviderTypeEnumMap = {
-  IdentityProviderType.ExternalJWT: 'ExternalJWT',
-  IdentityProviderType.OpenIDConnect: 'OpenIDConnect',
-  IdentityProviderType.Facebook: 'Facebook',
-  IdentityProviderType.Google: 'Google',
-  IdentityProviderType.Twitter: 'Twitter',
-  IdentityProviderType.SAMLv2: 'SAMLv2',
-  IdentityProviderType.HYPR: 'HYPR',
-};
 
 BaseIdentityProviderApplicationConfiguration
     _$BaseIdentityProviderApplicationConfigurationFromJson(
@@ -1957,6 +2047,7 @@ ExternalJWTIdentityProvider _$ExternalJWTIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -1976,6 +2067,7 @@ Map<String, dynamic> _$ExternalJWTIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('claimMap', instance.claimMap);
@@ -2044,6 +2136,7 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2063,6 +2156,7 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('appId', instance.appId);
@@ -2384,6 +2478,7 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2403,6 +2498,7 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -2595,6 +2691,7 @@ HYPRIdentityProvider _$HYPRIdentityProviderFromJson(Map<String, dynamic> json) {
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2614,6 +2711,7 @@ Map<String, dynamic> _$HYPRIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('relyingPartyApplicationId', instance.relyingPartyApplicationId);
@@ -3088,6 +3186,15 @@ const _$KeyTypeEnumMap = {
   KeyType.HMAC: 'HMAC',
 };
 
+JSONWebKeyInfoProvider _$JSONWebKeyInfoProviderFromJson(
+    Map<String, dynamic> json) {
+  return JSONWebKeyInfoProvider();
+}
+
+Map<String, dynamic> _$JSONWebKeyInfoProviderToJson(
+        JSONWebKeyInfoProvider instance) =>
+    <String, dynamic>{};
+
 JWKSResponse _$JWKSResponseFromJson(Map<String, dynamic> json) {
   return JWKSResponse(
     keys: (json['keys'] as List)
@@ -3145,8 +3252,17 @@ JWTConfiguration _$JWTConfigurationFromJson(Map<String, dynamic> json) {
   return JWTConfiguration(
     accessTokenKeyId: json['accessTokenKeyId'] as String,
     idTokenKeyId: json['idTokenKeyId'] as String,
+    refreshTokenExpirationPolicy: _$enumDecodeNullable(
+        _$RefreshTokenExpirationPolicyEnumMap,
+        json['refreshTokenExpirationPolicy']),
+    refreshTokenRevocationPolicy: json['refreshTokenRevocationPolicy'] == null
+        ? null
+        : RefreshTokenRevocationPolicy.fromJson(
+            json['refreshTokenRevocationPolicy'] as Map<String, dynamic>),
     refreshTokenTimeToLiveInMinutes:
         json['refreshTokenTimeToLiveInMinutes'] as num,
+    refreshTokenUsagePolicy: _$enumDecodeNullable(
+        _$RefreshTokenUsagePolicyEnumMap, json['refreshTokenUsagePolicy']),
     timeToLiveInSeconds: json['timeToLiveInSeconds'] as num,
   )..enabled = json['enabled'] as bool;
 }
@@ -3163,11 +3279,29 @@ Map<String, dynamic> _$JWTConfigurationToJson(JWTConfiguration instance) {
   writeNotNull('enabled', instance.enabled);
   writeNotNull('accessTokenKeyId', instance.accessTokenKeyId);
   writeNotNull('idTokenKeyId', instance.idTokenKeyId);
+  writeNotNull(
+      'refreshTokenExpirationPolicy',
+      _$RefreshTokenExpirationPolicyEnumMap[
+          instance.refreshTokenExpirationPolicy]);
+  writeNotNull(
+      'refreshTokenRevocationPolicy', instance.refreshTokenRevocationPolicy);
   writeNotNull('refreshTokenTimeToLiveInMinutes',
       instance.refreshTokenTimeToLiveInMinutes);
+  writeNotNull('refreshTokenUsagePolicy',
+      _$RefreshTokenUsagePolicyEnumMap[instance.refreshTokenUsagePolicy]);
   writeNotNull('timeToLiveInSeconds', instance.timeToLiveInSeconds);
   return val;
 }
+
+const _$RefreshTokenExpirationPolicyEnumMap = {
+  RefreshTokenExpirationPolicy.Fixed: 'Fixed',
+  RefreshTokenExpirationPolicy.SlidingWindow: 'SlidingWindow',
+};
+
+const _$RefreshTokenUsagePolicyEnumMap = {
+  RefreshTokenUsagePolicy.Reusable: 'Reusable',
+  RefreshTokenUsagePolicy.OneTimeUse: 'OneTimeUse',
+};
 
 JWTPublicKeyUpdateEvent _$JWTPublicKeyUpdateEventFromJson(
     Map<String, dynamic> json) {
@@ -3302,13 +3436,13 @@ Key _$KeyFromJson(Map<String, dynamic> json) {
         : CertificateInformation.fromJson(
             json['certificateInformation'] as Map<String, dynamic>),
     expirationInstant: json['expirationInstant'] as num,
+    hasPrivateKey: json['hasPrivateKey'] as bool,
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
     issuer: json['issuer'] as String,
     kid: json['kid'] as String,
     length: json['length'] as num,
     name: json['name'] as String,
-    pair: json['pair'] as bool,
     privateKey: json['privateKey'] as String,
     publicKey: json['publicKey'] as String,
     secret: json['secret'] as String,
@@ -3329,13 +3463,13 @@ Map<String, dynamic> _$KeyToJson(Key instance) {
   writeNotNull('certificate', instance.certificate);
   writeNotNull('certificateInformation', instance.certificateInformation);
   writeNotNull('expirationInstant', instance.expirationInstant);
+  writeNotNull('hasPrivateKey', instance.hasPrivateKey);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('kid', instance.kid);
   writeNotNull('length', instance.length);
   writeNotNull('name', instance.name);
-  writeNotNull('pair', instance.pair);
   writeNotNull('privateKey', instance.privateKey);
   writeNotNull('publicKey', instance.publicKey);
   writeNotNull('secret', instance.secret);
@@ -3436,6 +3570,7 @@ const _$LambdaTypeEnumMap = {
   LambdaType.OpenIDReconcile: 'OpenIDReconcile',
   LambdaType.SAMLv2Reconcile: 'SAMLv2Reconcile',
   LambdaType.SAMLv2Populate: 'SAMLv2Populate',
+  LambdaType.GenericIdpReconcile: 'GenericIdpReconcile',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) {
@@ -4334,7 +4469,6 @@ OpenIdConnectIdentityProvider _$OpenIdConnectIdentityProviderFromJson(
     buttonImageURL: json['buttonImageURL'] as String,
     buttonText: json['buttonText'] as String,
     domains: (json['domains'] as List)?.map((e) => e as String)?.toSet(),
-    lambdaConfiguration: json['lambdaConfiguration'],
     oauth2: json['oauth2'] == null
         ? null
         : IdentityProviderOauth2Configuration.fromJson(
@@ -4353,6 +4487,7 @@ OpenIdConnectIdentityProvider _$OpenIdConnectIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -4372,12 +4507,12 @@ Map<String, dynamic> _$OpenIdConnectIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('domains', instance.domains?.toList());
-  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('oauth2', instance.oauth2);
   return val;
 }
@@ -4812,6 +4947,7 @@ Map<String, dynamic> _$RefreshRequestToJson(RefreshRequest instance) {
 
 RefreshResponse _$RefreshResponseFromJson(Map<String, dynamic> json) {
   return RefreshResponse(
+    refreshToken: json['refreshToken'] as String,
     refreshTokens: (json['refreshTokens'] as List)
         ?.map((e) =>
             e == null ? null : RefreshToken.fromJson(e as Map<String, dynamic>))
@@ -4829,6 +4965,7 @@ Map<String, dynamic> _$RefreshResponseToJson(RefreshResponse instance) {
     }
   }
 
+  writeNotNull('refreshToken', instance.refreshToken);
   writeNotNull('refreshTokens', instance.refreshTokens);
   writeNotNull('token', instance.token);
   return val;
@@ -4862,6 +4999,29 @@ Map<String, dynamic> _$RefreshTokenToJson(RefreshToken instance) {
   writeNotNull('startInstant', instance.startInstant);
   writeNotNull('token', instance.token);
   writeNotNull('userId', instance.userId);
+  return val;
+}
+
+RefreshTokenRevocationPolicy _$RefreshTokenRevocationPolicyFromJson(
+    Map<String, dynamic> json) {
+  return RefreshTokenRevocationPolicy(
+    onLoginPrevented: json['onLoginPrevented'] as bool,
+    onPasswordChanged: json['onPasswordChanged'] as bool,
+  );
+}
+
+Map<String, dynamic> _$RefreshTokenRevocationPolicyToJson(
+    RefreshTokenRevocationPolicy instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('onLoginPrevented', instance.onLoginPrevented);
+  writeNotNull('onPasswordChanged', instance.onPasswordChanged);
   return val;
 }
 
@@ -4983,6 +5143,7 @@ Map<String, dynamic> _$RegistrationRequestToJson(RegistrationRequest instance) {
 
 RegistrationResponse _$RegistrationResponseFromJson(Map<String, dynamic> json) {
   return RegistrationResponse(
+    refreshToken: json['refreshToken'] as String,
     registration: json['registration'] == null
         ? null
         : UserRegistration.fromJson(
@@ -5004,6 +5165,7 @@ Map<String, dynamic> _$RegistrationResponseToJson(
     }
   }
 
+  writeNotNull('refreshToken', instance.refreshToken);
   writeNotNull('registration', instance.registration);
   writeNotNull('token', instance.token);
   writeNotNull('user', instance.user);
@@ -5070,6 +5232,15 @@ Map<String, dynamic> _$RequirableToJson(Requirable instance) {
   writeNotNull('required', instance.required);
   return val;
 }
+
+RequiresCORSConfiguration _$RequiresCORSConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return RequiresCORSConfiguration();
+}
+
+Map<String, dynamic> _$RequiresCORSConfigurationToJson(
+        RequiresCORSConfiguration instance) =>
+    <String, dynamic>{};
 
 SAMLv2ApplicationConfiguration _$SAMLv2ApplicationConfigurationFromJson(
     Map<String, dynamic> json) {
@@ -5151,7 +5322,6 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     idpEndpoint: json['idpEndpoint'] as String,
     issuer: json['issuer'] as String,
     keyId: json['keyId'] as String,
-    lambdaConfiguration: json['lambdaConfiguration'],
     useNameIdForEmail: json['useNameIdForEmail'] as bool,
   )
     ..enabled = json['enabled'] as bool
@@ -5167,6 +5337,7 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -5186,6 +5357,7 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
@@ -5195,7 +5367,6 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('idpEndpoint', instance.idpEndpoint);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('keyId', instance.keyId);
-  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
   return val;
 }
@@ -6061,6 +6232,7 @@ TwitterIdentityProvider _$TwitterIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..lambdaConfiguration = json['lambdaConfiguration']
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -6080,6 +6252,7 @@ Map<String, dynamic> _$TwitterIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
