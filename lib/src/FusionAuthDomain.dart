@@ -2617,8 +2617,18 @@ enum LambdaType {
   SAMLv2Reconcile,
   @JsonValue('SAMLv2Populate')
   SAMLv2Populate,
-  @JsonValue('GenericIdpReconcile')
-  GenericIdpReconcile
+  @JsonValue('AppleReconcile')
+  AppleReconcile,
+  @JsonValue('ExternalJWTReconcile')
+  ExternalJWTReconcile,
+  @JsonValue('FacebookReconcile')
+  FacebookReconcile,
+  @JsonValue('GoogleReconcile')
+  GoogleReconcile,
+  @JsonValue('HYPRReconcile')
+  HYPRReconcile,
+  @JsonValue('TwitterReconcile')
+  TwitterReconcile
 }
 
 /// A historical state of a user log event. Since events can be modified, this stores the historical state.

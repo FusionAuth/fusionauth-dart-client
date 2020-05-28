@@ -3570,7 +3570,12 @@ const _$LambdaTypeEnumMap = {
   LambdaType.OpenIDReconcile: 'OpenIDReconcile',
   LambdaType.SAMLv2Reconcile: 'SAMLv2Reconcile',
   LambdaType.SAMLv2Populate: 'SAMLv2Populate',
-  LambdaType.GenericIdpReconcile: 'GenericIdpReconcile',
+  LambdaType.AppleReconcile: 'AppleReconcile',
+  LambdaType.ExternalJWTReconcile: 'ExternalJWTReconcile',
+  LambdaType.FacebookReconcile: 'FacebookReconcile',
+  LambdaType.GoogleReconcile: 'GoogleReconcile',
+  LambdaType.HYPRReconcile: 'HYPRReconcile',
+  LambdaType.TwitterReconcile: 'TwitterReconcile',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) {
