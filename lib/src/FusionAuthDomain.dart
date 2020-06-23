@@ -2003,6 +2003,7 @@ class IdentityProviderOauth2Configuration {
   String client_id;
   String client_secret;
   ClientAuthenticationMethod clientAuthenticationMethod;
+  String emailClaim;
   String issuer;
   String scope;
   String token_endpoint;
@@ -2013,6 +2014,7 @@ class IdentityProviderOauth2Configuration {
       this.client_id,
       this.client_secret,
       this.clientAuthenticationMethod,
+      this.emailClaim,
       this.issuer,
       this.scope,
       this.token_endpoint,
