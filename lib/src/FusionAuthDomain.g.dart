@@ -2800,6 +2800,7 @@ IdentityProviderOauth2Configuration
     clientAuthenticationMethod: _$enumDecodeNullable(
         _$ClientAuthenticationMethodEnumMap,
         json['clientAuthenticationMethod']),
+    emailClaim: json['emailClaim'] as String,
     issuer: json['issuer'] as String,
     scope: json['scope'] as String,
     token_endpoint: json['token_endpoint'] as String,
@@ -2822,6 +2823,7 @@ Map<String, dynamic> _$IdentityProviderOauth2ConfigurationToJson(
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('clientAuthenticationMethod',
       _$ClientAuthenticationMethodEnumMap[instance.clientAuthenticationMethod]);
+  writeNotNull('emailClaim', instance.emailClaim);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('scope', instance.scope);
   writeNotNull('token_endpoint', instance.token_endpoint);
@@ -3174,6 +3176,9 @@ const _$AlgorithmEnumMap = {
   Algorithm.HS256: 'HS256',
   Algorithm.HS384: 'HS384',
   Algorithm.HS512: 'HS512',
+  Algorithm.PS256: 'PS256',
+  Algorithm.PS384: 'PS384',
+  Algorithm.PS512: 'PS512',
   Algorithm.RS256: 'RS256',
   Algorithm.RS384: 'RS384',
   Algorithm.RS512: 'RS512',
