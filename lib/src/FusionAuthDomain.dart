@@ -961,18 +961,6 @@ class Count {
   Map<String, dynamic> toJson() => _$CountToJson(this);
 }
 
-@JsonSerializable()
-class CustomRegistration extends Enableable {
-  String formId;
-
-  CustomRegistration({
-      this.formId
-  });
-
-  factory CustomRegistration.fromJson(Map<String, dynamic> json) => _$CustomRegistrationFromJson(json);
-  Map<String, dynamic> toJson() => _$CustomRegistrationToJson(this);
-}
-
 /// Response for the daily active user report.
 ///
 /// @author Brian Pontarelli

@@ -1269,26 +1269,6 @@ Map<String, dynamic> _$CountToJson(Count instance) {
   return val;
 }
 
-CustomRegistration _$CustomRegistrationFromJson(Map<String, dynamic> json) {
-  return CustomRegistration(
-    formId: json['formId'] as String,
-  )..enabled = json['enabled'] as bool;
-}
-
-Map<String, dynamic> _$CustomRegistrationToJson(CustomRegistration instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('enabled', instance.enabled);
-  writeNotNull('formId', instance.formId);
-  return val;
-}
-
 DailyActiveUserReportResponse _$DailyActiveUserReportResponseFromJson(
     Map<String, dynamic> json) {
   return DailyActiveUserReportResponse(
