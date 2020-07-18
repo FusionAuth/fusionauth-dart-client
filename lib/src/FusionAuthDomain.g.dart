@@ -219,7 +219,9 @@ AppleIdentityProvider _$AppleIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -239,7 +241,9 @@ Map<String, dynamic> _$AppleIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -276,11 +280,13 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
             json['cleanSpeakConfiguration'] as Map<String, dynamic>),
     data: json['data'] as Map<String, dynamic>,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
     jwtConfiguration: json['jwtConfiguration'] == null
         ? null
         : JWTConfiguration.fromJson(
             json['jwtConfiguration'] as Map<String, dynamic>),
     lambdaConfiguration: json['lambdaConfiguration'],
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     loginConfiguration: json['loginConfiguration'] == null
         ? null
         : LoginConfiguration.fromJson(
@@ -332,8 +338,10 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
   writeNotNull('cleanSpeakConfiguration', instance.cleanSpeakConfiguration);
   writeNotNull('data', instance.data);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('jwtConfiguration', instance.jwtConfiguration);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('loginConfiguration', instance.loginConfiguration);
   writeNotNull('name', instance.name);
   writeNotNull('oauthConfiguration', instance.oauthConfiguration);
@@ -441,8 +449,10 @@ ApplicationRole _$ApplicationRoleFromJson(Map<String, dynamic> json) {
   return ApplicationRole(
     description: json['description'] as String,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
     isDefault: json['isDefault'] as bool,
     isSuperRole: json['isSuperRole'] as bool,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     name: json['name'] as String,
   );
 }
@@ -458,8 +468,10 @@ Map<String, dynamic> _$ApplicationRoleToJson(ApplicationRole instance) {
 
   writeNotNull('description', instance.description);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('isDefault', instance.isDefault);
   writeNotNull('isSuperRole', instance.isSuperRole);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   return val;
 }
@@ -715,6 +727,45 @@ Map<String, dynamic> _$AuthenticationTokenConfigurationToJson(
   return val;
 }
 
+BaseConnectorConfiguration _$BaseConnectorConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return BaseConnectorConfiguration(
+    data: json['data'] as Map<String, dynamic>,
+    debug: json['debug'] as bool,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+    type: _$enumDecodeNullable(_$ConnectorTypeEnumMap, json['type']),
+  );
+}
+
+Map<String, dynamic> _$BaseConnectorConfigurationToJson(
+    BaseConnectorConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$ConnectorTypeEnumMap[instance.type]);
+  return val;
+}
+
+const _$ConnectorTypeEnumMap = {
+  ConnectorType.FusionAuth: 'FusionAuth',
+  ConnectorType.Generic: 'Generic',
+  ConnectorType.LDAP: 'LDAP',
+};
+
 BaseEvent _$BaseEventFromJson(Map<String, dynamic> json) {
   return BaseEvent(
     createInstant: json['createInstant'] as num,
@@ -778,7 +829,9 @@ Map<String, dynamic> _$BaseIdentityProviderToJson<
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   return val;
@@ -980,6 +1033,81 @@ Map<String, dynamic> _$CleanSpeakConfigurationToJson(
   return val;
 }
 
+ConnectorPolicy _$ConnectorPolicyFromJson(Map<String, dynamic> json) {
+  return ConnectorPolicy(
+    connectorId: json['connectorId'] as String,
+    data: json['data'] as Map<String, dynamic>,
+    domains: (json['domains'] as List)?.map((e) => e as String)?.toSet(),
+    migrate: json['migrate'] as bool,
+  );
+}
+
+Map<String, dynamic> _$ConnectorPolicyToJson(ConnectorPolicy instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('connectorId', instance.connectorId);
+  writeNotNull('data', instance.data);
+  writeNotNull('domains', instance.domains?.toList());
+  writeNotNull('migrate', instance.migrate);
+  return val;
+}
+
+ConnectorRequest _$ConnectorRequestFromJson(Map<String, dynamic> json) {
+  return ConnectorRequest(
+    connector: json['connector'] == null
+        ? null
+        : BaseConnectorConfiguration.fromJson(
+            json['connector'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ConnectorRequestToJson(ConnectorRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('connector', instance.connector);
+  return val;
+}
+
+ConnectorResponse _$ConnectorResponseFromJson(Map<String, dynamic> json) {
+  return ConnectorResponse(
+    connector: json['connector'] == null
+        ? null
+        : BaseConnectorConfiguration.fromJson(
+            json['connector'] as Map<String, dynamic>),
+    connectors: (json['connectors'] as List)
+        ?.map((e) => e == null
+            ? null
+            : BaseConnectorConfiguration.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$ConnectorResponseToJson(ConnectorResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('connector', instance.connector);
+  writeNotNull('connectors', instance.connectors);
+  return val;
+}
+
 Consent _$ConsentFromJson(Map<String, dynamic> json) {
   return Consent(
     consentEmailTemplateId: json['consentEmailTemplateId'] as String,
@@ -994,6 +1122,8 @@ Consent _$ConsentFromJson(Map<String, dynamic> json) {
         ? null
         : EmailPlus.fromJson(json['emailPlus'] as Map<String, dynamic>),
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     multipleValuesAllowed: json['multipleValuesAllowed'] as bool,
     name: json['name'] as String,
     values: (json['values'] as List)?.map((e) => e as String)?.toList(),
@@ -1017,6 +1147,8 @@ Map<String, dynamic> _$ConsentToJson(Consent instance) {
       instance.defaultMinimumAgeForSelfConsent);
   writeNotNull('emailPlus', instance.emailPlus);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('multipleValuesAllowed', instance.multipleValuesAllowed);
   writeNotNull('name', instance.name);
   writeNotNull('values', instance.values);
@@ -1134,6 +1266,26 @@ Map<String, dynamic> _$CountToJson(Count instance) {
 
   writeNotNull('count', instance.count);
   writeNotNull('interval', instance.interval);
+  return val;
+}
+
+CustomRegistration _$CustomRegistrationFromJson(Map<String, dynamic> json) {
+  return CustomRegistration(
+    formId: json['formId'] as String,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$CustomRegistrationToJson(CustomRegistration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('formId', instance.formId);
   return val;
 }
 
@@ -1452,6 +1604,8 @@ EmailTemplate _$EmailTemplateFromJson(Map<String, dynamic> json) {
     defaultTextTemplate: json['defaultTextTemplate'] as String,
     fromEmail: json['fromEmail'] as String,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     localizedFromNames:
         (json['localizedFromNames'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
@@ -1486,6 +1640,8 @@ Map<String, dynamic> _$EmailTemplateToJson(EmailTemplate instance) {
   writeNotNull('defaultTextTemplate', instance.defaultTextTemplate);
   writeNotNull('fromEmail', instance.fromEmail);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('localizedFromNames', instance.localizedFromNames);
   writeNotNull('localizedHtmlTemplates', instance.localizedHtmlTemplates);
   writeNotNull('localizedSubjects', instance.localizedSubjects);
@@ -2047,7 +2203,9 @@ ExternalJWTIdentityProvider _$ExternalJWTIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2067,7 +2225,9 @@ Map<String, dynamic> _$ExternalJWTIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('claimMap', instance.claimMap);
@@ -2136,7 +2296,9 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2156,7 +2318,9 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('appId', instance.appId);
@@ -2210,6 +2374,8 @@ const _$ExpiryUnitEnumMap = {
 Family _$FamilyFromJson(Map<String, dynamic> json) {
   return Family(
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     members: (json['members'] as List)
         ?.map((e) =>
             e == null ? null : FamilyMember.fromJson(e as Map<String, dynamic>))
@@ -2227,6 +2393,8 @@ Map<String, dynamic> _$FamilyToJson(Family instance) {
   }
 
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('members', instance.members);
   return val;
 }
@@ -2296,6 +2464,7 @@ FamilyMember _$FamilyMemberFromJson(Map<String, dynamic> json) {
   return FamilyMember(
     data: json['data'] as Map<String, dynamic>,
     insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     owner: json['owner'] as bool,
     role: _$enumDecodeNullable(_$FamilyRoleEnumMap, json['role']),
     userId: json['userId'] as String,
@@ -2313,6 +2482,7 @@ Map<String, dynamic> _$FamilyMemberToJson(FamilyMember instance) {
 
   writeNotNull('data', instance.data);
   writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('owner', instance.owner);
   writeNotNull('role', _$FamilyRoleEnumMap[instance.role]);
   writeNotNull('userId', instance.userId);
@@ -2424,6 +2594,332 @@ Map<String, dynamic> _$ForgotPasswordResponseToJson(
   return val;
 }
 
+Form _$FormFromJson(Map<String, dynamic> json) {
+  return Form(
+    data: json['data'] as Map<String, dynamic>,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+    steps: (json['steps'] as List)
+        ?.map((e) =>
+            e == null ? null : FormStep.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    type: _$enumDecodeNullable(_$FormTypeEnumMap, json['type']),
+  );
+}
+
+Map<String, dynamic> _$FormToJson(Form instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('steps', instance.steps);
+  writeNotNull('type', _$FormTypeEnumMap[instance.type]);
+  return val;
+}
+
+const _$FormTypeEnumMap = {
+  FormType.registration: 'registration',
+};
+
+FormField _$FormFieldFromJson(Map<String, dynamic> json) {
+  return FormField(
+    confirm: json['confirm'] as bool,
+    consentId: json['consentId'] as String,
+    control: _$enumDecodeNullable(_$FormControlEnumMap, json['control']),
+    data: json['data'] as Map<String, dynamic>,
+    description: json['description'] as String,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    key: json['key'] as String,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+    options: (json['options'] as List)?.map((e) => e as String)?.toList(),
+    required: json['required'] as bool,
+    type: _$enumDecodeNullable(_$FormDataTypeEnumMap, json['type']),
+    validator: json['validator'] == null
+        ? null
+        : FormFieldValidator.fromJson(
+            json['validator'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$FormFieldToJson(FormField instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('confirm', instance.confirm);
+  writeNotNull('consentId', instance.consentId);
+  writeNotNull('control', _$FormControlEnumMap[instance.control]);
+  writeNotNull('data', instance.data);
+  writeNotNull('description', instance.description);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('key', instance.key);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('options', instance.options);
+  writeNotNull('required', instance.required);
+  writeNotNull('type', _$FormDataTypeEnumMap[instance.type]);
+  writeNotNull('validator', instance.validator);
+  return val;
+}
+
+const _$FormControlEnumMap = {
+  FormControl.checkbox: 'checkbox',
+  FormControl.number: 'number',
+  FormControl.password: 'password',
+  FormControl.radio: 'radio',
+  FormControl.select: 'select',
+  FormControl.textarea: 'textarea',
+  FormControl.text: 'text',
+};
+
+const _$FormDataTypeEnumMap = {
+  FormDataType.bool: 'bool',
+  FormDataType.consent: 'consent',
+  FormDataType.date: 'date',
+  FormDataType.email: 'email',
+  FormDataType.number: 'number',
+  FormDataType.string: 'string',
+};
+
+FormFieldRequest _$FormFieldRequestFromJson(Map<String, dynamic> json) {
+  return FormFieldRequest(
+    field: json['field'] == null
+        ? null
+        : FormField.fromJson(json['field'] as Map<String, dynamic>),
+    fields: (json['fields'] as List)
+        ?.map((e) =>
+            e == null ? null : FormField.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$FormFieldRequestToJson(FormFieldRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('field', instance.field);
+  writeNotNull('fields', instance.fields);
+  return val;
+}
+
+FormFieldResponse _$FormFieldResponseFromJson(Map<String, dynamic> json) {
+  return FormFieldResponse(
+    field: json['field'] == null
+        ? null
+        : FormField.fromJson(json['field'] as Map<String, dynamic>),
+    fields: (json['fields'] as List)
+        ?.map((e) =>
+            e == null ? null : FormField.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$FormFieldResponseToJson(FormFieldResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('field', instance.field);
+  writeNotNull('fields', instance.fields);
+  return val;
+}
+
+FormFieldValidator _$FormFieldValidatorFromJson(Map<String, dynamic> json) {
+  return FormFieldValidator(
+    expression: json['expression'] as String,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$FormFieldValidatorToJson(FormFieldValidator instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('expression', instance.expression);
+  return val;
+}
+
+FormRequest _$FormRequestFromJson(Map<String, dynamic> json) {
+  return FormRequest(
+    form: json['form'] == null
+        ? null
+        : Form.fromJson(json['form'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$FormRequestToJson(FormRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('form', instance.form);
+  return val;
+}
+
+FormResponse _$FormResponseFromJson(Map<String, dynamic> json) {
+  return FormResponse(
+    form: json['form'] == null
+        ? null
+        : Form.fromJson(json['form'] as Map<String, dynamic>),
+    forms: (json['forms'] as List)
+        ?.map(
+            (e) => e == null ? null : Form.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$FormResponseToJson(FormResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('form', instance.form);
+  writeNotNull('forms', instance.forms);
+  return val;
+}
+
+FormStep _$FormStepFromJson(Map<String, dynamic> json) {
+  return FormStep(
+    fields: (json['fields'] as List)?.map((e) => e as String)?.toList(),
+  );
+}
+
+Map<String, dynamic> _$FormStepToJson(FormStep instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('fields', instance.fields);
+  return val;
+}
+
+FusionAuthConnectorConfiguration _$FusionAuthConnectorConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return FusionAuthConnectorConfiguration()
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$ConnectorTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$FusionAuthConnectorConfigurationToJson(
+    FusionAuthConnectorConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$ConnectorTypeEnumMap[instance.type]);
+  return val;
+}
+
+GenericConnectorConfiguration _$GenericConnectorConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return GenericConnectorConfiguration(
+    authenticationURL: json['authenticationURL'] as String,
+    connectTimeout: json['connectTimeout'] as num,
+    headers: (json['headers'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, e as String),
+    ),
+    httpAuthenticationPassword: json['httpAuthenticationPassword'] as String,
+    httpAuthenticationUsername: json['httpAuthenticationUsername'] as String,
+    readTimeout: json['readTimeout'] as num,
+    sslCertificateKeyId: json['sslCertificateKeyId'] as String,
+  )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$ConnectorTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$GenericConnectorConfigurationToJson(
+    GenericConnectorConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$ConnectorTypeEnumMap[instance.type]);
+  writeNotNull('authenticationURL', instance.authenticationURL);
+  writeNotNull('connectTimeout', instance.connectTimeout);
+  writeNotNull('headers', instance.headers);
+  writeNotNull(
+      'httpAuthenticationPassword', instance.httpAuthenticationPassword);
+  writeNotNull(
+      'httpAuthenticationUsername', instance.httpAuthenticationUsername);
+  writeNotNull('readTimeout', instance.readTimeout);
+  writeNotNull('sslCertificateKeyId', instance.sslCertificateKeyId);
+  return val;
+}
+
 GoogleApplicationConfiguration _$GoogleApplicationConfigurationFromJson(
     Map<String, dynamic> json) {
   return GoogleApplicationConfiguration(
@@ -2478,7 +2974,9 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2498,7 +2996,9 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -2512,6 +3012,8 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
   return Group(
     data: json['data'] as Map<String, dynamic>,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     name: json['name'] as String,
     roles: (json['roles'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(
@@ -2537,6 +3039,8 @@ Map<String, dynamic> _$GroupToJson(Group instance) {
 
   writeNotNull('data', instance.data);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('roles', instance.roles);
   writeNotNull('tenantId', instance.tenantId);
@@ -2691,7 +3195,9 @@ HYPRIdentityProvider _$HYPRIdentityProviderFromJson(Map<String, dynamic> json) {
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -2711,7 +3217,9 @@ Map<String, dynamic> _$HYPRIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('relyingPartyApplicationId', instance.relyingPartyApplicationId);
@@ -3446,6 +3954,7 @@ Key _$KeyFromJson(Map<String, dynamic> json) {
     insertInstant: json['insertInstant'] as num,
     issuer: json['issuer'] as String,
     kid: json['kid'] as String,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     length: json['length'] as num,
     name: json['name'] as String,
     privateKey: json['privateKey'] as String,
@@ -3473,6 +3982,7 @@ Map<String, dynamic> _$KeyToJson(Key instance) {
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('kid', instance.kid);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('length', instance.length);
   writeNotNull('name', instance.name);
   writeNotNull('privateKey', instance.privateKey);
@@ -3546,6 +4056,7 @@ Lambda _$LambdaFromJson(Map<String, dynamic> json) {
     debug: json['debug'] as bool,
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     name: json['name'] as String,
     type: _$enumDecodeNullable(_$LambdaTypeEnumMap, json['type']),
   )..enabled = json['enabled'] as bool;
@@ -3565,6 +4076,7 @@ Map<String, dynamic> _$LambdaToJson(Lambda instance) {
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$LambdaTypeEnumMap[instance.type]);
   return val;
@@ -3581,6 +4093,7 @@ const _$LambdaTypeEnumMap = {
   LambdaType.GoogleReconcile: 'GoogleReconcile',
   LambdaType.HYPRReconcile: 'HYPRReconcile',
   LambdaType.TwitterReconcile: 'TwitterReconcile',
+  LambdaType.LDAPConnectorReconcile: 'LDAPConnectorReconcile',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) {
@@ -3629,6 +4142,71 @@ Map<String, dynamic> _$LambdaResponseToJson(LambdaResponse instance) {
   writeNotNull('lambdas', instance.lambdas);
   return val;
 }
+
+LDAPConnectorConfiguration _$LDAPConnectorConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return LDAPConnectorConfiguration(
+    authenticationURL: json['authenticationURL'] as String,
+    baseStructure: json['baseStructure'] as String,
+    connectTimeout: json['connectTimeout'] as num,
+    identifyingAttribute: json['identifyingAttribute'] as String,
+    lambdaConfiguration: json['lambdaConfiguration'],
+    loginIdAttribute: json['loginIdAttribute'] as String,
+    readTimeout: json['readTimeout'] as num,
+    requestedAttributes: (json['requestedAttributes'] as List)
+        ?.map((e) => e as String)
+        ?.toList(),
+    securityMethod: _$enumDecodeNullable(
+        _$LDAPSecurityMethodEnumMap, json['securityMethod']),
+    systemAccountDN: json['systemAccountDN'] as String,
+    systemAccountPassword: json['systemAccountPassword'] as String,
+  )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$ConnectorTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$LDAPConnectorConfigurationToJson(
+    LDAPConnectorConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$ConnectorTypeEnumMap[instance.type]);
+  writeNotNull('authenticationURL', instance.authenticationURL);
+  writeNotNull('baseStructure', instance.baseStructure);
+  writeNotNull('connectTimeout', instance.connectTimeout);
+  writeNotNull('identifyingAttribute', instance.identifyingAttribute);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('loginIdAttribute', instance.loginIdAttribute);
+  writeNotNull('readTimeout', instance.readTimeout);
+  writeNotNull('requestedAttributes', instance.requestedAttributes);
+  writeNotNull(
+      'securityMethod', _$LDAPSecurityMethodEnumMap[instance.securityMethod]);
+  writeNotNull('systemAccountDN', instance.systemAccountDN);
+  writeNotNull('systemAccountPassword', instance.systemAccountPassword);
+  return val;
+}
+
+const _$LDAPSecurityMethodEnumMap = {
+  LDAPSecurityMethod.None: 'None',
+  LDAPSecurityMethod.LDAPS: 'LDAPS',
+  LDAPSecurityMethod.StartTLS: 'StartTLS',
+};
 
 LogHistory _$LogHistoryFromJson(Map<String, dynamic> json) {
   return LogHistory(
@@ -4497,7 +5075,9 @@ OpenIdConnectIdentityProvider _$OpenIdConnectIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -4517,7 +5097,9 @@ Map<String, dynamic> _$OpenIdConnectIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
@@ -5045,6 +5627,7 @@ RegistrationConfiguration _$RegistrationConfigurationFromJson(
     firstName: json['firstName'] == null
         ? null
         : Requirable.fromJson(json['firstName'] as Map<String, dynamic>),
+    formId: json['formId'] as String,
     fullName: json['fullName'] == null
         ? null
         : Requirable.fromJson(json['fullName'] as Map<String, dynamic>),
@@ -5059,6 +5642,7 @@ RegistrationConfiguration _$RegistrationConfigurationFromJson(
     mobilePhone: json['mobilePhone'] == null
         ? null
         : Requirable.fromJson(json['mobilePhone'] as Map<String, dynamic>),
+    type: _$enumDecodeNullable(_$RegistrationTypeEnumMap, json['type']),
   )..enabled = json['enabled'] as bool;
 }
 
@@ -5076,17 +5660,24 @@ Map<String, dynamic> _$RegistrationConfigurationToJson(
   writeNotNull('birthDate', instance.birthDate);
   writeNotNull('confirmPassword', instance.confirmPassword);
   writeNotNull('firstName', instance.firstName);
+  writeNotNull('formId', instance.formId);
   writeNotNull('fullName', instance.fullName);
   writeNotNull('lastName', instance.lastName);
   writeNotNull('loginIdType', _$LoginIdTypeEnumMap[instance.loginIdType]);
   writeNotNull('middleName', instance.middleName);
   writeNotNull('mobilePhone', instance.mobilePhone);
+  writeNotNull('type', _$RegistrationTypeEnumMap[instance.type]);
   return val;
 }
 
 const _$LoginIdTypeEnumMap = {
   LoginIdType.email: 'email',
   LoginIdType.username: 'username',
+};
+
+const _$RegistrationTypeEnumMap = {
+  RegistrationType.basic: 'basic',
+  RegistrationType.advanced: 'advanced',
 };
 
 RegistrationReportResponse _$RegistrationReportResponseFromJson(
@@ -5347,7 +5938,9 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -5367,7 +5960,9 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
@@ -5483,15 +6078,24 @@ SecureIdentity _$SecureIdentityFromJson(Map<String, dynamic> json) {
         json['breachedPasswordLastCheckedInstant'] as num,
     breachedPasswordStatus: _$enumDecodeNullable(
         _$BreachedPasswordStatusEnumMap, json['breachedPasswordStatus']),
+    connectorId: json['connectorId'] as String,
     encryptionScheme: json['encryptionScheme'] as String,
     factor: json['factor'] as num,
     id: json['id'] as String,
+    lastLoginInstant: json['lastLoginInstant'] as num,
     password: json['password'] as String,
     passwordChangeReason: _$enumDecodeNullable(
         _$ChangePasswordReasonEnumMap, json['passwordChangeReason']),
     passwordChangeRequired: json['passwordChangeRequired'] as bool,
     passwordLastUpdateInstant: json['passwordLastUpdateInstant'] as num,
     salt: json['salt'] as String,
+    twoFactorDelivery: _$enumDecodeNullable(
+        _$TwoFactorDeliveryEnumMap, json['twoFactorDelivery']),
+    twoFactorEnabled: json['twoFactorEnabled'] as bool,
+    twoFactorSecret: json['twoFactorSecret'] as String,
+    username: json['username'] as String,
+    usernameStatus:
+        _$enumDecodeNullable(_$ContentStatusEnumMap, json['usernameStatus']),
     verified: json['verified'] as bool,
   );
 }
@@ -5509,15 +6113,24 @@ Map<String, dynamic> _$SecureIdentityToJson(SecureIdentity instance) {
       instance.breachedPasswordLastCheckedInstant);
   writeNotNull('breachedPasswordStatus',
       _$BreachedPasswordStatusEnumMap[instance.breachedPasswordStatus]);
+  writeNotNull('connectorId', instance.connectorId);
   writeNotNull('encryptionScheme', instance.encryptionScheme);
   writeNotNull('factor', instance.factor);
   writeNotNull('id', instance.id);
+  writeNotNull('lastLoginInstant', instance.lastLoginInstant);
   writeNotNull('password', instance.password);
   writeNotNull('passwordChangeReason',
       _$ChangePasswordReasonEnumMap[instance.passwordChangeReason]);
   writeNotNull('passwordChangeRequired', instance.passwordChangeRequired);
   writeNotNull('passwordLastUpdateInstant', instance.passwordLastUpdateInstant);
   writeNotNull('salt', instance.salt);
+  writeNotNull('twoFactorDelivery',
+      _$TwoFactorDeliveryEnumMap[instance.twoFactorDelivery]);
+  writeNotNull('twoFactorEnabled', instance.twoFactorEnabled);
+  writeNotNull('twoFactorSecret', instance.twoFactorSecret);
+  writeNotNull('username', instance.username);
+  writeNotNull(
+      'usernameStatus', _$ContentStatusEnumMap[instance.usernameStatus]);
   writeNotNull('verified', instance.verified);
   return val;
 }
@@ -5528,6 +6141,17 @@ const _$BreachedPasswordStatusEnumMap = {
   BreachedPasswordStatus.SubAddressMatch: 'SubAddressMatch',
   BreachedPasswordStatus.PasswordOnly: 'PasswordOnly',
   BreachedPasswordStatus.CommonPassword: 'CommonPassword',
+};
+
+const _$TwoFactorDeliveryEnumMap = {
+  TwoFactorDelivery.None: 'None',
+  TwoFactorDelivery.TextMessage: 'TextMessage',
+};
+
+const _$ContentStatusEnumMap = {
+  ContentStatus.ACTIVE: 'ACTIVE',
+  ContentStatus.PENDING: 'PENDING',
+  ContentStatus.REJECTED: 'REJECTED',
 };
 
 SendRequest _$SendRequestFromJson(Map<String, dynamic> json) {
@@ -5627,6 +6251,8 @@ SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) {
         ? null
         : EventLogConfiguration.fromJson(
             json['eventLogConfiguration'] as Map<String, dynamic>),
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     loginRecordConfiguration: json['loginRecordConfiguration'] == null
         ? null
         : LoginRecordConfiguration.fromJson(
@@ -5654,6 +6280,8 @@ Map<String, dynamic> _$SystemConfigurationToJson(SystemConfiguration instance) {
   writeNotNull('corsConfiguration', instance.corsConfiguration);
   writeNotNull('data', instance.data);
   writeNotNull('eventLogConfiguration', instance.eventLogConfiguration);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('loginRecordConfiguration', instance.loginRecordConfiguration);
   writeNotNull('reportTimezone', instance.reportTimezone);
   writeNotNull('uiConfiguration', instance.uiConfiguration);
@@ -5804,6 +6432,11 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
 Tenant _$TenantFromJson(Map<String, dynamic> json) {
   return Tenant(
     configured: json['configured'] as bool,
+    connectorPolicies: (json['connectorPolicies'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ConnectorPolicy.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     data: json['data'] as Map<String, dynamic>,
     emailConfiguration: json['emailConfiguration'] == null
         ? null
@@ -5831,11 +6464,13 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
     httpSessionMaxInactiveInterval:
         json['httpSessionMaxInactiveInterval'] as num,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
     issuer: json['issuer'] as String,
     jwtConfiguration: json['jwtConfiguration'] == null
         ? null
         : JWTConfiguration.fromJson(
             json['jwtConfiguration'] as Map<String, dynamic>),
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     logoutURL: json['logoutURL'] as String,
     maximumPasswordAge: json['maximumPasswordAge'] == null
         ? null
@@ -5873,6 +6508,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   }
 
   writeNotNull('configured', instance.configured);
+  writeNotNull('connectorPolicies', instance.connectorPolicies);
   writeNotNull('data', instance.data);
   writeNotNull('emailConfiguration', instance.emailConfiguration);
   writeNotNull('eventConfiguration', instance.eventConfiguration);
@@ -5884,8 +6520,10 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('httpSessionMaxInactiveInterval',
       instance.httpSessionMaxInactiveInterval);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('jwtConfiguration', instance.jwtConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('logoutURL', instance.logoutURL);
   writeNotNull('maximumPasswordAge', instance.maximumPasswordAge);
   writeNotNull('minimumPasswordAge', instance.minimumPasswordAge);
@@ -6242,7 +6880,9 @@ TwitterIdentityProvider _$TwitterIdentityProviderFromJson(
     ..data = json['data'] as Map<String, dynamic>
     ..debug = json['debug'] as bool
     ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -6262,7 +6902,9 @@ Map<String, dynamic> _$TwitterIdentityProviderToJson(
   writeNotNull('data', instance.data);
   writeNotNull('debug', instance.debug);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -6332,11 +6974,6 @@ Map<String, dynamic> _$TwoFactorRequestToJson(TwoFactorRequest instance) {
   return val;
 }
 
-const _$TwoFactorDeliveryEnumMap = {
-  TwoFactorDelivery.None: 'None',
-  TwoFactorDelivery.TextMessage: 'TextMessage',
-};
-
 TwoFactorSendRequest _$TwoFactorSendRequestFromJson(Map<String, dynamic> json) {
   return TwoFactorSendRequest(
     mobilePhone: json['mobilePhone'] as String,
@@ -6396,8 +7033,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
     fullName: json['fullName'] as String,
     imageUrl: json['imageUrl'] as String,
     insertInstant: json['insertInstant'] as num,
-    lastLoginInstant: json['lastLoginInstant'] as num,
     lastName: json['lastName'] as String,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     memberships: (json['memberships'] as List)
         ?.map((e) =>
             e == null ? null : GroupMember.fromJson(e as Map<String, dynamic>))
@@ -6414,27 +7051,29 @@ User _$UserFromJson(Map<String, dynamic> json) {
         ?.toList(),
     tenantId: json['tenantId'] as String,
     timezone: json['timezone'] as String,
-    twoFactorDelivery: _$enumDecodeNullable(
-        _$TwoFactorDeliveryEnumMap, json['twoFactorDelivery']),
-    twoFactorEnabled: json['twoFactorEnabled'] as bool,
-    twoFactorSecret: json['twoFactorSecret'] as String,
-    username: json['username'] as String,
-    usernameStatus:
-        _$enumDecodeNullable(_$ContentStatusEnumMap, json['usernameStatus']),
   )
     ..breachedPasswordLastCheckedInstant =
         json['breachedPasswordLastCheckedInstant'] as num
     ..breachedPasswordStatus = _$enumDecodeNullable(
         _$BreachedPasswordStatusEnumMap, json['breachedPasswordStatus'])
+    ..connectorId = json['connectorId'] as String
     ..encryptionScheme = json['encryptionScheme'] as String
     ..factor = json['factor'] as num
     ..id = json['id'] as String
+    ..lastLoginInstant = json['lastLoginInstant'] as num
     ..password = json['password'] as String
     ..passwordChangeReason = _$enumDecodeNullable(
         _$ChangePasswordReasonEnumMap, json['passwordChangeReason'])
     ..passwordChangeRequired = json['passwordChangeRequired'] as bool
     ..passwordLastUpdateInstant = json['passwordLastUpdateInstant'] as num
     ..salt = json['salt'] as String
+    ..twoFactorDelivery = _$enumDecodeNullable(
+        _$TwoFactorDeliveryEnumMap, json['twoFactorDelivery'])
+    ..twoFactorEnabled = json['twoFactorEnabled'] as bool
+    ..twoFactorSecret = json['twoFactorSecret'] as String
+    ..username = json['username'] as String
+    ..usernameStatus =
+        _$enumDecodeNullable(_$ContentStatusEnumMap, json['usernameStatus'])
     ..verified = json['verified'] as bool;
 }
 
@@ -6451,15 +7090,24 @@ Map<String, dynamic> _$UserToJson(User instance) {
       instance.breachedPasswordLastCheckedInstant);
   writeNotNull('breachedPasswordStatus',
       _$BreachedPasswordStatusEnumMap[instance.breachedPasswordStatus]);
+  writeNotNull('connectorId', instance.connectorId);
   writeNotNull('encryptionScheme', instance.encryptionScheme);
   writeNotNull('factor', instance.factor);
   writeNotNull('id', instance.id);
+  writeNotNull('lastLoginInstant', instance.lastLoginInstant);
   writeNotNull('password', instance.password);
   writeNotNull('passwordChangeReason',
       _$ChangePasswordReasonEnumMap[instance.passwordChangeReason]);
   writeNotNull('passwordChangeRequired', instance.passwordChangeRequired);
   writeNotNull('passwordLastUpdateInstant', instance.passwordLastUpdateInstant);
   writeNotNull('salt', instance.salt);
+  writeNotNull('twoFactorDelivery',
+      _$TwoFactorDeliveryEnumMap[instance.twoFactorDelivery]);
+  writeNotNull('twoFactorEnabled', instance.twoFactorEnabled);
+  writeNotNull('twoFactorSecret', instance.twoFactorSecret);
+  writeNotNull('username', instance.username);
+  writeNotNull(
+      'usernameStatus', _$ContentStatusEnumMap[instance.usernameStatus]);
   writeNotNull('verified', instance.verified);
   writeNotNull('active', instance.active);
   writeNotNull('birthDate', instance.birthDate);
@@ -6471,8 +7119,8 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('fullName', instance.fullName);
   writeNotNull('imageUrl', instance.imageUrl);
   writeNotNull('insertInstant', instance.insertInstant);
-  writeNotNull('lastLoginInstant', instance.lastLoginInstant);
   writeNotNull('lastName', instance.lastName);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('memberships', instance.memberships);
   writeNotNull('middleName', instance.middleName);
   writeNotNull('mobilePhone', instance.mobilePhone);
@@ -6481,21 +7129,8 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('registrations', instance.registrations);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('timezone', instance.timezone);
-  writeNotNull('twoFactorDelivery',
-      _$TwoFactorDeliveryEnumMap[instance.twoFactorDelivery]);
-  writeNotNull('twoFactorEnabled', instance.twoFactorEnabled);
-  writeNotNull('twoFactorSecret', instance.twoFactorSecret);
-  writeNotNull('username', instance.username);
-  writeNotNull(
-      'usernameStatus', _$ContentStatusEnumMap[instance.usernameStatus]);
   return val;
 }
-
-const _$ContentStatusEnumMap = {
-  ContentStatus.ACTIVE: 'ACTIVE',
-  ContentStatus.PENDING: 'PENDING',
-  ContentStatus.REJECTED: 'REJECTED',
-};
 
 UserAction _$UserActionFromJson(Map<String, dynamic> json) {
   return UserAction(
@@ -6504,6 +7139,8 @@ UserAction _$UserActionFromJson(Map<String, dynamic> json) {
     endEmailTemplateId: json['endEmailTemplateId'] as String,
     id: json['id'] as String,
     includeEmailInEventJSON: json['includeEmailInEventJSON'] as bool,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     localizedNames: (json['localizedNames'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
     ),
@@ -6539,6 +7176,8 @@ Map<String, dynamic> _$UserActionToJson(UserAction instance) {
   writeNotNull('endEmailTemplateId', instance.endEmailTemplateId);
   writeNotNull('id', instance.id);
   writeNotNull('includeEmailInEventJSON', instance.includeEmailInEventJSON);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('localizedNames', instance.localizedNames);
   writeNotNull('modifyEmailTemplateId', instance.modifyEmailTemplateId);
   writeNotNull('name', instance.name);
@@ -6630,7 +7269,6 @@ UserActionLog _$UserActionLogFromJson(Map<String, dynamic> json) {
     applicationIds:
         (json['applicationIds'] as List)?.map((e) => e as String)?.toList(),
     comment: json['comment'] as String,
-    createInstant: json['createInstant'] as num,
     emailUserOnEnd: json['emailUserOnEnd'] as bool,
     endEventSent: json['endEventSent'] as bool,
     expiry: json['expiry'] as num,
@@ -6638,6 +7276,7 @@ UserActionLog _$UserActionLogFromJson(Map<String, dynamic> json) {
         ? null
         : LogHistory.fromJson(json['history'] as Map<String, dynamic>),
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
     localizedName: json['localizedName'] as String,
     localizedOption: json['localizedOption'] as String,
     localizedReason: json['localizedReason'] as String,
@@ -6663,12 +7302,12 @@ Map<String, dynamic> _$UserActionLogToJson(UserActionLog instance) {
   writeNotNull('actionerUserId', instance.actionerUserId);
   writeNotNull('applicationIds', instance.applicationIds);
   writeNotNull('comment', instance.comment);
-  writeNotNull('createInstant', instance.createInstant);
   writeNotNull('emailUserOnEnd', instance.emailUserOnEnd);
   writeNotNull('endEventSent', instance.endEventSent);
   writeNotNull('expiry', instance.expiry);
   writeNotNull('history', instance.history);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('localizedName', instance.localizedName);
   writeNotNull('localizedOption', instance.localizedOption);
   writeNotNull('localizedReason', instance.localizedReason);
@@ -6708,6 +7347,8 @@ UserActionReason _$UserActionReasonFromJson(Map<String, dynamic> json) {
   return UserActionReason(
     code: json['code'] as String,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     localizedTexts: (json['localizedTexts'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
     ),
@@ -6726,6 +7367,8 @@ Map<String, dynamic> _$UserActionReasonToJson(UserActionReason instance) {
 
   writeNotNull('code', instance.code);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('localizedTexts', instance.localizedTexts);
   writeNotNull('text', instance.text);
   return val;
@@ -6864,8 +7507,8 @@ UserComment _$UserCommentFromJson(Map<String, dynamic> json) {
   return UserComment(
     comment: json['comment'] as String,
     commenterId: json['commenterId'] as String,
-    createInstant: json['createInstant'] as num,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
     userId: json['userId'] as String,
   );
 }
@@ -6881,8 +7524,8 @@ Map<String, dynamic> _$UserCommentToJson(UserComment instance) {
 
   writeNotNull('comment', instance.comment);
   writeNotNull('commenterId', instance.commenterId);
-  writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('userId', instance.userId);
   return val;
 }
@@ -7224,6 +7867,7 @@ UserLoginSuccessEvent _$UserLoginSuccessEventFromJson(
   return UserLoginSuccessEvent(
     applicationId: json['applicationId'] as String,
     authenticationType: json['authenticationType'] as String,
+    connectorId: json['connectorId'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderName: json['identityProviderName'] as String,
     user: json['user'] == null
@@ -7250,6 +7894,7 @@ Map<String, dynamic> _$UserLoginSuccessEventToJson(
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('authenticationType', instance.authenticationType);
+  writeNotNull('connectorId', instance.connectorId);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderName', instance.identityProviderName);
   writeNotNull('user', instance.user);
@@ -7341,6 +7986,7 @@ UserRegistration _$UserRegistrationFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
     lastLoginInstant: json['lastLoginInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     preferredLanguages:
         (json['preferredLanguages'] as List)?.map((e) => e as String)?.toList(),
     roles: (json['roles'] as List)?.map((e) => e as String)?.toSet(),
@@ -7371,6 +8017,7 @@ Map<String, dynamic> _$UserRegistrationToJson(UserRegistration instance) {
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lastLoginInstant', instance.lastLoginInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('preferredLanguages', instance.preferredLanguages);
   writeNotNull('roles', instance.roles?.toList());
   writeNotNull('timezone', instance.timezone);
@@ -7722,6 +8369,8 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) {
     httpAuthenticationPassword: json['httpAuthenticationPassword'] as String,
     httpAuthenticationUsername: json['httpAuthenticationUsername'] as String,
     id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
     readTimeout: json['readTimeout'] as num,
     sslCertificate: json['sslCertificate'] as String,
     url: json['url'] as String,
@@ -7752,6 +8401,8 @@ Map<String, dynamic> _$WebhookToJson(Webhook instance) {
   writeNotNull(
       'httpAuthenticationUsername', instance.httpAuthenticationUsername);
   writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('readTimeout', instance.readTimeout);
   writeNotNull('sslCertificate', instance.sslCertificate);
   writeNotNull('url', instance.url);

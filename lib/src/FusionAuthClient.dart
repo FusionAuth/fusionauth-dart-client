@@ -197,6 +197,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
+  ///
+  /// @param {String} connectorId (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
+  /// @param {ConnectorRequest} request The request object that contains all of the information used to create the connector.
+  /// @returns {Promise<ClientResponse<ConnectorResponse>>}
+  Future<ClientResponse<ConnectorResponse, Errors>> createConnector(String connectorId, ConnectorRequest request) {
+    return _start<ConnectorResponse, Errors>()
+        .withUri('/api/connector')
+        .withUriSegment(connectorId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => ConnectorResponse.fromJson(d)))
+        .go();
+  }
+
   /// Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
   ///
   /// @param {String} consentId (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
@@ -240,6 +255,36 @@ class FusionAuthClient {
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => FamilyResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
+  ///
+  /// @param {String} formId (Optional) The Id for the form. If not provided a secure random UUID will be generated.
+  /// @param {FormRequest} request The request object that contains all of the information used to create the form.
+  /// @returns {Promise<ClientResponse<FormResponse>>}
+  Future<ClientResponse<FormResponse, Errors>> createForm(String formId, FormRequest request) {
+    return _start<FormResponse, Errors>()
+        .withUri('/api/form')
+        .withUriSegment(formId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
+  ///
+  /// @param {String} fieldId (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
+  /// @param {FormFieldRequest} request The request object that contains all of the information used to create the form field.
+  /// @returns {Promise<ClientResponse<FormFieldResponse>>}
+  Future<ClientResponse<FormFieldResponse, Errors>> createFormField(String fieldId, FormFieldRequest request) {
+    return _start<FormFieldResponse, Errors>()
+        .withUri('/api/form/field')
+        .withUriSegment(fieldId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormFieldResponse.fromJson(d)))
         .go();
   }
 
@@ -508,6 +553,18 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deletes the connector for the given Id.
+  ///
+  /// @param {String} connectorId The Id of the connector to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteConnector(String connectorId) {
+    return _start<void, Errors>()
+        .withUri('/api/connector')
+        .withUriSegment(connectorId)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Deletes the consent for the given Id.
   ///
   /// @param {String} consentId The Id of the consent to delete.
@@ -528,6 +585,30 @@ class FusionAuthClient {
     return _start<void, Errors>()
         .withUri('/api/email/template')
         .withUriSegment(emailTemplateId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the form for the given Id.
+  ///
+  /// @param {String} formId The Id of the form to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteForm(String formId) {
+    return _start<void, Errors>()
+        .withUri('/api/form')
+        .withUriSegment(formId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the form field for the given Id.
+  ///
+  /// @param {String} fieldId The Id of the form field to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteFormField(String fieldId) {
+    return _start<void, Errors>()
+        .withUri('/api/form/field')
+        .withUriSegment(fieldId)
         .withMethod('DELETE')
         .go();
   }
@@ -1119,6 +1200,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates, via PATCH, the connector with the given Id.
+  ///
+  /// @param {String} connectorId The Id of the connector to update.
+  /// @param {ConnectorRequest} request The request that contains just the new connector information.
+  /// @returns {Promise<ClientResponse<ConnectorResponse>>}
+  Future<ClientResponse<ConnectorResponse, Errors>> patchConnector(String connectorId, ConnectorRequest request) {
+    return _start<ConnectorResponse, Errors>()
+        .withUri('/api/connector')
+        .withUriSegment(connectorId)
+        .withJSONBody(request)
+        .withMethod('PATCH')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => ConnectorResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates, via PATCH, the consent with the given Id.
   ///
   /// @param {String} consentId The Id of the consent to update.
@@ -1547,6 +1643,30 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves the connector with the given Id.
+  ///
+  /// @param {String} connectorId The Id of the connector.
+  /// @returns {Promise<ClientResponse<ConnectorResponse>>}
+  Future<ClientResponse<ConnectorResponse, void>> retrieveConnector(String connectorId) {
+    return _start<ConnectorResponse, void>()
+        .withUri('/api/connector')
+        .withUriSegment(connectorId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => ConnectorResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all of the connectors.
+  ///
+  /// @returns {Promise<ClientResponse<ConnectorResponse>>}
+  Future<ClientResponse<ConnectorResponse, void>> retrieveConnectors() {
+    return _start<ConnectorResponse, void>()
+        .withUri('/api/connector')
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => ConnectorResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves the Consent for the given Id.
   ///
   /// @param {String} consentId The Id of the consent.
@@ -1664,6 +1784,54 @@ class FusionAuthClient {
         .withUriSegment(familyId)
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => FamilyResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the form with the given Id.
+  ///
+  /// @param {String} formId The Id of the form.
+  /// @returns {Promise<ClientResponse<FormResponse>>}
+  Future<ClientResponse<FormResponse, void>> retrieveForm(String formId) {
+    return _start<FormResponse, void>()
+        .withUri('/api/form')
+        .withUriSegment(formId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the form field with the given Id.
+  ///
+  /// @param {String} fieldId The Id of the form field.
+  /// @returns {Promise<ClientResponse<FormFieldResponse>>}
+  Future<ClientResponse<FormFieldResponse, void>> retrieveFormField(String fieldId) {
+    return _start<FormFieldResponse, void>()
+        .withUri('/api/form/field')
+        .withUriSegment(fieldId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormFieldResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all of the forms fields
+  ///
+  /// @returns {Promise<ClientResponse<FormFieldResponse>>}
+  Future<ClientResponse<FormFieldResponse, void>> retrieveFormFields() {
+    return _start<FormFieldResponse, void>()
+        .withUri('/api/form/field')
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormFieldResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all of the forms.
+  ///
+  /// @returns {Promise<ClientResponse<FormResponse>>}
+  Future<ClientResponse<FormResponse, void>> retrieveForms() {
+    return _start<FormResponse, void>()
+        .withUri('/api/form')
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormResponse.fromJson(d)))
         .go();
   }
 
@@ -2637,6 +2805,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates the connector with the given Id.
+  ///
+  /// @param {String} connectorId The Id of the connector to update.
+  /// @param {ConnectorRequest} request The request object that contains all of the new connector information.
+  /// @returns {Promise<ClientResponse<ConnectorResponse>>}
+  Future<ClientResponse<ConnectorResponse, Errors>> updateConnector(String connectorId, ConnectorRequest request) {
+    return _start<ConnectorResponse, Errors>()
+        .withUri('/api/connector')
+        .withUriSegment(connectorId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => ConnectorResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates the consent with the given Id.
   ///
   /// @param {String} consentId The Id of the consent to update.
@@ -2664,6 +2847,36 @@ class FusionAuthClient {
         .withJSONBody(request)
         .withMethod('PUT')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => EmailTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the form with the given Id.
+  ///
+  /// @param {String} formId The Id of the form to update.
+  /// @param {FormRequest} request The request object that contains all of the new form information.
+  /// @returns {Promise<ClientResponse<FormResponse>>}
+  Future<ClientResponse<FormResponse, Errors>> updateForm(String formId, FormRequest request) {
+    return _start<FormResponse, Errors>()
+        .withUri('/api/form')
+        .withUriSegment(formId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the form field with the given Id.
+  ///
+  /// @param {String} fieldId The Id of the form field to update.
+  /// @param {FormFieldRequest} request The request object that contains all of the new form field information.
+  /// @returns {Promise<ClientResponse<FormFieldResponse>>}
+  Future<ClientResponse<FormFieldResponse, Errors>> updateFormField(String fieldId, FormFieldRequest request) {
+    return _start<FormFieldResponse, Errors>()
+        .withUri('/api/form/field')
+        .withUriSegment(fieldId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => FormFieldResponse.fromJson(d)))
         .go();
   }
 

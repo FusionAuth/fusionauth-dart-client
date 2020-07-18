@@ -186,8 +186,10 @@ class Application {
   CleanSpeakConfiguration cleanSpeakConfiguration;
   Map<String, dynamic> data;
   String id;
+  num insertInstant;
   JWTConfiguration jwtConfiguration;
   dynamic lambdaConfiguration;
+  num lastUpdateInstant;
   LoginConfiguration loginConfiguration;
   String name;
   OAuth2Configuration oauthConfiguration;
@@ -206,8 +208,10 @@ class Application {
       this.cleanSpeakConfiguration,
       this.data,
       this.id,
+      this.insertInstant,
       this.jwtConfiguration,
       this.lambdaConfiguration,
+      this.lastUpdateInstant,
       this.loginConfiguration,
       this.name,
       this.oauthConfiguration,
@@ -297,15 +301,19 @@ class ApplicationResponse {
 class ApplicationRole {
   String description;
   String id;
+  num insertInstant;
   bool isDefault;
   bool isSuperRole;
+  num lastUpdateInstant;
   String name;
 
   ApplicationRole({
       this.description,
       this.id,
+      this.insertInstant,
       this.isDefault,
       this.isSuperRole,
+      this.lastUpdateInstant,
       this.name
   });
 
@@ -472,6 +480,31 @@ class AuthenticationTokenConfiguration extends Enableable {
   Map<String, dynamic> toJson() => _$AuthenticationTokenConfigurationToJson(this);
 }
 
+// Do not require a setter for 'type', it is defined by the concrete class and is not mutable
+@JsonSerializable()
+class BaseConnectorConfiguration {
+  Map<String, dynamic> data;
+  bool debug;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+  ConnectorType type;
+
+  BaseConnectorConfiguration({
+      this.data,
+      this.debug,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name,
+      this.type
+  });
+
+  factory BaseConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$BaseConnectorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseConnectorConfigurationToJson(this);
+}
+
 /// Base-class for all FusionAuth events.
 ///
 /// @author Brian Pontarelli
@@ -514,7 +547,9 @@ class BaseIdentityProvider<D extends BaseIdentityProviderApplicationConfiguratio
   Map<String, dynamic> data;
   bool debug;
   String id;
+  num insertInstant;
   dynamic lambdaConfiguration;
+  num lastUpdateInstant;
   String name;
   IdentityProviderType type;
 
@@ -523,7 +558,9 @@ class BaseIdentityProvider<D extends BaseIdentityProviderApplicationConfiguratio
       this.data,
       this.debug,
       this.id,
+      this.insertInstant,
       this.lambdaConfiguration,
+      this.lastUpdateInstant,
       this.name,
       this.type
   });
@@ -738,6 +775,65 @@ enum ClientAuthenticationMethod {
   client_secret_post
 }
 
+/// @author Trevor Smith
+@JsonSerializable()
+class ConnectorPolicy {
+  String connectorId;
+  Map<String, dynamic> data;
+  Set<String> domains;
+  bool migrate;
+
+  ConnectorPolicy({
+      this.connectorId,
+      this.data,
+      this.domains,
+      this.migrate
+  });
+
+  factory ConnectorPolicy.fromJson(Map<String, dynamic> json) => _$ConnectorPolicyFromJson(json);
+  Map<String, dynamic> toJson() => _$ConnectorPolicyToJson(this);
+}
+
+/// @author Trevor Smith
+@JsonSerializable()
+class ConnectorRequest {
+  BaseConnectorConfiguration connector;
+
+  ConnectorRequest({
+      this.connector
+  });
+
+  factory ConnectorRequest.fromJson(Map<String, dynamic> json) => _$ConnectorRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ConnectorRequestToJson(this);
+}
+
+/// @author Trevor Smith
+@JsonSerializable()
+class ConnectorResponse {
+  BaseConnectorConfiguration connector;
+  List<BaseConnectorConfiguration> connectors;
+
+  ConnectorResponse({
+      this.connector,
+      this.connectors
+  });
+
+  factory ConnectorResponse.fromJson(Map<String, dynamic> json) => _$ConnectorResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ConnectorResponseToJson(this);
+}
+
+/// The types of connectors. This enum is stored as an ordinal on the <code>identities</code> table, order must be maintained.
+///
+/// @author Trevor Smith
+enum ConnectorType {
+  @JsonValue('FusionAuth')
+  FusionAuth,
+  @JsonValue('Generic')
+  Generic,
+  @JsonValue('LDAP')
+  LDAP
+}
+
 /// Models a consent.
 ///
 /// @author Daniel DeGroff
@@ -749,6 +845,8 @@ class Consent {
   num defaultMinimumAgeForSelfConsent;
   EmailPlus emailPlus;
   String id;
+  num insertInstant;
+  num lastUpdateInstant;
   bool multipleValuesAllowed;
   String name;
   List<String> values;
@@ -760,6 +858,8 @@ class Consent {
       this.defaultMinimumAgeForSelfConsent,
       this.emailPlus,
       this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.multipleValuesAllowed,
       this.name,
       this.values
@@ -859,6 +959,18 @@ class Count {
 
   factory Count.fromJson(Map<String, dynamic> json) => _$CountFromJson(json);
   Map<String, dynamic> toJson() => _$CountToJson(this);
+}
+
+@JsonSerializable()
+class CustomRegistration extends Enableable {
+  String formId;
+
+  CustomRegistration({
+      this.formId
+  });
+
+  factory CustomRegistration.fromJson(Map<String, dynamic> json) => _$CustomRegistrationFromJson(json);
+  Map<String, dynamic> toJson() => _$CustomRegistrationToJson(this);
 }
 
 /// Response for the daily active user report.
@@ -1105,6 +1217,8 @@ class EmailTemplate {
   String defaultTextTemplate;
   String fromEmail;
   String id;
+  num insertInstant;
+  num lastUpdateInstant;
   Map<String, String> localizedFromNames;
   Map<String, String> localizedHtmlTemplates;
   Map<String, String> localizedSubjects;
@@ -1118,6 +1232,8 @@ class EmailTemplate {
       this.defaultTextTemplate,
       this.fromEmail,
       this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.localizedFromNames,
       this.localizedHtmlTemplates,
       this.localizedSubjects,
@@ -1588,10 +1704,14 @@ class FailedAuthenticationConfiguration {
 @JsonSerializable()
 class Family {
   String id;
+  num insertInstant;
+  num lastUpdateInstant;
   List<FamilyMember> members;
 
   Family({
       this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.members
   });
 
@@ -1650,6 +1770,7 @@ class FamilyEmailRequest {
 class FamilyMember {
   Map<String, dynamic> data;
   num insertInstant;
+  num lastUpdateInstant;
   bool owner;
   FamilyRole role;
   String userId;
@@ -1657,6 +1778,7 @@ class FamilyMember {
   FamilyMember({
       this.data,
       this.insertInstant,
+      this.lastUpdateInstant,
       this.owner,
       this.role,
       this.userId
@@ -1749,6 +1871,249 @@ class ForgotPasswordResponse {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class Form {
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+  List<FormStep> steps;
+  FormType type;
+
+  Form({
+      this.data,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name,
+      this.steps,
+      this.type
+  });
+
+  factory Form.fromJson(Map<String, dynamic> json) => _$FormFromJson(json);
+  Map<String, dynamic> toJson() => _$FormToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum FormControl {
+  @JsonValue('checkbox')
+  checkbox,
+  @JsonValue('number')
+  number,
+  @JsonValue('password')
+  password,
+  @JsonValue('radio')
+  radio,
+  @JsonValue('select')
+  select,
+  @JsonValue('textarea')
+  textarea,
+  @JsonValue('text')
+  text
+}
+
+/// @author Daniel DeGroff
+enum FormDataType {
+  @JsonValue('bool')
+  bool,
+  @JsonValue('consent')
+  consent,
+  @JsonValue('date')
+  date,
+  @JsonValue('email')
+  email,
+  @JsonValue('number')
+  number,
+  @JsonValue('string')
+  string
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FormField {
+  bool confirm;
+  String consentId;
+  FormControl control;
+  Map<String, dynamic> data;
+  String description;
+  String id;
+  num insertInstant;
+  String key;
+  num lastUpdateInstant;
+  String name;
+  List<String> options;
+  bool required;
+  FormDataType type;
+  FormFieldValidator validator;
+
+  FormField({
+      this.confirm,
+      this.consentId,
+      this.control,
+      this.data,
+      this.description,
+      this.id,
+      this.insertInstant,
+      this.key,
+      this.lastUpdateInstant,
+      this.name,
+      this.options,
+      this.required,
+      this.type,
+      this.validator
+  });
+
+  factory FormField.fromJson(Map<String, dynamic> json) => _$FormFieldFromJson(json);
+  Map<String, dynamic> toJson() => _$FormFieldToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum FormFieldAdminPolicy {
+  @JsonValue('Edit')
+  Edit,
+  @JsonValue('View')
+  View
+}
+
+/// The FormField API request object.
+///
+/// @author Brett Guy
+@JsonSerializable()
+class FormFieldRequest {
+  FormField field;
+  List<FormField> fields;
+
+  FormFieldRequest({
+      this.field,
+      this.fields
+  });
+
+  factory FormFieldRequest.fromJson(Map<String, dynamic> json) => _$FormFieldRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$FormFieldRequestToJson(this);
+}
+
+/// Form field response.
+///
+/// @author Brett Guy
+@JsonSerializable()
+class FormFieldResponse {
+  FormField field;
+  List<FormField> fields;
+
+  FormFieldResponse({
+      this.field,
+      this.fields
+  });
+
+  factory FormFieldResponse.fromJson(Map<String, dynamic> json) => _$FormFieldResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$FormFieldResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FormFieldValidator extends Enableable {
+  String expression;
+
+  FormFieldValidator({
+      this.expression
+  });
+
+  factory FormFieldValidator.fromJson(Map<String, dynamic> json) => _$FormFieldValidatorFromJson(json);
+  Map<String, dynamic> toJson() => _$FormFieldValidatorToJson(this);
+}
+
+/// Form response.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FormRequest {
+  Form form;
+
+  FormRequest({
+      this.form
+  });
+
+  factory FormRequest.fromJson(Map<String, dynamic> json) => _$FormRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$FormRequestToJson(this);
+}
+
+/// Form response.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FormResponse {
+  Form form;
+  List<Form> forms;
+
+  FormResponse({
+      this.form,
+      this.forms
+  });
+
+  factory FormResponse.fromJson(Map<String, dynamic> json) => _$FormResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$FormResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FormStep {
+  List<String> fields;
+
+  FormStep({
+      this.fields
+  });
+
+  factory FormStep.fromJson(Map<String, dynamic> json) => _$FormStepFromJson(json);
+  Map<String, dynamic> toJson() => _$FormStepToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum FormType {
+  @JsonValue('registration')
+  registration
+}
+
+/// Models the FusionAuth connector.
+///
+/// @author Trevor Smith
+@JsonSerializable()
+class FusionAuthConnectorConfiguration extends BaseConnectorConfiguration {
+
+  FusionAuthConnectorConfiguration();
+
+  factory FusionAuthConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$FusionAuthConnectorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$FusionAuthConnectorConfigurationToJson(this);
+}
+
+/// Models a generic connector.
+///
+/// @author Trevor Smith
+@JsonSerializable()
+class GenericConnectorConfiguration extends BaseConnectorConfiguration {
+  String authenticationURL;
+  num connectTimeout;
+  Map<String, String> headers;
+  String httpAuthenticationPassword;
+  String httpAuthenticationUsername;
+  num readTimeout;
+  String sslCertificateKeyId;
+
+  GenericConnectorConfiguration({
+      this.authenticationURL,
+      this.connectTimeout,
+      this.headers,
+      this.httpAuthenticationPassword,
+      this.httpAuthenticationUsername,
+      this.readTimeout,
+      this.sslCertificateKeyId
+  });
+
+  factory GenericConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$GenericConnectorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$GenericConnectorConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class GoogleApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
   String buttonText;
   String client_id;
@@ -1816,6 +2181,8 @@ enum GrantType {
 class Group {
   Map<String, dynamic> data;
   String id;
+  num insertInstant;
+  num lastUpdateInstant;
   String name;
   Map<String, List<ApplicationRole>> roles;
   String tenantId;
@@ -1823,6 +2190,8 @@ class Group {
   Group({
       this.data,
       this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.name,
       this.roles,
       this.tenantId
@@ -2459,6 +2828,7 @@ class Key {
   num insertInstant;
   String issuer;
   String kid;
+  num lastUpdateInstant;
   num length;
   String name;
   String privateKey;
@@ -2476,6 +2846,7 @@ class Key {
       this.insertInstant,
       this.issuer,
       this.kid,
+      this.lastUpdateInstant,
       this.length,
       this.name,
       this.privateKey,
@@ -2559,6 +2930,7 @@ class Lambda extends Enableable {
   bool debug;
   String id;
   num insertInstant;
+  num lastUpdateInstant;
   String name;
   LambdaType type;
 
@@ -2567,6 +2939,7 @@ class Lambda extends Enableable {
       this.debug,
       this.id,
       this.insertInstant,
+      this.lastUpdateInstant,
       this.name,
       this.type
   });
@@ -2630,7 +3003,53 @@ enum LambdaType {
   @JsonValue('HYPRReconcile')
   HYPRReconcile,
   @JsonValue('TwitterReconcile')
-  TwitterReconcile
+  TwitterReconcile,
+  @JsonValue('LDAPConnectorReconcile')
+  LDAPConnectorReconcile
+}
+
+/// Models an LDAP connector.
+///
+/// @author Trevor Smith
+@JsonSerializable()
+class LDAPConnectorConfiguration extends BaseConnectorConfiguration {
+  String authenticationURL;
+  String baseStructure;
+  num connectTimeout;
+  String identifyingAttribute;
+  dynamic lambdaConfiguration;
+  String loginIdAttribute;
+  num readTimeout;
+  List<String> requestedAttributes;
+  LDAPSecurityMethod securityMethod;
+  String systemAccountDN;
+  String systemAccountPassword;
+
+  LDAPConnectorConfiguration({
+      this.authenticationURL,
+      this.baseStructure,
+      this.connectTimeout,
+      this.identifyingAttribute,
+      this.lambdaConfiguration,
+      this.loginIdAttribute,
+      this.readTimeout,
+      this.requestedAttributes,
+      this.securityMethod,
+      this.systemAccountDN,
+      this.systemAccountPassword
+  });
+
+  factory LDAPConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$LDAPConnectorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$LDAPConnectorConfigurationToJson(this);
+}
+
+enum LDAPSecurityMethod {
+  @JsonValue('None')
+  None,
+  @JsonValue('LDAPS')
+  LDAPS,
+  @JsonValue('StartTLS')
+  StartTLS
 }
 
 /// A historical state of a user log event. Since events can be modified, this stores the historical state.
@@ -3625,21 +4044,25 @@ class RegistrationConfiguration extends Enableable {
   Requirable birthDate;
   bool confirmPassword;
   Requirable firstName;
+  String formId;
   Requirable fullName;
   Requirable lastName;
   LoginIdType loginIdType;
   Requirable middleName;
   Requirable mobilePhone;
+  RegistrationType type;
 
   RegistrationConfiguration({
       this.birthDate,
       this.confirmPassword,
       this.firstName,
+      this.formId,
       this.fullName,
       this.lastName,
       this.loginIdType,
       this.middleName,
-      this.mobilePhone
+      this.mobilePhone,
+      this.type
   });
 
   factory RegistrationConfiguration.fromJson(Map<String, dynamic> json) => _$RegistrationConfigurationFromJson(json);
@@ -3707,6 +4130,13 @@ class RegistrationResponse {
 
   factory RegistrationResponse.fromJson(Map<String, dynamic> json) => _$RegistrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationResponseToJson(this);
+}
+
+enum RegistrationType {
+  @JsonValue('basic')
+  basic,
+  @JsonValue('advanced')
+  advanced
 }
 
 /// @author Daniel DeGroff
@@ -3910,27 +4340,41 @@ enum SecureGeneratorType {
 class SecureIdentity {
   num breachedPasswordLastCheckedInstant;
   BreachedPasswordStatus breachedPasswordStatus;
+  String connectorId;
   String encryptionScheme;
   num factor;
   String id;
+  num lastLoginInstant;
   String password;
   ChangePasswordReason passwordChangeReason;
   bool passwordChangeRequired;
   num passwordLastUpdateInstant;
   String salt;
+  TwoFactorDelivery twoFactorDelivery;
+  bool twoFactorEnabled;
+  String twoFactorSecret;
+  String username;
+  ContentStatus usernameStatus;
   bool verified;
 
   SecureIdentity({
       this.breachedPasswordLastCheckedInstant,
       this.breachedPasswordStatus,
+      this.connectorId,
       this.encryptionScheme,
       this.factor,
       this.id,
+      this.lastLoginInstant,
       this.password,
       this.passwordChangeReason,
       this.passwordChangeRequired,
       this.passwordLastUpdateInstant,
       this.salt,
+      this.twoFactorDelivery,
+      this.twoFactorEnabled,
+      this.twoFactorSecret,
+      this.username,
+      this.usernameStatus,
       this.verified
   });
 
@@ -4004,6 +4448,8 @@ class SystemConfiguration {
   CORSConfiguration corsConfiguration;
   Map<String, dynamic> data;
   EventLogConfiguration eventLogConfiguration;
+  num insertInstant;
+  num lastUpdateInstant;
   LoginRecordConfiguration loginRecordConfiguration;
   String reportTimezone;
   UIConfiguration uiConfiguration;
@@ -4015,6 +4461,8 @@ class SystemConfiguration {
       this.corsConfiguration,
       this.data,
       this.eventLogConfiguration,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.loginRecordConfiguration,
       this.reportTimezone,
       this.uiConfiguration
@@ -4127,6 +4575,7 @@ class Templates {
 @JsonSerializable()
 class Tenant {
   bool configured;
+  List<ConnectorPolicy> connectorPolicies;
   Map<String, dynamic> data;
   EmailConfiguration emailConfiguration;
   EventConfiguration eventConfiguration;
@@ -4135,8 +4584,10 @@ class Tenant {
   FamilyConfiguration familyConfiguration;
   num httpSessionMaxInactiveInterval;
   String id;
+  num insertInstant;
   String issuer;
   JWTConfiguration jwtConfiguration;
+  num lastUpdateInstant;
   String logoutURL;
   MaximumPasswordAge maximumPasswordAge;
   MinimumPasswordAge minimumPasswordAge;
@@ -4148,6 +4599,7 @@ class Tenant {
 
   Tenant({
       this.configured,
+      this.connectorPolicies,
       this.data,
       this.emailConfiguration,
       this.eventConfiguration,
@@ -4156,8 +4608,10 @@ class Tenant {
       this.familyConfiguration,
       this.httpSessionMaxInactiveInterval,
       this.id,
+      this.insertInstant,
       this.issuer,
       this.jwtConfiguration,
+      this.lastUpdateInstant,
       this.logoutURL,
       this.maximumPasswordAge,
       this.minimumPasswordAge,
@@ -4537,8 +4991,8 @@ class User extends SecureIdentity {
   String fullName;
   String imageUrl;
   num insertInstant;
-  num lastLoginInstant;
   String lastName;
+  num lastUpdateInstant;
   List<GroupMember> memberships;
   String middleName;
   String mobilePhone;
@@ -4547,11 +5001,6 @@ class User extends SecureIdentity {
   List<UserRegistration> registrations;
   String tenantId;
   String timezone;
-  TwoFactorDelivery twoFactorDelivery;
-  bool twoFactorEnabled;
-  String twoFactorSecret;
-  String username;
-  ContentStatus usernameStatus;
 
   User({
       this.active,
@@ -4564,8 +5013,8 @@ class User extends SecureIdentity {
       this.fullName,
       this.imageUrl,
       this.insertInstant,
-      this.lastLoginInstant,
       this.lastName,
+      this.lastUpdateInstant,
       this.memberships,
       this.middleName,
       this.mobilePhone,
@@ -4573,12 +5022,7 @@ class User extends SecureIdentity {
       this.preferredLanguages,
       this.registrations,
       this.tenantId,
-      this.timezone,
-      this.twoFactorDelivery,
-      this.twoFactorEnabled,
-      this.twoFactorSecret,
-      this.username,
-      this.usernameStatus
+      this.timezone
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -4595,6 +5039,8 @@ class UserAction {
   String endEmailTemplateId;
   String id;
   bool includeEmailInEventJSON;
+  num insertInstant;
+  num lastUpdateInstant;
   Map<String, String> localizedNames;
   String modifyEmailTemplateId;
   String name;
@@ -4613,6 +5059,8 @@ class UserAction {
       this.endEmailTemplateId,
       this.id,
       this.includeEmailInEventJSON,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.localizedNames,
       this.modifyEmailTemplateId,
       this.name,
@@ -4688,12 +5136,12 @@ class UserActionLog {
   String actionerUserId;
   List<String> applicationIds;
   String comment;
-  num createInstant;
   bool emailUserOnEnd;
   bool endEventSent;
   num expiry;
   LogHistory history;
   String id;
+  num insertInstant;
   String localizedName;
   String localizedOption;
   String localizedReason;
@@ -4709,12 +5157,12 @@ class UserActionLog {
       this.actionerUserId,
       this.applicationIds,
       this.comment,
-      this.createInstant,
       this.emailUserOnEnd,
       this.endEventSent,
       this.expiry,
       this.history,
       this.id,
+      this.insertInstant,
       this.localizedName,
       this.localizedOption,
       this.localizedReason,
@@ -4768,12 +5216,16 @@ enum UserActionPhase {
 class UserActionReason {
   String code;
   String id;
+  num insertInstant;
+  num lastUpdateInstant;
   Map<String, String> localizedTexts;
   String text;
 
   UserActionReason({
       this.code,
       this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.localizedTexts,
       this.text
   });
@@ -4868,15 +5320,15 @@ class UserBulkCreateEvent extends BaseEvent {
 class UserComment {
   String comment;
   String commenterId;
-  num createInstant;
   String id;
+  num insertInstant;
   String userId;
 
   UserComment({
       this.comment,
       this.commenterId,
-      this.createInstant,
       this.id,
+      this.insertInstant,
       this.userId
   });
 
@@ -5110,6 +5562,7 @@ class UserLoginFailedEvent extends BaseEvent {
 class UserLoginSuccessEvent extends BaseEvent {
   String applicationId;
   String authenticationType;
+  String connectorId;
   String identityProviderId;
   String identityProviderName;
   User user;
@@ -5117,6 +5570,7 @@ class UserLoginSuccessEvent extends BaseEvent {
   UserLoginSuccessEvent({
       this.applicationId,
       this.authenticationType,
+      this.connectorId,
       this.identityProviderId,
       this.identityProviderName,
       this.user
@@ -5180,6 +5634,7 @@ class UserRegistration {
   String id;
   num insertInstant;
   num lastLoginInstant;
+  num lastUpdateInstant;
   List<String> preferredLanguages;
   Set<String> roles;
   String timezone;
@@ -5196,6 +5651,7 @@ class UserRegistration {
       this.id,
       this.insertInstant,
       this.lastLoginInstant,
+      this.lastUpdateInstant,
       this.preferredLanguages,
       this.roles,
       this.timezone,
@@ -5423,6 +5879,8 @@ class Webhook {
   String httpAuthenticationPassword;
   String httpAuthenticationUsername;
   String id;
+  num insertInstant;
+  num lastUpdateInstant;
   num readTimeout;
   String sslCertificate;
   String url;
@@ -5438,6 +5896,8 @@ class Webhook {
       this.httpAuthenticationPassword,
       this.httpAuthenticationUsername,
       this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
       this.readTimeout,
       this.sslCertificate,
       this.url
