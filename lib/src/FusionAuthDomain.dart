@@ -4225,7 +4225,6 @@ class SAMLv2Configuration extends Enableable {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfiguration> {
-  bool allowResponseReplay;
   String buttonImageURL;
   String buttonText;
   Set<String> domains;
@@ -4236,7 +4235,6 @@ class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfi
   bool useNameIdForEmail;
 
   SAMLv2IdentityProvider({
-      this.allowResponseReplay,
       this.buttonImageURL,
       this.buttonText,
       this.domains,

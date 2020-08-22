@@ -5893,7 +5893,6 @@ const _$CanonicalizationMethodEnumMap = {
 SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     Map<String, dynamic> json) {
   return SAMLv2IdentityProvider(
-    allowResponseReplay: json['allowResponseReplay'] as bool,
     buttonImageURL: json['buttonImageURL'] as String,
     buttonText: json['buttonText'] as String,
     domains: (json['domains'] as List)?.map((e) => e as String)?.toSet(),
@@ -5943,7 +5942,6 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
-  writeNotNull('allowResponseReplay', instance.allowResponseReplay);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('domains', instance.domains?.toList());
