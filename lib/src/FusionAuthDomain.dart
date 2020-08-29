@@ -185,6 +185,7 @@ class Application {
   AuthenticationTokenConfiguration authenticationTokenConfiguration;
   CleanSpeakConfiguration cleanSpeakConfiguration;
   Map<String, dynamic> data;
+  ApplicationEmailConfiguration emailConfiguration;
   String id;
   num insertInstant;
   JWTConfiguration jwtConfiguration;
@@ -207,6 +208,7 @@ class Application {
       this.authenticationTokenConfiguration,
       this.cleanSpeakConfiguration,
       this.data,
+      this.emailConfiguration,
       this.id,
       this.insertInstant,
       this.jwtConfiguration,
@@ -227,6 +229,24 @@ class Application {
 
   factory Application.fromJson(Map<String, dynamic> json) => _$ApplicationFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationToJson(this);
+}
+
+@JsonSerializable()
+class ApplicationEmailConfiguration {
+  String emailVerificationEmailTemplateId;
+  String forgotPasswordEmailTemplateId;
+  String passwordlessEmailTemplateId;
+  String setPasswordEmailTemplateId;
+
+  ApplicationEmailConfiguration({
+      this.emailVerificationEmailTemplateId,
+      this.forgotPasswordEmailTemplateId,
+      this.passwordlessEmailTemplateId,
+      this.setPasswordEmailTemplateId
+  });
+
+  factory ApplicationEmailConfiguration.fromJson(Map<String, dynamic> json) => _$ApplicationEmailConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$ApplicationEmailConfigurationToJson(this);
 }
 
 /// Events that are bound to applications.
@@ -1822,6 +1842,7 @@ enum FamilyRole {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class ForgotPasswordRequest {
+  String applicationId;
   String changePasswordId;
   String email;
   String loginId;
@@ -1830,6 +1851,7 @@ class ForgotPasswordRequest {
   String username;
 
   ForgotPasswordRequest({
+      this.applicationId,
       this.changePasswordId,
       this.email,
       this.loginId,
@@ -3977,6 +3999,8 @@ class RefreshResponse {
 @JsonSerializable()
 class RefreshToken {
   String applicationId;
+  Map<String, dynamic> data;
+  String id;
   num insertInstant;
   MetaData metaData;
   num startInstant;
@@ -3985,6 +4009,8 @@ class RefreshToken {
 
   RefreshToken({
       this.applicationId,
+      this.data,
+      this.id,
       this.insertInstant,
       this.metaData,
       this.startInstant,
@@ -4002,6 +4028,23 @@ enum RefreshTokenExpirationPolicy {
   Fixed,
   @JsonValue('SlidingWindow')
   SlidingWindow
+}
+
+/// Refresh Token Import request.
+///
+/// @author Brett Guy
+@JsonSerializable()
+class RefreshTokenImportRequest {
+  List<RefreshToken> refreshTokens;
+  bool validateDbConstraints;
+
+  RefreshTokenImportRequest({
+      this.refreshTokens,
+      this.validateDbConstraints
+  });
+
+  factory RefreshTokenImportRequest.fromJson(Map<String, dynamic> json) => _$RefreshTokenImportRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$RefreshTokenImportRequestToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -4431,7 +4474,6 @@ class SortField {
 @JsonSerializable()
 class SystemConfiguration {
   AuditLogConfiguration auditLogConfiguration;
-  String cookieEncryptionIV;
   String cookieEncryptionKey;
   CORSConfiguration corsConfiguration;
   Map<String, dynamic> data;
@@ -4444,7 +4486,6 @@ class SystemConfiguration {
 
   SystemConfiguration({
       this.auditLogConfiguration,
-      this.cookieEncryptionIV,
       this.cookieEncryptionKey,
       this.corsConfiguration,
       this.data,
