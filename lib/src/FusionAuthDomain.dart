@@ -1575,6 +1575,7 @@ class ExternalIdentifierConfiguration {
   num passwordlessLoginTimeToLiveInSeconds;
   SecureGeneratorConfiguration registrationVerificationIdGenerator;
   num registrationVerificationIdTimeToLiveInSeconds;
+  num samlv2AuthNRequestIdTimeToLiveInSeconds;
   SecureGeneratorConfiguration setupPasswordIdGenerator;
   num setupPasswordIdTimeToLiveInSeconds;
   num twoFactorIdTimeToLiveInSeconds;
@@ -1594,6 +1595,7 @@ class ExternalIdentifierConfiguration {
       this.passwordlessLoginTimeToLiveInSeconds,
       this.registrationVerificationIdGenerator,
       this.registrationVerificationIdTimeToLiveInSeconds,
+      this.samlv2AuthNRequestIdTimeToLiveInSeconds,
       this.setupPasswordIdGenerator,
       this.setupPasswordIdTimeToLiveInSeconds,
       this.twoFactorIdTimeToLiveInSeconds,
@@ -2437,11 +2439,13 @@ class IdentityProviderResponse {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class IdentityProviderStartLoginRequest extends BaseLoginRequest {
+  Map<String, String> data;
   String identityProviderId;
   String loginId;
   Map<String, dynamic> state;
 
   IdentityProviderStartLoginRequest({
+      this.data,
       this.identityProviderId,
       this.loginId,
       this.state

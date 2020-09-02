@@ -1559,6 +1559,22 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Re-sends the verification email to the user. If the Application has configured a specific email template this will be used
+  /// instead of the tenant configuration.
+  ///
+  /// @param {String} applicationId The unique Application Id to used to resolve an application specific email template.
+  /// @param {String} email The email address of the user that needs a new verification email.
+  /// @returns {Promise<ClientResponse<VerifyEmailResponse>>}
+  Future<ClientResponse<VerifyEmailResponse, Errors>> resendEmailVerificationWithApplicationTemplate(String applicationId, String email) {
+    return _start<VerifyEmailResponse, Errors>()
+        .withUri('/api/user/verify-email')
+        .withParameter('applicationId', applicationId)
+        .withParameter('email', email)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => VerifyEmailResponse.fromJson(d)))
+        .go();
+  }
+
   /// Re-sends the application registration verification email to the user.
   ///
   /// @param {String} email The email address of the user that needs a new verification email.

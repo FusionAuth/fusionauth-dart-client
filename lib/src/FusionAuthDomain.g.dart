@@ -2112,6 +2112,8 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
                     as Map<String, dynamic>),
     registrationVerificationIdTimeToLiveInSeconds:
         json['registrationVerificationIdTimeToLiveInSeconds'] as num,
+    samlv2AuthNRequestIdTimeToLiveInSeconds:
+        json['samlv2AuthNRequestIdTimeToLiveInSeconds'] as num,
     setupPasswordIdGenerator: json['setupPasswordIdGenerator'] == null
         ? null
         : SecureGeneratorConfiguration.fromJson(
@@ -2159,6 +2161,8 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
       instance.registrationVerificationIdGenerator);
   writeNotNull('registrationVerificationIdTimeToLiveInSeconds',
       instance.registrationVerificationIdTimeToLiveInSeconds);
+  writeNotNull('samlv2AuthNRequestIdTimeToLiveInSeconds',
+      instance.samlv2AuthNRequestIdTimeToLiveInSeconds);
   writeNotNull('setupPasswordIdGenerator', instance.setupPasswordIdGenerator);
   writeNotNull('setupPasswordIdTimeToLiveInSeconds',
       instance.setupPasswordIdTimeToLiveInSeconds);
@@ -3422,6 +3426,9 @@ Map<String, dynamic> _$IdentityProviderResponseToJson(
 IdentityProviderStartLoginRequest _$IdentityProviderStartLoginRequestFromJson(
     Map<String, dynamic> json) {
   return IdentityProviderStartLoginRequest(
+    data: (json['data'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, e as String),
+    ),
     identityProviderId: json['identityProviderId'] as String,
     loginId: json['loginId'] as String,
     state: json['state'] as Map<String, dynamic>,
@@ -3448,6 +3455,7 @@ Map<String, dynamic> _$IdentityProviderStartLoginRequestToJson(
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
+  writeNotNull('data', instance.data);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('loginId', instance.loginId);
   writeNotNull('state', instance.state);
