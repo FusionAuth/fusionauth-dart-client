@@ -4478,7 +4478,6 @@ class SortField {
 @JsonSerializable()
 class SystemConfiguration {
   AuditLogConfiguration auditLogConfiguration;
-  String cookieEncryptionKey;
   CORSConfiguration corsConfiguration;
   Map<String, dynamic> data;
   EventLogConfiguration eventLogConfiguration;
@@ -4490,7 +4489,6 @@ class SystemConfiguration {
 
   SystemConfiguration({
       this.auditLogConfiguration,
-      this.cookieEncryptionKey,
       this.corsConfiguration,
       this.data,
       this.eventLogConfiguration,
