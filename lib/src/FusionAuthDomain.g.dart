@@ -6295,7 +6295,6 @@ SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) {
         ? null
         : AuditLogConfiguration.fromJson(
             json['auditLogConfiguration'] as Map<String, dynamic>),
-    cookieEncryptionKey: json['cookieEncryptionKey'] as String,
     corsConfiguration: json['corsConfiguration'] == null
         ? null
         : CORSConfiguration.fromJson(
@@ -6329,7 +6328,6 @@ Map<String, dynamic> _$SystemConfigurationToJson(SystemConfiguration instance) {
   }
 
   writeNotNull('auditLogConfiguration', instance.auditLogConfiguration);
-  writeNotNull('cookieEncryptionKey', instance.cookieEncryptionKey);
   writeNotNull('corsConfiguration', instance.corsConfiguration);
   writeNotNull('data', instance.data);
   writeNotNull('eventLogConfiguration', instance.eventLogConfiguration);
