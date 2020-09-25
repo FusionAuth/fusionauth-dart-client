@@ -1178,6 +1178,23 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Inspect an access token issued by FusionAuth.
+  ///
+  /// @param {String} client_id The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.
+  /// @param {String} token The access token returned by this OAuth provider as the result of a successful authentication.
+  /// @returns {Promise<ClientResponse<Map<String, dynamic>>>}
+  Future<ClientResponse<Map<String, dynamic>, OAuthError>> oauth2Introspect(String client_id, String token) {
+    var body = Map<String, dynamic>();
+    body['client_id'] = client_id;
+    body['token'] = token;
+    return _startAnonymous<Map<String, dynamic>, OAuthError>()
+        .withUri('/oauth2/introspect')
+        .withFormData(body)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => Map<String, dynamic>.fromJson(d)))
+        .go();
+  }
+
   /// Complete a login request using a passwordless code
   ///
   /// @param {PasswordlessLoginRequest} request The passwordless login request that contains all of the information used to complete login.
