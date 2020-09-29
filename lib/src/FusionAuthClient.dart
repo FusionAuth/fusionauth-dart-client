@@ -995,9 +995,9 @@ class FusionAuthClient {
   /// @param {String} encodedJWT The encoded JWT (access token).
   /// @returns {Promise<ClientResponse<SecretResponse>>}
   Future<ClientResponse<SecretResponse, void>> generateTwoFactorSecretUsingJWT(String encodedJWT) {
-    return _start<SecretResponse, void>()
+    return _startAnonymous<SecretResponse, void>()
         .withUri('/api/two-factor/secret')
-        .withAuthorization('JWT ' + encodedJWT)
+        .withAuthorization('Bearer ' + encodedJWT)
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => SecretResponse.fromJson(d)))
         .go();
@@ -1101,9 +1101,9 @@ class FusionAuthClient {
   ///    tokens enabled in order to receive a refresh token in the response.</p>
   /// @returns {Promise<ClientResponse<IssueResponse>>}
   Future<ClientResponse<IssueResponse, Errors>> issueJWT(String applicationId, String encodedJWT, String refreshToken) {
-    return _start<IssueResponse, Errors>()
+    return _startAnonymous<IssueResponse, Errors>()
         .withUri('/api/jwt/issue')
-        .withAuthorization('JWT ' + encodedJWT)
+        .withAuthorization('Bearer ' + encodedJWT)
         .withParameter('applicationId', applicationId)
         .withParameter('refreshToken', refreshToken)
         .withMethod('GET')
@@ -2567,7 +2567,7 @@ class FusionAuthClient {
   Future<ClientResponse<UserResponse, Errors>> retrieveUserUsingJWT(String encodedJWT) {
     return _startAnonymous<UserResponse, Errors>()
         .withUri('/api/user')
-        .withAuthorization('JWT ' + encodedJWT)
+        .withAuthorization('Bearer ' + encodedJWT)
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => UserResponse.fromJson(d)))
         .go();
@@ -3143,6 +3143,20 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+  ///
+  /// @param {String} encodedJWT The encoded JWT (access token).
+  /// @returns {Promise<ClientResponse<UserResponse>>}
+  Future<ClientResponse<UserResponse, OAuthError>> userInfo(String encodedJWT) {
+    return _startAnonymous<UserResponse, OAuthError>()
+        .withHeader('Content-Type', 'text/plain')
+        .withUri('/oauth2/userinfo')
+        .withAuthorization('Bearer ' + encodedJWT)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => UserResponse.fromJson(d)))
+        .go();
+  }
+
   /// Validates the end-user provided user_code from the user-interaction of the Device Authorization Grant.
   /// If you build your own activation form you should validate the user provided code prior to beginning the Authorization grant.
   ///
@@ -3168,7 +3182,7 @@ class FusionAuthClient {
   Future<ClientResponse<ValidateResponse, void>> validateJWT(String encodedJWT) {
     return _startAnonymous<ValidateResponse, void>()
         .withUri('/api/jwt/validate')
-        .withAuthorization('JWT ' + encodedJWT)
+        .withAuthorization('Bearer ' + encodedJWT)
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => ValidateResponse.fromJson(d)))
         .go();
