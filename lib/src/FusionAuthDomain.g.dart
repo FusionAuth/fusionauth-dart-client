@@ -5086,6 +5086,7 @@ OpenIdConnectIdentityProvider _$OpenIdConnectIdentityProviderFromJson(
         ? null
         : IdentityProviderOauth2Configuration.fromJson(
             json['oauth2'] as Map<String, dynamic>),
+    postRequest: json['postRequest'] as bool,
   )
     ..enabled = json['enabled'] as bool
     ..applicationConfiguration =
@@ -5131,6 +5132,7 @@ Map<String, dynamic> _$OpenIdConnectIdentityProviderToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('domains', instance.domains?.toList());
   writeNotNull('oauth2', instance.oauth2);
+  writeNotNull('postRequest', instance.postRequest);
   return val;
 }
 
@@ -5930,11 +5932,16 @@ Map<String, dynamic> _$SAMLv2ApplicationConfigurationToJson(
 SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) {
   return SAMLv2Configuration(
     audience: json['audience'] as String,
+    authorizedRedirectURLs: (json['authorizedRedirectURLs'] as List)
+        ?.map((e) => e as String)
+        ?.toList(),
     callbackURL: json['callbackURL'] as String,
     debug: json['debug'] as bool,
+    defaultVerificationKeyId: json['defaultVerificationKeyId'] as String,
     issuer: json['issuer'] as String,
     keyId: json['keyId'] as String,
     logoutURL: json['logoutURL'] as String,
+    requireSignedRequests: json['requireSignedRequests'] as bool,
     xmlSignatureC14nMethod: _$enumDecodeNullable(
         _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
   )..enabled = json['enabled'] as bool;
@@ -5951,11 +5958,14 @@ Map<String, dynamic> _$SAMLv2ConfigurationToJson(SAMLv2Configuration instance) {
 
   writeNotNull('enabled', instance.enabled);
   writeNotNull('audience', instance.audience);
+  writeNotNull('authorizedRedirectURLs', instance.authorizedRedirectURLs);
   writeNotNull('callbackURL', instance.callbackURL);
   writeNotNull('debug', instance.debug);
+  writeNotNull('defaultVerificationKeyId', instance.defaultVerificationKeyId);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('keyId', instance.keyId);
   writeNotNull('logoutURL', instance.logoutURL);
+  writeNotNull('requireSignedRequests', instance.requireSignedRequests);
   writeNotNull('xmlSignatureC14nMethod',
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
   return val;
@@ -5978,7 +5988,12 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     idpEndpoint: json['idpEndpoint'] as String,
     issuer: json['issuer'] as String,
     keyId: json['keyId'] as String,
+    postRequest: json['postRequest'] as bool,
+    requestSigningKeyId: json['requestSigningKeyId'] as String,
+    signRequest: json['signRequest'] as bool,
     useNameIdForEmail: json['useNameIdForEmail'] as bool,
+    xmlSignatureC14nMethod: _$enumDecodeNullable(
+        _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
   )
     ..enabled = json['enabled'] as bool
     ..applicationConfiguration =
@@ -6027,7 +6042,12 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('idpEndpoint', instance.idpEndpoint);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('keyId', instance.keyId);
+  writeNotNull('postRequest', instance.postRequest);
+  writeNotNull('requestSigningKeyId', instance.requestSigningKeyId);
+  writeNotNull('signRequest', instance.signRequest);
   writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
+  writeNotNull('xmlSignatureC14nMethod',
+      _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
   return val;
 }
 
@@ -6288,6 +6308,14 @@ const _$SortEnumMap = {
   Sort.asc: 'asc',
   Sort.desc: 'desc',
 };
+
+SupportsPostBindings _$SupportsPostBindingsFromJson(Map<String, dynamic> json) {
+  return SupportsPostBindings();
+}
+
+Map<String, dynamic> _$SupportsPostBindingsToJson(
+        SupportsPostBindings instance) =>
+    <String, dynamic>{};
 
 SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) {
   return SystemConfiguration(

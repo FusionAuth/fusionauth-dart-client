@@ -674,6 +674,9 @@ enum BreachMatchMode {
   High
 }
 
+/// XML canonicalization method enumeration. This is used for the IdP and SP side of FusionAuth SAML.
+///
+/// @author Brian Pontarelli
 enum CanonicalizationMethod {
   @JsonValue('exclusive')
   exclusive,
@@ -3698,12 +3701,14 @@ class OpenIdConnectIdentityProvider extends BaseIdentityProvider<OpenIdConnectAp
   String buttonText;
   Set<String> domains;
   IdentityProviderOauth2Configuration oauth2;
+  bool postRequest;
 
   OpenIdConnectIdentityProvider({
       this.buttonImageURL,
       this.buttonText,
       this.domains,
-      this.oauth2
+      this.oauth2,
+      this.postRequest
   });
 
   factory OpenIdConnectIdentityProvider.fromJson(Map<String, dynamic> json) => _$OpenIdConnectIdentityProviderFromJson(json);
@@ -4246,20 +4251,26 @@ class SAMLv2ApplicationConfiguration extends BaseIdentityProviderApplicationConf
 @JsonSerializable()
 class SAMLv2Configuration extends Enableable {
   String audience;
+  List<String> authorizedRedirectURLs;
   String callbackURL;
   bool debug;
+  String defaultVerificationKeyId;
   String issuer;
   String keyId;
   String logoutURL;
+  bool requireSignedRequests;
   CanonicalizationMethod xmlSignatureC14nMethod;
 
   SAMLv2Configuration({
       this.audience,
+      this.authorizedRedirectURLs,
       this.callbackURL,
       this.debug,
+      this.defaultVerificationKeyId,
       this.issuer,
       this.keyId,
       this.logoutURL,
+      this.requireSignedRequests,
       this.xmlSignatureC14nMethod
   });
 
@@ -4279,7 +4290,11 @@ class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfi
   String idpEndpoint;
   String issuer;
   String keyId;
+  bool postRequest;
+  String requestSigningKeyId;
+  bool signRequest;
   bool useNameIdForEmail;
+  CanonicalizationMethod xmlSignatureC14nMethod;
 
   SAMLv2IdentityProvider({
       this.buttonImageURL,
@@ -4289,7 +4304,11 @@ class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfi
       this.idpEndpoint,
       this.issuer,
       this.keyId,
-      this.useNameIdForEmail
+      this.postRequest,
+      this.requestSigningKeyId,
+      this.signRequest,
+      this.useNameIdForEmail,
+      this.xmlSignatureC14nMethod
   });
 
   factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) => _$SAMLv2IdentityProviderFromJson(json);
@@ -4472,6 +4491,18 @@ class SortField {
 
   factory SortField.fromJson(Map<String, dynamic> json) => _$SortFieldFromJson(json);
   Map<String, dynamic> toJson() => _$SortFieldToJson(this);
+}
+
+/// Helper interface that indicates an identity provider can be federated to using the HTTP POST method.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class SupportsPostBindings {
+
+  SupportsPostBindings();
+
+  factory SupportsPostBindings.fromJson(Map<String, dynamic> json) => _$SupportsPostBindingsFromJson(json);
+  Map<String, dynamic> toJson() => _$SupportsPostBindingsToJson(this);
 }
 
 /// @author Brian Pontarelli
