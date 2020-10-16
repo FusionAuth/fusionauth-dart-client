@@ -2,18 +2,6 @@ import 'package:fusionauth_dart_client/fusionauth_dart_client.dart'
     as fusionauth;
 
 void main() async {
-  Future<fusionauth.ClientResponse<fusionauth.LoginResponse, fusionauth.Errors>>
-      processAuth(fusionauth.LoginRequest loginRequest) async {
-    var client = fusionauth.FusionAuthClient(
-        'bf69486b-4733-4470-a592-f1bfce7af580', //API Key
-        'https://local.fusionauth.io',
-        null);
-
-    var authResult = await client.login(loginRequest);
-
-    return authResult;
-  }
-
   var loginRequest = fusionauth.LoginRequest(
       loginId: 'user@domain.com', password: 'Password!');
 
@@ -24,18 +12,27 @@ void main() async {
           name: 'IPhone XR', //DeviceName
           type: fusionauth.DeviceType.MOBILE));
 
-  var result = await processAuth(loginRequest);
+  var client = fusionauth.FusionAuthClient(
+      'bf69486b-4733-4470-a592-f1bfce7af580', //API Key
+      'https://local.fusionauth.io',
+      null);
 
-  if (result.statusCode == 200) {
+  var result = await client.login(loginRequest);
+
+  if (result.statusCode >= 200 && result.statusCode < 300) {
     print(result.successResponse.toJson());
-    print(result.successResponse.user.toJson());
+    if (result.successResponse.user != null) {
+      print(result.successResponse.user.toJson());
+    }
   } else {
     // error
     print('statusCode: ' + result.statusCode.toString());
-    if (result.statusCode == 404)
+    if (result.statusCode == 404) {
       print('Result code 404 can mean the wrong user or password.');
+    }
 
-    if (result.errorResponse != null)
+    if (result.errorResponse != null) {
       print(result.errorResponse.toJson());
+    }
   }
 }
