@@ -49,3 +49,7 @@ dependencies:
 Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/FusionAuth/fusionauth-dart-client/issues
+
+## Contributors
+
+* [Dmitriy Scherbakov/sherbacov](https://github.com/sherbacov) did auth example. 
