@@ -2938,6 +2938,18 @@ enum KeyType {
   HMAC
 }
 
+/// The use type of a key.
+///
+/// @author Daniel DeGroff
+enum KeyUse {
+  @JsonValue('SignOnly')
+  SignOnly,
+  @JsonValue('SignAndVerify')
+  SignAndVerify,
+  @JsonValue('VerifyOnly')
+  VerifyOnly
+}
+
 /// A JavaScript lambda function that is executed during certain events inside FusionAuth.
 ///
 /// @author Brian Pontarelli
