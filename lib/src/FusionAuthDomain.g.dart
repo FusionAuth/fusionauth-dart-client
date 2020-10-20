@@ -283,6 +283,10 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
         ? null
         : ApplicationEmailConfiguration.fromJson(
             json['emailConfiguration'] as Map<String, dynamic>),
+    formConfiguration: json['formConfiguration'] == null
+        ? null
+        : ApplicationFormConfiguration.fromJson(
+            json['formConfiguration'] as Map<String, dynamic>),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
     jwtConfiguration: json['jwtConfiguration'] == null
@@ -342,6 +346,7 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
   writeNotNull('cleanSpeakConfiguration', instance.cleanSpeakConfiguration);
   writeNotNull('data', instance.data);
   writeNotNull('emailConfiguration', instance.emailConfiguration);
+  writeNotNull('formConfiguration', instance.formConfiguration);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('jwtConfiguration', instance.jwtConfiguration);
@@ -401,6 +406,27 @@ ApplicationEvent _$ApplicationEventFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ApplicationEventToJson(ApplicationEvent instance) =>
     <String, dynamic>{};
+
+ApplicationFormConfiguration _$ApplicationFormConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return ApplicationFormConfiguration(
+    adminRegistrationFormId: json['adminRegistrationFormId'] as String,
+  );
+}
+
+Map<String, dynamic> _$ApplicationFormConfigurationToJson(
+    ApplicationFormConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('adminRegistrationFormId', instance.adminRegistrationFormId);
+  return val;
+}
 
 ApplicationRegistrationDeletePolicy
     _$ApplicationRegistrationDeletePolicyFromJson(Map<String, dynamic> json) {
@@ -2654,6 +2680,8 @@ Map<String, dynamic> _$FormToJson(Form instance) {
 
 const _$FormTypeEnumMap = {
   FormType.registration: 'registration',
+  FormType.adminRegistration: 'adminRegistration',
+  FormType.adminUser: 'adminUser',
 };
 
 FormField _$FormFieldFromJson(Map<String, dynamic> json) {
@@ -6540,6 +6568,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
         ? null
         : FamilyConfiguration.fromJson(
             json['familyConfiguration'] as Map<String, dynamic>),
+    formConfiguration: json['formConfiguration'] == null
+        ? null
+        : TenantFormConfiguration.fromJson(
+            json['formConfiguration'] as Map<String, dynamic>),
     httpSessionMaxInactiveInterval:
         json['httpSessionMaxInactiveInterval'] as num,
     id: json['id'] as String,
@@ -6596,6 +6628,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('failedAuthenticationConfiguration',
       instance.failedAuthenticationConfiguration);
   writeNotNull('familyConfiguration', instance.familyConfiguration);
+  writeNotNull('formConfiguration', instance.formConfiguration);
   writeNotNull('httpSessionMaxInactiveInterval',
       instance.httpSessionMaxInactiveInterval);
   writeNotNull('id', instance.id);
@@ -6621,6 +6654,27 @@ Tenantable _$TenantableFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TenantableToJson(Tenantable instance) =>
     <String, dynamic>{};
+
+TenantFormConfiguration _$TenantFormConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantFormConfiguration(
+    adminUserFormId: json['adminUserFormId'] as String,
+  );
+}
+
+Map<String, dynamic> _$TenantFormConfigurationToJson(
+    TenantFormConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('adminUserFormId', instance.adminUserFormId);
+  return val;
+}
 
 TenantRequest _$TenantRequestFromJson(Map<String, dynamic> json) {
   return TenantRequest(

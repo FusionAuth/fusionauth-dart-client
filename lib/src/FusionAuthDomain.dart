@@ -186,6 +186,7 @@ class Application {
   CleanSpeakConfiguration cleanSpeakConfiguration;
   Map<String, dynamic> data;
   ApplicationEmailConfiguration emailConfiguration;
+  ApplicationFormConfiguration formConfiguration;
   String id;
   num insertInstant;
   JWTConfiguration jwtConfiguration;
@@ -209,6 +210,7 @@ class Application {
       this.cleanSpeakConfiguration,
       this.data,
       this.emailConfiguration,
+      this.formConfiguration,
       this.id,
       this.insertInstant,
       this.jwtConfiguration,
@@ -259,6 +261,19 @@ class ApplicationEvent {
 
   factory ApplicationEvent.fromJson(Map<String, dynamic> json) => _$ApplicationEventFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationEventToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ApplicationFormConfiguration {
+  String adminRegistrationFormId;
+
+  ApplicationFormConfiguration({
+      this.adminRegistrationFormId
+  });
+
+  factory ApplicationFormConfiguration.fromJson(Map<String, dynamic> json) => _$ApplicationFormConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$ApplicationFormConfigurationToJson(this);
 }
 
 /// A Application-level policy for deleting Users.
@@ -2085,7 +2100,11 @@ class FormStep {
 /// @author Daniel DeGroff
 enum FormType {
   @JsonValue('registration')
-  registration
+  registration,
+  @JsonValue('adminRegistration')
+  adminRegistration,
+  @JsonValue('adminUser')
+  adminUser
 }
 
 /// Models the FusionAuth connector.
@@ -4656,6 +4675,7 @@ class Tenant {
   ExternalIdentifierConfiguration externalIdentifierConfiguration;
   FailedAuthenticationConfiguration failedAuthenticationConfiguration;
   FamilyConfiguration familyConfiguration;
+  TenantFormConfiguration formConfiguration;
   num httpSessionMaxInactiveInterval;
   String id;
   num insertInstant;
@@ -4680,6 +4700,7 @@ class Tenant {
       this.externalIdentifierConfiguration,
       this.failedAuthenticationConfiguration,
       this.familyConfiguration,
+      this.formConfiguration,
       this.httpSessionMaxInactiveInterval,
       this.id,
       this.insertInstant,
@@ -4708,6 +4729,19 @@ class Tenantable {
 
   factory Tenantable.fromJson(Map<String, dynamic> json) => _$TenantableFromJson(json);
   Map<String, dynamic> toJson() => _$TenantableToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantFormConfiguration {
+  String adminUserFormId;
+
+  TenantFormConfiguration({
+      this.adminUserFormId
+  });
+
+  factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) => _$TenantFormConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantFormConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
