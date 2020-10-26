@@ -7,13 +7,9 @@ A library for FusionAuth Dart developers.
 
 ---
 
-## Beta notice
-
-This client is flagged as a beta client due to missing or incomplete features.
-
 ### Known limitations
 
-* The use of some objects are limited due to missing support for dynamic fields (example: custom claims on a jwt). Currently any data placed in json will not render in dart unless the class is explicitly subclassed to contain those fields.
+* The use of some objects are limited due to missing support for dynamic fields (example: custom claims on a jwt). Currently, any data placed in JSON will not render in dart unless the class is explicitly subclassed to contain those fields.
 ---
 
 ## Usage
@@ -41,7 +37,7 @@ void main() async {
 pubspec.yaml:
 ```yaml
 dependencies:
-  fusionauth_dart_client: ^1.16.0-beta
+  fusionauth_dart_client: ^1.20.0
 ```
 
 ## Features and bugs

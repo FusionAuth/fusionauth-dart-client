@@ -1,3 +1,7 @@
+## 1.20.0
+
+- Updated for FusionAuth version 1.20.0
+
 ## 1.15.8-beta
 
 - First available version
