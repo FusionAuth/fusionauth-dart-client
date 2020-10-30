@@ -1,3 +1,7 @@
+## 1.20.1
+
+- Updated for FusionAuth version 1.20.1
+
 ## 1.20.0
 
 - Updated for FusionAuth version 1.20.0
