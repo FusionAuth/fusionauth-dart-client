@@ -12,3 +12,4 @@ doc/api/
 
 *.zip
 .idea
+**/.DS_Store
