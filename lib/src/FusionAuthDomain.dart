@@ -126,6 +126,12 @@ enum Algorithm {
   HS384,
   @JsonValue('HS512')
   HS512,
+  @JsonValue('PS256')
+  PS256,
+  @JsonValue('PS384')
+  PS384,
+  @JsonValue('PS512')
+  PS512,
   @JsonValue('RS256')
   RS256,
   @JsonValue('RS384')
@@ -4291,6 +4297,7 @@ class SAMLv2Configuration extends Enableable {
   String logoutURL;
   bool requireSignedRequests;
   CanonicalizationMethod xmlSignatureC14nMethod;
+  XMLSignatureLocation xmlSignatureLocation;
 
   SAMLv2Configuration({
       this.audience,
@@ -4302,7 +4309,8 @@ class SAMLv2Configuration extends Enableable {
       this.keyId,
       this.logoutURL,
       this.requireSignedRequests,
-      this.xmlSignatureC14nMethod
+      this.xmlSignatureC14nMethod,
+      this.xmlSignatureLocation
   });
 
   factory SAMLv2Configuration.fromJson(Map<String, dynamic> json) => _$SAMLv2ConfigurationFromJson(json);
@@ -6045,5 +6053,12 @@ class WebhookResponse {
 
   factory WebhookResponse.fromJson(Map<String, dynamic> json) => _$WebhookResponseFromJson(json);
   Map<String, dynamic> toJson() => _$WebhookResponseToJson(this);
+}
+
+enum XMLSignatureLocation {
+  @JsonValue('Assertion')
+  Assertion,
+  @JsonValue('Response')
+  Response
 }
 
