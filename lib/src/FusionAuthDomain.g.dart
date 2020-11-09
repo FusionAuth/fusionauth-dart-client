@@ -5975,6 +5975,8 @@ SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) {
     requireSignedRequests: json['requireSignedRequests'] as bool,
     xmlSignatureC14nMethod: _$enumDecodeNullable(
         _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
+    xmlSignatureLocation: _$enumDecodeNullable(
+        _$XMLSignatureLocationEnumMap, json['xmlSignatureLocation']),
   )..enabled = json['enabled'] as bool;
 }
 
@@ -5999,6 +6001,8 @@ Map<String, dynamic> _$SAMLv2ConfigurationToJson(SAMLv2Configuration instance) {
   writeNotNull('requireSignedRequests', instance.requireSignedRequests);
   writeNotNull('xmlSignatureC14nMethod',
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
+  writeNotNull('xmlSignatureLocation',
+      _$XMLSignatureLocationEnumMap[instance.xmlSignatureLocation]);
   return val;
 }
 
@@ -6007,6 +6011,11 @@ const _$CanonicalizationMethodEnumMap = {
   CanonicalizationMethod.exclusive_with_comments: 'exclusive_with_comments',
   CanonicalizationMethod.inclusive: 'inclusive',
   CanonicalizationMethod.inclusive_with_comments: 'inclusive_with_comments',
+};
+
+const _$XMLSignatureLocationEnumMap = {
+  XMLSignatureLocation.Assertion: 'Assertion',
+  XMLSignatureLocation.Response: 'Response',
 };
 
 SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
