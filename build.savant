@@ -83,7 +83,8 @@ target(name: "test", description: "Runs the tests", dependsOn: ["build"]) {
 }
 
 target(name: "publish", description: "Publish in NPM", dependsOn: ["clean", "int"]) {
-  if (new ProcessBuilder('pub', 'publish').inheritIO().start().waitFor() != 0) {
+  // Use --force so we do not see a prompt
+  if (new ProcessBuilder('pub', 'publish', '--force').inheritIO().start().waitFor() != 0) {
     fail("Failed to publish")
   }
 }
