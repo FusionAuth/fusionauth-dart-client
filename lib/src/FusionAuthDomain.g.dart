@@ -4710,6 +4710,92 @@ Map<String, dynamic> _$MemberResponseToJson(MemberResponse instance) {
   return val;
 }
 
+MessageTemplate _$MessageTemplateFromJson(Map<String, dynamic> json) {
+  return MessageTemplate(
+    defaultTemplate: json['defaultTemplate'] as String,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    localizedTemplates:
+        (json['localizedTemplates'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, e as String),
+    ),
+    name: json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$MessageTemplateToJson(MessageTemplate instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('defaultTemplate', instance.defaultTemplate);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('localizedTemplates', instance.localizedTemplates);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+MessageTemplateRequest _$MessageTemplateRequestFromJson(
+    Map<String, dynamic> json) {
+  return MessageTemplateRequest(
+    messageTemplate: json['messageTemplate'] == null
+        ? null
+        : MessageTemplate.fromJson(
+            json['messageTemplate'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$MessageTemplateRequestToJson(
+    MessageTemplateRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('messageTemplate', instance.messageTemplate);
+  return val;
+}
+
+MessageTemplateResponse _$MessageTemplateResponseFromJson(
+    Map<String, dynamic> json) {
+  return MessageTemplateResponse(
+    messageTemplate: json['messageTemplate'] == null
+        ? null
+        : MessageTemplate.fromJson(
+            json['messageTemplate'] as Map<String, dynamic>),
+    messageTemplates: (json['messageTemplates'] as List)
+        ?.map((e) => e == null
+            ? null
+            : MessageTemplate.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$MessageTemplateResponseToJson(
+    MessageTemplateResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('messageTemplate', instance.messageTemplate);
+  writeNotNull('messageTemplates', instance.messageTemplates);
+  return val;
+}
+
 MetaData _$MetaDataFromJson(Map<String, dynamic> json) {
   return MetaData(
     device: json['device'] == null

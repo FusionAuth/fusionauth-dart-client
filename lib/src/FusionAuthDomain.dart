@@ -3395,6 +3395,60 @@ class MemberResponse {
   Map<String, dynamic> toJson() => _$MemberResponseToJson(this);
 }
 
+/// Stores an message template used to distribute messages;
+///
+/// @author Michael Sleevi
+@JsonSerializable()
+class MessageTemplate {
+  String defaultTemplate;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  Map<String, String> localizedTemplates;
+  String name;
+
+  MessageTemplate({
+      this.defaultTemplate,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.localizedTemplates,
+      this.name
+  });
+
+  factory MessageTemplate.fromJson(Map<String, dynamic> json) => _$MessageTemplateFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageTemplateToJson(this);
+}
+
+/// A Message Template Request to the API
+///
+/// @author Michael Sleevi
+@JsonSerializable()
+class MessageTemplateRequest {
+  MessageTemplate messageTemplate;
+
+  MessageTemplateRequest({
+      this.messageTemplate
+  });
+
+  factory MessageTemplateRequest.fromJson(Map<String, dynamic> json) => _$MessageTemplateRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageTemplateRequestToJson(this);
+}
+
+@JsonSerializable()
+class MessageTemplateResponse {
+  MessageTemplate messageTemplate;
+  List<MessageTemplate> messageTemplates;
+
+  MessageTemplateResponse({
+      this.messageTemplate,
+      this.messageTemplates
+  });
+
+  factory MessageTemplateResponse.fromJson(Map<String, dynamic> json) => _$MessageTemplateResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageTemplateResponseToJson(this);
+}
+
 @JsonSerializable()
 class MetaData {
   DeviceInfo device;
