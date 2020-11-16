@@ -37,7 +37,7 @@ void main() async {
 pubspec.yaml:
 ```yaml
 dependencies:
-  fusionauth_dart_client: ^1.20.0
+  fusionauth_dart_client: ^1.21.0
 ```
 
 ## Features and bugs
