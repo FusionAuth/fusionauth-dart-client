@@ -4710,6 +4710,25 @@ Map<String, dynamic> _$MemberResponseToJson(MemberResponse instance) {
   return val;
 }
 
+Message _$MessageFromJson(Map<String, dynamic> json) {
+  return Message(
+    text: json['text'] as String,
+  );
+}
+
+Map<String, dynamic> _$MessageToJson(Message instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('text', instance.text);
+  return val;
+}
+
 MessageTemplate _$MessageTemplateFromJson(Map<String, dynamic> json) {
   return MessageTemplate(
     defaultTemplate: json['defaultTemplate'] as String,
@@ -5535,6 +5554,59 @@ Map<String, dynamic> _$PendingResponseToJson(PendingResponse instance) {
   }
 
   writeNotNull('users', instance.users);
+  return val;
+}
+
+PreviewMessageTemplateRequest _$PreviewMessageTemplateRequestFromJson(
+    Map<String, dynamic> json) {
+  return PreviewMessageTemplateRequest(
+    locale: json['locale'] as String,
+    messageTemplate: json['messageTemplate'] == null
+        ? null
+        : MessageTemplate.fromJson(
+            json['messageTemplate'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$PreviewMessageTemplateRequestToJson(
+    PreviewMessageTemplateRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('locale', instance.locale);
+  writeNotNull('messageTemplate', instance.messageTemplate);
+  return val;
+}
+
+PreviewMessageTemplateResponse _$PreviewMessageTemplateResponseFromJson(
+    Map<String, dynamic> json) {
+  return PreviewMessageTemplateResponse(
+    errors: json['errors'] == null
+        ? null
+        : Errors.fromJson(json['errors'] as Map<String, dynamic>),
+    message: json['message'] == null
+        ? null
+        : Message.fromJson(json['message'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$PreviewMessageTemplateResponseToJson(
+    PreviewMessageTemplateResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('errors', instance.errors);
+  writeNotNull('message', instance.message);
   return val;
 }
 

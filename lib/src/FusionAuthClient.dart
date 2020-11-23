@@ -2197,6 +2197,19 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Creates a preview of the message template provided in the request, normalized to a given locale.
+  ///
+  /// @param {PreviewMessageTemplateRequest} request The request that contains the email template and optionally a locale to render it in.
+  /// @returns {Promise<ClientResponse<PreviewMessageTemplateResponse>>}
+  Future<ClientResponse<PreviewMessageTemplateResponse, Errors>> retrieveMessageTemplatePreview(PreviewMessageTemplateRequest request) {
+    return _start<PreviewMessageTemplateResponse, Errors>()
+        .withUri('/api/message/template/preview')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => PreviewMessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves all of the message templates.
   ///
   /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}

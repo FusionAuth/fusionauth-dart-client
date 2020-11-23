@@ -3395,6 +3395,21 @@ class MemberResponse {
   Map<String, dynamic> toJson() => _$MemberResponseToJson(this);
 }
 
+/// An incredible simplified view of a message
+///
+/// @author Michael Sleevi
+@JsonSerializable()
+class Message {
+  String text;
+
+  Message({
+      this.text
+  });
+
+  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageToJson(this);
+}
+
 /// Stores an message template used to distribute messages;
 ///
 /// @author Michael Sleevi
@@ -3970,6 +3985,35 @@ class PendingResponse {
 
   factory PendingResponse.fromJson(Map<String, dynamic> json) => _$PendingResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PendingResponseToJson(this);
+}
+
+/// @author Michael Sleevi
+@JsonSerializable()
+class PreviewMessageTemplateRequest {
+  String locale;
+  MessageTemplate messageTemplate;
+
+  PreviewMessageTemplateRequest({
+      this.locale,
+      this.messageTemplate
+  });
+
+  factory PreviewMessageTemplateRequest.fromJson(Map<String, dynamic> json) => _$PreviewMessageTemplateRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$PreviewMessageTemplateRequestToJson(this);
+}
+
+@JsonSerializable()
+class PreviewMessageTemplateResponse {
+  Errors errors;
+  Message message;
+
+  PreviewMessageTemplateResponse({
+      this.errors,
+      this.message
+  });
+
+  factory PreviewMessageTemplateResponse.fromJson(Map<String, dynamic> json) => _$PreviewMessageTemplateResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$PreviewMessageTemplateResponseToJson(this);
 }
 
 /// @author Brian Pontarelli
