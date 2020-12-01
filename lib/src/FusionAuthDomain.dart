@@ -200,6 +200,7 @@ class Application {
   ApplicationRegistrationDeletePolicy registrationDeletePolicy;
   List<ApplicationRole> roles;
   SAMLv2Configuration samlv2Configuration;
+  ObjectState state;
   String tenantId;
   String verificationEmailTemplateId;
   bool verifyRegistration;
@@ -224,6 +225,7 @@ class Application {
       this.registrationDeletePolicy,
       this.roles,
       this.samlv2Configuration,
+      this.state,
       this.tenantId,
       this.verificationEmailTemplateId,
       this.verifyRegistration
