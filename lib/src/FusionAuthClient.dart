@@ -699,6 +699,20 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deletes the tenant for the given Id asynchronously.
+  /// This method is helpful if you do not want to wait for the delete operation to complete.
+  ///
+  /// @param {String} tenantId The Id of the tenant to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteTenantAsync(String tenantId) {
+    return _start<void, Errors>()
+        .withUri('/api/tenant')
+        .withUriSegment(tenantId)
+        .withParameter('async', true)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Deletes the theme for the given Id.
   ///
   /// @param {String} themeId The Id of the theme to delete.
