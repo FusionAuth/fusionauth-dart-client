@@ -17,6 +17,7 @@
 import 'dart:io';
 import 'FusionAuthRESTClient.dart';
 import 'FusionAuthDomain.dart';
+import 'dart:convert';
 
 typedef RESTClientFactory = FusionAuthRESTClient Function<ReturnType, ErrorReturnType>(String host, HttpClient httpClient);
 
@@ -1123,7 +1124,7 @@ class FusionAuthClient {
         .withUri('/oauth2/introspect')
         .withFormData(body)
         .withMethod('POST')
-        .withResponseHandler(defaultResponseHandlerBuilder((d) => Map<String, dynamic>.fromJson(d)))
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => jsonDecode(d)))
         .go();
   }
 
