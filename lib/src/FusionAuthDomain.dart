@@ -2508,7 +2508,9 @@ enum IdentityProviderType {
   @JsonValue('HYPR')
   HYPR,
   @JsonValue('Apple')
-  Apple
+  Apple,
+  @JsonValue('LinkedIn')
+  LinkedIn
 }
 
 /// Import request.
@@ -3055,7 +3057,9 @@ enum LambdaType {
   @JsonValue('TwitterReconcile')
   TwitterReconcile,
   @JsonValue('LDAPConnectorReconcile')
-  LDAPConnectorReconcile
+  LDAPConnectorReconcile,
+  @JsonValue('LinkedInReconcile')
+  LinkedInReconcile
 }
 
 /// Models an LDAP connector.
@@ -3100,6 +3104,44 @@ enum LDAPSecurityMethod {
   LDAPS,
   @JsonValue('StartTLS')
   StartTLS
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class LinkedInApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  LinkedInApplicationConfiguration({
+      this.buttonText,
+      this.client_id,
+      this.client_secret,
+      this.scope
+  });
+
+  factory LinkedInApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$LinkedInApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$LinkedInApplicationConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class LinkedInIdentityProvider extends BaseIdentityProvider<LinkedInApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  LinkedInIdentityProvider({
+      this.buttonText,
+      this.client_id,
+      this.client_secret,
+      this.scope
+  });
+
+  factory LinkedInIdentityProvider.fromJson(Map<String, dynamic> json) => _$LinkedInIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$LinkedInIdentityProviderToJson(this);
 }
 
 /// A historical state of a user log event. Since events can be modified, this stores the historical state.

@@ -263,6 +263,7 @@ const _$IdentityProviderTypeEnumMap = {
   IdentityProviderType.SAMLv2: 'SAMLv2',
   IdentityProviderType.HYPR: 'HYPR',
   IdentityProviderType.Apple: 'Apple',
+  IdentityProviderType.LinkedIn: 'LinkedIn',
 };
 
 Application _$ApplicationFromJson(Map<String, dynamic> json) {
@@ -4155,6 +4156,7 @@ const _$LambdaTypeEnumMap = {
   LambdaType.HYPRReconcile: 'HYPRReconcile',
   LambdaType.TwitterReconcile: 'TwitterReconcile',
   LambdaType.LDAPConnectorReconcile: 'LDAPConnectorReconcile',
+  LambdaType.LinkedInReconcile: 'LinkedInReconcile',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) {
@@ -4268,6 +4270,94 @@ const _$LDAPSecurityMethodEnumMap = {
   LDAPSecurityMethod.LDAPS: 'LDAPS',
   LDAPSecurityMethod.StartTLS: 'StartTLS',
 };
+
+LinkedInApplicationConfiguration _$LinkedInApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return LinkedInApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$LinkedInApplicationConfigurationToJson(
+    LinkedInApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
+LinkedInIdentityProvider _$LinkedInIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return LinkedInIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : LinkedInApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$LinkedInIdentityProviderToJson(
+    LinkedInIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
 
 LogHistory _$LogHistoryFromJson(Map<String, dynamic> json) {
   return LogHistory(
