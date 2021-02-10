@@ -5021,6 +5021,7 @@ const _$OAuthErrorTypeEnumMap = {
   OAuthErrorType.two_factor_required: 'two_factor_required',
   OAuthErrorType.authorization_pending: 'authorization_pending',
   OAuthErrorType.expired_token: 'expired_token',
+  OAuthErrorType.unsupported_token_type: 'unsupported_token_type',
 };
 
 const _$OAuthErrorReasonEnumMap = {
@@ -5032,6 +5033,8 @@ const _$OAuthErrorReasonEnumMap = {
   OAuthErrorReason.access_token_failed_processing:
       'access_token_failed_processing',
   OAuthErrorReason.refresh_token_not_found: 'refresh_token_not_found',
+  OAuthErrorReason.refresh_token_type_not_supported:
+      'refresh_token_type_not_supported',
   OAuthErrorReason.invalid_client_id: 'invalid_client_id',
   OAuthErrorReason.invalid_user_credentials: 'invalid_user_credentials',
   OAuthErrorReason.invalid_grant_type: 'invalid_grant_type',
@@ -8469,6 +8472,7 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) {
 
 UserSearchCriteria _$UserSearchCriteriaFromJson(Map<String, dynamic> json) {
   return UserSearchCriteria(
+    accurateTotal: json['accurateTotal'] as bool,
     ids: (json['ids'] as List)?.map((e) => e as String)?.toList(),
     query: json['query'] as String,
     queryString: json['queryString'] as String,
@@ -8494,6 +8498,7 @@ Map<String, dynamic> _$UserSearchCriteriaToJson(UserSearchCriteria instance) {
   writeNotNull('numberOfResults', instance.numberOfResults);
   writeNotNull('orderBy', instance.orderBy);
   writeNotNull('startRow', instance.startRow);
+  writeNotNull('accurateTotal', instance.accurateTotal);
   writeNotNull('ids', instance.ids);
   writeNotNull('query', instance.query);
   writeNotNull('queryString', instance.queryString);
