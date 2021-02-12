@@ -2817,6 +2817,25 @@ class JWTRefreshEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$JWTRefreshEventToJson(this);
 }
 
+/// API response for refreshing a JWT with a Refresh Token.
+/// <p>
+/// Using a different response object from RefreshTokenResponse because the retrieve response will return an object for refreshToken, and this is a string.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class JWTRefreshResponse {
+  String refreshToken;
+  String token;
+
+  JWTRefreshResponse({
+      this.refreshToken,
+      this.token
+  });
+
+  factory JWTRefreshResponse.fromJson(Map<String, dynamic> json) => _$JWTRefreshResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$JWTRefreshResponseToJson(this);
+}
+
 /// Models the Refresh Token Revoke Event (and can be converted to JSON). This event might be for a single token, a user
 /// or an entire application.
 ///
@@ -4077,15 +4096,8 @@ class RefreshRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class RefreshResponse {
-  String refreshToken;
-  List<RefreshToken> refreshTokens;
-  String token;
 
-  RefreshResponse({
-      this.refreshToken,
-      this.refreshTokens,
-      this.token
-  });
+  RefreshResponse();
 
   factory RefreshResponse.fromJson(Map<String, dynamic> json) => _$RefreshResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshResponseToJson(this);
@@ -4143,6 +4155,23 @@ class RefreshTokenImportRequest {
 
   factory RefreshTokenImportRequest.fromJson(Map<String, dynamic> json) => _$RefreshTokenImportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenImportRequestToJson(this);
+}
+
+/// API response for retrieving Refresh Tokens
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class RefreshTokenResponse {
+  RefreshToken refreshToken;
+  List<RefreshToken> refreshTokens;
+
+  RefreshTokenResponse({
+      this.refreshToken,
+      this.refreshTokens
+  });
+
+  factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) => _$RefreshTokenResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$RefreshTokenResponseToJson(this);
 }
 
 /// @author Daniel DeGroff

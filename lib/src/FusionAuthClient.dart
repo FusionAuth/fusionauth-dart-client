@@ -917,13 +917,13 @@ class FusionAuthClient {
   /// Exchange a refresh token for a new JWT.
   ///
   /// @param {RefreshRequest} request The refresh request.
-  /// @returns {Promise<ClientResponse<RefreshResponse>>}
-  Future<ClientResponse<RefreshResponse, Errors>> exchangeRefreshTokenForJWT(RefreshRequest request) {
-    return _startAnonymous<RefreshResponse, Errors>()
+  /// @returns {Promise<ClientResponse<JWTRefreshResponse>>}
+  Future<ClientResponse<JWTRefreshResponse, Errors>> exchangeRefreshTokenForJWT(RefreshRequest request) {
+    return _startAnonymous<JWTRefreshResponse, Errors>()
         .withUri('/api/jwt/refresh')
         .withJSONBody(request)
         .withMethod('POST')
-        .withResponseHandler(defaultResponseHandlerBuilder((d) => RefreshResponse.fromJson(d)))
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => JWTRefreshResponse.fromJson(d)))
         .go();
   }
 
@@ -2256,16 +2256,29 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves a single refresh token by unique Id. This is not the same thing as the string value of the refresh token, if you have that, you already have what you need..
+  ///
+  /// @param {String} userId The Id of the user.
+  /// @returns {Promise<ClientResponse<RefreshTokenResponse>>}
+  Future<ClientResponse<RefreshTokenResponse, Errors>> retrieveRefreshTokenById(String userId) {
+    return _start<RefreshTokenResponse, Errors>()
+        .withUri('/api/jwt/refresh')
+        .withUriSegment(userId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => RefreshTokenResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves the refresh tokens that belong to the user with the given Id.
   ///
   /// @param {String} userId The Id of the user.
-  /// @returns {Promise<ClientResponse<RefreshResponse>>}
-  Future<ClientResponse<RefreshResponse, Errors>> retrieveRefreshTokens(String userId) {
-    return _start<RefreshResponse, Errors>()
+  /// @returns {Promise<ClientResponse<RefreshTokenResponse>>}
+  Future<ClientResponse<RefreshTokenResponse, Errors>> retrieveRefreshTokens(String userId) {
+    return _start<RefreshTokenResponse, Errors>()
         .withUri('/api/jwt/refresh')
         .withParameter('userId', userId)
         .withMethod('GET')
-        .withResponseHandler(defaultResponseHandlerBuilder((d) => RefreshResponse.fromJson(d)))
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => RefreshTokenResponse.fromJson(d)))
         .go();
   }
 
