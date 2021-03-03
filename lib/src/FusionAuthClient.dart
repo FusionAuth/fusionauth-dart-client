@@ -1957,12 +1957,27 @@ class FusionAuthClient {
 
   /// Retrieves the identity provider for the given id or all of the identity providers if the id is null.
   ///
-  /// @param {String} identityProviderId (Optional) The identity provider id.
+  /// @param {String} identityProviderId The identity provider Id.
   /// @returns {Promise<ClientResponse<IdentityProviderResponse>>}
-  Future<ClientResponse<IdentityProviderResponse, void>> retrieveIdentityProvider(String identityProviderId) {
-    return _start<IdentityProviderResponse, void>()
+  Future<ClientResponse<IdentityProviderResponse, Errors>> retrieveIdentityProvider(String identityProviderId) {
+    return _start<IdentityProviderResponse, Errors>()
         .withUri('/api/identity-provider')
         .withUriSegment(identityProviderId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => IdentityProviderResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves one or more identity provider for the given type. For types such as Google, Facebook, Twitter and LinkedIn, only a single 
+  /// identity provider can exist. For types such as OpenID Connect and SAMLv2 more than one identity provider can be configured so this request 
+  /// may return multiple identity providers.
+  ///
+  /// @param {IdentityProviderType} type The type of the identity provider.
+  /// @returns {Promise<ClientResponse<IdentityProviderResponse>>}
+  Future<ClientResponse<IdentityProviderResponse, Errors>> retrieveIdentityProviderByType(IdentityProviderType type) {
+    return _start<IdentityProviderResponse, Errors>()
+        .withUri('/api/identity-provider')
+        .withParameter('type', type)
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder((d) => IdentityProviderResponse.fromJson(d)))
         .go();

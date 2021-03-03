@@ -3521,6 +3521,7 @@ class OAuth2Configuration {
   List<String> authorizedRedirectURLs;
   String clientId;
   String clientSecret;
+  bool debug;
   String deviceVerificationURL;
   Set<GrantType> enabledGrants;
   bool generateRefreshTokens;
@@ -3533,6 +3534,7 @@ class OAuth2Configuration {
       this.authorizedRedirectURLs,
       this.clientId,
       this.clientSecret,
+      this.debug,
       this.deviceVerificationURL,
       this.enabledGrants,
       this.generateRefreshTokens,

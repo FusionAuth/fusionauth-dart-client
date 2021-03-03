@@ -3939,6 +3939,27 @@ Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) {
   return val;
 }
 
+JWTRefreshResponse _$JWTRefreshResponseFromJson(Map<String, dynamic> json) {
+  return JWTRefreshResponse(
+    refreshToken: json['refreshToken'] as String,
+    token: json['token'] as String,
+  );
+}
+
+Map<String, dynamic> _$JWTRefreshResponseToJson(JWTRefreshResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('refreshToken', instance.refreshToken);
+  writeNotNull('token', instance.token);
+  return val;
+}
+
 JWTRefreshTokenRevokeEvent _$JWTRefreshTokenRevokeEventFromJson(
     Map<String, dynamic> json) {
   return JWTRefreshTokenRevokeEvent(
@@ -4894,6 +4915,7 @@ OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) {
         ?.toList(),
     clientId: json['clientId'] as String,
     clientSecret: json['clientSecret'] as String,
+    debug: json['debug'] as bool,
     deviceVerificationURL: json['deviceVerificationURL'] as String,
     enabledGrants: (json['enabledGrants'] as List)
         ?.map((e) => _$enumDecodeNullable(_$GrantTypeEnumMap, e))
@@ -4919,6 +4941,7 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(OAuth2Configuration instance) {
   writeNotNull('authorizedRedirectURLs', instance.authorizedRedirectURLs);
   writeNotNull('clientId', instance.clientId);
   writeNotNull('clientSecret', instance.clientSecret);
+  writeNotNull('debug', instance.debug);
   writeNotNull('deviceVerificationURL', instance.deviceVerificationURL);
   writeNotNull('enabledGrants',
       instance.enabledGrants?.map((e) => _$GrantTypeEnumMap[e])?.toList());
@@ -5694,30 +5717,11 @@ Map<String, dynamic> _$RefreshRequestToJson(RefreshRequest instance) {
 }
 
 RefreshResponse _$RefreshResponseFromJson(Map<String, dynamic> json) {
-  return RefreshResponse(
-    refreshToken: json['refreshToken'] as String,
-    refreshTokens: (json['refreshTokens'] as List)
-        ?.map((e) =>
-            e == null ? null : RefreshToken.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    token: json['token'] as String,
-  );
+  return RefreshResponse();
 }
 
-Map<String, dynamic> _$RefreshResponseToJson(RefreshResponse instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('refreshToken', instance.refreshToken);
-  writeNotNull('refreshTokens', instance.refreshTokens);
-  writeNotNull('token', instance.token);
-  return val;
-}
+Map<String, dynamic> _$RefreshResponseToJson(RefreshResponse instance) =>
+    <String, dynamic>{};
 
 RefreshToken _$RefreshTokenFromJson(Map<String, dynamic> json) {
   return RefreshToken(
@@ -5777,6 +5781,33 @@ Map<String, dynamic> _$RefreshTokenImportRequestToJson(
 
   writeNotNull('refreshTokens', instance.refreshTokens);
   writeNotNull('validateDbConstraints', instance.validateDbConstraints);
+  return val;
+}
+
+RefreshTokenResponse _$RefreshTokenResponseFromJson(Map<String, dynamic> json) {
+  return RefreshTokenResponse(
+    refreshToken: json['refreshToken'] == null
+        ? null
+        : RefreshToken.fromJson(json['refreshToken'] as Map<String, dynamic>),
+    refreshTokens: (json['refreshTokens'] as List)
+        ?.map((e) =>
+            e == null ? null : RefreshToken.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$RefreshTokenResponseToJson(
+    RefreshTokenResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('refreshToken', instance.refreshToken);
+  writeNotNull('refreshTokens', instance.refreshTokens);
   return val;
 }
 
