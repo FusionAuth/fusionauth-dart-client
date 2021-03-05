@@ -1285,6 +1285,7 @@ CORSConfiguration _$CORSConfigurationFromJson(Map<String, dynamic> json) {
         ?.toList(),
     allowedOrigins:
         (json['allowedOrigins'] as List)?.map((e) => e as String)?.toList(),
+    debug: json['debug'] as bool,
     exposedHeaders:
         (json['exposedHeaders'] as List)?.map((e) => e as String)?.toList(),
     preflightMaxAgeInSeconds: json['preflightMaxAgeInSeconds'] as num,
@@ -1306,6 +1307,7 @@ Map<String, dynamic> _$CORSConfigurationToJson(CORSConfiguration instance) {
   writeNotNull('allowedMethods',
       instance.allowedMethods?.map((e) => _$HTTPMethodEnumMap[e])?.toList());
   writeNotNull('allowedOrigins', instance.allowedOrigins);
+  writeNotNull('debug', instance.debug);
   writeNotNull('exposedHeaders', instance.exposedHeaders);
   writeNotNull('preflightMaxAgeInSeconds', instance.preflightMaxAgeInSeconds);
   return val;
@@ -6226,6 +6228,8 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
 
 SAMLv2Logout _$SAMLv2LogoutFromJson(Map<String, dynamic> json) {
   return SAMLv2Logout(
+    behavior:
+        _$enumDecodeNullable(_$SAMLLogoutBehaviorEnumMap, json['behavior']),
     defaultVerificationKeyId: json['defaultVerificationKeyId'] as String,
     keyId: json['keyId'] as String,
     requireSignedRequests: json['requireSignedRequests'] as bool,
@@ -6247,6 +6251,7 @@ Map<String, dynamic> _$SAMLv2LogoutToJson(SAMLv2Logout instance) {
     }
   }
 
+  writeNotNull('behavior', _$SAMLLogoutBehaviorEnumMap[instance.behavior]);
   writeNotNull('defaultVerificationKeyId', instance.defaultVerificationKeyId);
   writeNotNull('keyId', instance.keyId);
   writeNotNull('requireSignedRequests', instance.requireSignedRequests);
@@ -6256,10 +6261,14 @@ Map<String, dynamic> _$SAMLv2LogoutToJson(SAMLv2Logout instance) {
   return val;
 }
 
+const _$SAMLLogoutBehaviorEnumMap = {
+  SAMLLogoutBehavior.AllParticipants: 'AllParticipants',
+  SAMLLogoutBehavior.OnlyOriginator: 'OnlyOriginator',
+};
+
 SAMLv2SingleLogout _$SAMLv2SingleLogoutFromJson(Map<String, dynamic> json) {
   return SAMLv2SingleLogout(
     keyId: json['keyId'] as String,
-    signLogoutRequest: json['signLogoutRequest'] as bool,
     url: json['url'] as String,
     xmlSignatureC14nMethod: _$enumDecodeNullable(
         _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
@@ -6277,7 +6286,6 @@ Map<String, dynamic> _$SAMLv2SingleLogoutToJson(SAMLv2SingleLogout instance) {
 
   writeNotNull('enabled', instance.enabled);
   writeNotNull('keyId', instance.keyId);
-  writeNotNull('signLogoutRequest', instance.signLogoutRequest);
   writeNotNull('url', instance.url);
   writeNotNull('xmlSignatureC14nMethod',
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
