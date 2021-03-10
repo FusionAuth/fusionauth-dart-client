@@ -2987,6 +2987,8 @@ GoogleApplicationConfiguration _$GoogleApplicationConfigurationFromJson(
     buttonText: json['buttonText'] as String,
     client_id: json['client_id'] as String,
     client_secret: json['client_secret'] as String,
+    login_method:
+        _$enumDecodeNullable(_$LoginMethodEnumMap, json['login_method']),
     scope: json['scope'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3010,9 +3012,15 @@ Map<String, dynamic> _$GoogleApplicationConfigurationToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('login_method', _$LoginMethodEnumMap[instance.login_method]);
   writeNotNull('scope', instance.scope);
   return val;
 }
+
+const _$LoginMethodEnumMap = {
+  LoginMethod.UsePopup: 'UsePopup',
+  LoginMethod.UseRedirect: 'UseRedirect',
+};
 
 GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     Map<String, dynamic> json) {
@@ -3020,6 +3028,8 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     buttonText: json['buttonText'] as String,
     client_id: json['client_id'] as String,
     client_secret: json['client_secret'] as String,
+    login_method:
+        _$enumDecodeNullable(_$LoginMethodEnumMap, json['login_method']),
     scope: json['scope'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3065,6 +3075,7 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('login_method', _$LoginMethodEnumMap[instance.login_method]);
   writeNotNull('scope', instance.scope);
   return val;
 }

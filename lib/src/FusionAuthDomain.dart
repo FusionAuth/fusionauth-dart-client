@@ -2154,12 +2154,14 @@ class GoogleApplicationConfiguration extends BaseIdentityProviderApplicationConf
   String buttonText;
   String client_id;
   String client_secret;
+  LoginMethod login_method;
   String scope;
 
   GoogleApplicationConfiguration({
       this.buttonText,
       this.client_id,
       this.client_secret,
+      this.login_method,
       this.scope
   });
 
@@ -2175,12 +2177,14 @@ class GoogleIdentityProvider extends BaseIdentityProvider<GoogleApplicationConfi
   String buttonText;
   String client_id;
   String client_secret;
+  LoginMethod login_method;
   String scope;
 
   GoogleIdentityProvider({
       this.buttonText,
       this.client_id,
       this.client_secret,
+      this.login_method,
       this.scope
   });
 
@@ -3199,6 +3203,14 @@ enum LoginIdType {
   email,
   @JsonValue('username')
   username
+}
+
+/// @author Brett Pontarelli
+enum LoginMethod {
+  @JsonValue('UsePopup')
+  UsePopup,
+  @JsonValue('UseRedirect')
+  UseRedirect
 }
 
 /// The summary of the action that is preventing login to be returned on the login response.
