@@ -970,6 +970,7 @@ class CORSConfiguration extends Enableable {
   List<String> allowedHeaders;
   List<HTTPMethod> allowedMethods;
   List<String> allowedOrigins;
+  bool debug;
   List<String> exposedHeaders;
   num preflightMaxAgeInSeconds;
 
@@ -978,6 +979,7 @@ class CORSConfiguration extends Enableable {
       this.allowedHeaders,
       this.allowedMethods,
       this.allowedOrigins,
+      this.debug,
       this.exposedHeaders,
       this.preflightMaxAgeInSeconds
   });
@@ -4365,6 +4367,13 @@ class RequiresCORSConfiguration {
   Map<String, dynamic> toJson() => _$RequiresCORSConfigurationToJson(this);
 }
 
+enum SAMLLogoutBehavior {
+  @JsonValue('AllParticipants')
+  AllParticipants,
+  @JsonValue('OnlyOriginator')
+  OnlyOriginator
+}
+
 /// @author Brian Pontarelli
 @JsonSerializable()
 class SAMLv2ApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
@@ -4389,6 +4398,7 @@ class SAMLv2Configuration extends Enableable {
   String defaultVerificationKeyId;
   String issuer;
   String keyId;
+  SAMLv2Logout logout;
   String logoutURL;
   bool requireSignedRequests;
   CanonicalizationMethod xmlSignatureC14nMethod;
@@ -4402,6 +4412,7 @@ class SAMLv2Configuration extends Enableable {
       this.defaultVerificationKeyId,
       this.issuer,
       this.keyId,
+      this.logout,
       this.logoutURL,
       this.requireSignedRequests,
       this.xmlSignatureC14nMethod,
@@ -4447,6 +4458,44 @@ class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfi
 
   factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) => _$SAMLv2IdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2IdentityProviderToJson(this);
+}
+
+@JsonSerializable()
+class SAMLv2Logout {
+  SAMLLogoutBehavior behavior;
+  String defaultVerificationKeyId;
+  String keyId;
+  bool requireSignedRequests;
+  SAMLv2SingleLogout singleLogout;
+  CanonicalizationMethod xmlSignatureC14nMethod;
+
+  SAMLv2Logout({
+      this.behavior,
+      this.defaultVerificationKeyId,
+      this.keyId,
+      this.requireSignedRequests,
+      this.singleLogout,
+      this.xmlSignatureC14nMethod
+  });
+
+  factory SAMLv2Logout.fromJson(Map<String, dynamic> json) => _$SAMLv2LogoutFromJson(json);
+  Map<String, dynamic> toJson() => _$SAMLv2LogoutToJson(this);
+}
+
+@JsonSerializable()
+class SAMLv2SingleLogout extends Enableable {
+  String keyId;
+  String url;
+  CanonicalizationMethod xmlSignatureC14nMethod;
+
+  SAMLv2SingleLogout({
+      this.keyId,
+      this.url,
+      this.xmlSignatureC14nMethod
+  });
+
+  factory SAMLv2SingleLogout.fromJson(Map<String, dynamic> json) => _$SAMLv2SingleLogoutFromJson(json);
+  Map<String, dynamic> toJson() => _$SAMLv2SingleLogoutToJson(this);
 }
 
 /// Search API request.
@@ -4736,6 +4785,7 @@ class Templates {
   String registrationComplete;
   String registrationSend;
   String registrationVerify;
+  String samlv2Logout;
 
   Templates({
       this.emailComplete,
@@ -4760,7 +4810,8 @@ class Templates {
       this.passwordSent,
       this.registrationComplete,
       this.registrationSend,
-      this.registrationVerify
+      this.registrationVerify,
+      this.samlv2Logout
   });
 
   factory Templates.fromJson(Map<String, dynamic> json) => _$TemplatesFromJson(json);

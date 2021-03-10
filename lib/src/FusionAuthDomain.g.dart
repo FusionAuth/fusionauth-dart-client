@@ -1285,6 +1285,7 @@ CORSConfiguration _$CORSConfigurationFromJson(Map<String, dynamic> json) {
         ?.toList(),
     allowedOrigins:
         (json['allowedOrigins'] as List)?.map((e) => e as String)?.toList(),
+    debug: json['debug'] as bool,
     exposedHeaders:
         (json['exposedHeaders'] as List)?.map((e) => e as String)?.toList(),
     preflightMaxAgeInSeconds: json['preflightMaxAgeInSeconds'] as num,
@@ -1306,6 +1307,7 @@ Map<String, dynamic> _$CORSConfigurationToJson(CORSConfiguration instance) {
   writeNotNull('allowedMethods',
       instance.allowedMethods?.map((e) => _$HTTPMethodEnumMap[e])?.toList());
   writeNotNull('allowedOrigins', instance.allowedOrigins);
+  writeNotNull('debug', instance.debug);
   writeNotNull('exposedHeaders', instance.exposedHeaders);
   writeNotNull('preflightMaxAgeInSeconds', instance.preflightMaxAgeInSeconds);
   return val;
@@ -6111,6 +6113,9 @@ SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) {
     defaultVerificationKeyId: json['defaultVerificationKeyId'] as String,
     issuer: json['issuer'] as String,
     keyId: json['keyId'] as String,
+    logout: json['logout'] == null
+        ? null
+        : SAMLv2Logout.fromJson(json['logout'] as Map<String, dynamic>),
     logoutURL: json['logoutURL'] as String,
     requireSignedRequests: json['requireSignedRequests'] as bool,
     xmlSignatureC14nMethod: _$enumDecodeNullable(
@@ -6137,6 +6142,7 @@ Map<String, dynamic> _$SAMLv2ConfigurationToJson(SAMLv2Configuration instance) {
   writeNotNull('defaultVerificationKeyId', instance.defaultVerificationKeyId);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('keyId', instance.keyId);
+  writeNotNull('logout', instance.logout);
   writeNotNull('logoutURL', instance.logoutURL);
   writeNotNull('requireSignedRequests', instance.requireSignedRequests);
   writeNotNull('xmlSignatureC14nMethod',
@@ -6226,6 +6232,72 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('requestSigningKeyId', instance.requestSigningKeyId);
   writeNotNull('signRequest', instance.signRequest);
   writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
+  writeNotNull('xmlSignatureC14nMethod',
+      _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
+  return val;
+}
+
+SAMLv2Logout _$SAMLv2LogoutFromJson(Map<String, dynamic> json) {
+  return SAMLv2Logout(
+    behavior:
+        _$enumDecodeNullable(_$SAMLLogoutBehaviorEnumMap, json['behavior']),
+    defaultVerificationKeyId: json['defaultVerificationKeyId'] as String,
+    keyId: json['keyId'] as String,
+    requireSignedRequests: json['requireSignedRequests'] as bool,
+    singleLogout: json['singleLogout'] == null
+        ? null
+        : SAMLv2SingleLogout.fromJson(
+            json['singleLogout'] as Map<String, dynamic>),
+    xmlSignatureC14nMethod: _$enumDecodeNullable(
+        _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
+  );
+}
+
+Map<String, dynamic> _$SAMLv2LogoutToJson(SAMLv2Logout instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('behavior', _$SAMLLogoutBehaviorEnumMap[instance.behavior]);
+  writeNotNull('defaultVerificationKeyId', instance.defaultVerificationKeyId);
+  writeNotNull('keyId', instance.keyId);
+  writeNotNull('requireSignedRequests', instance.requireSignedRequests);
+  writeNotNull('singleLogout', instance.singleLogout);
+  writeNotNull('xmlSignatureC14nMethod',
+      _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
+  return val;
+}
+
+const _$SAMLLogoutBehaviorEnumMap = {
+  SAMLLogoutBehavior.AllParticipants: 'AllParticipants',
+  SAMLLogoutBehavior.OnlyOriginator: 'OnlyOriginator',
+};
+
+SAMLv2SingleLogout _$SAMLv2SingleLogoutFromJson(Map<String, dynamic> json) {
+  return SAMLv2SingleLogout(
+    keyId: json['keyId'] as String,
+    url: json['url'] as String,
+    xmlSignatureC14nMethod: _$enumDecodeNullable(
+        _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$SAMLv2SingleLogoutToJson(SAMLv2SingleLogout instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('keyId', instance.keyId);
+  writeNotNull('url', instance.url);
   writeNotNull('xmlSignatureC14nMethod',
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
   return val;
@@ -6647,6 +6719,7 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     registrationComplete: json['registrationComplete'] as String,
     registrationSend: json['registrationSend'] as String,
     registrationVerify: json['registrationVerify'] as String,
+    samlv2Logout: json['samlv2Logout'] as String,
   );
 }
 
@@ -6685,6 +6758,7 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('registrationComplete', instance.registrationComplete);
   writeNotNull('registrationSend', instance.registrationSend);
   writeNotNull('registrationVerify', instance.registrationVerify);
+  writeNotNull('samlv2Logout', instance.samlv2Logout);
   return val;
 }
 
