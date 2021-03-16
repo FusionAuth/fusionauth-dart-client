@@ -2156,14 +2156,14 @@ class GoogleApplicationConfiguration extends BaseIdentityProviderApplicationConf
   String buttonText;
   String client_id;
   String client_secret;
-  LoginMethod login_method;
+  LoginMethod loginMethod;
   String scope;
 
   GoogleApplicationConfiguration({
       this.buttonText,
       this.client_id,
       this.client_secret,
-      this.login_method,
+      this.loginMethod,
       this.scope
   });
 
@@ -2179,14 +2179,14 @@ class GoogleIdentityProvider extends BaseIdentityProvider<GoogleApplicationConfi
   String buttonText;
   String client_id;
   String client_secret;
-  LoginMethod login_method;
+  LoginMethod loginMethod;
   String scope;
 
   GoogleIdentityProvider({
       this.buttonText,
       this.client_id,
       this.client_secret,
-      this.login_method,
+      this.loginMethod,
       this.scope
   });
 
