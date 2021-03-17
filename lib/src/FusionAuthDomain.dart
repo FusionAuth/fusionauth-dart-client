@@ -1670,6 +1670,7 @@ class FacebookApplicationConfiguration extends BaseIdentityProviderApplicationCo
   String buttonText;
   String client_secret;
   String fields;
+  LoginMethod loginMethod;
   String permissions;
 
   FacebookApplicationConfiguration({
@@ -1677,6 +1678,7 @@ class FacebookApplicationConfiguration extends BaseIdentityProviderApplicationCo
       this.buttonText,
       this.client_secret,
       this.fields,
+      this.loginMethod,
       this.permissions
   });
 
@@ -1693,6 +1695,7 @@ class FacebookIdentityProvider extends BaseIdentityProvider<FacebookApplicationC
   String buttonText;
   String client_secret;
   String fields;
+  LoginMethod loginMethod;
   String permissions;
 
   FacebookIdentityProvider({
@@ -1700,6 +1703,7 @@ class FacebookIdentityProvider extends BaseIdentityProvider<FacebookApplicationC
       this.buttonText,
       this.client_secret,
       this.fields,
+      this.loginMethod,
       this.permissions
   });
 

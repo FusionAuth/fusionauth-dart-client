@@ -2305,6 +2305,8 @@ FacebookApplicationConfiguration _$FacebookApplicationConfigurationFromJson(
     buttonText: json['buttonText'] as String,
     client_secret: json['client_secret'] as String,
     fields: json['fields'] as String,
+    loginMethod:
+        _$enumDecodeNullable(_$LoginMethodEnumMap, json['loginMethod']),
     permissions: json['permissions'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -2329,9 +2331,15 @@ Map<String, dynamic> _$FacebookApplicationConfigurationToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('fields', instance.fields);
+  writeNotNull('loginMethod', _$LoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('permissions', instance.permissions);
   return val;
 }
+
+const _$LoginMethodEnumMap = {
+  LoginMethod.UsePopup: 'UsePopup',
+  LoginMethod.UseRedirect: 'UseRedirect',
+};
 
 FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     Map<String, dynamic> json) {
@@ -2340,6 +2348,8 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     buttonText: json['buttonText'] as String,
     client_secret: json['client_secret'] as String,
     fields: json['fields'] as String,
+    loginMethod:
+        _$enumDecodeNullable(_$LoginMethodEnumMap, json['loginMethod']),
     permissions: json['permissions'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -2386,6 +2396,7 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('fields', instance.fields);
+  writeNotNull('loginMethod', _$LoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('permissions', instance.permissions);
   return val;
 }
@@ -3018,11 +3029,6 @@ Map<String, dynamic> _$GoogleApplicationConfigurationToJson(
   writeNotNull('scope', instance.scope);
   return val;
 }
-
-const _$LoginMethodEnumMap = {
-  LoginMethod.UsePopup: 'UsePopup',
-  LoginMethod.UseRedirect: 'UseRedirect',
-};
 
 GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     Map<String, dynamic> json) {
