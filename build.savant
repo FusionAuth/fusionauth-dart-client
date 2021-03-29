@@ -53,7 +53,6 @@ target(name: "format", description: "Formats the source code") {
   process.waitFor()
 }
 
-
 target(name: "setup", description: "Setup Dart build tools") {
   if (new ProcessBuilder('brew', 'tap', 'dart-lang/dart').inheritIO().start().waitFor() != 0) {
     fail('Failed to brew tap dart-lang/dart')
