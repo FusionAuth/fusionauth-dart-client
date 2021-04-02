@@ -513,6 +513,27 @@ class BaseConnectorConfiguration {
   Map<String, dynamic> toJson() => _$BaseConnectorConfigurationToJson(this);
 }
 
+/// @author Brian Pontarelli
+@JsonSerializable()
+class BaseElasticSearchCriteria extends BaseSearchCriteria {
+  bool accurateTotal;
+  List<String> ids;
+  String query;
+  String queryString;
+  List<SortField> sortFields;
+
+  BaseElasticSearchCriteria(
+      {this.accurateTotal,
+      this.ids,
+      this.query,
+      this.queryString,
+      this.sortFields});
+
+  factory BaseElasticSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$BaseElasticSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseElasticSearchCriteriaToJson(this);
+}
+
 /// Base-class for all FusionAuth events.
 ///
 /// @author Brian Pontarelli
@@ -642,6 +663,29 @@ enum BreachedPasswordStatus {
   PasswordOnly,
   @JsonValue('CommonPassword')
   CommonPassword
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class BreachedPasswordTenantMetric {
+  num actionRequired;
+  num matchedCommonPasswordCount;
+  num matchedExactCount;
+  num matchedPasswordCount;
+  num matchedSubAddressCount;
+  num passwordsCheckedCount;
+
+  BreachedPasswordTenantMetric(
+      {this.actionRequired,
+      this.matchedCommonPasswordCount,
+      this.matchedExactCount,
+      this.matchedPasswordCount,
+      this.matchedSubAddressCount,
+      this.passwordsCheckedCount});
+
+  factory BreachedPasswordTenantMetric.fromJson(Map<String, dynamic> json) =>
+      _$BreachedPasswordTenantMetricFromJson(json);
+  Map<String, dynamic> toJson() => _$BreachedPasswordTenantMetricToJson(this);
 }
 
 enum BreachMatchMode {
@@ -1261,6 +1305,293 @@ class Enableable {
   factory Enableable.fromJson(Map<String, dynamic> json) =>
       _$EnableableFromJson(json);
   Map<String, dynamic> toJson() => _$EnableableToJson(this);
+}
+
+/// Models an entity that a user can be granted permissions to. Or an entity that can be granted permissions to another entity.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class Entity {
+  String clientId;
+  String clientSecret;
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+  String parentId;
+  String tenantId;
+  EntityType type;
+
+  Entity(
+      {this.clientId,
+      this.clientSecret,
+      this.data,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name,
+      this.parentId,
+      this.tenantId,
+      this.type});
+
+  factory Entity.fromJson(Map<String, dynamic> json) => _$EntityFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityToJson(this);
+}
+
+/// A grant for an entity to a user or another entity.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrant {
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  Set<String> permissions;
+  String recipientEntityId;
+  String userId;
+
+  EntityGrant(
+      {this.data,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.permissions,
+      this.recipientEntityId,
+      this.userId});
+
+  factory EntityGrant.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantToJson(this);
+}
+
+/// Entity grant API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantRequest {
+  EntityGrant grant;
+
+  EntityGrantRequest({this.grant});
+
+  factory EntityGrantRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantRequestToJson(this);
+}
+
+/// Entity grant API response object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantResponse {
+  EntityGrant grant;
+  List<EntityGrant> grants;
+
+  EntityGrantResponse({this.grant, this.grants});
+
+  factory EntityGrantResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantResponseToJson(this);
+}
+
+/// Entity API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityRequest {
+  Entity entity;
+
+  EntityRequest({this.entity});
+
+  factory EntityRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityRequestToJson(this);
+}
+
+/// Entity API response object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityResponse {
+  Entity entity;
+
+  EntityResponse({this.entity});
+
+  factory EntityResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityResponseToJson(this);
+}
+
+/// This class is the entity query. It provides a build pattern as well as public fields for use on forms and in actions.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntitySearchCriteria extends BaseElasticSearchCriteria {
+  String tenantId;
+
+  EntitySearchCriteria({this.tenantId});
+
+  factory EntitySearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EntitySearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EntitySearchCriteriaToJson(this);
+}
+
+/// Search request for entities
+///
+/// @author Brett Guy
+@JsonSerializable()
+class EntitySearchRequest {
+  EntitySearchCriteria search;
+
+  EntitySearchRequest({this.search});
+
+  factory EntitySearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntitySearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntitySearchRequestToJson(this);
+}
+
+/// Search request for entities
+///
+/// @author Brett Guy
+@JsonSerializable()
+class EntitySearchResponse {
+  List<Entity> entities;
+  num total;
+
+  EntitySearchResponse({this.entities, this.total});
+
+  factory EntitySearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntitySearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntitySearchResponseToJson(this);
+}
+
+/// Models an entity type that has a specific set of permissions. These are global objects and can be used across tenants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityType {
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  JWTConfiguration jwtConfiguration;
+  num lastUpdateInstant;
+  String name;
+  List<EntityTypePermission> permissions;
+
+  EntityType(
+      {this.data,
+      this.id,
+      this.insertInstant,
+      this.jwtConfiguration,
+      this.lastUpdateInstant,
+      this.name,
+      this.permissions});
+
+  factory EntityType.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeToJson(this);
+}
+
+/// Models a specific entity type permission. This permission can be granted to users or other entities.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypePermission {
+  Map<String, dynamic> data;
+  String description;
+  String id;
+  num insertInstant;
+  bool isDefault;
+  num lastUpdateInstant;
+  String name;
+
+  EntityTypePermission(
+      {this.data,
+      this.description,
+      this.id,
+      this.insertInstant,
+      this.isDefault,
+      this.lastUpdateInstant,
+      this.name});
+
+  factory EntityTypePermission.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypePermissionFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypePermissionToJson(this);
+}
+
+/// Entity Type API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeRequest {
+  EntityType entityType;
+  EntityTypePermission permission;
+
+  EntityTypeRequest({this.entityType, this.permission});
+
+  factory EntityTypeRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeRequestToJson(this);
+}
+
+/// Entity Type API response object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeResponse {
+  EntityType entityType;
+  List<EntityType> entityTypes;
+  EntityTypePermission permission;
+
+  EntityTypeResponse({this.entityType, this.entityTypes, this.permission});
+
+  factory EntityTypeResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeResponseToJson(this);
+}
+
+/// Search criteria for entity types.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  EntityTypeSearchCriteria({this.name});
+
+  factory EntityTypeSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeSearchCriteriaToJson(this);
+}
+
+/// Search request for entity types.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeSearchRequest {
+  EntityTypeSearchCriteria search;
+
+  EntityTypeSearchRequest({this.search});
+
+  factory EntityTypeSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeSearchRequestToJson(this);
+}
+
+/// Search request for entity types.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeSearchResponse {
+  List<EntityType> entityTypes;
+  num total;
+
+  EntityTypeSearchResponse({this.entityTypes, this.total});
+
+  factory EntityTypeSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeSearchResponseToJson(this);
 }
 
 /// Defines an error.
@@ -2390,7 +2721,9 @@ enum IdentityProviderType {
   @JsonValue('Apple')
   Apple,
   @JsonValue('LinkedIn')
-  LinkedIn
+  LinkedIn,
+  @JsonValue('SAMLv2IdPInitiated')
+  SAMLv2IdPInitiated
 }
 
 /// Import request.
@@ -2633,6 +2966,19 @@ class JWTConfiguration extends Enableable {
       this.refreshTokenTimeToLiveInMinutes,
       this.refreshTokenUsagePolicy,
       this.timeToLiveInSeconds});
+
+  factory JWTConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$JWTConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$JWTConfigurationToJson(this);
+}
+
+/// JWT Configuration for entities.
+@JsonSerializable()
+class JWTConfiguration extends Enableable {
+  String accessTokenKeyId;
+  num timeToLiveInSeconds;
+
+  JWTConfiguration({this.accessTokenKeyId, this.timeToLiveInSeconds});
 
   factory JWTConfiguration.fromJson(Map<String, dynamic> json) =>
       _$JWTConfigurationFromJson(json);
@@ -3458,10 +3804,16 @@ enum OAuthErrorReason {
   invalid_user_code,
   @JsonValue('invalid_additional_client_id')
   invalid_additional_client_id,
+  @JsonValue('invalid_target_entity_scope')
+  invalid_target_entity_scope,
+  @JsonValue('invalid_entity_permission_scope')
+  invalid_entity_permission_scope,
   @JsonValue('grant_type_disabled')
   grant_type_disabled,
   @JsonValue('missing_client_id')
   missing_client_id,
+  @JsonValue('missing_client_secret')
+  missing_client_secret,
   @JsonValue('missing_code')
   missing_code,
   @JsonValue('missing_device_code')
@@ -3482,6 +3834,8 @@ enum OAuthErrorReason {
   missing_verification_uri,
   @JsonValue('login_prevented')
   login_prevented,
+  @JsonValue('not_licensed')
+  not_licensed,
   @JsonValue('user_code_expired')
   user_code_expired,
   @JsonValue('user_expired')
@@ -3531,6 +3885,8 @@ enum OAuthErrorType {
   unsupported_response_type,
   @JsonValue('change_password_required')
   change_password_required,
+  @JsonValue('not_licensed')
+  not_licensed,
   @JsonValue('two_factor_required')
   two_factor_required,
   @JsonValue('authorization_pending')
@@ -3868,6 +4224,56 @@ class RawLogin {
   factory RawLogin.fromJson(Map<String, dynamic> json) =>
       _$RawLoginFromJson(json);
   Map<String, dynamic> toJson() => _$RawLoginToJson(this);
+}
+
+enum ReactorFeatureStatus {
+  @JsonValue('ACTIVE')
+  ACTIVE,
+  @JsonValue('DISCONNECTED')
+  DISCONNECTED,
+  @JsonValue('PENDING')
+  PENDING,
+  @JsonValue('UNKNOWN')
+  UNKNOWN
+}
+
+/// Request for managing FusionAuth Reactor and licenses.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class ReactorRequest {
+  String license;
+
+  ReactorRequest({this.license});
+
+  factory ReactorRequest.fromJson(Map<String, dynamic> json) =>
+      _$ReactorRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ReactorStatus {
+  ReactorFeatureStatus advancedRegistrationForms;
+  ReactorFeatureStatus breachedPasswordDetection;
+  Map<String, BreachedPasswordTenantMetric> breachedPasswordMetrics;
+  ReactorFeatureStatus connectors;
+  ReactorFeatureStatus entityManagement;
+  bool licensed;
+  ReactorFeatureStatus multiFactorAuthentication;
+
+  ReactorStatus(
+      {this.advancedRegistrationForms,
+      this.breachedPasswordDetection,
+      this.breachedPasswordMetrics,
+      this.connectors,
+      this.entityManagement,
+      this.licensed,
+      this.multiFactorAuthentication});
+
+  factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
+      _$ReactorStatusFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorStatusToJson(this);
 }
 
 /// Response for the user login report.
@@ -4232,6 +4638,40 @@ class SAMLv2IdentityProvider
   factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2IdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2IdentityProviderToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class SAMLv2IdPInitiatedApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  SAMLv2IdPInitiatedApplicationConfiguration();
+
+  factory SAMLv2IdPInitiatedApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$SAMLv2IdPInitiatedApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2IdPInitiatedApplicationConfigurationToJson(this);
+}
+
+/// SAML v2 IdP Initiated identity provider configuration.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class SAMLv2IdPInitiatedIdentityProvider
+    extends BaseIdentityProvider<SAMLv2IdPInitiatedApplicationConfiguration> {
+  String emailClaim;
+  String issuer;
+  String keyId;
+  bool useNameIdForEmail;
+
+  SAMLv2IdPInitiatedIdentityProvider(
+      {this.emailClaim, this.issuer, this.keyId, this.useNameIdForEmail});
+
+  factory SAMLv2IdPInitiatedIdentityProvider.fromJson(
+          Map<String, dynamic> json) =>
+      _$SAMLv2IdPInitiatedIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2IdPInitiatedIdentityProviderToJson(this);
 }
 
 @JsonSerializable()
@@ -5727,19 +6167,8 @@ class UserResponse {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class UserSearchCriteria extends BaseSearchCriteria {
-  bool accurateTotal;
-  List<String> ids;
-  String query;
-  String queryString;
-  List<SortField> sortFields;
-
-  UserSearchCriteria(
-      {this.accurateTotal,
-      this.ids,
-      this.query,
-      this.queryString,
-      this.sortFields});
+class UserSearchCriteria extends BaseElasticSearchCriteria {
+  UserSearchCriteria();
 
   factory UserSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$UserSearchCriteriaFromJson(json);
