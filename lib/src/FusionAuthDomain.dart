@@ -1395,6 +1395,19 @@ class EntityGrantResponse {
   Map<String, dynamic> toJson() => _$EntityGrantResponseToJson(this);
 }
 
+/// JWT Configuration for entities.
+@JsonSerializable()
+class EntityJWTConfiguration extends Enableable {
+  String accessTokenKeyId;
+  num timeToLiveInSeconds;
+
+  EntityJWTConfiguration({this.accessTokenKeyId, this.timeToLiveInSeconds});
+
+  factory EntityJWTConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$EntityJWTConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityJWTConfigurationToJson(this);
+}
+
 /// Entity API request object.
 ///
 /// @author Brian Pontarelli
@@ -1474,7 +1487,7 @@ class EntityType {
   Map<String, dynamic> data;
   String id;
   num insertInstant;
-  JWTConfiguration jwtConfiguration;
+  EntityJWTConfiguration jwtConfiguration;
   num lastUpdateInstant;
   String name;
   List<EntityTypePermission> permissions;
@@ -2966,19 +2979,6 @@ class JWTConfiguration extends Enableable {
       this.refreshTokenTimeToLiveInMinutes,
       this.refreshTokenUsagePolicy,
       this.timeToLiveInSeconds});
-
-  factory JWTConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$JWTConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$JWTConfigurationToJson(this);
-}
-
-/// JWT Configuration for entities.
-@JsonSerializable()
-class JWTConfiguration extends Enableable {
-  String accessTokenKeyId;
-  num timeToLiveInSeconds;
-
-  JWTConfiguration({this.accessTokenKeyId, this.timeToLiveInSeconds});
 
   factory JWTConfiguration.fromJson(Map<String, dynamic> json) =>
       _$JWTConfigurationFromJson(json);
