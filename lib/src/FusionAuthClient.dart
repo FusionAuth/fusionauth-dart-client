@@ -1860,8 +1860,8 @@ class FusionAuthClient {
   ///  ensure the index immediately current before making a query request to the search index.
   ///
   /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> refreshEntitySearchIndex() {
-    return _start<void, Errors>()
+  Future<ClientResponse<void, void>> refreshEntitySearchIndex() {
+    return _start<void, void>()
         .withUri('/api/entity/search')
         .withMethod('PUT')
         .go();
@@ -1873,8 +1873,8 @@ class FusionAuthClient {
   ///  ensure the index immediately current before making a query request to the search index.
   ///
   /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> refreshUserSearchIndex() {
-    return _start<void, Errors>()
+  Future<ClientResponse<void, void>> refreshUserSearchIndex() {
+    return _start<void, void>()
         .withUri('/api/user/search')
         .withMethod('PUT')
         .go();
@@ -3330,9 +3330,9 @@ class FusionAuthClient {
   ///
   /// @param {EntitySearchRequest} request The search criteria and pagination information.
   /// @returns {Promise<ClientResponse<EntitySearchResponse>>}
-  Future<ClientResponse<EntitySearchResponse, void>> searchEntities(
+  Future<ClientResponse<EntitySearchResponse, Errors>> searchEntities(
       EntitySearchRequest request) {
-    return _start<EntitySearchResponse, void>()
+    return _start<EntitySearchResponse, Errors>()
         .withUri('/api/entity/search')
         .withJSONBody(request)
         .withMethod('POST')

@@ -1441,9 +1441,7 @@ class EntityResponse {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class EntitySearchCriteria extends BaseElasticSearchCriteria {
-  String tenantId;
-
-  EntitySearchCriteria({this.tenantId});
+  EntitySearchCriteria();
 
   factory EntitySearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$EntitySearchCriteriaFromJson(json);
