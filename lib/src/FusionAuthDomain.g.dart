@@ -1989,6 +1989,30 @@ Map<String, dynamic> _$EntityGrantResponseToJson(EntityGrantResponse instance) {
   return val;
 }
 
+EntityJWTConfiguration _$EntityJWTConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return EntityJWTConfiguration(
+    accessTokenKeyId: json['accessTokenKeyId'] as String,
+    timeToLiveInSeconds: json['timeToLiveInSeconds'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$EntityJWTConfigurationToJson(
+    EntityJWTConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('accessTokenKeyId', instance.accessTokenKeyId);
+  writeNotNull('timeToLiveInSeconds', instance.timeToLiveInSeconds);
+  return val;
+}
+
 EntityRequest _$EntityRequestFromJson(Map<String, dynamic> json) {
   return EntityRequest(
     entity: json['entity'] == null
@@ -2032,9 +2056,7 @@ Map<String, dynamic> _$EntityResponseToJson(EntityResponse instance) {
 }
 
 EntitySearchCriteria _$EntitySearchCriteriaFromJson(Map<String, dynamic> json) {
-  return EntitySearchCriteria(
-    tenantId: json['tenantId'] as String,
-  )
+  return EntitySearchCriteria()
     ..numberOfResults = json['numberOfResults'] as num
     ..orderBy = json['orderBy'] as String
     ..startRow = json['startRow'] as num
@@ -2066,7 +2088,6 @@ Map<String, dynamic> _$EntitySearchCriteriaToJson(
   writeNotNull('query', instance.query);
   writeNotNull('queryString', instance.queryString);
   writeNotNull('sortFields', instance.sortFields);
-  writeNotNull('tenantId', instance.tenantId);
   return val;
 }
 
@@ -2123,7 +2144,7 @@ EntityType _$EntityTypeFromJson(Map<String, dynamic> json) {
     insertInstant: json['insertInstant'] as num,
     jwtConfiguration: json['jwtConfiguration'] == null
         ? null
-        : JWTConfiguration.fromJson(
+        : EntityJWTConfiguration.fromJson(
             json['jwtConfiguration'] as Map<String, dynamic>),
     lastUpdateInstant: json['lastUpdateInstant'] as num,
     name: json['name'] as String,
@@ -4399,28 +4420,6 @@ const _$RefreshTokenUsagePolicyEnumMap = {
   RefreshTokenUsagePolicy.Reusable: 'Reusable',
   RefreshTokenUsagePolicy.OneTimeUse: 'OneTimeUse',
 };
-
-JWTConfiguration _$JWTConfigurationFromJson(Map<String, dynamic> json) {
-  return JWTConfiguration(
-    accessTokenKeyId: json['accessTokenKeyId'] as String,
-    timeToLiveInSeconds: json['timeToLiveInSeconds'] as num,
-  )..enabled = json['enabled'] as bool;
-}
-
-Map<String, dynamic> _$JWTConfigurationToJson(JWTConfiguration instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('enabled', instance.enabled);
-  writeNotNull('accessTokenKeyId', instance.accessTokenKeyId);
-  writeNotNull('timeToLiveInSeconds', instance.timeToLiveInSeconds);
-  return val;
-}
 
 JWTPublicKeyUpdateEvent _$JWTPublicKeyUpdateEventFromJson(
     Map<String, dynamic> json) {
