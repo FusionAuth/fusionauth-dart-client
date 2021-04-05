@@ -78,6 +78,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
+  ///
+  /// @param {String} licenseId The license id
+  /// @param {ReactorRequest} request An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> activateReactor(
+      String licenseId, ReactorRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/reactor')
+        .withUriSegment(licenseId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .go();
+  }
+
   /// Adds a user to an existing family. The family id must be specified.
   ///
   /// @param {String} familyId The id of the family.
@@ -261,6 +276,61 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => EmailTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates an Entity. You can optionally specify an Id for the Entity. If not provided one will be generated.
+  ///
+  /// @param {String} entityId (Optional) The Id for the Entity. If not provided a secure random UUID will be generated.
+  /// @param {EntityRequest} request The request object that contains all of the information used to create the Entity.
+  /// @returns {Promise<ClientResponse<EntityResponse>>}
+  Future<ClientResponse<EntityResponse, Errors>> createEntity(
+      String entityId, EntityRequest request) {
+    return _start<EntityResponse, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => EntityResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a Entity Type. You can optionally specify an Id for the Entity Type, if not provided one will be generated.
+  ///
+  /// @param {String} entityTypeId (Optional) The Id for the Entity Type. If not provided a secure random UUID will be generated.
+  /// @param {EntityTypeRequest} request The request object that contains all of the information used to create the Entity Type.
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> createEntityType(
+      String entityTypeId, EntityTypeRequest request) {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a new permission for an entity type. You must specify the id of the entity type you are creating the permission for.
+  /// You can optionally specify an Id for the permission inside the EntityTypePermission object itself, if not provided one will be generated.
+  ///
+  /// @param {String} entityTypeId The Id of the entity type to create the permission on.
+  /// @param {String} permissionId (Optional) The Id of the permission. If not provided a secure random UUID will be generated.
+  /// @param {EntityTypeRequest} request The request object that contains all of the information used to create the permission.
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> createEntityTypePermission(
+      String entityTypeId, String permissionId, EntityTypeRequest request) {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withUriSegment("permission")
+        .withUriSegment(permissionId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
         .go();
   }
 
@@ -518,6 +588,16 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deactivates the FusionAuth Reactor.
+  ///
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, void>> deactivateReactor() {
+    return _start<void, void>()
+        .withUri('/api/reactor')
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Deactivates the user with the given Id.
   ///
   /// @param {String} userId The Id of the user to deactivate.
@@ -645,6 +725,47 @@ class FusionAuthClient {
     return _start<void, Errors>()
         .withUri('/api/email/template')
         .withUriSegment(emailTemplateId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the Entity for the given Id.
+  ///
+  /// @param {String} entityId The Id of the Entity to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteEntity(String entityId) {
+    return _start<void, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the Entity Type for the given Id.
+  ///
+  /// @param {String} entityTypeId The Id of the Entity Type to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteEntityType(String entityTypeId) {
+    return _start<void, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Hard deletes a permission. This is a dangerous operation and should not be used in most circumstances. This
+  /// permanently removes the given permission from all grants that had it.
+  ///
+  /// @param {String} entityTypeId The Id of the entityType the the permission belongs to.
+  /// @param {String} permissionId The Id of the permission to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteEntityTypePermission(
+      String entityTypeId, String permissionId) {
+    return _start<void, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withUriSegment("permission")
+        .withUriSegment(permissionId)
         .withMethod('DELETE')
         .go();
   }
@@ -1452,6 +1573,23 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates, via PATCH, the Entity Type with the given Id.
+  ///
+  /// @param {String} entityTypeId The Id of the Entity Type to update.
+  /// @param {EntityTypeRequest} request The request that contains just the new Entity Type information.
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> patchEntityType(
+      String entityTypeId, EntityTypeRequest request) {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withJSONBody(request)
+        .withMethod('PATCH')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates, via PATCH, the group with the given Id.
   ///
   /// @param {String} groupId The Id of the group to update.
@@ -1716,17 +1854,37 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Request a refresh of the Entity search index. This API is not generally necessary and the search index will become consistent in a
+  /// reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be
+  /// if you are using the Search API or Delete Tenant API immediately following a Entity Create etc, you may wish to request a refresh to
+  ///  ensure the index immediately current before making a query request to the search index.
+  ///
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, void>> refreshEntitySearchIndex() {
+    return _start<void, void>()
+        .withUri('/api/entity/search')
+        .withMethod('PUT')
+        .go();
+  }
+
   /// Request a refresh of the User search index. This API is not generally necessary and the search index will become consistent in a
   /// reasonable amount of time. There may be scenarios where you may wish to manually request an index refresh. One example may be
   /// if you are using the Search API or Delete Tenant API immediately following a User Create etc, you may wish to request a refresh to
   ///  ensure the index immediately current before making a query request to the search index.
   ///
   /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> refreshUserSearchIndex() {
-    return _start<void, Errors>()
+  Future<ClientResponse<void, void>> refreshUserSearchIndex() {
+    return _start<void, void>()
         .withUri('/api/user/search')
         .withMethod('PUT')
         .go();
+  }
+
+  /// Regenerates any keys that are used by the FusionAuth Reactor.
+  ///
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, void>> regenerateReactorKeys() {
+    return _start<void, void>().withUri('/api/reactor').withMethod('PUT').go();
   }
 
   /// Registers a user for an application. If you provide the User and the UserRegistration object on this request, it
@@ -2037,6 +2195,48 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => EmailTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the Entity for the given Id.
+  ///
+  /// @param {String} entityId The Id of the Entity.
+  /// @returns {Promise<ClientResponse<EntityResponse>>}
+  Future<ClientResponse<EntityResponse, Errors>> retrieveEntity(
+      String entityId) {
+    return _start<EntityResponse, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => EntityResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the Entity Type for the given Id.
+  ///
+  /// @param {String} entityTypeId The Id of the Entity Type.
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> retrieveEntityType(
+      String entityTypeId) {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all of the Entity Types.
+  ///
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> retrieveEntityTypes() {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
         .go();
   }
 
@@ -2501,6 +2701,18 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => PendingResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the FusionAuth Reactor status.
+  ///
+  /// @returns {Promise<ClientResponse<ReactorStatus>>}
+  Future<ClientResponse<ReactorStatus, void>> retrieveReactorStatus() {
+    return _start<ReactorStatus, void>()
+        .withUri('/api/reactor')
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => ReactorStatus.fromJson(d)))
         .go();
   }
 
@@ -3114,6 +3326,51 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches entities with the specified criteria and pagination.
+  ///
+  /// @param {EntitySearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<EntitySearchResponse>>}
+  Future<ClientResponse<EntitySearchResponse, Errors>> searchEntities(
+      EntitySearchRequest request) {
+    return _start<EntitySearchResponse, Errors>()
+        .withUri('/api/entity/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntitySearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the entities for the given ids. If any id is invalid, it is ignored.
+  ///
+  /// @param {List<String>} ids The entity ids to search for.
+  /// @returns {Promise<ClientResponse<EntitySearchResponse>>}
+  Future<ClientResponse<EntitySearchResponse, Errors>> searchEntitiesByIds(
+      List<String> ids) {
+    return _start<EntitySearchResponse, Errors>()
+        .withUri('/api/entity/search')
+        .withParameter('ids', ids)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntitySearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches the entity types with the specified criteria and pagination.
+  ///
+  /// @param {EntityTypeSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<EntityTypeSearchResponse>>}
+  Future<ClientResponse<EntityTypeSearchResponse, void>> searchEntityTypes(
+      EntityTypeSearchRequest request) {
+    return _start<EntityTypeSearchResponse, void>()
+        .withUri('/api/entity/type/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the event logs with the specified criteria and pagination.
   ///
   /// @param {EventLogSearchRequest} request The search criteria and pagination information.
@@ -3412,6 +3669,60 @@ class FusionAuthClient {
         .withMethod('PUT')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => EmailTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the Entity with the given Id.
+  ///
+  /// @param {String} entityId The Id of the Entity to update.
+  /// @param {EntityRequest} request The request that contains all of the new Entity information.
+  /// @returns {Promise<ClientResponse<EntityResponse>>}
+  Future<ClientResponse<EntityResponse, Errors>> updateEntity(
+      String entityId, EntityRequest request) {
+    return _start<EntityResponse, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => EntityResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the Entity Type with the given Id.
+  ///
+  /// @param {String} entityTypeId The Id of the Entity Type to update.
+  /// @param {EntityTypeRequest} request The request that contains all of the new Entity Type information.
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> updateEntityType(
+      String entityTypeId, EntityTypeRequest request) {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the permission with the given id for the entity type.
+  ///
+  /// @param {String} entityTypeId The Id of the entityType that the permission belongs to.
+  /// @param {String} permissionId The Id of the permission to update.
+  /// @param {EntityTypeRequest} request The request that contains all of the new permission information.
+  /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
+  Future<ClientResponse<EntityTypeResponse, Errors>> updateEntityTypePermission(
+      String entityTypeId, String permissionId, EntityTypeRequest request) {
+    return _start<EntityTypeResponse, Errors>()
+        .withUri('/api/entity/type')
+        .withUriSegment(entityTypeId)
+        .withUriSegment("permission")
+        .withUriSegment(permissionId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityTypeResponse.fromJson(d)))
         .go();
   }
 
