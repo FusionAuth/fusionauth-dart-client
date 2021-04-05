@@ -4252,6 +4252,7 @@ class ReactorRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class ReactorStatus {
+  ReactorFeatureStatus advancedIdentityProviders;
   ReactorFeatureStatus advancedRegistrationForms;
   ReactorFeatureStatus breachedPasswordDetection;
   Map<String, BreachedPasswordTenantMetric> breachedPasswordMetrics;
@@ -4261,7 +4262,8 @@ class ReactorStatus {
   ReactorFeatureStatus multiFactorAuthentication;
 
   ReactorStatus(
-      {this.advancedRegistrationForms,
+      {this.advancedIdentityProviders,
+      this.advancedRegistrationForms,
       this.breachedPasswordDetection,
       this.breachedPasswordMetrics,
       this.connectors,

@@ -6242,6 +6242,8 @@ Map<String, dynamic> _$ReactorRequestToJson(ReactorRequest instance) {
 
 ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
   return ReactorStatus(
+    advancedIdentityProviders: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['advancedIdentityProviders']),
     advancedRegistrationForms: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['advancedRegistrationForms']),
     breachedPasswordDetection: _$enumDecodeNullable(
@@ -6274,6 +6276,8 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
     }
   }
 
+  writeNotNull('advancedIdentityProviders',
+      _$ReactorFeatureStatusEnumMap[instance.advancedIdentityProviders]);
   writeNotNull('advancedRegistrationForms',
       _$ReactorFeatureStatusEnumMap[instance.advancedRegistrationForms]);
   writeNotNull('breachedPasswordDetection',
