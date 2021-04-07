@@ -52,7 +52,8 @@ class FusionAuthRESTClient<ReturnType, ErrorReturnType> {
 
   FusionAuthRESTClient(this.host, this.httpClient) {
     if (ErrorReturnType == Errors) {
-      errorResponseHandler = defaultErrorResponseHandlerBuilder((d) => Errors.fromJson(d));
+      errorResponseHandler =
+          defaultErrorResponseHandlerBuilder((d) => Errors.fromJson(d));
     }
   }
 

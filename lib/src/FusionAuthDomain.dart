@@ -20,7 +20,6 @@ import 'Converters.dart';
 
 part 'FusionAuthDomain.g.dart';
 
-
 /// @author Daniel DeGroff
 @JsonSerializable()
 class AccessToken {
@@ -32,17 +31,17 @@ class AccessToken {
   TokenType token_type;
   String userId;
 
-  AccessToken({
-      this.access_token,
+  AccessToken(
+      {this.access_token,
       this.expires_in,
       this.id_token,
       this.refresh_token,
       this.scope,
       this.token_type,
-      this.userId
-  });
+      this.userId});
 
-  factory AccessToken.fromJson(Map<String, dynamic> json) => _$AccessTokenFromJson(json);
+  factory AccessToken.fromJson(Map<String, dynamic> json) =>
+      _$AccessTokenFromJson(json);
   Map<String, dynamic> toJson() => _$AccessTokenToJson(this);
 }
 
@@ -59,8 +58,8 @@ class ActionData {
   String reasonId;
   String userActionId;
 
-  ActionData({
-      this.actioneeUserId,
+  ActionData(
+      {this.actioneeUserId,
       this.actionerUserId,
       this.applicationIds,
       this.comment,
@@ -69,10 +68,10 @@ class ActionData {
       this.notifyUser,
       this.option,
       this.reasonId,
-      this.userActionId
-  });
+      this.userActionId});
 
-  factory ActionData.fromJson(Map<String, dynamic> json) => _$ActionDataFromJson(json);
+  factory ActionData.fromJson(Map<String, dynamic> json) =>
+      _$ActionDataFromJson(json);
   Map<String, dynamic> toJson() => _$ActionDataToJson(this);
 }
 
@@ -84,12 +83,10 @@ class ActionRequest {
   ActionData action;
   bool broadcast;
 
-  ActionRequest({
-      this.action,
-      this.broadcast
-  });
+  ActionRequest({this.action, this.broadcast});
 
-  factory ActionRequest.fromJson(Map<String, dynamic> json) => _$ActionRequestFromJson(json);
+  factory ActionRequest.fromJson(Map<String, dynamic> json) =>
+      _$ActionRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ActionRequestToJson(this);
 }
 
@@ -101,12 +98,10 @@ class ActionResponse {
   UserActionLog action;
   List<UserActionLog> actions;
 
-  ActionResponse({
-      this.action,
-      this.actions
-  });
+  ActionResponse({this.action, this.actions});
 
-  factory ActionResponse.fromJson(Map<String, dynamic> json) => _$ActionResponseFromJson(json);
+  factory ActionResponse.fromJson(Map<String, dynamic> json) =>
+      _$ActionResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ActionResponseToJson(this);
 }
 
@@ -138,43 +133,37 @@ enum Algorithm {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class AppleApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class AppleApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String buttonText;
   String keyId;
   String scope;
   String servicesId;
   String teamId;
 
-  AppleApplicationConfiguration({
-      this.buttonText,
-      this.keyId,
-      this.scope,
-      this.servicesId,
-      this.teamId
-  });
+  AppleApplicationConfiguration(
+      {this.buttonText, this.keyId, this.scope, this.servicesId, this.teamId});
 
-  factory AppleApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$AppleApplicationConfigurationFromJson(json);
+  factory AppleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$AppleApplicationConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$AppleApplicationConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class AppleIdentityProvider extends BaseIdentityProvider<AppleApplicationConfiguration> {
+class AppleIdentityProvider
+    extends BaseIdentityProvider<AppleApplicationConfiguration> {
   String buttonText;
   String keyId;
   String scope;
   String servicesId;
   String teamId;
 
-  AppleIdentityProvider({
-      this.buttonText,
-      this.keyId,
-      this.scope,
-      this.servicesId,
-      this.teamId
-  });
+  AppleIdentityProvider(
+      {this.buttonText, this.keyId, this.scope, this.servicesId, this.teamId});
 
-  factory AppleIdentityProvider.fromJson(Map<String, dynamic> json) => _$AppleIdentityProviderFromJson(json);
+  factory AppleIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$AppleIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$AppleIdentityProviderToJson(this);
 }
 
@@ -205,8 +194,8 @@ class Application {
   String verificationEmailTemplateId;
   bool verifyRegistration;
 
-  Application({
-      this.active,
+  Application(
+      {this.active,
       this.authenticationTokenConfiguration,
       this.cleanSpeakConfiguration,
       this.data,
@@ -228,10 +217,10 @@ class Application {
       this.state,
       this.tenantId,
       this.verificationEmailTemplateId,
-      this.verifyRegistration
-  });
+      this.verifyRegistration});
 
-  factory Application.fromJson(Map<String, dynamic> json) => _$ApplicationFromJson(json);
+  factory Application.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationToJson(this);
 }
 
@@ -242,14 +231,14 @@ class ApplicationEmailConfiguration {
   String passwordlessEmailTemplateId;
   String setPasswordEmailTemplateId;
 
-  ApplicationEmailConfiguration({
-      this.emailVerificationEmailTemplateId,
+  ApplicationEmailConfiguration(
+      {this.emailVerificationEmailTemplateId,
       this.forgotPasswordEmailTemplateId,
       this.passwordlessEmailTemplateId,
-      this.setPasswordEmailTemplateId
-  });
+      this.setPasswordEmailTemplateId});
 
-  factory ApplicationEmailConfiguration.fromJson(Map<String, dynamic> json) => _$ApplicationEmailConfigurationFromJson(json);
+  factory ApplicationEmailConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationEmailConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationEmailConfigurationToJson(this);
 }
 
@@ -258,10 +247,10 @@ class ApplicationEmailConfiguration {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class ApplicationEvent {
-
   ApplicationEvent();
 
-  factory ApplicationEvent.fromJson(Map<String, dynamic> json) => _$ApplicationEventFromJson(json);
+  factory ApplicationEvent.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationEventFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationEventToJson(this);
 }
 
@@ -270,11 +259,10 @@ class ApplicationEvent {
 class ApplicationFormConfiguration {
   String adminRegistrationFormId;
 
-  ApplicationFormConfiguration({
-      this.adminRegistrationFormId
-  });
+  ApplicationFormConfiguration({this.adminRegistrationFormId});
 
-  factory ApplicationFormConfiguration.fromJson(Map<String, dynamic> json) => _$ApplicationFormConfigurationFromJson(json);
+  factory ApplicationFormConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationFormConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationFormConfigurationToJson(this);
 }
 
@@ -285,12 +273,13 @@ class ApplicationFormConfiguration {
 class ApplicationRegistrationDeletePolicy {
   TimeBasedDeletePolicy unverified;
 
-  ApplicationRegistrationDeletePolicy({
-      this.unverified
-  });
+  ApplicationRegistrationDeletePolicy({this.unverified});
 
-  factory ApplicationRegistrationDeletePolicy.fromJson(Map<String, dynamic> json) => _$ApplicationRegistrationDeletePolicyFromJson(json);
-  Map<String, dynamic> toJson() => _$ApplicationRegistrationDeletePolicyToJson(this);
+  factory ApplicationRegistrationDeletePolicy.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationRegistrationDeletePolicyFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationRegistrationDeletePolicyToJson(this);
 }
 
 /// The Application API request object.
@@ -302,13 +291,10 @@ class ApplicationRequest {
   ApplicationRole role;
   List<String> webhookIds;
 
-  ApplicationRequest({
-      this.application,
-      this.role,
-      this.webhookIds
-  });
+  ApplicationRequest({this.application, this.role, this.webhookIds});
 
-  factory ApplicationRequest.fromJson(Map<String, dynamic> json) => _$ApplicationRequestFromJson(json);
+  factory ApplicationRequest.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationRequestToJson(this);
 }
 
@@ -321,13 +307,10 @@ class ApplicationResponse {
   List<Application> applications;
   ApplicationRole role;
 
-  ApplicationResponse({
-      this.application,
-      this.applications,
-      this.role
-  });
+  ApplicationResponse({this.application, this.applications, this.role});
 
-  factory ApplicationResponse.fromJson(Map<String, dynamic> json) => _$ApplicationResponseFromJson(json);
+  factory ApplicationResponse.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationResponseToJson(this);
 }
 
@@ -344,17 +327,17 @@ class ApplicationRole {
   num lastUpdateInstant;
   String name;
 
-  ApplicationRole({
-      this.description,
+  ApplicationRole(
+      {this.description,
       this.id,
       this.insertInstant,
       this.isDefault,
       this.isSuperRole,
       this.lastUpdateInstant,
-      this.name
-  });
+      this.name});
 
-  factory ApplicationRole.fromJson(Map<String, dynamic> json) => _$ApplicationRoleFromJson(json);
+  factory ApplicationRole.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationRoleFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationRoleToJson(this);
 }
 
@@ -367,13 +350,10 @@ class Attachment {
   String mime;
   String name;
 
-  Attachment({
-      this.attachment,
-      this.mime,
-      this.name
-  });
+  Attachment({this.attachment, this.mime, this.name});
 
-  factory Attachment.fromJson(Map<String, dynamic> json) => _$AttachmentFromJson(json);
+  factory Attachment.fromJson(Map<String, dynamic> json) =>
+      _$AttachmentFromJson(json);
   Map<String, dynamic> toJson() => _$AttachmentToJson(this);
 }
 
@@ -391,18 +371,18 @@ class AuditLog {
   dynamic oldValue;
   String reason;
 
-  AuditLog({
-      this.data,
+  AuditLog(
+      {this.data,
       this.id,
       this.insertInstant,
       this.insertUser,
       this.message,
       this.newValue,
       this.oldValue,
-      this.reason
-  });
+      this.reason});
 
-  factory AuditLog.fromJson(Map<String, dynamic> json) => _$AuditLogFromJson(json);
+  factory AuditLog.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogToJson(this);
 }
 
@@ -410,11 +390,10 @@ class AuditLog {
 class AuditLogConfiguration {
   DeleteConfiguration delete;
 
-  AuditLogConfiguration({
-      this.delete
-  });
+  AuditLogConfiguration({this.delete});
 
-  factory AuditLogConfiguration.fromJson(Map<String, dynamic> json) => _$AuditLogConfigurationFromJson(json);
+  factory AuditLogConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogConfigurationToJson(this);
 }
 
@@ -423,11 +402,10 @@ class AuditLogConfiguration {
 class AuditLogExportRequest extends BaseExportRequest {
   AuditLogSearchCriteria criteria;
 
-  AuditLogExportRequest({
-      this.criteria
-  });
+  AuditLogExportRequest({this.criteria});
 
-  factory AuditLogExportRequest.fromJson(Map<String, dynamic> json) => _$AuditLogExportRequestFromJson(json);
+  factory AuditLogExportRequest.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogExportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogExportRequestToJson(this);
 }
 
@@ -436,11 +414,10 @@ class AuditLogExportRequest extends BaseExportRequest {
 class AuditLogRequest {
   AuditLog auditLog;
 
-  AuditLogRequest({
-      this.auditLog
-  });
+  AuditLogRequest({this.auditLog});
 
-  factory AuditLogRequest.fromJson(Map<String, dynamic> json) => _$AuditLogRequestFromJson(json);
+  factory AuditLogRequest.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogRequestFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogRequestToJson(this);
 }
 
@@ -451,11 +428,10 @@ class AuditLogRequest {
 class AuditLogResponse {
   AuditLog auditLog;
 
-  AuditLogResponse({
-      this.auditLog
-  });
+  AuditLogResponse({this.auditLog});
 
-  factory AuditLogResponse.fromJson(Map<String, dynamic> json) => _$AuditLogResponseFromJson(json);
+  factory AuditLogResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogResponseToJson(this);
 }
 
@@ -467,14 +443,10 @@ class AuditLogSearchCriteria extends BaseSearchCriteria {
   num start;
   String user;
 
-  AuditLogSearchCriteria({
-      this.end,
-      this.message,
-      this.start,
-      this.user
-  });
+  AuditLogSearchCriteria({this.end, this.message, this.start, this.user});
 
-  factory AuditLogSearchCriteria.fromJson(Map<String, dynamic> json) => _$AuditLogSearchCriteriaFromJson(json);
+  factory AuditLogSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogSearchCriteriaFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogSearchCriteriaToJson(this);
 }
 
@@ -483,11 +455,10 @@ class AuditLogSearchCriteria extends BaseSearchCriteria {
 class AuditLogSearchRequest {
   AuditLogSearchCriteria search;
 
-  AuditLogSearchRequest({
-      this.search
-  });
+  AuditLogSearchRequest({this.search});
 
-  factory AuditLogSearchRequest.fromJson(Map<String, dynamic> json) => _$AuditLogSearchRequestFromJson(json);
+  factory AuditLogSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogSearchRequestFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogSearchRequestToJson(this);
 }
 
@@ -499,22 +470,22 @@ class AuditLogSearchResponse {
   List<AuditLog> auditLogs;
   num total;
 
-  AuditLogSearchResponse({
-      this.auditLogs,
-      this.total
-  });
+  AuditLogSearchResponse({this.auditLogs, this.total});
 
-  factory AuditLogSearchResponse.fromJson(Map<String, dynamic> json) => _$AuditLogSearchResponseFromJson(json);
+  factory AuditLogSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
 }
 
 @JsonSerializable()
 class AuthenticationTokenConfiguration extends Enableable {
-
   AuthenticationTokenConfiguration();
 
-  factory AuthenticationTokenConfiguration.fromJson(Map<String, dynamic> json) => _$AuthenticationTokenConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$AuthenticationTokenConfigurationToJson(this);
+  factory AuthenticationTokenConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$AuthenticationTokenConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$AuthenticationTokenConfigurationToJson(this);
 }
 
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
@@ -528,18 +499,39 @@ class BaseConnectorConfiguration {
   String name;
   ConnectorType type;
 
-  BaseConnectorConfiguration({
-      this.data,
+  BaseConnectorConfiguration(
+      {this.data,
       this.debug,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
       this.name,
-      this.type
-  });
+      this.type});
 
-  factory BaseConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$BaseConnectorConfigurationFromJson(json);
+  factory BaseConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$BaseConnectorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$BaseConnectorConfigurationToJson(this);
+}
+
+/// @author Brian Pontarelli
+@JsonSerializable()
+class BaseElasticSearchCriteria extends BaseSearchCriteria {
+  bool accurateTotal;
+  List<String> ids;
+  String query;
+  String queryString;
+  List<SortField> sortFields;
+
+  BaseElasticSearchCriteria(
+      {this.accurateTotal,
+      this.ids,
+      this.query,
+      this.queryString,
+      this.sortFields});
+
+  factory BaseElasticSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$BaseElasticSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseElasticSearchCriteriaToJson(this);
 }
 
 /// Base-class for all FusionAuth events.
@@ -551,13 +543,10 @@ class BaseEvent {
   String id;
   String tenantId;
 
-  BaseEvent({
-      this.createInstant,
-      this.id,
-      this.tenantId
-  });
+  BaseEvent({this.createInstant, this.id, this.tenantId});
 
-  factory BaseEvent.fromJson(Map<String, dynamic> json) => _$BaseEventFromJson(json);
+  factory BaseEvent.fromJson(Map<String, dynamic> json) =>
+      _$BaseEventFromJson(json);
   Map<String, dynamic> toJson() => _$BaseEventToJson(this);
 }
 
@@ -567,18 +556,17 @@ class BaseExportRequest {
   String dateTimeSecondsFormat;
   String zoneId;
 
-  BaseExportRequest({
-      this.dateTimeSecondsFormat,
-      this.zoneId
-  });
+  BaseExportRequest({this.dateTimeSecondsFormat, this.zoneId});
 
-  factory BaseExportRequest.fromJson(Map<String, dynamic> json) => _$BaseExportRequestFromJson(json);
+  factory BaseExportRequest.fromJson(Map<String, dynamic> json) =>
+      _$BaseExportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$BaseExportRequestToJson(this);
 }
 
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
 @JsonSerializable(createFactory: false)
-class BaseIdentityProvider<D extends BaseIdentityProviderApplicationConfiguration> extends Enableable {
+class BaseIdentityProvider<
+    D extends BaseIdentityProviderApplicationConfiguration> extends Enableable {
   @IdentityProviderApplicationConfigurationConverter()
   Map<String, D> applicationConfiguration;
   Map<String, dynamic> data;
@@ -590,8 +578,8 @@ class BaseIdentityProvider<D extends BaseIdentityProviderApplicationConfiguratio
   String name;
   IdentityProviderType type;
 
-  BaseIdentityProvider({
-      this.applicationConfiguration,
+  BaseIdentityProvider(
+      {this.applicationConfiguration,
       this.data,
       this.debug,
       this.id,
@@ -599,10 +587,10 @@ class BaseIdentityProvider<D extends BaseIdentityProviderApplicationConfiguratio
       this.lambdaConfiguration,
       this.lastUpdateInstant,
       this.name,
-      this.type
-  });
+      this.type});
 
-  factory BaseIdentityProvider.fromJson(Map<String, dynamic> json) => BaseIdentityProviderFromJson(json);
+  factory BaseIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      BaseIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$BaseIdentityProviderToJson(this);
 }
 
@@ -612,13 +600,14 @@ class BaseIdentityProviderApplicationConfiguration extends Enableable {
   bool createRegistration;
   Map<String, dynamic> data;
 
-  BaseIdentityProviderApplicationConfiguration({
-      this.createRegistration,
-      this.data
-  });
+  BaseIdentityProviderApplicationConfiguration(
+      {this.createRegistration, this.data});
 
-  factory BaseIdentityProviderApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$BaseIdentityProviderApplicationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$BaseIdentityProviderApplicationConfigurationToJson(this);
+  factory BaseIdentityProviderApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$BaseIdentityProviderApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$BaseIdentityProviderApplicationConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -629,14 +618,11 @@ class BaseLoginRequest {
   MetaData metaData;
   bool noJWT;
 
-  BaseLoginRequest({
-      this.applicationId,
-      this.ipAddress,
-      this.metaData,
-      this.noJWT
-  });
+  BaseLoginRequest(
+      {this.applicationId, this.ipAddress, this.metaData, this.noJWT});
 
-  factory BaseLoginRequest.fromJson(Map<String, dynamic> json) => _$BaseLoginRequestFromJson(json);
+  factory BaseLoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$BaseLoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$BaseLoginRequestToJson(this);
 }
 
@@ -647,13 +633,10 @@ class BaseSearchCriteria {
   String orderBy;
   num startRow;
 
-  BaseSearchCriteria({
-      this.numberOfResults,
-      this.orderBy,
-      this.startRow
-  });
+  BaseSearchCriteria({this.numberOfResults, this.orderBy, this.startRow});
 
-  factory BaseSearchCriteria.fromJson(Map<String, dynamic> json) => _$BaseSearchCriteriaFromJson(json);
+  factory BaseSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$BaseSearchCriteriaFromJson(json);
   Map<String, dynamic> toJson() => _$BaseSearchCriteriaToJson(this);
 }
 
@@ -680,6 +663,29 @@ enum BreachedPasswordStatus {
   PasswordOnly,
   @JsonValue('CommonPassword')
   CommonPassword
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class BreachedPasswordTenantMetric {
+  num actionRequired;
+  num matchedCommonPasswordCount;
+  num matchedExactCount;
+  num matchedPasswordCount;
+  num matchedSubAddressCount;
+  num passwordsCheckedCount;
+
+  BreachedPasswordTenantMetric(
+      {this.actionRequired,
+      this.matchedCommonPasswordCount,
+      this.matchedExactCount,
+      this.matchedPasswordCount,
+      this.matchedSubAddressCount,
+      this.passwordsCheckedCount});
+
+  factory BreachedPasswordTenantMetric.fromJson(Map<String, dynamic> json) =>
+      _$BreachedPasswordTenantMetricFromJson(json);
+  Map<String, dynamic> toJson() => _$BreachedPasswordTenantMetricToJson(this);
 }
 
 enum BreachMatchMode {
@@ -718,8 +724,8 @@ class CertificateInformation {
   num validFrom;
   num validTo;
 
-  CertificateInformation({
-      this.issuer,
+  CertificateInformation(
+      {this.issuer,
       this.md5Fingerprint,
       this.serialNumber,
       this.sha1Fingerprint,
@@ -728,10 +734,10 @@ class CertificateInformation {
       this.sha256Thumbprint,
       this.subject,
       this.validFrom,
-      this.validTo
-  });
+      this.validTo});
 
-  factory CertificateInformation.fromJson(Map<String, dynamic> json) => _$CertificateInformationFromJson(json);
+  factory CertificateInformation.fromJson(Map<String, dynamic> json) =>
+      _$CertificateInformationFromJson(json);
   Map<String, dynamic> toJson() => _$CertificateInformationToJson(this);
 }
 
@@ -757,14 +763,11 @@ class ChangePasswordRequest {
   String password;
   String refreshToken;
 
-  ChangePasswordRequest({
-      this.currentPassword,
-      this.loginId,
-      this.password,
-      this.refreshToken
-  });
+  ChangePasswordRequest(
+      {this.currentPassword, this.loginId, this.password, this.refreshToken});
 
-  factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) => _$ChangePasswordRequestFromJson(json);
+  factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
+      _$ChangePasswordRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ChangePasswordRequestToJson(this);
 }
 
@@ -776,12 +779,10 @@ class ChangePasswordResponse {
   String oneTimePassword;
   Map<String, dynamic> state;
 
-  ChangePasswordResponse({
-      this.oneTimePassword,
-      this.state
-  });
+  ChangePasswordResponse({this.oneTimePassword, this.state});
 
-  factory ChangePasswordResponse.fromJson(Map<String, dynamic> json) => _$ChangePasswordResponseFromJson(json);
+  factory ChangePasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ChangePasswordResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ChangePasswordResponseToJson(this);
 }
 
@@ -795,14 +796,11 @@ class CleanSpeakConfiguration extends Enableable {
   String url;
   UsernameModeration usernameModeration;
 
-  CleanSpeakConfiguration({
-      this.apiKey,
-      this.applicationIds,
-      this.url,
-      this.usernameModeration
-  });
+  CleanSpeakConfiguration(
+      {this.apiKey, this.applicationIds, this.url, this.usernameModeration});
 
-  factory CleanSpeakConfiguration.fromJson(Map<String, dynamic> json) => _$CleanSpeakConfigurationFromJson(json);
+  factory CleanSpeakConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$CleanSpeakConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$CleanSpeakConfigurationToJson(this);
 }
 
@@ -823,14 +821,10 @@ class ConnectorPolicy {
   Set<String> domains;
   bool migrate;
 
-  ConnectorPolicy({
-      this.connectorId,
-      this.data,
-      this.domains,
-      this.migrate
-  });
+  ConnectorPolicy({this.connectorId, this.data, this.domains, this.migrate});
 
-  factory ConnectorPolicy.fromJson(Map<String, dynamic> json) => _$ConnectorPolicyFromJson(json);
+  factory ConnectorPolicy.fromJson(Map<String, dynamic> json) =>
+      _$ConnectorPolicyFromJson(json);
   Map<String, dynamic> toJson() => _$ConnectorPolicyToJson(this);
 }
 
@@ -839,11 +833,10 @@ class ConnectorPolicy {
 class ConnectorRequest {
   BaseConnectorConfiguration connector;
 
-  ConnectorRequest({
-      this.connector
-  });
+  ConnectorRequest({this.connector});
 
-  factory ConnectorRequest.fromJson(Map<String, dynamic> json) => _$ConnectorRequestFromJson(json);
+  factory ConnectorRequest.fromJson(Map<String, dynamic> json) =>
+      _$ConnectorRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ConnectorRequestToJson(this);
 }
 
@@ -853,12 +846,10 @@ class ConnectorResponse {
   BaseConnectorConfiguration connector;
   List<BaseConnectorConfiguration> connectors;
 
-  ConnectorResponse({
-      this.connector,
-      this.connectors
-  });
+  ConnectorResponse({this.connector, this.connectors});
 
-  factory ConnectorResponse.fromJson(Map<String, dynamic> json) => _$ConnectorResponseFromJson(json);
+  factory ConnectorResponse.fromJson(Map<String, dynamic> json) =>
+      _$ConnectorResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ConnectorResponseToJson(this);
 }
 
@@ -891,8 +882,8 @@ class Consent {
   String name;
   List<String> values;
 
-  Consent({
-      this.consentEmailTemplateId,
+  Consent(
+      {this.consentEmailTemplateId,
       this.countryMinimumAgeForSelfConsent,
       this.data,
       this.defaultMinimumAgeForSelfConsent,
@@ -902,10 +893,10 @@ class Consent {
       this.lastUpdateInstant,
       this.multipleValuesAllowed,
       this.name,
-      this.values
-  });
+      this.values});
 
-  factory Consent.fromJson(Map<String, dynamic> json) => _$ConsentFromJson(json);
+  factory Consent.fromJson(Map<String, dynamic> json) =>
+      _$ConsentFromJson(json);
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
 
@@ -916,11 +907,10 @@ class Consent {
 class ConsentRequest {
   Consent consent;
 
-  ConsentRequest({
-      this.consent
-  });
+  ConsentRequest({this.consent});
 
-  factory ConsentRequest.fromJson(Map<String, dynamic> json) => _$ConsentRequestFromJson(json);
+  factory ConsentRequest.fromJson(Map<String, dynamic> json) =>
+      _$ConsentRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ConsentRequestToJson(this);
 }
 
@@ -932,12 +922,10 @@ class ConsentResponse {
   Consent consent;
   List<Consent> consents;
 
-  ConsentResponse({
-      this.consent,
-      this.consents
-  });
+  ConsentResponse({this.consent, this.consents});
 
-  factory ConsentResponse.fromJson(Map<String, dynamic> json) => _$ConsentResponseFromJson(json);
+  factory ConsentResponse.fromJson(Map<String, dynamic> json) =>
+      _$ConsentResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ConsentResponseToJson(this);
 }
 
@@ -974,17 +962,17 @@ class CORSConfiguration extends Enableable {
   List<String> exposedHeaders;
   num preflightMaxAgeInSeconds;
 
-  CORSConfiguration({
-      this.allowCredentials,
+  CORSConfiguration(
+      {this.allowCredentials,
       this.allowedHeaders,
       this.allowedMethods,
       this.allowedOrigins,
       this.debug,
       this.exposedHeaders,
-      this.preflightMaxAgeInSeconds
-  });
+      this.preflightMaxAgeInSeconds});
 
-  factory CORSConfiguration.fromJson(Map<String, dynamic> json) => _$CORSConfigurationFromJson(json);
+  factory CORSConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$CORSConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$CORSConfigurationToJson(this);
 }
 
@@ -994,10 +982,7 @@ class Count {
   num count;
   num interval;
 
-  Count({
-      this.count,
-      this.interval
-  });
+  Count({this.count, this.interval});
 
   factory Count.fromJson(Map<String, dynamic> json) => _$CountFromJson(json);
   Map<String, dynamic> toJson() => _$CountToJson(this);
@@ -1011,12 +996,10 @@ class DailyActiveUserReportResponse {
   List<Count> dailyActiveUsers;
   num total;
 
-  DailyActiveUserReportResponse({
-      this.dailyActiveUsers,
-      this.total
-  });
+  DailyActiveUserReportResponse({this.dailyActiveUsers, this.total});
 
-  factory DailyActiveUserReportResponse.fromJson(Map<String, dynamic> json) => _$DailyActiveUserReportResponseFromJson(json);
+  factory DailyActiveUserReportResponse.fromJson(Map<String, dynamic> json) =>
+      _$DailyActiveUserReportResponseFromJson(json);
   Map<String, dynamic> toJson() => _$DailyActiveUserReportResponseToJson(this);
 }
 
@@ -1024,11 +1007,10 @@ class DailyActiveUserReportResponse {
 class DeleteConfiguration extends Enableable {
   num numberOfDaysToRetain;
 
-  DeleteConfiguration({
-      this.numberOfDaysToRetain
-  });
+  DeleteConfiguration({this.numberOfDaysToRetain});
 
-  factory DeleteConfiguration.fromJson(Map<String, dynamic> json) => _$DeleteConfigurationFromJson(json);
+  factory DeleteConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$DeleteConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$DeleteConfigurationToJson(this);
 }
 
@@ -1041,15 +1023,15 @@ class DeviceInfo {
   String name;
   DeviceType type;
 
-  DeviceInfo({
-      this.description,
+  DeviceInfo(
+      {this.description,
       this.lastAccessedAddress,
       this.lastAccessedInstant,
       this.name,
-      this.type
-  });
+      this.type});
 
-  factory DeviceInfo.fromJson(Map<String, dynamic> json) => _$DeviceInfoFromJson(json);
+  factory DeviceInfo.fromJson(Map<String, dynamic> json) =>
+      _$DeviceInfoFromJson(json);
   Map<String, dynamic> toJson() => _$DeviceInfoToJson(this);
 }
 
@@ -1063,16 +1045,16 @@ class DeviceResponse {
   String verification_uri;
   String verification_uri_complete;
 
-  DeviceResponse({
-      this.device_code,
+  DeviceResponse(
+      {this.device_code,
       this.expires_in,
       this.interval,
       this.user_code,
       this.verification_uri,
-      this.verification_uri_complete
-  });
+      this.verification_uri_complete});
 
-  factory DeviceResponse.fromJson(Map<String, dynamic> json) => _$DeviceResponseFromJson(json);
+  factory DeviceResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeviceResponseFromJson(json);
   Map<String, dynamic> toJson() => _$DeviceResponseToJson(this);
 }
 
@@ -1105,22 +1087,20 @@ class DisplayableRawLogin extends RawLogin {
   String applicationName;
   String loginId;
 
-  DisplayableRawLogin({
-      this.applicationName,
-      this.loginId
-  });
+  DisplayableRawLogin({this.applicationName, this.loginId});
 
-  factory DisplayableRawLogin.fromJson(Map<String, dynamic> json) => _$DisplayableRawLoginFromJson(json);
+  factory DisplayableRawLogin.fromJson(Map<String, dynamic> json) =>
+      _$DisplayableRawLoginFromJson(json);
   Map<String, dynamic> toJson() => _$DisplayableRawLoginToJson(this);
 }
 
 /// Interface for all identity providers that can be domain based.
 @JsonSerializable()
 class DomainBasedIdentityProvider {
-
   DomainBasedIdentityProvider();
 
-  factory DomainBasedIdentityProvider.fromJson(Map<String, dynamic> json) => _$DomainBasedIdentityProviderFromJson(json);
+  factory DomainBasedIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$DomainBasedIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$DomainBasedIdentityProviderToJson(this);
 }
 
@@ -1139,8 +1119,8 @@ class Email {
   String text;
   List<EmailAddress> to;
 
-  Email({
-      this.attachments,
+  Email(
+      {this.attachments,
       this.bcc,
       this.cc,
       this.from,
@@ -1148,8 +1128,7 @@ class Email {
       this.replyTo,
       this.subject,
       this.text,
-      this.to
-  });
+      this.to});
 
   factory Email.fromJson(Map<String, dynamic> json) => _$EmailFromJson(json);
   Map<String, dynamic> toJson() => _$EmailToJson(this);
@@ -1163,12 +1142,10 @@ class EmailAddress {
   String address;
   String display;
 
-  EmailAddress({
-      this.address,
-      this.display
-  });
+  EmailAddress({this.address, this.display});
 
-  factory EmailAddress.fromJson(Map<String, dynamic> json) => _$EmailAddressFromJson(json);
+  factory EmailAddress.fromJson(Map<String, dynamic> json) =>
+      _$EmailAddressFromJson(json);
   Map<String, dynamic> toJson() => _$EmailAddressToJson(this);
 }
 
@@ -1190,8 +1167,8 @@ class EmailConfiguration {
   bool verifyEmail;
   bool verifyEmailWhenChanged;
 
-  EmailConfiguration({
-      this.defaultFromEmail,
+  EmailConfiguration(
+      {this.defaultFromEmail,
       this.defaultFromName,
       this.forgotPasswordEmailTemplateId,
       this.host,
@@ -1204,10 +1181,10 @@ class EmailConfiguration {
       this.username,
       this.verificationEmailTemplateId,
       this.verifyEmail,
-      this.verifyEmailWhenChanged
-  });
+      this.verifyEmailWhenChanged});
 
-  factory EmailConfiguration.fromJson(Map<String, dynamic> json) => _$EmailConfigurationFromJson(json);
+  factory EmailConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$EmailConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$EmailConfigurationToJson(this);
 }
 
@@ -1217,13 +1194,13 @@ class EmailPlus extends Enableable {
   num maximumTimeToSendEmailInHours;
   num minimumTimeToSendEmailInHours;
 
-  EmailPlus({
-      this.emailTemplateId,
+  EmailPlus(
+      {this.emailTemplateId,
       this.maximumTimeToSendEmailInHours,
-      this.minimumTimeToSendEmailInHours
-  });
+      this.minimumTimeToSendEmailInHours});
 
-  factory EmailPlus.fromJson(Map<String, dynamic> json) => _$EmailPlusFromJson(json);
+  factory EmailPlus.fromJson(Map<String, dynamic> json) =>
+      _$EmailPlusFromJson(json);
   Map<String, dynamic> toJson() => _$EmailPlusToJson(this);
 }
 
@@ -1255,8 +1232,8 @@ class EmailTemplate {
   Map<String, String> localizedTextTemplates;
   String name;
 
-  EmailTemplate({
-      this.defaultFromName,
+  EmailTemplate(
+      {this.defaultFromName,
       this.defaultHtmlTemplate,
       this.defaultSubject,
       this.defaultTextTemplate,
@@ -1268,10 +1245,10 @@ class EmailTemplate {
       this.localizedHtmlTemplates,
       this.localizedSubjects,
       this.localizedTextTemplates,
-      this.name
-  });
+      this.name});
 
-  factory EmailTemplate.fromJson(Map<String, dynamic> json) => _$EmailTemplateFromJson(json);
+  factory EmailTemplate.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateToJson(this);
 }
 
@@ -1280,12 +1257,10 @@ class EmailTemplateErrors {
   Map<String, String> parseErrors;
   Map<String, String> renderErrors;
 
-  EmailTemplateErrors({
-      this.parseErrors,
-      this.renderErrors
-  });
+  EmailTemplateErrors({this.parseErrors, this.renderErrors});
 
-  factory EmailTemplateErrors.fromJson(Map<String, dynamic> json) => _$EmailTemplateErrorsFromJson(json);
+  factory EmailTemplateErrors.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateErrorsFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateErrorsToJson(this);
 }
 
@@ -1296,11 +1271,10 @@ class EmailTemplateErrors {
 class EmailTemplateRequest {
   EmailTemplate emailTemplate;
 
-  EmailTemplateRequest({
-      this.emailTemplate
-  });
+  EmailTemplateRequest({this.emailTemplate});
 
-  factory EmailTemplateRequest.fromJson(Map<String, dynamic> json) => _$EmailTemplateRequestFromJson(json);
+  factory EmailTemplateRequest.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateRequestFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateRequestToJson(this);
 }
 
@@ -1312,12 +1286,10 @@ class EmailTemplateResponse {
   EmailTemplate emailTemplate;
   List<EmailTemplate> emailTemplates;
 
-  EmailTemplateResponse({
-      this.emailTemplate,
-      this.emailTemplates
-  });
+  EmailTemplateResponse({this.emailTemplate, this.emailTemplates});
 
-  factory EmailTemplateResponse.fromJson(Map<String, dynamic> json) => _$EmailTemplateResponseFromJson(json);
+  factory EmailTemplateResponse.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateResponseToJson(this);
 }
 
@@ -1328,12 +1300,309 @@ class EmailTemplateResponse {
 class Enableable {
   bool enabled;
 
-  Enableable({
-      this.enabled
-  });
+  Enableable({this.enabled});
 
-  factory Enableable.fromJson(Map<String, dynamic> json) => _$EnableableFromJson(json);
+  factory Enableable.fromJson(Map<String, dynamic> json) =>
+      _$EnableableFromJson(json);
   Map<String, dynamic> toJson() => _$EnableableToJson(this);
+}
+
+/// Models an entity that a user can be granted permissions to. Or an entity that can be granted permissions to another entity.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class Entity {
+  String clientId;
+  String clientSecret;
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+  String parentId;
+  String tenantId;
+  EntityType type;
+
+  Entity(
+      {this.clientId,
+      this.clientSecret,
+      this.data,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name,
+      this.parentId,
+      this.tenantId,
+      this.type});
+
+  factory Entity.fromJson(Map<String, dynamic> json) => _$EntityFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityToJson(this);
+}
+
+/// A grant for an entity to a user or another entity.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrant {
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  Set<String> permissions;
+  String recipientEntityId;
+  String userId;
+
+  EntityGrant(
+      {this.data,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.permissions,
+      this.recipientEntityId,
+      this.userId});
+
+  factory EntityGrant.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantToJson(this);
+}
+
+/// Entity grant API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantRequest {
+  EntityGrant grant;
+
+  EntityGrantRequest({this.grant});
+
+  factory EntityGrantRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantRequestToJson(this);
+}
+
+/// Entity grant API response object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantResponse {
+  EntityGrant grant;
+  List<EntityGrant> grants;
+
+  EntityGrantResponse({this.grant, this.grants});
+
+  factory EntityGrantResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantResponseToJson(this);
+}
+
+/// JWT Configuration for entities.
+@JsonSerializable()
+class EntityJWTConfiguration extends Enableable {
+  String accessTokenKeyId;
+  num timeToLiveInSeconds;
+
+  EntityJWTConfiguration({this.accessTokenKeyId, this.timeToLiveInSeconds});
+
+  factory EntityJWTConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$EntityJWTConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityJWTConfigurationToJson(this);
+}
+
+/// Entity API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityRequest {
+  Entity entity;
+
+  EntityRequest({this.entity});
+
+  factory EntityRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityRequestToJson(this);
+}
+
+/// Entity API response object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityResponse {
+  Entity entity;
+
+  EntityResponse({this.entity});
+
+  factory EntityResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityResponseToJson(this);
+}
+
+/// This class is the entity query. It provides a build pattern as well as public fields for use on forms and in actions.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntitySearchCriteria extends BaseElasticSearchCriteria {
+  EntitySearchCriteria();
+
+  factory EntitySearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EntitySearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EntitySearchCriteriaToJson(this);
+}
+
+/// Search request for entities
+///
+/// @author Brett Guy
+@JsonSerializable()
+class EntitySearchRequest {
+  EntitySearchCriteria search;
+
+  EntitySearchRequest({this.search});
+
+  factory EntitySearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntitySearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntitySearchRequestToJson(this);
+}
+
+/// Search request for entities
+///
+/// @author Brett Guy
+@JsonSerializable()
+class EntitySearchResponse {
+  List<Entity> entities;
+  num total;
+
+  EntitySearchResponse({this.entities, this.total});
+
+  factory EntitySearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntitySearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntitySearchResponseToJson(this);
+}
+
+/// Models an entity type that has a specific set of permissions. These are global objects and can be used across tenants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityType {
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  EntityJWTConfiguration jwtConfiguration;
+  num lastUpdateInstant;
+  String name;
+  List<EntityTypePermission> permissions;
+
+  EntityType(
+      {this.data,
+      this.id,
+      this.insertInstant,
+      this.jwtConfiguration,
+      this.lastUpdateInstant,
+      this.name,
+      this.permissions});
+
+  factory EntityType.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeToJson(this);
+}
+
+/// Models a specific entity type permission. This permission can be granted to users or other entities.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypePermission {
+  Map<String, dynamic> data;
+  String description;
+  String id;
+  num insertInstant;
+  bool isDefault;
+  num lastUpdateInstant;
+  String name;
+
+  EntityTypePermission(
+      {this.data,
+      this.description,
+      this.id,
+      this.insertInstant,
+      this.isDefault,
+      this.lastUpdateInstant,
+      this.name});
+
+  factory EntityTypePermission.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypePermissionFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypePermissionToJson(this);
+}
+
+/// Entity Type API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeRequest {
+  EntityType entityType;
+  EntityTypePermission permission;
+
+  EntityTypeRequest({this.entityType, this.permission});
+
+  factory EntityTypeRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeRequestToJson(this);
+}
+
+/// Entity Type API response object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeResponse {
+  EntityType entityType;
+  List<EntityType> entityTypes;
+  EntityTypePermission permission;
+
+  EntityTypeResponse({this.entityType, this.entityTypes, this.permission});
+
+  factory EntityTypeResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeResponseToJson(this);
+}
+
+/// Search criteria for entity types.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  EntityTypeSearchCriteria({this.name});
+
+  factory EntityTypeSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeSearchCriteriaToJson(this);
+}
+
+/// Search request for entity types.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeSearchRequest {
+  EntityTypeSearchCriteria search;
+
+  EntityTypeSearchRequest({this.search});
+
+  factory EntityTypeSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeSearchRequestToJson(this);
+}
+
+/// Search request for entity types.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityTypeSearchResponse {
+  List<EntityType> entityTypes;
+  num total;
+
+  EntityTypeSearchResponse({this.entityTypes, this.total});
+
+  factory EntityTypeSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityTypeSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityTypeSearchResponseToJson(this);
 }
 
 /// Defines an error.
@@ -1344,10 +1613,7 @@ class Error {
   String code;
   String message;
 
-  Error({
-      this.code,
-      this.message
-  });
+  Error({this.code, this.message});
 
   factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
   Map<String, dynamic> toJson() => _$ErrorToJson(this);
@@ -1361,10 +1627,7 @@ class Errors {
   Map<String, List<Error>> fieldErrors;
   List<Error> generalErrors;
 
-  Errors({
-      this.fieldErrors,
-      this.generalErrors
-  });
+  Errors({this.fieldErrors, this.generalErrors});
 
   factory Errors.fromJson(Map<String, dynamic> json) => _$ErrorsFromJson(json);
   Map<String, dynamic> toJson() => _$ErrorsToJson(this);
@@ -1375,11 +1638,10 @@ class Errors {
 class EventConfiguration {
   Map<EventType, EventConfigurationData> events;
 
-  EventConfiguration({
-      this.events
-  });
+  EventConfiguration({this.events});
 
-  factory EventConfiguration.fromJson(Map<String, dynamic> json) => _$EventConfigurationFromJson(json);
+  factory EventConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$EventConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$EventConfigurationToJson(this);
 }
 
@@ -1387,11 +1649,10 @@ class EventConfiguration {
 class EventConfigurationData extends Enableable {
   TransactionType transactionType;
 
-  EventConfigurationData({
-      this.transactionType
-  });
+  EventConfigurationData({this.transactionType});
 
-  factory EventConfigurationData.fromJson(Map<String, dynamic> json) => _$EventConfigurationDataFromJson(json);
+  factory EventConfigurationData.fromJson(Map<String, dynamic> json) =>
+      _$EventConfigurationDataFromJson(json);
   Map<String, dynamic> toJson() => _$EventConfigurationDataToJson(this);
 }
 
@@ -1405,14 +1666,10 @@ class EventLog {
   String message;
   EventLogType type;
 
-  EventLog({
-      this.id,
-      this.insertInstant,
-      this.message,
-      this.type
-  });
+  EventLog({this.id, this.insertInstant, this.message, this.type});
 
-  factory EventLog.fromJson(Map<String, dynamic> json) => _$EventLogFromJson(json);
+  factory EventLog.fromJson(Map<String, dynamic> json) =>
+      _$EventLogFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogToJson(this);
 }
 
@@ -1420,11 +1677,10 @@ class EventLog {
 class EventLogConfiguration {
   num numberToRetain;
 
-  EventLogConfiguration({
-      this.numberToRetain
-  });
+  EventLogConfiguration({this.numberToRetain});
 
-  factory EventLogConfiguration.fromJson(Map<String, dynamic> json) => _$EventLogConfigurationFromJson(json);
+  factory EventLogConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$EventLogConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogConfigurationToJson(this);
 }
 
@@ -1435,11 +1691,10 @@ class EventLogConfiguration {
 class EventLogResponse {
   EventLog eventLog;
 
-  EventLogResponse({
-      this.eventLog
-  });
+  EventLogResponse({this.eventLog});
 
-  factory EventLogResponse.fromJson(Map<String, dynamic> json) => _$EventLogResponseFromJson(json);
+  factory EventLogResponse.fromJson(Map<String, dynamic> json) =>
+      _$EventLogResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogResponseToJson(this);
 }
 
@@ -1453,14 +1708,10 @@ class EventLogSearchCriteria extends BaseSearchCriteria {
   num start;
   EventLogType type;
 
-  EventLogSearchCriteria({
-      this.end,
-      this.message,
-      this.start,
-      this.type
-  });
+  EventLogSearchCriteria({this.end, this.message, this.start, this.type});
 
-  factory EventLogSearchCriteria.fromJson(Map<String, dynamic> json) => _$EventLogSearchCriteriaFromJson(json);
+  factory EventLogSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EventLogSearchCriteriaFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogSearchCriteriaToJson(this);
 }
 
@@ -1469,11 +1720,10 @@ class EventLogSearchCriteria extends BaseSearchCriteria {
 class EventLogSearchRequest {
   EventLogSearchCriteria search;
 
-  EventLogSearchRequest({
-      this.search
-  });
+  EventLogSearchRequest({this.search});
 
-  factory EventLogSearchRequest.fromJson(Map<String, dynamic> json) => _$EventLogSearchRequestFromJson(json);
+  factory EventLogSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EventLogSearchRequestFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogSearchRequestToJson(this);
 }
 
@@ -1485,12 +1735,10 @@ class EventLogSearchResponse {
   List<EventLog> eventLogs;
   num total;
 
-  EventLogSearchResponse({
-      this.eventLogs,
-      this.total
-  });
+  EventLogSearchResponse({this.eventLogs, this.total});
 
-  factory EventLogSearchResponse.fromJson(Map<String, dynamic> json) => _$EventLogSearchResponseFromJson(json);
+  factory EventLogSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EventLogSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogSearchResponseToJson(this);
 }
 
@@ -1513,11 +1761,10 @@ enum EventLogType {
 class EventRequest {
   BaseEvent event;
 
-  EventRequest({
-      this.event
-  });
+  EventRequest({this.event});
 
-  factory EventRequest.fromJson(Map<String, dynamic> json) => _$EventRequestFromJson(json);
+  factory EventRequest.fromJson(Map<String, dynamic> json) =>
+      _$EventRequestFromJson(json);
   Map<String, dynamic> toJson() => _$EventRequestToJson(this);
 }
 
@@ -1603,8 +1850,8 @@ class ExternalIdentifierConfiguration {
   num twoFactorIdTimeToLiveInSeconds;
   num twoFactorTrustIdTimeToLiveInSeconds;
 
-  ExternalIdentifierConfiguration({
-      this.authorizationGrantIdTimeToLiveInSeconds,
+  ExternalIdentifierConfiguration(
+      {this.authorizationGrantIdTimeToLiveInSeconds,
       this.changePasswordIdGenerator,
       this.changePasswordIdTimeToLiveInSeconds,
       this.deviceCodeTimeToLiveInSeconds,
@@ -1621,28 +1868,33 @@ class ExternalIdentifierConfiguration {
       this.setupPasswordIdGenerator,
       this.setupPasswordIdTimeToLiveInSeconds,
       this.twoFactorIdTimeToLiveInSeconds,
-      this.twoFactorTrustIdTimeToLiveInSeconds
-  });
+      this.twoFactorTrustIdTimeToLiveInSeconds});
 
-  factory ExternalIdentifierConfiguration.fromJson(Map<String, dynamic> json) => _$ExternalIdentifierConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$ExternalIdentifierConfigurationToJson(this);
+  factory ExternalIdentifierConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$ExternalIdentifierConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ExternalIdentifierConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class ExternalJWTApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
-
+class ExternalJWTApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   ExternalJWTApplicationConfiguration();
 
-  factory ExternalJWTApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$ExternalJWTApplicationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$ExternalJWTApplicationConfigurationToJson(this);
+  factory ExternalJWTApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ExternalJWTApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ExternalJWTApplicationConfigurationToJson(this);
 }
 
 /// External JWT-only identity provider.
 ///
 /// @author Daniel DeGroff and Brian Pontarelli
 @JsonSerializable()
-class ExternalJWTIdentityProvider extends BaseIdentityProvider<ExternalJWTApplicationConfiguration> {
+class ExternalJWTIdentityProvider
+    extends BaseIdentityProvider<ExternalJWTApplicationConfiguration> {
   Map<String, String> claimMap;
   String defaultKeyId;
   Set<String> domains;
@@ -1650,22 +1902,23 @@ class ExternalJWTIdentityProvider extends BaseIdentityProvider<ExternalJWTApplic
   IdentityProviderOauth2Configuration oauth2;
   String uniqueIdentityClaim;
 
-  ExternalJWTIdentityProvider({
-      this.claimMap,
+  ExternalJWTIdentityProvider(
+      {this.claimMap,
       this.defaultKeyId,
       this.domains,
       this.headerKeyParameter,
       this.oauth2,
-      this.uniqueIdentityClaim
-  });
+      this.uniqueIdentityClaim});
 
-  factory ExternalJWTIdentityProvider.fromJson(Map<String, dynamic> json) => _$ExternalJWTIdentityProviderFromJson(json);
+  factory ExternalJWTIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$ExternalJWTIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$ExternalJWTIdentityProviderToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class FacebookApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class FacebookApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String appId;
   String buttonText;
   String client_secret;
@@ -1673,24 +1926,27 @@ class FacebookApplicationConfiguration extends BaseIdentityProviderApplicationCo
   LoginMethod loginMethod;
   String permissions;
 
-  FacebookApplicationConfiguration({
-      this.appId,
+  FacebookApplicationConfiguration(
+      {this.appId,
       this.buttonText,
       this.client_secret,
       this.fields,
       this.loginMethod,
-      this.permissions
-  });
+      this.permissions});
 
-  factory FacebookApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$FacebookApplicationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$FacebookApplicationConfigurationToJson(this);
+  factory FacebookApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$FacebookApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$FacebookApplicationConfigurationToJson(this);
 }
 
 /// Facebook social login provider.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class FacebookIdentityProvider extends BaseIdentityProvider<FacebookApplicationConfiguration> {
+class FacebookIdentityProvider
+    extends BaseIdentityProvider<FacebookApplicationConfiguration> {
   String appId;
   String buttonText;
   String client_secret;
@@ -1698,16 +1954,16 @@ class FacebookIdentityProvider extends BaseIdentityProvider<FacebookApplicationC
   LoginMethod loginMethod;
   String permissions;
 
-  FacebookIdentityProvider({
-      this.appId,
+  FacebookIdentityProvider(
+      {this.appId,
       this.buttonText,
       this.client_secret,
       this.fields,
       this.loginMethod,
-      this.permissions
-  });
+      this.permissions});
 
-  factory FacebookIdentityProvider.fromJson(Map<String, dynamic> json) => _$FacebookIdentityProviderFromJson(json);
+  factory FacebookIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$FacebookIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$FacebookIdentityProviderToJson(this);
 }
 
@@ -1722,16 +1978,18 @@ class FailedAuthenticationConfiguration {
   num tooManyAttempts;
   String userActionId;
 
-  FailedAuthenticationConfiguration({
-      this.actionDuration,
+  FailedAuthenticationConfiguration(
+      {this.actionDuration,
       this.actionDurationUnit,
       this.resetCountInSeconds,
       this.tooManyAttempts,
-      this.userActionId
-  });
+      this.userActionId});
 
-  factory FailedAuthenticationConfiguration.fromJson(Map<String, dynamic> json) => _$FailedAuthenticationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$FailedAuthenticationConfigurationToJson(this);
+  factory FailedAuthenticationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$FailedAuthenticationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$FailedAuthenticationConfigurationToJson(this);
 }
 
 /// Models a family grouping of users.
@@ -1744,12 +2002,7 @@ class Family {
   num lastUpdateInstant;
   List<FamilyMember> members;
 
-  Family({
-      this.id,
-      this.insertInstant,
-      this.lastUpdateInstant,
-      this.members
-  });
+  Family({this.id, this.insertInstant, this.lastUpdateInstant, this.members});
 
   factory Family.fromJson(Map<String, dynamic> json) => _$FamilyFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyToJson(this);
@@ -1768,8 +2021,8 @@ class FamilyConfiguration extends Enableable {
   bool parentEmailRequired;
   String parentRegistrationEmailTemplateId;
 
-  FamilyConfiguration({
-      this.allowChildRegistrations,
+  FamilyConfiguration(
+      {this.allowChildRegistrations,
       this.confirmChildEmailTemplateId,
       this.deleteOrphanedAccounts,
       this.deleteOrphanedAccountsDays,
@@ -1777,10 +2030,10 @@ class FamilyConfiguration extends Enableable {
       this.maximumChildAge,
       this.minimumOwnerAge,
       this.parentEmailRequired,
-      this.parentRegistrationEmailTemplateId
-  });
+      this.parentRegistrationEmailTemplateId});
 
-  factory FamilyConfiguration.fromJson(Map<String, dynamic> json) => _$FamilyConfigurationFromJson(json);
+  factory FamilyConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$FamilyConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyConfigurationToJson(this);
 }
 
@@ -1791,11 +2044,10 @@ class FamilyConfiguration extends Enableable {
 class FamilyEmailRequest {
   String parentEmail;
 
-  FamilyEmailRequest({
-      this.parentEmail
-  });
+  FamilyEmailRequest({this.parentEmail});
 
-  factory FamilyEmailRequest.fromJson(Map<String, dynamic> json) => _$FamilyEmailRequestFromJson(json);
+  factory FamilyEmailRequest.fromJson(Map<String, dynamic> json) =>
+      _$FamilyEmailRequestFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyEmailRequestToJson(this);
 }
 
@@ -1811,16 +2063,16 @@ class FamilyMember {
   FamilyRole role;
   String userId;
 
-  FamilyMember({
-      this.data,
+  FamilyMember(
+      {this.data,
       this.insertInstant,
       this.lastUpdateInstant,
       this.owner,
       this.role,
-      this.userId
-  });
+      this.userId});
 
-  factory FamilyMember.fromJson(Map<String, dynamic> json) => _$FamilyMemberFromJson(json);
+  factory FamilyMember.fromJson(Map<String, dynamic> json) =>
+      _$FamilyMemberFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyMemberToJson(this);
 }
 
@@ -1831,11 +2083,10 @@ class FamilyMember {
 class FamilyRequest {
   FamilyMember familyMember;
 
-  FamilyRequest({
-      this.familyMember
-  });
+  FamilyRequest({this.familyMember});
 
-  factory FamilyRequest.fromJson(Map<String, dynamic> json) => _$FamilyRequestFromJson(json);
+  factory FamilyRequest.fromJson(Map<String, dynamic> json) =>
+      _$FamilyRequestFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyRequestToJson(this);
 }
 
@@ -1847,12 +2098,10 @@ class FamilyResponse {
   List<Family> families;
   Family family;
 
-  FamilyResponse({
-      this.families,
-      this.family
-  });
+  FamilyResponse({this.families, this.family});
 
-  factory FamilyResponse.fromJson(Map<String, dynamic> json) => _$FamilyResponseFromJson(json);
+  factory FamilyResponse.fromJson(Map<String, dynamic> json) =>
+      _$FamilyResponseFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyResponseToJson(this);
 }
 
@@ -1878,17 +2127,17 @@ class ForgotPasswordRequest {
   Map<String, dynamic> state;
   String username;
 
-  ForgotPasswordRequest({
-      this.applicationId,
+  ForgotPasswordRequest(
+      {this.applicationId,
       this.changePasswordId,
       this.email,
       this.loginId,
       this.sendForgotPasswordEmail,
       this.state,
-      this.username
-  });
+      this.username});
 
-  factory ForgotPasswordRequest.fromJson(Map<String, dynamic> json) => _$ForgotPasswordRequestFromJson(json);
+  factory ForgotPasswordRequest.fromJson(Map<String, dynamic> json) =>
+      _$ForgotPasswordRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ForgotPasswordRequestToJson(this);
 }
 
@@ -1899,11 +2148,10 @@ class ForgotPasswordRequest {
 class ForgotPasswordResponse {
   String changePasswordId;
 
-  ForgotPasswordResponse({
-      this.changePasswordId
-  });
+  ForgotPasswordResponse({this.changePasswordId});
 
-  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) => _$ForgotPasswordResponseFromJson(json);
+  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ForgotPasswordResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
 }
 
@@ -1918,15 +2166,14 @@ class Form {
   List<FormStep> steps;
   FormType type;
 
-  Form({
-      this.data,
+  Form(
+      {this.data,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
       this.name,
       this.steps,
-      this.type
-  });
+      this.type});
 
   factory Form.fromJson(Map<String, dynamic> json) => _$FormFromJson(json);
   Map<String, dynamic> toJson() => _$FormToJson(this);
@@ -1984,8 +2231,8 @@ class FormField {
   FormDataType type;
   FormFieldValidator validator;
 
-  FormField({
-      this.confirm,
+  FormField(
+      {this.confirm,
       this.consentId,
       this.control,
       this.data,
@@ -1998,10 +2245,10 @@ class FormField {
       this.options,
       this.required,
       this.type,
-      this.validator
-  });
+      this.validator});
 
-  factory FormField.fromJson(Map<String, dynamic> json) => _$FormFieldFromJson(json);
+  factory FormField.fromJson(Map<String, dynamic> json) =>
+      _$FormFieldFromJson(json);
   Map<String, dynamic> toJson() => _$FormFieldToJson(this);
 }
 
@@ -2021,12 +2268,10 @@ class FormFieldRequest {
   FormField field;
   List<FormField> fields;
 
-  FormFieldRequest({
-      this.field,
-      this.fields
-  });
+  FormFieldRequest({this.field, this.fields});
 
-  factory FormFieldRequest.fromJson(Map<String, dynamic> json) => _$FormFieldRequestFromJson(json);
+  factory FormFieldRequest.fromJson(Map<String, dynamic> json) =>
+      _$FormFieldRequestFromJson(json);
   Map<String, dynamic> toJson() => _$FormFieldRequestToJson(this);
 }
 
@@ -2038,12 +2283,10 @@ class FormFieldResponse {
   FormField field;
   List<FormField> fields;
 
-  FormFieldResponse({
-      this.field,
-      this.fields
-  });
+  FormFieldResponse({this.field, this.fields});
 
-  factory FormFieldResponse.fromJson(Map<String, dynamic> json) => _$FormFieldResponseFromJson(json);
+  factory FormFieldResponse.fromJson(Map<String, dynamic> json) =>
+      _$FormFieldResponseFromJson(json);
   Map<String, dynamic> toJson() => _$FormFieldResponseToJson(this);
 }
 
@@ -2052,11 +2295,10 @@ class FormFieldResponse {
 class FormFieldValidator extends Enableable {
   String expression;
 
-  FormFieldValidator({
-      this.expression
-  });
+  FormFieldValidator({this.expression});
 
-  factory FormFieldValidator.fromJson(Map<String, dynamic> json) => _$FormFieldValidatorFromJson(json);
+  factory FormFieldValidator.fromJson(Map<String, dynamic> json) =>
+      _$FormFieldValidatorFromJson(json);
   Map<String, dynamic> toJson() => _$FormFieldValidatorToJson(this);
 }
 
@@ -2067,11 +2309,10 @@ class FormFieldValidator extends Enableable {
 class FormRequest {
   Form form;
 
-  FormRequest({
-      this.form
-  });
+  FormRequest({this.form});
 
-  factory FormRequest.fromJson(Map<String, dynamic> json) => _$FormRequestFromJson(json);
+  factory FormRequest.fromJson(Map<String, dynamic> json) =>
+      _$FormRequestFromJson(json);
   Map<String, dynamic> toJson() => _$FormRequestToJson(this);
 }
 
@@ -2083,12 +2324,10 @@ class FormResponse {
   Form form;
   List<Form> forms;
 
-  FormResponse({
-      this.form,
-      this.forms
-  });
+  FormResponse({this.form, this.forms});
 
-  factory FormResponse.fromJson(Map<String, dynamic> json) => _$FormResponseFromJson(json);
+  factory FormResponse.fromJson(Map<String, dynamic> json) =>
+      _$FormResponseFromJson(json);
   Map<String, dynamic> toJson() => _$FormResponseToJson(this);
 }
 
@@ -2097,11 +2336,10 @@ class FormResponse {
 class FormStep {
   List<String> fields;
 
-  FormStep({
-      this.fields
-  });
+  FormStep({this.fields});
 
-  factory FormStep.fromJson(Map<String, dynamic> json) => _$FormStepFromJson(json);
+  factory FormStep.fromJson(Map<String, dynamic> json) =>
+      _$FormStepFromJson(json);
   Map<String, dynamic> toJson() => _$FormStepToJson(this);
 }
 
@@ -2120,11 +2358,13 @@ enum FormType {
 /// @author Trevor Smith
 @JsonSerializable()
 class FusionAuthConnectorConfiguration extends BaseConnectorConfiguration {
-
   FusionAuthConnectorConfiguration();
 
-  factory FusionAuthConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$FusionAuthConnectorConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$FusionAuthConnectorConfigurationToJson(this);
+  factory FusionAuthConnectorConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$FusionAuthConnectorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$FusionAuthConnectorConfigurationToJson(this);
 }
 
 /// Models a generic connector.
@@ -2140,38 +2380,39 @@ class GenericConnectorConfiguration extends BaseConnectorConfiguration {
   num readTimeout;
   String sslCertificateKeyId;
 
-  GenericConnectorConfiguration({
-      this.authenticationURL,
+  GenericConnectorConfiguration(
+      {this.authenticationURL,
       this.connectTimeout,
       this.headers,
       this.httpAuthenticationPassword,
       this.httpAuthenticationUsername,
       this.readTimeout,
-      this.sslCertificateKeyId
-  });
+      this.sslCertificateKeyId});
 
-  factory GenericConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$GenericConnectorConfigurationFromJson(json);
+  factory GenericConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$GenericConnectorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$GenericConnectorConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class GoogleApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class GoogleApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String buttonText;
   String client_id;
   String client_secret;
   LoginMethod loginMethod;
   String scope;
 
-  GoogleApplicationConfiguration({
-      this.buttonText,
+  GoogleApplicationConfiguration(
+      {this.buttonText,
       this.client_id,
       this.client_secret,
       this.loginMethod,
-      this.scope
-  });
+      this.scope});
 
-  factory GoogleApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$GoogleApplicationConfigurationFromJson(json);
+  factory GoogleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$GoogleApplicationConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$GoogleApplicationConfigurationToJson(this);
 }
 
@@ -2179,22 +2420,23 @@ class GoogleApplicationConfiguration extends BaseIdentityProviderApplicationConf
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
-class GoogleIdentityProvider extends BaseIdentityProvider<GoogleApplicationConfiguration> {
+class GoogleIdentityProvider
+    extends BaseIdentityProvider<GoogleApplicationConfiguration> {
   String buttonText;
   String client_id;
   String client_secret;
   LoginMethod loginMethod;
   String scope;
 
-  GoogleIdentityProvider({
-      this.buttonText,
+  GoogleIdentityProvider(
+      {this.buttonText,
       this.client_id,
       this.client_secret,
       this.loginMethod,
-      this.scope
-  });
+      this.scope});
 
-  factory GoogleIdentityProvider.fromJson(Map<String, dynamic> json) => _$GoogleIdentityProviderFromJson(json);
+  factory GoogleIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$GoogleIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$GoogleIdentityProviderToJson(this);
 }
 
@@ -2233,15 +2475,14 @@ class Group {
   Map<String, List<ApplicationRole>> roles;
   String tenantId;
 
-  Group({
-      this.data,
+  Group(
+      {this.data,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
       this.name,
       this.roles,
-      this.tenantId
-  });
+      this.tenantId});
 
   factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
   Map<String, dynamic> toJson() => _$GroupToJson(this);
@@ -2258,15 +2499,11 @@ class GroupMember {
   num insertInstant;
   String userId;
 
-  GroupMember({
-      this.data,
-      this.groupId,
-      this.id,
-      this.insertInstant,
-      this.userId
-  });
+  GroupMember(
+      {this.data, this.groupId, this.id, this.insertInstant, this.userId});
 
-  factory GroupMember.fromJson(Map<String, dynamic> json) => _$GroupMemberFromJson(json);
+  factory GroupMember.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberFromJson(json);
   Map<String, dynamic> toJson() => _$GroupMemberToJson(this);
 }
 
@@ -2278,12 +2515,10 @@ class GroupRequest {
   Group group;
   List<String> roleIds;
 
-  GroupRequest({
-      this.group,
-      this.roleIds
-  });
+  GroupRequest({this.group, this.roleIds});
 
-  factory GroupRequest.fromJson(Map<String, dynamic> json) => _$GroupRequestFromJson(json);
+  factory GroupRequest.fromJson(Map<String, dynamic> json) =>
+      _$GroupRequestFromJson(json);
   Map<String, dynamic> toJson() => _$GroupRequestToJson(this);
 }
 
@@ -2295,12 +2530,10 @@ class GroupResponse {
   Group group;
   List<Group> groups;
 
-  GroupResponse({
-      this.group,
-      this.groups
-  });
+  GroupResponse({this.group, this.groups});
 
-  factory GroupResponse.fromJson(Map<String, dynamic> json) => _$GroupResponseFromJson(json);
+  factory GroupResponse.fromJson(Map<String, dynamic> json) =>
+      _$GroupResponseFromJson(json);
   Map<String, dynamic> toJson() => _$GroupResponseToJson(this);
 }
 
@@ -2311,14 +2544,11 @@ class HistoryItem {
   num createInstant;
   num expiry;
 
-  HistoryItem({
-      this.actionerUserId,
-      this.comment,
-      this.createInstant,
-      this.expiry
-  });
+  HistoryItem(
+      {this.actionerUserId, this.comment, this.createInstant, this.expiry});
 
-  factory HistoryItem.fromJson(Map<String, dynamic> json) => _$HistoryItemFromJson(json);
+  factory HistoryItem.fromJson(Map<String, dynamic> json) =>
+      _$HistoryItemFromJson(json);
   Map<String, dynamic> toJson() => _$HistoryItemToJson(this);
 }
 
@@ -2342,31 +2572,30 @@ enum HTTPMethod {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class HYPRApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class HYPRApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String relyingPartyApplicationId;
   String relyingPartyURL;
 
-  HYPRApplicationConfiguration({
-      this.relyingPartyApplicationId,
-      this.relyingPartyURL
-  });
+  HYPRApplicationConfiguration(
+      {this.relyingPartyApplicationId, this.relyingPartyURL});
 
-  factory HYPRApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$HYPRApplicationConfigurationFromJson(json);
+  factory HYPRApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$HYPRApplicationConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$HYPRApplicationConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class HYPRIdentityProvider extends BaseIdentityProvider<HYPRApplicationConfiguration> {
+class HYPRIdentityProvider
+    extends BaseIdentityProvider<HYPRApplicationConfiguration> {
   String relyingPartyApplicationId;
   String relyingPartyURL;
 
-  HYPRIdentityProvider({
-      this.relyingPartyApplicationId,
-      this.relyingPartyURL
-  });
+  HYPRIdentityProvider({this.relyingPartyApplicationId, this.relyingPartyURL});
 
-  factory HYPRIdentityProvider.fromJson(Map<String, dynamic> json) => _$HYPRIdentityProviderFromJson(json);
+  factory HYPRIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$HYPRIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$HYPRIdentityProviderToJson(this);
 }
 
@@ -2379,16 +2608,16 @@ class IdentityProviderDetails {
   IdentityProviderOauth2Configuration oauth2;
   IdentityProviderType type;
 
-  IdentityProviderDetails({
-      this.applicationIds,
+  IdentityProviderDetails(
+      {this.applicationIds,
       this.id,
       this.idpEndpoint,
       this.name,
       this.oauth2,
-      this.type
-  });
+      this.type});
 
-  factory IdentityProviderDetails.fromJson(Map<String, dynamic> json) => _$IdentityProviderDetailsFromJson(json);
+  factory IdentityProviderDetails.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$IdentityProviderDetailsToJson(this);
 }
 
@@ -2401,13 +2630,11 @@ class IdentityProviderLoginRequest extends BaseLoginRequest {
   String encodedJWT;
   String identityProviderId;
 
-  IdentityProviderLoginRequest({
-      this.data,
-      this.encodedJWT,
-      this.identityProviderId
-  });
+  IdentityProviderLoginRequest(
+      {this.data, this.encodedJWT, this.identityProviderId});
 
-  factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) => _$IdentityProviderLoginRequestFromJson(json);
+  factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderLoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$IdentityProviderLoginRequestToJson(this);
 }
 
@@ -2424,8 +2651,8 @@ class IdentityProviderOauth2Configuration {
   String token_endpoint;
   String userinfo_endpoint;
 
-  IdentityProviderOauth2Configuration({
-      this.authorization_endpoint,
+  IdentityProviderOauth2Configuration(
+      {this.authorization_endpoint,
       this.client_id,
       this.client_secret,
       this.clientAuthenticationMethod,
@@ -2433,11 +2660,13 @@ class IdentityProviderOauth2Configuration {
       this.issuer,
       this.scope,
       this.token_endpoint,
-      this.userinfo_endpoint
-  });
+      this.userinfo_endpoint});
 
-  factory IdentityProviderOauth2Configuration.fromJson(Map<String, dynamic> json) => _$IdentityProviderOauth2ConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$IdentityProviderOauth2ConfigurationToJson(this);
+  factory IdentityProviderOauth2Configuration.fromJson(
+          Map<String, dynamic> json) =>
+      _$IdentityProviderOauth2ConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IdentityProviderOauth2ConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -2446,11 +2675,10 @@ class IdentityProviderRequest {
   @IdentityProviderConverter()
   BaseIdentityProvider<dynamic> identityProvider;
 
-  IdentityProviderRequest({
-      this.identityProvider
-  });
+  IdentityProviderRequest({this.identityProvider});
 
-  factory IdentityProviderRequest.fromJson(Map<String, dynamic> json) => _$IdentityProviderRequestFromJson(json);
+  factory IdentityProviderRequest.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderRequestFromJson(json);
   Map<String, dynamic> toJson() => _$IdentityProviderRequestToJson(this);
 }
 
@@ -2461,12 +2689,10 @@ class IdentityProviderResponse {
   BaseIdentityProvider<dynamic> identityProvider;
   List<BaseIdentityProvider<dynamic>> identityProviders;
 
-  IdentityProviderResponse({
-      this.identityProvider,
-      this.identityProviders
-  });
+  IdentityProviderResponse({this.identityProvider, this.identityProviders});
 
-  factory IdentityProviderResponse.fromJson(Map<String, dynamic> json) => _$IdentityProviderResponseFromJson(json);
+  factory IdentityProviderResponse.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderResponseFromJson(json);
   Map<String, dynamic> toJson() => _$IdentityProviderResponseToJson(this);
 }
 
@@ -2478,15 +2704,14 @@ class IdentityProviderStartLoginRequest extends BaseLoginRequest {
   String loginId;
   Map<String, dynamic> state;
 
-  IdentityProviderStartLoginRequest({
-      this.data,
-      this.identityProviderId,
-      this.loginId,
-      this.state
-  });
+  IdentityProviderStartLoginRequest(
+      {this.data, this.identityProviderId, this.loginId, this.state});
 
-  factory IdentityProviderStartLoginRequest.fromJson(Map<String, dynamic> json) => _$IdentityProviderStartLoginRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$IdentityProviderStartLoginRequestToJson(this);
+  factory IdentityProviderStartLoginRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$IdentityProviderStartLoginRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IdentityProviderStartLoginRequestToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -2494,12 +2719,13 @@ class IdentityProviderStartLoginRequest extends BaseLoginRequest {
 class IdentityProviderStartLoginResponse {
   String code;
 
-  IdentityProviderStartLoginResponse({
-      this.code
-  });
+  IdentityProviderStartLoginResponse({this.code});
 
-  factory IdentityProviderStartLoginResponse.fromJson(Map<String, dynamic> json) => _$IdentityProviderStartLoginResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$IdentityProviderStartLoginResponseToJson(this);
+  factory IdentityProviderStartLoginResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$IdentityProviderStartLoginResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IdentityProviderStartLoginResponseToJson(this);
 }
 
 enum IdentityProviderType {
@@ -2520,7 +2746,9 @@ enum IdentityProviderType {
   @JsonValue('Apple')
   Apple,
   @JsonValue('LinkedIn')
-  LinkedIn
+  LinkedIn,
+  @JsonValue('SAMLv2IdPInitiated')
+  SAMLv2IdPInitiated
 }
 
 /// Import request.
@@ -2533,14 +2761,14 @@ class ImportRequest {
   List<User> users;
   bool validateDbConstraints;
 
-  ImportRequest({
-      this.encryptionScheme,
+  ImportRequest(
+      {this.encryptionScheme,
       this.factor,
       this.users,
-      this.validateDbConstraints
-  });
+      this.validateDbConstraints});
 
-  factory ImportRequest.fromJson(Map<String, dynamic> json) => _$ImportRequestFromJson(json);
+  factory ImportRequest.fromJson(Map<String, dynamic> json) =>
+      _$ImportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ImportRequestToJson(this);
 }
 
@@ -2551,11 +2779,10 @@ class ImportRequest {
 class IntegrationRequest {
   Integrations integrations;
 
-  IntegrationRequest({
-      this.integrations
-  });
+  IntegrationRequest({this.integrations});
 
-  factory IntegrationRequest.fromJson(Map<String, dynamic> json) => _$IntegrationRequestFromJson(json);
+  factory IntegrationRequest.fromJson(Map<String, dynamic> json) =>
+      _$IntegrationRequestFromJson(json);
   Map<String, dynamic> toJson() => _$IntegrationRequestToJson(this);
 }
 
@@ -2566,11 +2793,10 @@ class IntegrationRequest {
 class IntegrationResponse {
   Integrations integrations;
 
-  IntegrationResponse({
-      this.integrations
-  });
+  IntegrationResponse({this.integrations});
 
-  factory IntegrationResponse.fromJson(Map<String, dynamic> json) => _$IntegrationResponseFromJson(json);
+  factory IntegrationResponse.fromJson(Map<String, dynamic> json) =>
+      _$IntegrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$IntegrationResponseToJson(this);
 }
 
@@ -2583,13 +2809,10 @@ class Integrations {
   KafkaConfiguration kafka;
   TwilioConfiguration twilio;
 
-  Integrations({
-      this.cleanspeak,
-      this.kafka,
-      this.twilio
-  });
+  Integrations({this.cleanspeak, this.kafka, this.twilio});
 
-  factory Integrations.fromJson(Map<String, dynamic> json) => _$IntegrationsFromJson(json);
+  factory Integrations.fromJson(Map<String, dynamic> json) =>
+      _$IntegrationsFromJson(json);
   Map<String, dynamic> toJson() => _$IntegrationsToJson(this);
 }
 
@@ -2603,14 +2826,11 @@ class IntervalCount {
   num decrementedCount;
   num period;
 
-  IntervalCount({
-      this.applicationId,
-      this.count,
-      this.decrementedCount,
-      this.period
-  });
+  IntervalCount(
+      {this.applicationId, this.count, this.decrementedCount, this.period});
 
-  factory IntervalCount.fromJson(Map<String, dynamic> json) => _$IntervalCountFromJson(json);
+  factory IntervalCount.fromJson(Map<String, dynamic> json) =>
+      _$IntervalCountFromJson(json);
   Map<String, dynamic> toJson() => _$IntervalCountToJson(this);
 }
 
@@ -2623,13 +2843,10 @@ class IntervalUser {
   num period;
   String userId;
 
-  IntervalUser({
-      this.applicationId,
-      this.period,
-      this.userId
-  });
+  IntervalUser({this.applicationId, this.period, this.userId});
 
-  factory IntervalUser.fromJson(Map<String, dynamic> json) => _$IntervalUserFromJson(json);
+  factory IntervalUser.fromJson(Map<String, dynamic> json) =>
+      _$IntervalUserFromJson(json);
   Map<String, dynamic> toJson() => _$IntervalUserToJson(this);
 }
 
@@ -2639,12 +2856,10 @@ class IssueResponse {
   String refreshToken;
   String token;
 
-  IssueResponse({
-      this.refreshToken,
-      this.token
-  });
+  IssueResponse({this.refreshToken, this.token});
 
-  factory IssueResponse.fromJson(Map<String, dynamic> json) => _$IssueResponseFromJson(json);
+  factory IssueResponse.fromJson(Map<String, dynamic> json) =>
+      _$IssueResponseFromJson(json);
   Map<String, dynamic> toJson() => _$IssueResponseToJson(this);
 }
 
@@ -2664,8 +2879,9 @@ class JSONWebKey {
   KeyType kty;
   String n;
   final Map<String, dynamic> _other = Map<String, dynamic>();
-  dynamic operator[](String index) => _other[index]; // Get any other fields
-  void operator[]=(String index, dynamic value) => _other[index] = value; // Set any other fields
+  dynamic operator [](String index) => _other[index]; // Get any other fields
+  void operator []=(String index, dynamic value) =>
+      _other[index] = value; // Set any other fields
   String p;
   String q;
   String qi;
@@ -2677,8 +2893,8 @@ class JSONWebKey {
   String x5t_S256;
   String y;
 
-  JSONWebKey({
-      this.alg,
+  JSONWebKey(
+      {this.alg,
       this.crv,
       this.d,
       this.dp,
@@ -2695,20 +2911,20 @@ class JSONWebKey {
       this.x5c,
       this.x5t,
       this.x5t_S256,
-      this.y
-  });
+      this.y});
 
-  factory JSONWebKey.fromJson(Map<String, dynamic> json) => _$JSONWebKeyFromJson(json);
+  factory JSONWebKey.fromJson(Map<String, dynamic> json) =>
+      _$JSONWebKeyFromJson(json);
   Map<String, dynamic> toJson() => _$JSONWebKeyToJson(this);
 }
 
 /// Interface for any object that can provide JSON Web key Information.
 @JsonSerializable()
 class JSONWebKeyInfoProvider {
-
   JSONWebKeyInfoProvider();
 
-  factory JSONWebKeyInfoProvider.fromJson(Map<String, dynamic> json) => _$JSONWebKeyInfoProviderFromJson(json);
+  factory JSONWebKeyInfoProvider.fromJson(Map<String, dynamic> json) =>
+      _$JSONWebKeyInfoProviderFromJson(json);
   Map<String, dynamic> toJson() => _$JSONWebKeyInfoProviderToJson(this);
 }
 
@@ -2717,11 +2933,10 @@ class JSONWebKeyInfoProvider {
 class JWKSResponse {
   List<JSONWebKey> keys;
 
-  JWKSResponse({
-      this.keys
-  });
+  JWKSResponse({this.keys});
 
-  factory JWKSResponse.fromJson(Map<String, dynamic> json) => _$JWKSResponseFromJson(json);
+  factory JWKSResponse.fromJson(Map<String, dynamic> json) =>
+      _$JWKSResponseFromJson(json);
   Map<String, dynamic> toJson() => _$JWKSResponseToJson(this);
 }
 
@@ -2742,19 +2957,13 @@ class JWT {
   String jti;
   num nbf;
   final Map<String, dynamic> _otherClaims = Map<String, dynamic>();
-  dynamic operator[](String index) => _otherClaims[index]; // Get any other fields
-  void operator[]=(String index, dynamic value) => _otherClaims[index] = value; // Set any other fields
+  dynamic operator [](String index) =>
+      _otherClaims[index]; // Get any other fields
+  void operator []=(String index, dynamic value) =>
+      _otherClaims[index] = value; // Set any other fields
   String sub;
 
-  JWT({
-      this.aud,
-      this.exp,
-      this.iat,
-      this.iss,
-      this.jti,
-      this.nbf,
-      this.sub
-  });
+  JWT({this.aud, this.exp, this.iat, this.iss, this.jti, this.nbf, this.sub});
 
   factory JWT.fromJson(Map<String, dynamic> json) => _$JWTFromJson(json);
   Map<String, dynamic> toJson() => _$JWTToJson(this);
@@ -2774,17 +2983,17 @@ class JWTConfiguration extends Enableable {
   RefreshTokenUsagePolicy refreshTokenUsagePolicy;
   num timeToLiveInSeconds;
 
-  JWTConfiguration({
-      this.accessTokenKeyId,
+  JWTConfiguration(
+      {this.accessTokenKeyId,
       this.idTokenKeyId,
       this.refreshTokenExpirationPolicy,
       this.refreshTokenRevocationPolicy,
       this.refreshTokenTimeToLiveInMinutes,
       this.refreshTokenUsagePolicy,
-      this.timeToLiveInSeconds
-  });
+      this.timeToLiveInSeconds});
 
-  factory JWTConfiguration.fromJson(Map<String, dynamic> json) => _$JWTConfigurationFromJson(json);
+  factory JWTConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$JWTConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$JWTConfigurationToJson(this);
 }
 
@@ -2796,11 +3005,10 @@ class JWTConfiguration extends Enableable {
 class JWTPublicKeyUpdateEvent extends BaseEvent {
   Set<String> applicationIds;
 
-  JWTPublicKeyUpdateEvent({
-      this.applicationIds
-  });
+  JWTPublicKeyUpdateEvent({this.applicationIds});
 
-  factory JWTPublicKeyUpdateEvent.fromJson(Map<String, dynamic> json) => _$JWTPublicKeyUpdateEventFromJson(json);
+  factory JWTPublicKeyUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$JWTPublicKeyUpdateEventFromJson(json);
   Map<String, dynamic> toJson() => _$JWTPublicKeyUpdateEventToJson(this);
 }
 
@@ -2815,15 +3023,15 @@ class JWTRefreshEvent extends BaseEvent {
   String token;
   String userId;
 
-  JWTRefreshEvent({
-      this.applicationId,
+  JWTRefreshEvent(
+      {this.applicationId,
       this.original,
       this.refreshToken,
       this.token,
-      this.userId
-  });
+      this.userId});
 
-  factory JWTRefreshEvent.fromJson(Map<String, dynamic> json) => _$JWTRefreshEventFromJson(json);
+  factory JWTRefreshEvent.fromJson(Map<String, dynamic> json) =>
+      _$JWTRefreshEventFromJson(json);
   Map<String, dynamic> toJson() => _$JWTRefreshEventToJson(this);
 }
 
@@ -2837,12 +3045,10 @@ class JWTRefreshResponse {
   String refreshToken;
   String token;
 
-  JWTRefreshResponse({
-      this.refreshToken,
-      this.token
-  });
+  JWTRefreshResponse({this.refreshToken, this.token});
 
-  factory JWTRefreshResponse.fromJson(Map<String, dynamic> json) => _$JWTRefreshResponseFromJson(json);
+  factory JWTRefreshResponse.fromJson(Map<String, dynamic> json) =>
+      _$JWTRefreshResponseFromJson(json);
   Map<String, dynamic> toJson() => _$JWTRefreshResponseToJson(this);
 }
 
@@ -2857,14 +3063,14 @@ class JWTRefreshTokenRevokeEvent extends BaseEvent {
   User user;
   String userId;
 
-  JWTRefreshTokenRevokeEvent({
-      this.applicationId,
+  JWTRefreshTokenRevokeEvent(
+      {this.applicationId,
       this.applicationTimeToLiveInSeconds,
       this.user,
-      this.userId
-  });
+      this.userId});
 
-  factory JWTRefreshTokenRevokeEvent.fromJson(Map<String, dynamic> json) => _$JWTRefreshTokenRevokeEventFromJson(json);
+  factory JWTRefreshTokenRevokeEvent.fromJson(Map<String, dynamic> json) =>
+      _$JWTRefreshTokenRevokeEventFromJson(json);
   Map<String, dynamic> toJson() => _$JWTRefreshTokenRevokeEventToJson(this);
 }
 
@@ -2874,12 +3080,10 @@ class KafkaConfiguration extends Enableable {
   String defaultTopic;
   Map<String, String> producer;
 
-  KafkaConfiguration({
-      this.defaultTopic,
-      this.producer
-  });
+  KafkaConfiguration({this.defaultTopic, this.producer});
 
-  factory KafkaConfiguration.fromJson(Map<String, dynamic> json) => _$KafkaConfigurationFromJson(json);
+  factory KafkaConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$KafkaConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$KafkaConfigurationToJson(this);
 }
 
@@ -2905,8 +3109,8 @@ class Key {
   String secret;
   KeyType type;
 
-  Key({
-      this.algorithm,
+  Key(
+      {this.algorithm,
       this.certificate,
       this.certificateInformation,
       this.expirationInstant,
@@ -2921,8 +3125,7 @@ class Key {
       this.privateKey,
       this.publicKey,
       this.secret,
-      this.type
-  });
+      this.type});
 
   factory Key.fromJson(Map<String, dynamic> json) => _$KeyFromJson(json);
   Map<String, dynamic> toJson() => _$KeyToJson(this);
@@ -2956,11 +3159,10 @@ enum KeyAlgorithm {
 class KeyRequest {
   Key key;
 
-  KeyRequest({
-      this.key
-  });
+  KeyRequest({this.key});
 
-  factory KeyRequest.fromJson(Map<String, dynamic> json) => _$KeyRequestFromJson(json);
+  factory KeyRequest.fromJson(Map<String, dynamic> json) =>
+      _$KeyRequestFromJson(json);
   Map<String, dynamic> toJson() => _$KeyRequestToJson(this);
 }
 
@@ -2972,12 +3174,10 @@ class KeyResponse {
   Key key;
   List<Key> keys;
 
-  KeyResponse({
-      this.key,
-      this.keys
-  });
+  KeyResponse({this.key, this.keys});
 
-  factory KeyResponse.fromJson(Map<String, dynamic> json) => _$KeyResponseFromJson(json);
+  factory KeyResponse.fromJson(Map<String, dynamic> json) =>
+      _$KeyResponseFromJson(json);
   Map<String, dynamic> toJson() => _$KeyResponseToJson(this);
 }
 
@@ -3015,15 +3215,14 @@ class Lambda extends Enableable {
   String name;
   LambdaType type;
 
-  Lambda({
-      this.body,
+  Lambda(
+      {this.body,
       this.debug,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
       this.name,
-      this.type
-  });
+      this.type});
 
   factory Lambda.fromJson(Map<String, dynamic> json) => _$LambdaFromJson(json);
   Map<String, dynamic> toJson() => _$LambdaToJson(this);
@@ -3036,11 +3235,10 @@ class Lambda extends Enableable {
 class LambdaRequest {
   Lambda lambda;
 
-  LambdaRequest({
-      this.lambda
-  });
+  LambdaRequest({this.lambda});
 
-  factory LambdaRequest.fromJson(Map<String, dynamic> json) => _$LambdaRequestFromJson(json);
+  factory LambdaRequest.fromJson(Map<String, dynamic> json) =>
+      _$LambdaRequestFromJson(json);
   Map<String, dynamic> toJson() => _$LambdaRequestToJson(this);
 }
 
@@ -3052,12 +3250,10 @@ class LambdaResponse {
   Lambda lambda;
   List<Lambda> lambdas;
 
-  LambdaResponse({
-      this.lambda,
-      this.lambdas
-  });
+  LambdaResponse({this.lambda, this.lambdas});
 
-  factory LambdaResponse.fromJson(Map<String, dynamic> json) => _$LambdaResponseFromJson(json);
+  factory LambdaResponse.fromJson(Map<String, dynamic> json) =>
+      _$LambdaResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LambdaResponseToJson(this);
 }
 
@@ -3108,8 +3304,8 @@ class LDAPConnectorConfiguration extends BaseConnectorConfiguration {
   String systemAccountDN;
   String systemAccountPassword;
 
-  LDAPConnectorConfiguration({
-      this.authenticationURL,
+  LDAPConnectorConfiguration(
+      {this.authenticationURL,
       this.baseStructure,
       this.connectTimeout,
       this.identifyingAttribute,
@@ -3119,10 +3315,10 @@ class LDAPConnectorConfiguration extends BaseConnectorConfiguration {
       this.requestedAttributes,
       this.securityMethod,
       this.systemAccountDN,
-      this.systemAccountPassword
-  });
+      this.systemAccountPassword});
 
-  factory LDAPConnectorConfiguration.fromJson(Map<String, dynamic> json) => _$LDAPConnectorConfigurationFromJson(json);
+  factory LDAPConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$LDAPConnectorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$LDAPConnectorConfigurationToJson(this);
 }
 
@@ -3137,39 +3333,37 @@ enum LDAPSecurityMethod {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class LinkedInApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class LinkedInApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String buttonText;
   String client_id;
   String client_secret;
   String scope;
 
-  LinkedInApplicationConfiguration({
-      this.buttonText,
-      this.client_id,
-      this.client_secret,
-      this.scope
-  });
+  LinkedInApplicationConfiguration(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
 
-  factory LinkedInApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$LinkedInApplicationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$LinkedInApplicationConfigurationToJson(this);
+  factory LinkedInApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$LinkedInApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$LinkedInApplicationConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class LinkedInIdentityProvider extends BaseIdentityProvider<LinkedInApplicationConfiguration> {
+class LinkedInIdentityProvider
+    extends BaseIdentityProvider<LinkedInApplicationConfiguration> {
   String buttonText;
   String client_id;
   String client_secret;
   String scope;
 
-  LinkedInIdentityProvider({
-      this.buttonText,
-      this.client_id,
-      this.client_secret,
-      this.scope
-  });
+  LinkedInIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
 
-  factory LinkedInIdentityProvider.fromJson(Map<String, dynamic> json) => _$LinkedInIdentityProviderFromJson(json);
+  factory LinkedInIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$LinkedInIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$LinkedInIdentityProviderToJson(this);
 }
 
@@ -3180,11 +3374,10 @@ class LinkedInIdentityProvider extends BaseIdentityProvider<LinkedInApplicationC
 class LogHistory {
   List<HistoryItem> historyItems;
 
-  LogHistory({
-      this.historyItems
-  });
+  LogHistory({this.historyItems});
 
-  factory LogHistory.fromJson(Map<String, dynamic> json) => _$LogHistoryFromJson(json);
+  factory LogHistory.fromJson(Map<String, dynamic> json) =>
+      _$LogHistoryFromJson(json);
   Map<String, dynamic> toJson() => _$LogHistoryToJson(this);
 }
 
@@ -3194,13 +3387,13 @@ class LoginConfiguration {
   bool generateRefreshTokens;
   bool requireAuthentication;
 
-  LoginConfiguration({
-      this.allowTokenRefresh,
+  LoginConfiguration(
+      {this.allowTokenRefresh,
       this.generateRefreshTokens,
-      this.requireAuthentication
-  });
+      this.requireAuthentication});
 
-  factory LoginConfiguration.fromJson(Map<String, dynamic> json) => _$LoginConfigurationFromJson(json);
+  factory LoginConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$LoginConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$LoginConfigurationToJson(this);
 }
 
@@ -3235,8 +3428,8 @@ class LoginPreventedResponse {
   String reason;
   String reasonCode;
 
-  LoginPreventedResponse({
-      this.actionerUserId,
+  LoginPreventedResponse(
+      {this.actionerUserId,
       this.actionId,
       this.expiry,
       this.localizedName,
@@ -3245,10 +3438,10 @@ class LoginPreventedResponse {
       this.name,
       this.option,
       this.reason,
-      this.reasonCode
-  });
+      this.reasonCode});
 
-  factory LoginPreventedResponse.fromJson(Map<String, dynamic> json) => _$LoginPreventedResponseFromJson(json);
+  factory LoginPreventedResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginPreventedResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LoginPreventedResponseToJson(this);
 }
 
@@ -3256,11 +3449,10 @@ class LoginPreventedResponse {
 class LoginRecordConfiguration {
   DeleteConfiguration delete;
 
-  LoginRecordConfiguration({
-      this.delete
-  });
+  LoginRecordConfiguration({this.delete});
 
-  factory LoginRecordConfiguration.fromJson(Map<String, dynamic> json) => _$LoginRecordConfigurationFromJson(json);
+  factory LoginRecordConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$LoginRecordConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRecordConfigurationToJson(this);
 }
 
@@ -3269,11 +3461,10 @@ class LoginRecordConfiguration {
 class LoginRecordExportRequest extends BaseExportRequest {
   LoginRecordSearchCriteria criteria;
 
-  LoginRecordExportRequest({
-      this.criteria
-  });
+  LoginRecordExportRequest({this.criteria});
 
-  factory LoginRecordExportRequest.fromJson(Map<String, dynamic> json) => _$LoginRecordExportRequestFromJson(json);
+  factory LoginRecordExportRequest.fromJson(Map<String, dynamic> json) =>
+      _$LoginRecordExportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRecordExportRequestToJson(this);
 }
 
@@ -3285,14 +3476,11 @@ class LoginRecordSearchCriteria extends BaseSearchCriteria {
   num start;
   String userId;
 
-  LoginRecordSearchCriteria({
-      this.applicationId,
-      this.end,
-      this.start,
-      this.userId
-  });
+  LoginRecordSearchCriteria(
+      {this.applicationId, this.end, this.start, this.userId});
 
-  factory LoginRecordSearchCriteria.fromJson(Map<String, dynamic> json) => _$LoginRecordSearchCriteriaFromJson(json);
+  factory LoginRecordSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$LoginRecordSearchCriteriaFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRecordSearchCriteriaToJson(this);
 }
 
@@ -3302,12 +3490,10 @@ class LoginRecordSearchRequest {
   bool retrieveTotal;
   LoginRecordSearchCriteria search;
 
-  LoginRecordSearchRequest({
-      this.retrieveTotal,
-      this.search
-  });
+  LoginRecordSearchRequest({this.retrieveTotal, this.search});
 
-  factory LoginRecordSearchRequest.fromJson(Map<String, dynamic> json) => _$LoginRecordSearchRequestFromJson(json);
+  factory LoginRecordSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$LoginRecordSearchRequestFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRecordSearchRequestToJson(this);
 }
 
@@ -3319,12 +3505,10 @@ class LoginRecordSearchResponse {
   List<DisplayableRawLogin> logins;
   num total;
 
-  LoginRecordSearchResponse({
-      this.logins,
-      this.total
-  });
+  LoginRecordSearchResponse({this.logins, this.total});
 
-  factory LoginRecordSearchResponse.fromJson(Map<String, dynamic> json) => _$LoginRecordSearchResponseFromJson(json);
+  factory LoginRecordSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginRecordSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRecordSearchResponseToJson(this);
 }
 
@@ -3336,12 +3520,10 @@ class LoginReportResponse {
   List<Count> hourlyCounts;
   num total;
 
-  LoginReportResponse({
-      this.hourlyCounts,
-      this.total
-  });
+  LoginReportResponse({this.hourlyCounts, this.total});
 
-  factory LoginReportResponse.fromJson(Map<String, dynamic> json) => _$LoginReportResponseFromJson(json);
+  factory LoginReportResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginReportResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LoginReportResponseToJson(this);
 }
 
@@ -3355,14 +3537,14 @@ class LoginRequest extends BaseLoginRequest {
   String password;
   String twoFactorTrustId;
 
-  LoginRequest({
-      this.loginId,
+  LoginRequest(
+      {this.loginId,
       this.oneTimePassword,
       this.password,
-      this.twoFactorTrustId
-  });
+      this.twoFactorTrustId});
 
-  factory LoginRequest.fromJson(Map<String, dynamic> json) => _$LoginRequestFromJson(json);
+  factory LoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$LoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
 }
 
@@ -3379,8 +3561,8 @@ class LoginResponse {
   String twoFactorTrustId;
   User user;
 
-  LoginResponse({
-      this.actions,
+  LoginResponse(
+      {this.actions,
       this.changePasswordId,
       this.changePasswordReason,
       this.refreshToken,
@@ -3388,10 +3570,10 @@ class LoginResponse {
       this.token,
       this.twoFactorId,
       this.twoFactorTrustId,
-      this.user
-  });
+      this.user});
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }
 
@@ -3408,11 +3590,10 @@ enum LogoutBehavior {
 class LookupResponse {
   IdentityProviderDetails identityProvider;
 
-  LookupResponse({
-      this.identityProvider
-  });
+  LookupResponse({this.identityProvider});
 
-  factory LookupResponse.fromJson(Map<String, dynamic> json) => _$LookupResponseFromJson(json);
+  factory LookupResponse.fromJson(Map<String, dynamic> json) =>
+      _$LookupResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LookupResponseToJson(this);
 }
 
@@ -3421,11 +3602,10 @@ class LookupResponse {
 class MaximumPasswordAge extends Enableable {
   num days;
 
-  MaximumPasswordAge({
-      this.days
-  });
+  MaximumPasswordAge({this.days});
 
-  factory MaximumPasswordAge.fromJson(Map<String, dynamic> json) => _$MaximumPasswordAgeFromJson(json);
+  factory MaximumPasswordAge.fromJson(Map<String, dynamic> json) =>
+      _$MaximumPasswordAgeFromJson(json);
   Map<String, dynamic> toJson() => _$MaximumPasswordAgeToJson(this);
 }
 
@@ -3437,12 +3617,10 @@ class MemberDeleteRequest {
   List<String> memberIds;
   Map<String, List<String>> members;
 
-  MemberDeleteRequest({
-      this.memberIds,
-      this.members
-  });
+  MemberDeleteRequest({this.memberIds, this.members});
 
-  factory MemberDeleteRequest.fromJson(Map<String, dynamic> json) => _$MemberDeleteRequestFromJson(json);
+  factory MemberDeleteRequest.fromJson(Map<String, dynamic> json) =>
+      _$MemberDeleteRequestFromJson(json);
   Map<String, dynamic> toJson() => _$MemberDeleteRequestToJson(this);
 }
 
@@ -3453,11 +3631,10 @@ class MemberDeleteRequest {
 class MemberRequest {
   Map<String, List<GroupMember>> members;
 
-  MemberRequest({
-      this.members
-  });
+  MemberRequest({this.members});
 
-  factory MemberRequest.fromJson(Map<String, dynamic> json) => _$MemberRequestFromJson(json);
+  factory MemberRequest.fromJson(Map<String, dynamic> json) =>
+      _$MemberRequestFromJson(json);
   Map<String, dynamic> toJson() => _$MemberRequestToJson(this);
 }
 
@@ -3468,11 +3645,10 @@ class MemberRequest {
 class MemberResponse {
   Map<String, List<GroupMember>> members;
 
-  MemberResponse({
-      this.members
-  });
+  MemberResponse({this.members});
 
-  factory MemberResponse.fromJson(Map<String, dynamic> json) => _$MemberResponseFromJson(json);
+  factory MemberResponse.fromJson(Map<String, dynamic> json) =>
+      _$MemberResponseFromJson(json);
   Map<String, dynamic> toJson() => _$MemberResponseToJson(this);
 }
 
@@ -3481,12 +3657,10 @@ class MetaData {
   DeviceInfo device;
   Set<String> scopes;
 
-  MetaData({
-      this.device,
-      this.scopes
-  });
+  MetaData({this.device, this.scopes});
 
-  factory MetaData.fromJson(Map<String, dynamic> json) => _$MetaDataFromJson(json);
+  factory MetaData.fromJson(Map<String, dynamic> json) =>
+      _$MetaDataFromJson(json);
   Map<String, dynamic> toJson() => _$MetaDataToJson(this);
 }
 
@@ -3495,11 +3669,10 @@ class MetaData {
 class MinimumPasswordAge extends Enableable {
   num seconds;
 
-  MinimumPasswordAge({
-      this.seconds
-  });
+  MinimumPasswordAge({this.seconds});
 
-  factory MinimumPasswordAge.fromJson(Map<String, dynamic> json) => _$MinimumPasswordAgeFromJson(json);
+  factory MinimumPasswordAge.fromJson(Map<String, dynamic> json) =>
+      _$MinimumPasswordAgeFromJson(json);
   Map<String, dynamic> toJson() => _$MinimumPasswordAgeToJson(this);
 }
 
@@ -3511,13 +3684,12 @@ class MonthlyActiveUserReportResponse {
   List<Count> monthlyActiveUsers;
   num total;
 
-  MonthlyActiveUserReportResponse({
-      this.monthlyActiveUsers,
-      this.total
-  });
+  MonthlyActiveUserReportResponse({this.monthlyActiveUsers, this.total});
 
-  factory MonthlyActiveUserReportResponse.fromJson(Map<String, dynamic> json) => _$MonthlyActiveUserReportResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$MonthlyActiveUserReportResponseToJson(this);
+  factory MonthlyActiveUserReportResponse.fromJson(Map<String, dynamic> json) =>
+      _$MonthlyActiveUserReportResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$MonthlyActiveUserReportResponseToJson(this);
 }
 
 /// Helper methods for normalizing values.
@@ -3525,10 +3697,10 @@ class MonthlyActiveUserReportResponse {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class Normalizer {
-
   Normalizer();
 
-  factory Normalizer.fromJson(Map<String, dynamic> json) => _$NormalizerFromJson(json);
+  factory Normalizer.fromJson(Map<String, dynamic> json) =>
+      _$NormalizerFromJson(json);
   Map<String, dynamic> toJson() => _$NormalizerToJson(this);
 }
 
@@ -3547,8 +3719,8 @@ class OAuth2Configuration {
   String logoutURL;
   bool requireClientAuthentication;
 
-  OAuth2Configuration({
-      this.authorizedOriginURLs,
+  OAuth2Configuration(
+      {this.authorizedOriginURLs,
       this.authorizedRedirectURLs,
       this.clientId,
       this.clientSecret,
@@ -3558,10 +3730,10 @@ class OAuth2Configuration {
       this.generateRefreshTokens,
       this.logoutBehavior,
       this.logoutURL,
-      this.requireClientAuthentication
-  });
+      this.requireClientAuthentication});
 
-  factory OAuth2Configuration.fromJson(Map<String, dynamic> json) => _$OAuth2ConfigurationFromJson(json);
+  factory OAuth2Configuration.fromJson(Map<String, dynamic> json) =>
+      _$OAuth2ConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$OAuth2ConfigurationToJson(this);
 }
 
@@ -3572,13 +3744,13 @@ class OAuthConfigurationResponse {
   String logoutURL;
   OAuth2Configuration oauthConfiguration;
 
-  OAuthConfigurationResponse({
-      this.httpSessionMaxInactiveInterval,
+  OAuthConfigurationResponse(
+      {this.httpSessionMaxInactiveInterval,
       this.logoutURL,
-      this.oauthConfiguration
-  });
+      this.oauthConfiguration});
 
-  factory OAuthConfigurationResponse.fromJson(Map<String, dynamic> json) => _$OAuthConfigurationResponseFromJson(json);
+  factory OAuthConfigurationResponse.fromJson(Map<String, dynamic> json) =>
+      _$OAuthConfigurationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$OAuthConfigurationResponseToJson(this);
 }
 
@@ -3592,16 +3764,16 @@ class OAuthError {
   String error_uri;
   String two_factor_id;
 
-  OAuthError({
-      this.change_password_id,
+  OAuthError(
+      {this.change_password_id,
       this.error,
       this.error_description,
       this.error_reason,
       this.error_uri,
-      this.two_factor_id
-  });
+      this.two_factor_id});
 
-  factory OAuthError.fromJson(Map<String, dynamic> json) => _$OAuthErrorFromJson(json);
+  factory OAuthError.fromJson(Map<String, dynamic> json) =>
+      _$OAuthErrorFromJson(json);
   Map<String, dynamic> toJson() => _$OAuthErrorToJson(this);
 }
 
@@ -3652,10 +3824,16 @@ enum OAuthErrorReason {
   invalid_user_code,
   @JsonValue('invalid_additional_client_id')
   invalid_additional_client_id,
+  @JsonValue('invalid_target_entity_scope')
+  invalid_target_entity_scope,
+  @JsonValue('invalid_entity_permission_scope')
+  invalid_entity_permission_scope,
   @JsonValue('grant_type_disabled')
   grant_type_disabled,
   @JsonValue('missing_client_id')
   missing_client_id,
+  @JsonValue('missing_client_secret')
+  missing_client_secret,
   @JsonValue('missing_code')
   missing_code,
   @JsonValue('missing_device_code')
@@ -3676,6 +3854,8 @@ enum OAuthErrorReason {
   missing_verification_uri,
   @JsonValue('login_prevented')
   login_prevented,
+  @JsonValue('not_licensed')
+  not_licensed,
   @JsonValue('user_code_expired')
   user_code_expired,
   @JsonValue('user_expired')
@@ -3725,6 +3905,8 @@ enum OAuthErrorType {
   unsupported_response_type,
   @JsonValue('change_password_required')
   change_password_required,
+  @JsonValue('not_licensed')
+  not_licensed,
   @JsonValue('two_factor_required')
   two_factor_required,
   @JsonValue('authorization_pending')
@@ -3738,10 +3920,10 @@ enum OAuthErrorType {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class OAuthResponse {
-
   OAuthResponse();
 
-  factory OAuthResponse.fromJson(Map<String, dynamic> json) => _$OAuthResponseFromJson(json);
+  factory OAuthResponse.fromJson(Map<String, dynamic> json) =>
+      _$OAuthResponseFromJson(json);
   Map<String, dynamic> toJson() => _$OAuthResponseToJson(this);
 }
 
@@ -3780,8 +3962,8 @@ class OpenIdConfiguration {
   String userinfo_endpoint;
   List<String> userinfo_signing_alg_values_supported;
 
-  OpenIdConfiguration({
-      this.authorization_endpoint,
+  OpenIdConfiguration(
+      {this.authorization_endpoint,
       this.backchannel_logout_supported,
       this.claims_supported,
       this.device_authorization_endpoint,
@@ -3798,48 +3980,50 @@ class OpenIdConfiguration {
       this.token_endpoint,
       this.token_endpoint_auth_methods_supported,
       this.userinfo_endpoint,
-      this.userinfo_signing_alg_values_supported
-  });
+      this.userinfo_signing_alg_values_supported});
 
-  factory OpenIdConfiguration.fromJson(Map<String, dynamic> json) => _$OpenIdConfigurationFromJson(json);
+  factory OpenIdConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$OpenIdConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$OpenIdConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class OpenIdConnectApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class OpenIdConnectApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String buttonImageURL;
   String buttonText;
   IdentityProviderOauth2Configuration oauth2;
 
-  OpenIdConnectApplicationConfiguration({
-      this.buttonImageURL,
-      this.buttonText,
-      this.oauth2
-  });
+  OpenIdConnectApplicationConfiguration(
+      {this.buttonImageURL, this.buttonText, this.oauth2});
 
-  factory OpenIdConnectApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$OpenIdConnectApplicationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$OpenIdConnectApplicationConfigurationToJson(this);
+  factory OpenIdConnectApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$OpenIdConnectApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$OpenIdConnectApplicationConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class OpenIdConnectIdentityProvider extends BaseIdentityProvider<OpenIdConnectApplicationConfiguration> {
+class OpenIdConnectIdentityProvider
+    extends BaseIdentityProvider<OpenIdConnectApplicationConfiguration> {
   String buttonImageURL;
   String buttonText;
   Set<String> domains;
   IdentityProviderOauth2Configuration oauth2;
   bool postRequest;
 
-  OpenIdConnectIdentityProvider({
-      this.buttonImageURL,
+  OpenIdConnectIdentityProvider(
+      {this.buttonImageURL,
       this.buttonText,
       this.domains,
       this.oauth2,
-      this.postRequest
-  });
+      this.postRequest});
 
-  factory OpenIdConnectIdentityProvider.fromJson(Map<String, dynamic> json) => _$OpenIdConnectIdentityProviderFromJson(json);
+  factory OpenIdConnectIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$OpenIdConnectIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$OpenIdConnectIdentityProviderToJson(this);
 }
 
@@ -3850,13 +4034,11 @@ class PasswordBreachDetection extends Enableable {
   String notifyUserEmailTemplateId;
   BreachAction onLogin;
 
-  PasswordBreachDetection({
-      this.matchMode,
-      this.notifyUserEmailTemplateId,
-      this.onLogin
-  });
+  PasswordBreachDetection(
+      {this.matchMode, this.notifyUserEmailTemplateId, this.onLogin});
 
-  factory PasswordBreachDetection.fromJson(Map<String, dynamic> json) => _$PasswordBreachDetectionFromJson(json);
+  factory PasswordBreachDetection.fromJson(Map<String, dynamic> json) =>
+      _$PasswordBreachDetectionFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordBreachDetectionToJson(this);
 }
 
@@ -3869,32 +4051,33 @@ class PasswordEncryptionConfiguration {
   num encryptionSchemeFactor;
   bool modifyEncryptionSchemeOnLogin;
 
-  PasswordEncryptionConfiguration({
-      this.encryptionScheme,
+  PasswordEncryptionConfiguration(
+      {this.encryptionScheme,
       this.encryptionSchemeFactor,
-      this.modifyEncryptionSchemeOnLogin
-  });
+      this.modifyEncryptionSchemeOnLogin});
 
-  factory PasswordEncryptionConfiguration.fromJson(Map<String, dynamic> json) => _$PasswordEncryptionConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$PasswordEncryptionConfigurationToJson(this);
+  factory PasswordEncryptionConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$PasswordEncryptionConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$PasswordEncryptionConfigurationToJson(this);
 }
 
 @JsonSerializable()
 class PasswordlessConfiguration extends Enableable {
-
   PasswordlessConfiguration();
 
-  factory PasswordlessConfiguration.fromJson(Map<String, dynamic> json) => _$PasswordlessConfigurationFromJson(json);
+  factory PasswordlessConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$PasswordlessConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordlessConfigurationToJson(this);
 }
 
 /// Interface for all identity providers that are passwordless and do not accept a password.
 @JsonSerializable()
 class PasswordlessIdentityProvider {
-
   PasswordlessIdentityProvider();
 
-  factory PasswordlessIdentityProvider.fromJson(Map<String, dynamic> json) => _$PasswordlessIdentityProviderFromJson(json);
+  factory PasswordlessIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$PasswordlessIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordlessIdentityProviderToJson(this);
 }
 
@@ -3904,12 +4087,10 @@ class PasswordlessLoginRequest extends BaseLoginRequest {
   String code;
   String twoFactorTrustId;
 
-  PasswordlessLoginRequest({
-      this.code,
-      this.twoFactorTrustId
-  });
+  PasswordlessLoginRequest({this.code, this.twoFactorTrustId});
 
-  factory PasswordlessLoginRequest.fromJson(Map<String, dynamic> json) => _$PasswordlessLoginRequestFromJson(json);
+  factory PasswordlessLoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$PasswordlessLoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordlessLoginRequestToJson(this);
 }
 
@@ -3921,14 +4102,11 @@ class PasswordlessSendRequest {
   String loginId;
   Map<String, dynamic> state;
 
-  PasswordlessSendRequest({
-      this.applicationId,
-      this.code,
-      this.loginId,
-      this.state
-  });
+  PasswordlessSendRequest(
+      {this.applicationId, this.code, this.loginId, this.state});
 
-  factory PasswordlessSendRequest.fromJson(Map<String, dynamic> json) => _$PasswordlessSendRequestFromJson(json);
+  factory PasswordlessSendRequest.fromJson(Map<String, dynamic> json) =>
+      _$PasswordlessSendRequestFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordlessSendRequestToJson(this);
 }
 
@@ -3939,13 +4117,10 @@ class PasswordlessStartRequest {
   String loginId;
   Map<String, dynamic> state;
 
-  PasswordlessStartRequest({
-      this.applicationId,
-      this.loginId,
-      this.state
-  });
+  PasswordlessStartRequest({this.applicationId, this.loginId, this.state});
 
-  factory PasswordlessStartRequest.fromJson(Map<String, dynamic> json) => _$PasswordlessStartRequestFromJson(json);
+  factory PasswordlessStartRequest.fromJson(Map<String, dynamic> json) =>
+      _$PasswordlessStartRequestFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordlessStartRequestToJson(this);
 }
 
@@ -3954,11 +4129,10 @@ class PasswordlessStartRequest {
 class PasswordlessStartResponse {
   String code;
 
-  PasswordlessStartResponse({
-      this.code
-  });
+  PasswordlessStartResponse({this.code});
 
-  factory PasswordlessStartResponse.fromJson(Map<String, dynamic> json) => _$PasswordlessStartResponseFromJson(json);
+  factory PasswordlessStartResponse.fromJson(Map<String, dynamic> json) =>
+      _$PasswordlessStartResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordlessStartResponseToJson(this);
 }
 
@@ -3974,18 +4148,18 @@ class PasswordValidationRules {
   bool requireNumber;
   bool validateOnLogin;
 
-  PasswordValidationRules({
-      this.breachDetection,
+  PasswordValidationRules(
+      {this.breachDetection,
       this.maxLength,
       this.minLength,
       this.rememberPreviousPasswords,
       this.requireMixedCase,
       this.requireNonAlpha,
       this.requireNumber,
-      this.validateOnLogin
-  });
+      this.validateOnLogin});
 
-  factory PasswordValidationRules.fromJson(Map<String, dynamic> json) => _$PasswordValidationRulesFromJson(json);
+  factory PasswordValidationRules.fromJson(Map<String, dynamic> json) =>
+      _$PasswordValidationRulesFromJson(json);
   Map<String, dynamic> toJson() => _$PasswordValidationRulesToJson(this);
 }
 
@@ -3994,12 +4168,12 @@ class PasswordValidationRules {
 class PasswordValidationRulesResponse {
   PasswordValidationRules passwordValidationRules;
 
-  PasswordValidationRulesResponse({
-      this.passwordValidationRules
-  });
+  PasswordValidationRulesResponse({this.passwordValidationRules});
 
-  factory PasswordValidationRulesResponse.fromJson(Map<String, dynamic> json) => _$PasswordValidationRulesResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$PasswordValidationRulesResponseToJson(this);
+  factory PasswordValidationRulesResponse.fromJson(Map<String, dynamic> json) =>
+      _$PasswordValidationRulesResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$PasswordValidationRulesResponseToJson(this);
 }
 
 /// @author Brian Pontarelli
@@ -4007,11 +4181,10 @@ class PasswordValidationRulesResponse {
 class PendingResponse {
   List<User> users;
 
-  PendingResponse({
-      this.users
-  });
+  PendingResponse({this.users});
 
-  factory PendingResponse.fromJson(Map<String, dynamic> json) => _$PendingResponseFromJson(json);
+  factory PendingResponse.fromJson(Map<String, dynamic> json) =>
+      _$PendingResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PendingResponseToJson(this);
 }
 
@@ -4021,12 +4194,10 @@ class PreviewRequest {
   EmailTemplate emailTemplate;
   String locale;
 
-  PreviewRequest({
-      this.emailTemplate,
-      this.locale
-  });
+  PreviewRequest({this.emailTemplate, this.locale});
 
-  factory PreviewRequest.fromJson(Map<String, dynamic> json) => _$PreviewRequestFromJson(json);
+  factory PreviewRequest.fromJson(Map<String, dynamic> json) =>
+      _$PreviewRequestFromJson(json);
   Map<String, dynamic> toJson() => _$PreviewRequestToJson(this);
 }
 
@@ -4036,12 +4207,10 @@ class PreviewResponse {
   Email email;
   Errors errors;
 
-  PreviewResponse({
-      this.email,
-      this.errors
-  });
+  PreviewResponse({this.email, this.errors});
 
-  factory PreviewResponse.fromJson(Map<String, dynamic> json) => _$PreviewResponseFromJson(json);
+  factory PreviewResponse.fromJson(Map<String, dynamic> json) =>
+      _$PreviewResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PreviewResponseToJson(this);
 }
 
@@ -4053,12 +4222,10 @@ class PublicKeyResponse {
   String publicKey;
   Map<String, String> publicKeys;
 
-  PublicKeyResponse({
-      this.publicKey,
-      this.publicKeys
-  });
+  PublicKeyResponse({this.publicKey, this.publicKeys});
 
-  factory PublicKeyResponse.fromJson(Map<String, dynamic> json) => _$PublicKeyResponseFromJson(json);
+  factory PublicKeyResponse.fromJson(Map<String, dynamic> json) =>
+      _$PublicKeyResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PublicKeyResponseToJson(this);
 }
 
@@ -4072,15 +4239,63 @@ class RawLogin {
   String ipAddress;
   String userId;
 
-  RawLogin({
-      this.applicationId,
-      this.instant,
-      this.ipAddress,
-      this.userId
-  });
+  RawLogin({this.applicationId, this.instant, this.ipAddress, this.userId});
 
-  factory RawLogin.fromJson(Map<String, dynamic> json) => _$RawLoginFromJson(json);
+  factory RawLogin.fromJson(Map<String, dynamic> json) =>
+      _$RawLoginFromJson(json);
   Map<String, dynamic> toJson() => _$RawLoginToJson(this);
+}
+
+enum ReactorFeatureStatus {
+  @JsonValue('ACTIVE')
+  ACTIVE,
+  @JsonValue('DISCONNECTED')
+  DISCONNECTED,
+  @JsonValue('PENDING')
+  PENDING,
+  @JsonValue('UNKNOWN')
+  UNKNOWN
+}
+
+/// Request for managing FusionAuth Reactor and licenses.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class ReactorRequest {
+  String license;
+
+  ReactorRequest({this.license});
+
+  factory ReactorRequest.fromJson(Map<String, dynamic> json) =>
+      _$ReactorRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ReactorStatus {
+  ReactorFeatureStatus advancedIdentityProviders;
+  ReactorFeatureStatus advancedRegistrationForms;
+  ReactorFeatureStatus breachedPasswordDetection;
+  Map<String, BreachedPasswordTenantMetric> breachedPasswordMetrics;
+  ReactorFeatureStatus connectors;
+  ReactorFeatureStatus entityManagement;
+  bool licensed;
+  ReactorFeatureStatus multiFactorAuthentication;
+
+  ReactorStatus(
+      {this.advancedIdentityProviders,
+      this.advancedRegistrationForms,
+      this.breachedPasswordDetection,
+      this.breachedPasswordMetrics,
+      this.connectors,
+      this.entityManagement,
+      this.licensed,
+      this.multiFactorAuthentication});
+
+  factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
+      _$ReactorStatusFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorStatusToJson(this);
 }
 
 /// Response for the user login report.
@@ -4090,11 +4305,10 @@ class RawLogin {
 class RecentLoginResponse {
   List<DisplayableRawLogin> logins;
 
-  RecentLoginResponse({
-      this.logins
-  });
+  RecentLoginResponse({this.logins});
 
-  factory RecentLoginResponse.fromJson(Map<String, dynamic> json) => _$RecentLoginResponseFromJson(json);
+  factory RecentLoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$RecentLoginResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RecentLoginResponseToJson(this);
 }
 
@@ -4104,22 +4318,20 @@ class RefreshRequest {
   String refreshToken;
   String token;
 
-  RefreshRequest({
-      this.refreshToken,
-      this.token
-  });
+  RefreshRequest({this.refreshToken, this.token});
 
-  factory RefreshRequest.fromJson(Map<String, dynamic> json) => _$RefreshRequestFromJson(json);
+  factory RefreshRequest.fromJson(Map<String, dynamic> json) =>
+      _$RefreshRequestFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshRequestToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
 class RefreshResponse {
-
   RefreshResponse();
 
-  factory RefreshResponse.fromJson(Map<String, dynamic> json) => _$RefreshResponseFromJson(json);
+  factory RefreshResponse.fromJson(Map<String, dynamic> json) =>
+      _$RefreshResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshResponseToJson(this);
 }
 
@@ -4137,18 +4349,18 @@ class RefreshToken {
   String token;
   String userId;
 
-  RefreshToken({
-      this.applicationId,
+  RefreshToken(
+      {this.applicationId,
       this.data,
       this.id,
       this.insertInstant,
       this.metaData,
       this.startInstant,
       this.token,
-      this.userId
-  });
+      this.userId});
 
-  factory RefreshToken.fromJson(Map<String, dynamic> json) => _$RefreshTokenFromJson(json);
+  factory RefreshToken.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenToJson(this);
 }
 
@@ -4168,12 +4380,10 @@ class RefreshTokenImportRequest {
   List<RefreshToken> refreshTokens;
   bool validateDbConstraints;
 
-  RefreshTokenImportRequest({
-      this.refreshTokens,
-      this.validateDbConstraints
-  });
+  RefreshTokenImportRequest({this.refreshTokens, this.validateDbConstraints});
 
-  factory RefreshTokenImportRequest.fromJson(Map<String, dynamic> json) => _$RefreshTokenImportRequestFromJson(json);
+  factory RefreshTokenImportRequest.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenImportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenImportRequestToJson(this);
 }
 
@@ -4185,12 +4395,10 @@ class RefreshTokenResponse {
   RefreshToken refreshToken;
   List<RefreshToken> refreshTokens;
 
-  RefreshTokenResponse({
-      this.refreshToken,
-      this.refreshTokens
-  });
+  RefreshTokenResponse({this.refreshToken, this.refreshTokens});
 
-  factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) => _$RefreshTokenResponseFromJson(json);
+  factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenResponseToJson(this);
 }
 
@@ -4200,12 +4408,10 @@ class RefreshTokenRevocationPolicy {
   bool onLoginPrevented;
   bool onPasswordChanged;
 
-  RefreshTokenRevocationPolicy({
-      this.onLoginPrevented,
-      this.onPasswordChanged
-  });
+  RefreshTokenRevocationPolicy({this.onLoginPrevented, this.onPasswordChanged});
 
-  factory RefreshTokenRevocationPolicy.fromJson(Map<String, dynamic> json) => _$RefreshTokenRevocationPolicyFromJson(json);
+  factory RefreshTokenRevocationPolicy.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenRevocationPolicyFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenRevocationPolicyToJson(this);
 }
 
@@ -4230,8 +4436,8 @@ class RegistrationConfiguration extends Enableable {
   Requirable mobilePhone;
   RegistrationType type;
 
-  RegistrationConfiguration({
-      this.birthDate,
+  RegistrationConfiguration(
+      {this.birthDate,
       this.confirmPassword,
       this.firstName,
       this.formId,
@@ -4240,10 +4446,10 @@ class RegistrationConfiguration extends Enableable {
       this.loginIdType,
       this.middleName,
       this.mobilePhone,
-      this.type
-  });
+      this.type});
 
-  factory RegistrationConfiguration.fromJson(Map<String, dynamic> json) => _$RegistrationConfigurationFromJson(json);
+  factory RegistrationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationConfigurationToJson(this);
 }
 
@@ -4255,12 +4461,10 @@ class RegistrationReportResponse {
   List<Count> hourlyCounts;
   num total;
 
-  RegistrationReportResponse({
-      this.hourlyCounts,
-      this.total
-  });
+  RegistrationReportResponse({this.hourlyCounts, this.total});
 
-  factory RegistrationReportResponse.fromJson(Map<String, dynamic> json) => _$RegistrationReportResponseFromJson(json);
+  factory RegistrationReportResponse.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationReportResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationReportResponseToJson(this);
 }
 
@@ -4276,16 +4480,16 @@ class RegistrationRequest {
   bool skipVerification;
   User user;
 
-  RegistrationRequest({
-      this.generateAuthenticationToken,
+  RegistrationRequest(
+      {this.generateAuthenticationToken,
       this.registration,
       this.sendSetPasswordEmail,
       this.skipRegistrationVerification,
       this.skipVerification,
-      this.user
-  });
+      this.user});
 
-  factory RegistrationRequest.fromJson(Map<String, dynamic> json) => _$RegistrationRequestFromJson(json);
+  factory RegistrationRequest.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationRequestFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationRequestToJson(this);
 }
 
@@ -4299,14 +4503,11 @@ class RegistrationResponse {
   String token;
   User user;
 
-  RegistrationResponse({
-      this.refreshToken,
-      this.registration,
-      this.token,
-      this.user
-  });
+  RegistrationResponse(
+      {this.refreshToken, this.registration, this.token, this.user});
 
-  factory RegistrationResponse.fromJson(Map<String, dynamic> json) => _$RegistrationResponseFromJson(json);
+  factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationResponseToJson(this);
 }
 
@@ -4322,11 +4523,10 @@ enum RegistrationType {
 class ReloadRequest {
   List<String> names;
 
-  ReloadRequest({
-      this.names
-  });
+  ReloadRequest({this.names});
 
-  factory ReloadRequest.fromJson(Map<String, dynamic> json) => _$ReloadRequestFromJson(json);
+  factory ReloadRequest.fromJson(Map<String, dynamic> json) =>
+      _$ReloadRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ReloadRequestToJson(this);
 }
 
@@ -4335,11 +4535,10 @@ class ReloadRequest {
 class RememberPreviousPasswords extends Enableable {
   num count;
 
-  RememberPreviousPasswords({
-      this.count
-  });
+  RememberPreviousPasswords({this.count});
 
-  factory RememberPreviousPasswords.fromJson(Map<String, dynamic> json) => _$RememberPreviousPasswordsFromJson(json);
+  factory RememberPreviousPasswords.fromJson(Map<String, dynamic> json) =>
+      _$RememberPreviousPasswordsFromJson(json);
   Map<String, dynamic> toJson() => _$RememberPreviousPasswordsToJson(this);
 }
 
@@ -4351,11 +4550,10 @@ class RememberPreviousPasswords extends Enableable {
 class Requirable extends Enableable {
   bool required;
 
-  Requirable({
-      this.required
-  });
+  Requirable({this.required});
 
-  factory Requirable.fromJson(Map<String, dynamic> json) => _$RequirableFromJson(json);
+  factory Requirable.fromJson(Map<String, dynamic> json) =>
+      _$RequirableFromJson(json);
   Map<String, dynamic> toJson() => _$RequirableToJson(this);
 }
 
@@ -4364,10 +4562,10 @@ class Requirable extends Enableable {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class RequiresCORSConfiguration {
-
   RequiresCORSConfiguration();
 
-  factory RequiresCORSConfiguration.fromJson(Map<String, dynamic> json) => _$RequiresCORSConfigurationFromJson(json);
+  factory RequiresCORSConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$RequiresCORSConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$RequiresCORSConfigurationToJson(this);
 }
 
@@ -4380,16 +4578,15 @@ enum SAMLLogoutBehavior {
 
 /// @author Brian Pontarelli
 @JsonSerializable()
-class SAMLv2ApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class SAMLv2ApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String buttonImageURL;
   String buttonText;
 
-  SAMLv2ApplicationConfiguration({
-      this.buttonImageURL,
-      this.buttonText
-  });
+  SAMLv2ApplicationConfiguration({this.buttonImageURL, this.buttonText});
 
-  factory SAMLv2ApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$SAMLv2ApplicationConfigurationFromJson(json);
+  factory SAMLv2ApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2ApplicationConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2ApplicationConfigurationToJson(this);
 }
 
@@ -4408,8 +4605,8 @@ class SAMLv2Configuration extends Enableable {
   CanonicalizationMethod xmlSignatureC14nMethod;
   XMLSignatureLocation xmlSignatureLocation;
 
-  SAMLv2Configuration({
-      this.audience,
+  SAMLv2Configuration(
+      {this.audience,
       this.authorizedRedirectURLs,
       this.callbackURL,
       this.debug,
@@ -4420,10 +4617,10 @@ class SAMLv2Configuration extends Enableable {
       this.logoutURL,
       this.requireSignedRequests,
       this.xmlSignatureC14nMethod,
-      this.xmlSignatureLocation
-  });
+      this.xmlSignatureLocation});
 
-  factory SAMLv2Configuration.fromJson(Map<String, dynamic> json) => _$SAMLv2ConfigurationFromJson(json);
+  factory SAMLv2Configuration.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2ConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2ConfigurationToJson(this);
 }
 
@@ -4431,7 +4628,8 @@ class SAMLv2Configuration extends Enableable {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfiguration> {
+class SAMLv2IdentityProvider
+    extends BaseIdentityProvider<SAMLv2ApplicationConfiguration> {
   String buttonImageURL;
   String buttonText;
   Set<String> domains;
@@ -4445,8 +4643,8 @@ class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfi
   bool useNameIdForEmail;
   CanonicalizationMethod xmlSignatureC14nMethod;
 
-  SAMLv2IdentityProvider({
-      this.buttonImageURL,
+  SAMLv2IdentityProvider(
+      {this.buttonImageURL,
       this.buttonText,
       this.domains,
       this.emailClaim,
@@ -4457,11 +4655,45 @@ class SAMLv2IdentityProvider extends BaseIdentityProvider<SAMLv2ApplicationConfi
       this.requestSigningKeyId,
       this.signRequest,
       this.useNameIdForEmail,
-      this.xmlSignatureC14nMethod
-  });
+      this.xmlSignatureC14nMethod});
 
-  factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) => _$SAMLv2IdentityProviderFromJson(json);
+  factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2IdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2IdentityProviderToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class SAMLv2IdPInitiatedApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  SAMLv2IdPInitiatedApplicationConfiguration();
+
+  factory SAMLv2IdPInitiatedApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$SAMLv2IdPInitiatedApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2IdPInitiatedApplicationConfigurationToJson(this);
+}
+
+/// SAML v2 IdP Initiated identity provider configuration.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class SAMLv2IdPInitiatedIdentityProvider
+    extends BaseIdentityProvider<SAMLv2IdPInitiatedApplicationConfiguration> {
+  String emailClaim;
+  String issuer;
+  String keyId;
+  bool useNameIdForEmail;
+
+  SAMLv2IdPInitiatedIdentityProvider(
+      {this.emailClaim, this.issuer, this.keyId, this.useNameIdForEmail});
+
+  factory SAMLv2IdPInitiatedIdentityProvider.fromJson(
+          Map<String, dynamic> json) =>
+      _$SAMLv2IdPInitiatedIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2IdPInitiatedIdentityProviderToJson(this);
 }
 
 @JsonSerializable()
@@ -4473,16 +4705,16 @@ class SAMLv2Logout {
   SAMLv2SingleLogout singleLogout;
   CanonicalizationMethod xmlSignatureC14nMethod;
 
-  SAMLv2Logout({
-      this.behavior,
+  SAMLv2Logout(
+      {this.behavior,
       this.defaultVerificationKeyId,
       this.keyId,
       this.requireSignedRequests,
       this.singleLogout,
-      this.xmlSignatureC14nMethod
-  });
+      this.xmlSignatureC14nMethod});
 
-  factory SAMLv2Logout.fromJson(Map<String, dynamic> json) => _$SAMLv2LogoutFromJson(json);
+  factory SAMLv2Logout.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2LogoutFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2LogoutToJson(this);
 }
 
@@ -4492,13 +4724,10 @@ class SAMLv2SingleLogout extends Enableable {
   String url;
   CanonicalizationMethod xmlSignatureC14nMethod;
 
-  SAMLv2SingleLogout({
-      this.keyId,
-      this.url,
-      this.xmlSignatureC14nMethod
-  });
+  SAMLv2SingleLogout({this.keyId, this.url, this.xmlSignatureC14nMethod});
 
-  factory SAMLv2SingleLogout.fromJson(Map<String, dynamic> json) => _$SAMLv2SingleLogoutFromJson(json);
+  factory SAMLv2SingleLogout.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2SingleLogoutFromJson(json);
   Map<String, dynamic> toJson() => _$SAMLv2SingleLogoutToJson(this);
 }
 
@@ -4509,11 +4738,10 @@ class SAMLv2SingleLogout extends Enableable {
 class SearchRequest {
   UserSearchCriteria search;
 
-  SearchRequest({
-      this.search
-  });
+  SearchRequest({this.search});
 
-  factory SearchRequest.fromJson(Map<String, dynamic> json) => _$SearchRequestFromJson(json);
+  factory SearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$SearchRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SearchRequestToJson(this);
 }
 
@@ -4525,12 +4753,10 @@ class SearchResponse {
   num total;
   List<User> users;
 
-  SearchResponse({
-      this.total,
-      this.users
-  });
+  SearchResponse({this.total, this.users});
 
-  factory SearchResponse.fromJson(Map<String, dynamic> json) => _$SearchResponseFromJson(json);
+  factory SearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }
 
@@ -4540,12 +4766,10 @@ class SecretResponse {
   String secret;
   String secretBase32Encoded;
 
-  SecretResponse({
-      this.secret,
-      this.secretBase32Encoded
-  });
+  SecretResponse({this.secret, this.secretBase32Encoded});
 
-  factory SecretResponse.fromJson(Map<String, dynamic> json) => _$SecretResponseFromJson(json);
+  factory SecretResponse.fromJson(Map<String, dynamic> json) =>
+      _$SecretResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SecretResponseToJson(this);
 }
 
@@ -4555,12 +4779,10 @@ class SecureGeneratorConfiguration {
   num length;
   SecureGeneratorType type;
 
-  SecureGeneratorConfiguration({
-      this.length,
-      this.type
-  });
+  SecureGeneratorConfiguration({this.length, this.type});
 
-  factory SecureGeneratorConfiguration.fromJson(Map<String, dynamic> json) => _$SecureGeneratorConfigurationFromJson(json);
+  factory SecureGeneratorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SecureGeneratorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$SecureGeneratorConfigurationToJson(this);
 }
 
@@ -4598,8 +4820,8 @@ class SecureIdentity {
   ContentStatus usernameStatus;
   bool verified;
 
-  SecureIdentity({
-      this.breachedPasswordLastCheckedInstant,
+  SecureIdentity(
+      {this.breachedPasswordLastCheckedInstant,
       this.breachedPasswordStatus,
       this.connectorId,
       this.encryptionScheme,
@@ -4616,10 +4838,10 @@ class SecureIdentity {
       this.twoFactorSecret,
       this.username,
       this.usernameStatus,
-      this.verified
-  });
+      this.verified});
 
-  factory SecureIdentity.fromJson(Map<String, dynamic> json) => _$SecureIdentityFromJson(json);
+  factory SecureIdentity.fromJson(Map<String, dynamic> json) =>
+      _$SecureIdentityFromJson(json);
   Map<String, dynamic> toJson() => _$SecureIdentityToJson(this);
 }
 
@@ -4631,14 +4853,11 @@ class SendRequest {
   Map<String, dynamic> requestData;
   List<String> userIds;
 
-  SendRequest({
-      this.bccAddresses,
-      this.ccAddresses,
-      this.requestData,
-      this.userIds
-  });
+  SendRequest(
+      {this.bccAddresses, this.ccAddresses, this.requestData, this.userIds});
 
-  factory SendRequest.fromJson(Map<String, dynamic> json) => _$SendRequestFromJson(json);
+  factory SendRequest.fromJson(Map<String, dynamic> json) =>
+      _$SendRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SendRequestToJson(this);
 }
 
@@ -4647,11 +4866,10 @@ class SendRequest {
 class SendResponse {
   Map<String, EmailTemplateErrors> results;
 
-  SendResponse({
-      this.results
-  });
+  SendResponse({this.results});
 
-  factory SendResponse.fromJson(Map<String, dynamic> json) => _$SendResponseFromJson(json);
+  factory SendResponse.fromJson(Map<String, dynamic> json) =>
+      _$SendResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SendResponseToJson(this);
 }
 
@@ -4670,13 +4888,10 @@ class SortField {
   String name;
   Sort order;
 
-  SortField({
-      this.missing,
-      this.name,
-      this.order
-  });
+  SortField({this.missing, this.name, this.order});
 
-  factory SortField.fromJson(Map<String, dynamic> json) => _$SortFieldFromJson(json);
+  factory SortField.fromJson(Map<String, dynamic> json) =>
+      _$SortFieldFromJson(json);
   Map<String, dynamic> toJson() => _$SortFieldToJson(this);
 }
 
@@ -4685,10 +4900,10 @@ class SortField {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class SupportsPostBindings {
-
   SupportsPostBindings();
 
-  factory SupportsPostBindings.fromJson(Map<String, dynamic> json) => _$SupportsPostBindingsFromJson(json);
+  factory SupportsPostBindings.fromJson(Map<String, dynamic> json) =>
+      _$SupportsPostBindingsFromJson(json);
   Map<String, dynamic> toJson() => _$SupportsPostBindingsToJson(this);
 }
 
@@ -4705,8 +4920,8 @@ class SystemConfiguration {
   String reportTimezone;
   UIConfiguration uiConfiguration;
 
-  SystemConfiguration({
-      this.auditLogConfiguration,
+  SystemConfiguration(
+      {this.auditLogConfiguration,
       this.corsConfiguration,
       this.data,
       this.eventLogConfiguration,
@@ -4714,10 +4929,10 @@ class SystemConfiguration {
       this.lastUpdateInstant,
       this.loginRecordConfiguration,
       this.reportTimezone,
-      this.uiConfiguration
-  });
+      this.uiConfiguration});
 
-  factory SystemConfiguration.fromJson(Map<String, dynamic> json) => _$SystemConfigurationFromJson(json);
+  factory SystemConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SystemConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$SystemConfigurationToJson(this);
 }
 
@@ -4728,11 +4943,10 @@ class SystemConfiguration {
 class SystemConfigurationRequest {
   SystemConfiguration systemConfiguration;
 
-  SystemConfigurationRequest({
-      this.systemConfiguration
-  });
+  SystemConfigurationRequest({this.systemConfiguration});
 
-  factory SystemConfigurationRequest.fromJson(Map<String, dynamic> json) => _$SystemConfigurationRequestFromJson(json);
+  factory SystemConfigurationRequest.fromJson(Map<String, dynamic> json) =>
+      _$SystemConfigurationRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SystemConfigurationRequestToJson(this);
 }
 
@@ -4743,11 +4957,10 @@ class SystemConfigurationRequest {
 class SystemConfigurationResponse {
   SystemConfiguration systemConfiguration;
 
-  SystemConfigurationResponse({
-      this.systemConfiguration
-  });
+  SystemConfigurationResponse({this.systemConfiguration});
 
-  factory SystemConfigurationResponse.fromJson(Map<String, dynamic> json) => _$SystemConfigurationResponseFromJson(json);
+  factory SystemConfigurationResponse.fromJson(Map<String, dynamic> json) =>
+      _$SystemConfigurationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SystemConfigurationResponseToJson(this);
 }
 
@@ -4756,11 +4969,10 @@ class SystemConfigurationResponse {
 class SystemLogsExportRequest extends BaseExportRequest {
   num lastNBytes;
 
-  SystemLogsExportRequest({
-      this.lastNBytes
-  });
+  SystemLogsExportRequest({this.lastNBytes});
 
-  factory SystemLogsExportRequest.fromJson(Map<String, dynamic> json) => _$SystemLogsExportRequestFromJson(json);
+  factory SystemLogsExportRequest.fromJson(Map<String, dynamic> json) =>
+      _$SystemLogsExportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SystemLogsExportRequestToJson(this);
 }
 
@@ -4791,8 +5003,8 @@ class Templates {
   String registrationVerify;
   String samlv2Logout;
 
-  Templates({
-      this.emailComplete,
+  Templates(
+      {this.emailComplete,
       this.emailSend,
       this.emailVerify,
       this.helpers,
@@ -4815,10 +5027,10 @@ class Templates {
       this.registrationComplete,
       this.registrationSend,
       this.registrationVerify,
-      this.samlv2Logout
-  });
+      this.samlv2Logout});
 
-  factory Templates.fromJson(Map<String, dynamic> json) => _$TemplatesFromJson(json);
+  factory Templates.fromJson(Map<String, dynamic> json) =>
+      _$TemplatesFromJson(json);
   Map<String, dynamic> toJson() => _$TemplatesToJson(this);
 }
 
@@ -4850,8 +5062,8 @@ class Tenant {
   String themeId;
   TenantUserDeletePolicy userDeletePolicy;
 
-  Tenant({
-      this.configured,
+  Tenant(
+      {this.configured,
       this.connectorPolicies,
       this.data,
       this.emailConfiguration,
@@ -4874,8 +5086,7 @@ class Tenant {
       this.passwordValidationRules,
       this.state,
       this.themeId,
-      this.userDeletePolicy
-  });
+      this.userDeletePolicy});
 
   factory Tenant.fromJson(Map<String, dynamic> json) => _$TenantFromJson(json);
   Map<String, dynamic> toJson() => _$TenantToJson(this);
@@ -4884,10 +5095,10 @@ class Tenant {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class Tenantable {
-
   Tenantable();
 
-  factory Tenantable.fromJson(Map<String, dynamic> json) => _$TenantableFromJson(json);
+  factory Tenantable.fromJson(Map<String, dynamic> json) =>
+      _$TenantableFromJson(json);
   Map<String, dynamic> toJson() => _$TenantableToJson(this);
 }
 
@@ -4896,11 +5107,10 @@ class Tenantable {
 class TenantFormConfiguration {
   String adminUserFormId;
 
-  TenantFormConfiguration({
-      this.adminUserFormId
-  });
+  TenantFormConfiguration({this.adminUserFormId});
 
-  factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) => _$TenantFormConfigurationFromJson(json);
+  factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantFormConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantFormConfigurationToJson(this);
 }
 
@@ -4910,12 +5120,10 @@ class TenantRequest {
   String sourceTenantId;
   Tenant tenant;
 
-  TenantRequest({
-      this.sourceTenantId,
-      this.tenant
-  });
+  TenantRequest({this.sourceTenantId, this.tenant});
 
-  factory TenantRequest.fromJson(Map<String, dynamic> json) => _$TenantRequestFromJson(json);
+  factory TenantRequest.fromJson(Map<String, dynamic> json) =>
+      _$TenantRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TenantRequestToJson(this);
 }
 
@@ -4925,12 +5133,10 @@ class TenantResponse {
   Tenant tenant;
   List<Tenant> tenants;
 
-  TenantResponse({
-      this.tenant,
-      this.tenants
-  });
+  TenantResponse({this.tenant, this.tenants});
 
-  factory TenantResponse.fromJson(Map<String, dynamic> json) => _$TenantResponseFromJson(json);
+  factory TenantResponse.fromJson(Map<String, dynamic> json) =>
+      _$TenantResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TenantResponseToJson(this);
 }
 
@@ -4941,11 +5147,10 @@ class TenantResponse {
 class TenantUserDeletePolicy {
   TimeBasedDeletePolicy unverified;
 
-  TenantUserDeletePolicy({
-      this.unverified
-  });
+  TenantUserDeletePolicy({this.unverified});
 
-  factory TenantUserDeletePolicy.fromJson(Map<String, dynamic> json) => _$TenantUserDeletePolicyFromJson(json);
+  factory TenantUserDeletePolicy.fromJson(Map<String, dynamic> json) =>
+      _$TenantUserDeletePolicyFromJson(json);
   Map<String, dynamic> toJson() => _$TenantUserDeletePolicyToJson(this);
 }
 
@@ -4954,11 +5159,10 @@ class TenantUserDeletePolicy {
 class TestEvent extends BaseEvent {
   String message;
 
-  TestEvent({
-      this.message
-  });
+  TestEvent({this.message});
 
-  factory TestEvent.fromJson(Map<String, dynamic> json) => _$TestEventFromJson(json);
+  factory TestEvent.fromJson(Map<String, dynamic> json) =>
+      _$TestEventFromJson(json);
   Map<String, dynamic> toJson() => _$TestEventToJson(this);
 }
 
@@ -4975,8 +5179,8 @@ class Theme {
   String stylesheet;
   Templates templates;
 
-  Theme({
-      this.data,
+  Theme(
+      {this.data,
       this.defaultMessages,
       this.id,
       this.insertInstant,
@@ -4984,8 +5188,7 @@ class Theme {
       this.localizedMessages,
       this.name,
       this.stylesheet,
-      this.templates
-  });
+      this.templates});
 
   factory Theme.fromJson(Map<String, dynamic> json) => _$ThemeFromJson(json);
   Map<String, dynamic> toJson() => _$ThemeToJson(this);
@@ -4999,12 +5202,10 @@ class ThemeRequest {
   String sourceThemeId;
   Theme theme;
 
-  ThemeRequest({
-      this.sourceThemeId,
-      this.theme
-  });
+  ThemeRequest({this.sourceThemeId, this.theme});
 
-  factory ThemeRequest.fromJson(Map<String, dynamic> json) => _$ThemeRequestFromJson(json);
+  factory ThemeRequest.fromJson(Map<String, dynamic> json) =>
+      _$ThemeRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ThemeRequestToJson(this);
 }
 
@@ -5016,12 +5217,10 @@ class ThemeResponse {
   Theme theme;
   List<Theme> themes;
 
-  ThemeResponse({
-      this.theme,
-      this.themes
-  });
+  ThemeResponse({this.theme, this.themes});
 
-  factory ThemeResponse.fromJson(Map<String, dynamic> json) => _$ThemeResponseFromJson(json);
+  factory ThemeResponse.fromJson(Map<String, dynamic> json) =>
+      _$ThemeResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ThemeResponseToJson(this);
 }
 
@@ -5032,11 +5231,10 @@ class ThemeResponse {
 class TimeBasedDeletePolicy extends Enableable {
   num numberOfDaysToRetain;
 
-  TimeBasedDeletePolicy({
-      this.numberOfDaysToRetain
-  });
+  TimeBasedDeletePolicy({this.numberOfDaysToRetain});
 
-  factory TimeBasedDeletePolicy.fromJson(Map<String, dynamic> json) => _$TimeBasedDeletePolicyFromJson(json);
+  factory TimeBasedDeletePolicy.fromJson(Map<String, dynamic> json) =>
+      _$TimeBasedDeletePolicyFromJson(json);
   Map<String, dynamic> toJson() => _$TimeBasedDeletePolicyToJson(this);
 }
 
@@ -5062,11 +5260,7 @@ class Totals {
   num registrations;
   num totalRegistrations;
 
-  Totals({
-      this.logins,
-      this.registrations,
-      this.totalRegistrations
-  });
+  Totals({this.logins, this.registrations, this.totalRegistrations});
 
   factory Totals.fromJson(Map<String, dynamic> json) => _$TotalsFromJson(json);
   Map<String, dynamic> toJson() => _$TotalsToJson(this);
@@ -5081,13 +5275,13 @@ class TotalsReportResponse {
   num globalRegistrations;
   num totalGlobalRegistrations;
 
-  TotalsReportResponse({
-      this.applicationTotals,
+  TotalsReportResponse(
+      {this.applicationTotals,
       this.globalRegistrations,
-      this.totalGlobalRegistrations
-  });
+      this.totalGlobalRegistrations});
 
-  factory TotalsReportResponse.fromJson(Map<String, dynamic> json) => _$TotalsReportResponseFromJson(json);
+  factory TotalsReportResponse.fromJson(Map<String, dynamic> json) =>
+      _$TotalsReportResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TotalsReportResponseToJson(this);
 }
 
@@ -5118,51 +5312,50 @@ class TwilioConfiguration extends Enableable {
   String messagingServiceSid;
   String url;
 
-  TwilioConfiguration({
-      this.accountSID,
+  TwilioConfiguration(
+      {this.accountSID,
       this.authToken,
       this.fromPhoneNumber,
       this.messagingServiceSid,
-      this.url
-  });
+      this.url});
 
-  factory TwilioConfiguration.fromJson(Map<String, dynamic> json) => _$TwilioConfigurationFromJson(json);
+  factory TwilioConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TwilioConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TwilioConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class TwitterApplicationConfiguration extends BaseIdentityProviderApplicationConfiguration {
+class TwitterApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
   String buttonText;
   String consumerKey;
   String consumerSecret;
 
-  TwitterApplicationConfiguration({
-      this.buttonText,
-      this.consumerKey,
-      this.consumerSecret
-  });
+  TwitterApplicationConfiguration(
+      {this.buttonText, this.consumerKey, this.consumerSecret});
 
-  factory TwitterApplicationConfiguration.fromJson(Map<String, dynamic> json) => _$TwitterApplicationConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$TwitterApplicationConfigurationToJson(this);
+  factory TwitterApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TwitterApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$TwitterApplicationConfigurationToJson(this);
 }
 
 /// Twitter social login provider.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
-class TwitterIdentityProvider extends BaseIdentityProvider<TwitterApplicationConfiguration> {
+class TwitterIdentityProvider
+    extends BaseIdentityProvider<TwitterApplicationConfiguration> {
   String buttonText;
   String consumerKey;
   String consumerSecret;
 
-  TwitterIdentityProvider({
-      this.buttonText,
-      this.consumerKey,
-      this.consumerSecret
-  });
+  TwitterIdentityProvider(
+      {this.buttonText, this.consumerKey, this.consumerSecret});
 
-  factory TwitterIdentityProvider.fromJson(Map<String, dynamic> json) => _$TwitterIdentityProviderFromJson(json);
+  factory TwitterIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$TwitterIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$TwitterIdentityProviderToJson(this);
 }
 
@@ -5181,13 +5374,10 @@ class TwoFactorLoginRequest extends BaseLoginRequest {
   bool trustComputer;
   String twoFactorId;
 
-  TwoFactorLoginRequest({
-      this.code,
-      this.trustComputer,
-      this.twoFactorId
-  });
+  TwoFactorLoginRequest({this.code, this.trustComputer, this.twoFactorId});
 
-  factory TwoFactorLoginRequest.fromJson(Map<String, dynamic> json) => _$TwoFactorLoginRequestFromJson(json);
+  factory TwoFactorLoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorLoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TwoFactorLoginRequestToJson(this);
 }
 
@@ -5199,14 +5389,11 @@ class TwoFactorRequest {
   String secret;
   String secretBase32Encoded;
 
-  TwoFactorRequest({
-      this.code,
-      this.delivery,
-      this.secret,
-      this.secretBase32Encoded
-  });
+  TwoFactorRequest(
+      {this.code, this.delivery, this.secret, this.secretBase32Encoded});
 
-  factory TwoFactorRequest.fromJson(Map<String, dynamic> json) => _$TwoFactorRequestFromJson(json);
+  factory TwoFactorRequest.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TwoFactorRequestToJson(this);
 }
 
@@ -5217,13 +5404,10 @@ class TwoFactorSendRequest {
   String secret;
   String userId;
 
-  TwoFactorSendRequest({
-      this.mobilePhone,
-      this.secret,
-      this.userId
-  });
+  TwoFactorSendRequest({this.mobilePhone, this.secret, this.userId});
 
-  factory TwoFactorSendRequest.fromJson(Map<String, dynamic> json) => _$TwoFactorSendRequestFromJson(json);
+  factory TwoFactorSendRequest.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorSendRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TwoFactorSendRequestToJson(this);
 }
 
@@ -5233,13 +5417,10 @@ class UIConfiguration {
   String logoURL;
   String menuFontColor;
 
-  UIConfiguration({
-      this.headerColor,
-      this.logoURL,
-      this.menuFontColor
-  });
+  UIConfiguration({this.headerColor, this.logoURL, this.menuFontColor});
 
-  factory UIConfiguration.fromJson(Map<String, dynamic> json) => _$UIConfigurationFromJson(json);
+  factory UIConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$UIConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UIConfigurationToJson(this);
 }
 
@@ -5270,8 +5451,8 @@ class User extends SecureIdentity {
   String tenantId;
   String timezone;
 
-  User({
-      this.active,
+  User(
+      {this.active,
       this.birthDate,
       this.cleanSpeakId,
       this.data,
@@ -5290,8 +5471,7 @@ class User extends SecureIdentity {
       this.preferredLanguages,
       this.registrations,
       this.tenantId,
-      this.timezone
-  });
+      this.timezone});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
@@ -5321,8 +5501,8 @@ class UserAction {
   bool userEmailingEnabled;
   bool userNotificationsEnabled;
 
-  UserAction({
-      this.active,
+  UserAction(
+      {this.active,
       this.cancelEmailTemplateId,
       this.endEmailTemplateId,
       this.id,
@@ -5339,10 +5519,10 @@ class UserAction {
       this.temporal,
       this.transactionType,
       this.userEmailingEnabled,
-      this.userNotificationsEnabled
-  });
+      this.userNotificationsEnabled});
 
-  factory UserAction.fromJson(Map<String, dynamic> json) => _$UserActionFromJson(json);
+  factory UserAction.fromJson(Map<String, dynamic> json) =>
+      _$UserActionFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionToJson(this);
 }
 
@@ -5370,8 +5550,8 @@ class UserActionEvent extends BaseEvent {
   String reason;
   String reasonCode;
 
-  UserActionEvent({
-      this.action,
+  UserActionEvent(
+      {this.action,
       this.actioneeUserId,
       this.actionerUserId,
       this.actionId,
@@ -5388,10 +5568,10 @@ class UserActionEvent extends BaseEvent {
       this.option,
       this.phase,
       this.reason,
-      this.reasonCode
-  });
+      this.reasonCode});
 
-  factory UserActionEvent.fromJson(Map<String, dynamic> json) => _$UserActionEventFromJson(json);
+  factory UserActionEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserActionEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionEventToJson(this);
 }
 
@@ -5420,8 +5600,8 @@ class UserActionLog {
   String reasonCode;
   String userActionId;
 
-  UserActionLog({
-      this.actioneeUserId,
+  UserActionLog(
+      {this.actioneeUserId,
       this.actionerUserId,
       this.applicationIds,
       this.comment,
@@ -5439,10 +5619,10 @@ class UserActionLog {
       this.option,
       this.reason,
       this.reasonCode,
-      this.userActionId
-  });
+      this.userActionId});
 
-  factory UserActionLog.fromJson(Map<String, dynamic> json) => _$UserActionLogFromJson(json);
+  factory UserActionLog.fromJson(Map<String, dynamic> json) =>
+      _$UserActionLogFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionLogToJson(this);
 }
 
@@ -5454,12 +5634,10 @@ class UserActionOption {
   Map<String, String> localizedNames;
   String name;
 
-  UserActionOption({
-      this.localizedNames,
-      this.name
-  });
+  UserActionOption({this.localizedNames, this.name});
 
-  factory UserActionOption.fromJson(Map<String, dynamic> json) => _$UserActionOptionFromJson(json);
+  factory UserActionOption.fromJson(Map<String, dynamic> json) =>
+      _$UserActionOptionFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionOptionToJson(this);
 }
 
@@ -5489,16 +5667,16 @@ class UserActionReason {
   Map<String, String> localizedTexts;
   String text;
 
-  UserActionReason({
-      this.code,
+  UserActionReason(
+      {this.code,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
       this.localizedTexts,
-      this.text
-  });
+      this.text});
 
-  factory UserActionReason.fromJson(Map<String, dynamic> json) => _$UserActionReasonFromJson(json);
+  factory UserActionReason.fromJson(Map<String, dynamic> json) =>
+      _$UserActionReasonFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionReasonToJson(this);
 }
 
@@ -5509,11 +5687,10 @@ class UserActionReason {
 class UserActionReasonRequest {
   UserActionReason userActionReason;
 
-  UserActionReasonRequest({
-      this.userActionReason
-  });
+  UserActionReasonRequest({this.userActionReason});
 
-  factory UserActionReasonRequest.fromJson(Map<String, dynamic> json) => _$UserActionReasonRequestFromJson(json);
+  factory UserActionReasonRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserActionReasonRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionReasonRequestToJson(this);
 }
 
@@ -5525,12 +5702,10 @@ class UserActionReasonResponse {
   UserActionReason userActionReason;
   List<UserActionReason> userActionReasons;
 
-  UserActionReasonResponse({
-      this.userActionReason,
-      this.userActionReasons
-  });
+  UserActionReasonResponse({this.userActionReason, this.userActionReasons});
 
-  factory UserActionReasonResponse.fromJson(Map<String, dynamic> json) => _$UserActionReasonResponseFromJson(json);
+  factory UserActionReasonResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserActionReasonResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionReasonResponseToJson(this);
 }
 
@@ -5541,11 +5716,10 @@ class UserActionReasonResponse {
 class UserActionRequest {
   UserAction userAction;
 
-  UserActionRequest({
-      this.userAction
-  });
+  UserActionRequest({this.userAction});
 
-  factory UserActionRequest.fromJson(Map<String, dynamic> json) => _$UserActionRequestFromJson(json);
+  factory UserActionRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserActionRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionRequestToJson(this);
 }
 
@@ -5557,12 +5731,10 @@ class UserActionResponse {
   UserAction userAction;
   List<UserAction> userActions;
 
-  UserActionResponse({
-      this.userAction,
-      this.userActions
-  });
+  UserActionResponse({this.userAction, this.userActions});
 
-  factory UserActionResponse.fromJson(Map<String, dynamic> json) => _$UserActionResponseFromJson(json);
+  factory UserActionResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserActionResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserActionResponseToJson(this);
 }
 
@@ -5573,11 +5745,10 @@ class UserActionResponse {
 class UserBulkCreateEvent extends BaseEvent {
   List<User> users;
 
-  UserBulkCreateEvent({
-      this.users
-  });
+  UserBulkCreateEvent({this.users});
 
-  factory UserBulkCreateEvent.fromJson(Map<String, dynamic> json) => _$UserBulkCreateEventFromJson(json);
+  factory UserBulkCreateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserBulkCreateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserBulkCreateEventToJson(this);
 }
 
@@ -5592,15 +5763,15 @@ class UserComment {
   num insertInstant;
   String userId;
 
-  UserComment({
-      this.comment,
+  UserComment(
+      {this.comment,
       this.commenterId,
       this.id,
       this.insertInstant,
-      this.userId
-  });
+      this.userId});
 
-  factory UserComment.fromJson(Map<String, dynamic> json) => _$UserCommentFromJson(json);
+  factory UserComment.fromJson(Map<String, dynamic> json) =>
+      _$UserCommentFromJson(json);
   Map<String, dynamic> toJson() => _$UserCommentToJson(this);
 }
 
@@ -5609,11 +5780,10 @@ class UserComment {
 class UserCommentRequest {
   UserComment userComment;
 
-  UserCommentRequest({
-      this.userComment
-  });
+  UserCommentRequest({this.userComment});
 
-  factory UserCommentRequest.fromJson(Map<String, dynamic> json) => _$UserCommentRequestFromJson(json);
+  factory UserCommentRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserCommentRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserCommentRequestToJson(this);
 }
 
@@ -5625,12 +5795,10 @@ class UserCommentResponse {
   UserComment userComment;
   List<UserComment> userComments;
 
-  UserCommentResponse({
-      this.userComment,
-      this.userComments
-  });
+  UserCommentResponse({this.userComment, this.userComments});
 
-  factory UserCommentResponse.fromJson(Map<String, dynamic> json) => _$UserCommentResponseFromJson(json);
+  factory UserCommentResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserCommentResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserCommentResponseToJson(this);
 }
 
@@ -5650,8 +5818,8 @@ class UserConsent {
   String userId;
   List<String> values;
 
-  UserConsent({
-      this.consent,
+  UserConsent(
+      {this.consent,
       this.consentId,
       this.data,
       this.giverUserId,
@@ -5660,10 +5828,10 @@ class UserConsent {
       this.lastUpdateInstant,
       this.status,
       this.userId,
-      this.values
-  });
+      this.values});
 
-  factory UserConsent.fromJson(Map<String, dynamic> json) => _$UserConsentFromJson(json);
+  factory UserConsent.fromJson(Map<String, dynamic> json) =>
+      _$UserConsentFromJson(json);
   Map<String, dynamic> toJson() => _$UserConsentToJson(this);
 }
 
@@ -5674,11 +5842,10 @@ class UserConsent {
 class UserConsentRequest {
   UserConsent userConsent;
 
-  UserConsentRequest({
-      this.userConsent
-  });
+  UserConsentRequest({this.userConsent});
 
-  factory UserConsentRequest.fromJson(Map<String, dynamic> json) => _$UserConsentRequestFromJson(json);
+  factory UserConsentRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserConsentRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserConsentRequestToJson(this);
 }
 
@@ -5690,12 +5857,10 @@ class UserConsentResponse {
   UserConsent userConsent;
   List<UserConsent> userConsents;
 
-  UserConsentResponse({
-      this.userConsent,
-      this.userConsents
-  });
+  UserConsentResponse({this.userConsent, this.userConsents});
 
-  factory UserConsentResponse.fromJson(Map<String, dynamic> json) => _$UserConsentResponseFromJson(json);
+  factory UserConsentResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserConsentResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserConsentResponseToJson(this);
 }
 
@@ -5706,11 +5871,10 @@ class UserConsentResponse {
 class UserCreateEvent extends BaseEvent {
   User user;
 
-  UserCreateEvent({
-      this.user
-  });
+  UserCreateEvent({this.user});
 
-  factory UserCreateEvent.fromJson(Map<String, dynamic> json) => _$UserCreateEventFromJson(json);
+  factory UserCreateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserCreateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserCreateEventToJson(this);
 }
 
@@ -5721,11 +5885,10 @@ class UserCreateEvent extends BaseEvent {
 class UserDeactivateEvent extends BaseEvent {
   User user;
 
-  UserDeactivateEvent({
-      this.user
-  });
+  UserDeactivateEvent({this.user});
 
-  factory UserDeactivateEvent.fromJson(Map<String, dynamic> json) => _$UserDeactivateEventFromJson(json);
+  factory UserDeactivateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserDeactivateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserDeactivateEventToJson(this);
 }
 
@@ -5737,11 +5900,10 @@ class UserDeactivateEvent extends BaseEvent {
 class UserDeleteEvent extends BaseEvent {
   User user;
 
-  UserDeleteEvent({
-      this.user
-  });
+  UserDeleteEvent({this.user});
 
-  factory UserDeleteEvent.fromJson(Map<String, dynamic> json) => _$UserDeleteEventFromJson(json);
+  factory UserDeleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserDeleteEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserDeleteEventToJson(this);
 }
 
@@ -5756,15 +5918,15 @@ class UserDeleteRequest {
   String queryString;
   List<String> userIds;
 
-  UserDeleteRequest({
-      this.dryRun,
+  UserDeleteRequest(
+      {this.dryRun,
       this.hardDelete,
       this.query,
       this.queryString,
-      this.userIds
-  });
+      this.userIds});
 
-  factory UserDeleteRequest.fromJson(Map<String, dynamic> json) => _$UserDeleteRequestFromJson(json);
+  factory UserDeleteRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserDeleteRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserDeleteRequestToJson(this);
 }
 
@@ -5778,14 +5940,10 @@ class UserDeleteResponse {
   num total;
   List<String> userIds;
 
-  UserDeleteResponse({
-      this.dryRun,
-      this.hardDelete,
-      this.total,
-      this.userIds
-  });
+  UserDeleteResponse({this.dryRun, this.hardDelete, this.total, this.userIds});
 
-  factory UserDeleteResponse.fromJson(Map<String, dynamic> json) => _$UserDeleteResponseFromJson(json);
+  factory UserDeleteResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserDeleteResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserDeleteResponseToJson(this);
 }
 
@@ -5796,11 +5954,10 @@ class UserDeleteResponse {
 class UserEmailVerifiedEvent extends BaseEvent {
   User user;
 
-  UserEmailVerifiedEvent({
-      this.user
-  });
+  UserEmailVerifiedEvent({this.user});
 
-  factory UserEmailVerifiedEvent.fromJson(Map<String, dynamic> json) => _$UserEmailVerifiedEventFromJson(json);
+  factory UserEmailVerifiedEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserEmailVerifiedEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserEmailVerifiedEventToJson(this);
 }
 
@@ -5813,13 +5970,11 @@ class UserLoginFailedEvent extends BaseEvent {
   String authenticationType;
   User user;
 
-  UserLoginFailedEvent({
-      this.applicationId,
-      this.authenticationType,
-      this.user
-  });
+  UserLoginFailedEvent(
+      {this.applicationId, this.authenticationType, this.user});
 
-  factory UserLoginFailedEvent.fromJson(Map<String, dynamic> json) => _$UserLoginFailedEventFromJson(json);
+  factory UserLoginFailedEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserLoginFailedEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserLoginFailedEventToJson(this);
 }
 
@@ -5835,16 +5990,16 @@ class UserLoginSuccessEvent extends BaseEvent {
   String identityProviderName;
   User user;
 
-  UserLoginSuccessEvent({
-      this.applicationId,
+  UserLoginSuccessEvent(
+      {this.applicationId,
       this.authenticationType,
       this.connectorId,
       this.identityProviderId,
       this.identityProviderName,
-      this.user
-  });
+      this.user});
 
-  factory UserLoginSuccessEvent.fromJson(Map<String, dynamic> json) => _$UserLoginSuccessEventFromJson(json);
+  factory UserLoginSuccessEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserLoginSuccessEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserLoginSuccessEventToJson(this);
 }
 
@@ -5852,11 +6007,10 @@ class UserLoginSuccessEvent extends BaseEvent {
 class UsernameModeration extends Enableable {
   String applicationId;
 
-  UsernameModeration({
-      this.applicationId
-  });
+  UsernameModeration({this.applicationId});
 
-  factory UsernameModeration.fromJson(Map<String, dynamic> json) => _$UsernameModerationFromJson(json);
+  factory UsernameModeration.fromJson(Map<String, dynamic> json) =>
+      _$UsernameModerationFromJson(json);
   Map<String, dynamic> toJson() => _$UsernameModerationToJson(this);
 }
 
@@ -5867,11 +6021,10 @@ class UsernameModeration extends Enableable {
 class UserPasswordBreachEvent extends BaseEvent {
   User user;
 
-  UserPasswordBreachEvent({
-      this.user
-  });
+  UserPasswordBreachEvent({this.user});
 
-  factory UserPasswordBreachEvent.fromJson(Map<String, dynamic> json) => _$UserPasswordBreachEventFromJson(json);
+  factory UserPasswordBreachEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserPasswordBreachEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserPasswordBreachEventToJson(this);
 }
 
@@ -5882,11 +6035,10 @@ class UserPasswordBreachEvent extends BaseEvent {
 class UserReactivateEvent extends BaseEvent {
   User user;
 
-  UserReactivateEvent({
-      this.user
-  });
+  UserReactivateEvent({this.user});
 
-  factory UserReactivateEvent.fromJson(Map<String, dynamic> json) => _$UserReactivateEventFromJson(json);
+  factory UserReactivateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserReactivateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserReactivateEventToJson(this);
 }
 
@@ -5911,8 +6063,8 @@ class UserRegistration {
   ContentStatus usernameStatus;
   bool verified;
 
-  UserRegistration({
-      this.applicationId,
+  UserRegistration(
+      {this.applicationId,
       this.authenticationToken,
       this.cleanSpeakId,
       this.data,
@@ -5926,10 +6078,10 @@ class UserRegistration {
       this.tokens,
       this.username,
       this.usernameStatus,
-      this.verified
-  });
+      this.verified});
 
-  factory UserRegistration.fromJson(Map<String, dynamic> json) => _$UserRegistrationFromJson(json);
+  factory UserRegistration.fromJson(Map<String, dynamic> json) =>
+      _$UserRegistrationFromJson(json);
   Map<String, dynamic> toJson() => _$UserRegistrationToJson(this);
 }
 
@@ -5942,13 +6094,11 @@ class UserRegistrationCreateEvent extends BaseEvent {
   UserRegistration registration;
   User user;
 
-  UserRegistrationCreateEvent({
-      this.applicationId,
-      this.registration,
-      this.user
-  });
+  UserRegistrationCreateEvent(
+      {this.applicationId, this.registration, this.user});
 
-  factory UserRegistrationCreateEvent.fromJson(Map<String, dynamic> json) => _$UserRegistrationCreateEventFromJson(json);
+  factory UserRegistrationCreateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserRegistrationCreateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserRegistrationCreateEventToJson(this);
 }
 
@@ -5961,13 +6111,11 @@ class UserRegistrationDeleteEvent extends BaseEvent {
   UserRegistration registration;
   User user;
 
-  UserRegistrationDeleteEvent({
-      this.applicationId,
-      this.registration,
-      this.user
-  });
+  UserRegistrationDeleteEvent(
+      {this.applicationId, this.registration, this.user});
 
-  factory UserRegistrationDeleteEvent.fromJson(Map<String, dynamic> json) => _$UserRegistrationDeleteEventFromJson(json);
+  factory UserRegistrationDeleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserRegistrationDeleteEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserRegistrationDeleteEventToJson(this);
 }
 
@@ -5981,14 +6129,11 @@ class UserRegistrationUpdateEvent extends BaseEvent {
   UserRegistration registration;
   User user;
 
-  UserRegistrationUpdateEvent({
-      this.applicationId,
-      this.original,
-      this.registration,
-      this.user
-  });
+  UserRegistrationUpdateEvent(
+      {this.applicationId, this.original, this.registration, this.user});
 
-  factory UserRegistrationUpdateEvent.fromJson(Map<String, dynamic> json) => _$UserRegistrationUpdateEventFromJson(json);
+  factory UserRegistrationUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserRegistrationUpdateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserRegistrationUpdateEventToJson(this);
 }
 
@@ -6001,13 +6146,11 @@ class UserRegistrationVerifiedEvent extends BaseEvent {
   UserRegistration registration;
   User user;
 
-  UserRegistrationVerifiedEvent({
-      this.applicationId,
-      this.registration,
-      this.user
-  });
+  UserRegistrationVerifiedEvent(
+      {this.applicationId, this.registration, this.user});
 
-  factory UserRegistrationVerifiedEvent.fromJson(Map<String, dynamic> json) => _$UserRegistrationVerifiedEventFromJson(json);
+  factory UserRegistrationVerifiedEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserRegistrationVerifiedEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserRegistrationVerifiedEventToJson(this);
 }
 
@@ -6020,13 +6163,10 @@ class UserRequest {
   bool skipVerification;
   User user;
 
-  UserRequest({
-      this.sendSetPasswordEmail,
-      this.skipVerification,
-      this.user
-  });
+  UserRequest({this.sendSetPasswordEmail, this.skipVerification, this.user});
 
-  factory UserRequest.fromJson(Map<String, dynamic> json) => _$UserRequestFromJson(json);
+  factory UserRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserRequestToJson(this);
 }
 
@@ -6038,12 +6178,10 @@ class UserResponse {
   String token;
   User user;
 
-  UserResponse({
-      this.token,
-      this.user
-  });
+  UserResponse({this.token, this.user});
 
-  factory UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
+  factory UserResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
 
@@ -6051,22 +6189,11 @@ class UserResponse {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class UserSearchCriteria extends BaseSearchCriteria {
-  bool accurateTotal;
-  List<String> ids;
-  String query;
-  String queryString;
-  List<SortField> sortFields;
+class UserSearchCriteria extends BaseElasticSearchCriteria {
+  UserSearchCriteria();
 
-  UserSearchCriteria({
-      this.accurateTotal,
-      this.ids,
-      this.query,
-      this.queryString,
-      this.sortFields
-  });
-
-  factory UserSearchCriteria.fromJson(Map<String, dynamic> json) => _$UserSearchCriteriaFromJson(json);
+  factory UserSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$UserSearchCriteriaFromJson(json);
   Map<String, dynamic> toJson() => _$UserSearchCriteriaToJson(this);
 }
 
@@ -6086,12 +6213,10 @@ class UserUpdateEvent extends BaseEvent {
   User original;
   User user;
 
-  UserUpdateEvent({
-      this.original,
-      this.user
-  });
+  UserUpdateEvent({this.original, this.user});
 
-  factory UserUpdateEvent.fromJson(Map<String, dynamic> json) => _$UserUpdateEventFromJson(json);
+  factory UserUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserUpdateEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserUpdateEventToJson(this);
 }
 
@@ -6100,11 +6225,10 @@ class UserUpdateEvent extends BaseEvent {
 class ValidateResponse {
   JWT jwt;
 
-  ValidateResponse({
-      this.jwt
-  });
+  ValidateResponse({this.jwt});
 
-  factory ValidateResponse.fromJson(Map<String, dynamic> json) => _$ValidateResponseFromJson(json);
+  factory ValidateResponse.fromJson(Map<String, dynamic> json) =>
+      _$ValidateResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ValidateResponseToJson(this);
 }
 
@@ -6113,11 +6237,10 @@ class ValidateResponse {
 class VerifyEmailResponse {
   String verificationId;
 
-  VerifyEmailResponse({
-      this.verificationId
-  });
+  VerifyEmailResponse({this.verificationId});
 
-  factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) => _$VerifyEmailResponseFromJson(json);
+  factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyEmailResponseFromJson(json);
   Map<String, dynamic> toJson() => _$VerifyEmailResponseToJson(this);
 }
 
@@ -6126,11 +6249,10 @@ class VerifyEmailResponse {
 class VerifyRegistrationResponse {
   String verificationId;
 
-  VerifyRegistrationResponse({
-      this.verificationId
-  });
+  VerifyRegistrationResponse({this.verificationId});
 
-  factory VerifyRegistrationResponse.fromJson(Map<String, dynamic> json) => _$VerifyRegistrationResponseFromJson(json);
+  factory VerifyRegistrationResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyRegistrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$VerifyRegistrationResponseToJson(this);
 }
 
@@ -6155,8 +6277,8 @@ class Webhook {
   String sslCertificate;
   String url;
 
-  Webhook({
-      this.applicationIds,
+  Webhook(
+      {this.applicationIds,
       this.connectTimeout,
       this.data,
       this.description,
@@ -6170,10 +6292,10 @@ class Webhook {
       this.lastUpdateInstant,
       this.readTimeout,
       this.sslCertificate,
-      this.url
-  });
+      this.url});
 
-  factory Webhook.fromJson(Map<String, dynamic> json) => _$WebhookFromJson(json);
+  factory Webhook.fromJson(Map<String, dynamic> json) =>
+      _$WebhookFromJson(json);
   Map<String, dynamic> toJson() => _$WebhookToJson(this);
 }
 
@@ -6184,11 +6306,10 @@ class Webhook {
 class WebhookRequest {
   Webhook webhook;
 
-  WebhookRequest({
-      this.webhook
-  });
+  WebhookRequest({this.webhook});
 
-  factory WebhookRequest.fromJson(Map<String, dynamic> json) => _$WebhookRequestFromJson(json);
+  factory WebhookRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebhookRequestFromJson(json);
   Map<String, dynamic> toJson() => _$WebhookRequestToJson(this);
 }
 
@@ -6200,12 +6321,10 @@ class WebhookResponse {
   Webhook webhook;
   List<Webhook> webhooks;
 
-  WebhookResponse({
-      this.webhook,
-      this.webhooks
-  });
+  WebhookResponse({this.webhook, this.webhooks});
 
-  factory WebhookResponse.fromJson(Map<String, dynamic> json) => _$WebhookResponseFromJson(json);
+  factory WebhookResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebhookResponseFromJson(json);
   Map<String, dynamic> toJson() => _$WebhookResponseToJson(this);
 }
 
@@ -6215,4 +6334,3 @@ enum XMLSignatureLocation {
   @JsonValue('Response')
   Response
 }
-

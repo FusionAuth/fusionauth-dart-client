@@ -264,6 +264,7 @@ const _$IdentityProviderTypeEnumMap = {
   IdentityProviderType.HYPR: 'HYPR',
   IdentityProviderType.Apple: 'Apple',
   IdentityProviderType.LinkedIn: 'LinkedIn',
+  IdentityProviderType.SAMLv2IdPInitiated: 'SAMLv2IdPInitiated',
 };
 
 Application _$ApplicationFromJson(Map<String, dynamic> json) {
@@ -839,6 +840,44 @@ const _$ConnectorTypeEnumMap = {
   ConnectorType.LDAP: 'LDAP',
 };
 
+BaseElasticSearchCriteria _$BaseElasticSearchCriteriaFromJson(
+    Map<String, dynamic> json) {
+  return BaseElasticSearchCriteria(
+    accurateTotal: json['accurateTotal'] as bool,
+    ids: (json['ids'] as List)?.map((e) => e as String)?.toList(),
+    query: json['query'] as String,
+    queryString: json['queryString'] as String,
+    sortFields: (json['sortFields'] as List)
+        ?.map((e) =>
+            e == null ? null : SortField.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  )
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num;
+}
+
+Map<String, dynamic> _$BaseElasticSearchCriteriaToJson(
+    BaseElasticSearchCriteria instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('accurateTotal', instance.accurateTotal);
+  writeNotNull('ids', instance.ids);
+  writeNotNull('query', instance.query);
+  writeNotNull('queryString', instance.queryString);
+  writeNotNull('sortFields', instance.sortFields);
+  return val;
+}
+
 BaseEvent _$BaseEventFromJson(Map<String, dynamic> json) {
   return BaseEvent(
     createInstant: json['createInstant'] as num,
@@ -982,6 +1021,38 @@ Map<String, dynamic> _$BaseSearchCriteriaToJson(BaseSearchCriteria instance) {
   writeNotNull('numberOfResults', instance.numberOfResults);
   writeNotNull('orderBy', instance.orderBy);
   writeNotNull('startRow', instance.startRow);
+  return val;
+}
+
+BreachedPasswordTenantMetric _$BreachedPasswordTenantMetricFromJson(
+    Map<String, dynamic> json) {
+  return BreachedPasswordTenantMetric(
+    actionRequired: json['actionRequired'] as num,
+    matchedCommonPasswordCount: json['matchedCommonPasswordCount'] as num,
+    matchedExactCount: json['matchedExactCount'] as num,
+    matchedPasswordCount: json['matchedPasswordCount'] as num,
+    matchedSubAddressCount: json['matchedSubAddressCount'] as num,
+    passwordsCheckedCount: json['passwordsCheckedCount'] as num,
+  );
+}
+
+Map<String, dynamic> _$BreachedPasswordTenantMetricToJson(
+    BreachedPasswordTenantMetric instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('actionRequired', instance.actionRequired);
+  writeNotNull(
+      'matchedCommonPasswordCount', instance.matchedCommonPasswordCount);
+  writeNotNull('matchedExactCount', instance.matchedExactCount);
+  writeNotNull('matchedPasswordCount', instance.matchedPasswordCount);
+  writeNotNull('matchedSubAddressCount', instance.matchedSubAddressCount);
+  writeNotNull('passwordsCheckedCount', instance.passwordsCheckedCount);
   return val;
 }
 
@@ -1797,6 +1868,476 @@ Map<String, dynamic> _$EnableableToJson(Enableable instance) {
   }
 
   writeNotNull('enabled', instance.enabled);
+  return val;
+}
+
+Entity _$EntityFromJson(Map<String, dynamic> json) {
+  return Entity(
+    clientId: json['clientId'] as String,
+    clientSecret: json['clientSecret'] as String,
+    data: json['data'] as Map<String, dynamic>,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+    parentId: json['parentId'] as String,
+    tenantId: json['tenantId'] as String,
+    type: json['type'] == null
+        ? null
+        : EntityType.fromJson(json['type'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityToJson(Entity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('clientId', instance.clientId);
+  writeNotNull('clientSecret', instance.clientSecret);
+  writeNotNull('data', instance.data);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('parentId', instance.parentId);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', instance.type);
+  return val;
+}
+
+EntityGrant _$EntityGrantFromJson(Map<String, dynamic> json) {
+  return EntityGrant(
+    data: json['data'] as Map<String, dynamic>,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    permissions:
+        (json['permissions'] as List)?.map((e) => e as String)?.toSet(),
+    recipientEntityId: json['recipientEntityId'] as String,
+    userId: json['userId'] as String,
+  );
+}
+
+Map<String, dynamic> _$EntityGrantToJson(EntityGrant instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('permissions', instance.permissions?.toList());
+  writeNotNull('recipientEntityId', instance.recipientEntityId);
+  writeNotNull('userId', instance.userId);
+  return val;
+}
+
+EntityGrantRequest _$EntityGrantRequestFromJson(Map<String, dynamic> json) {
+  return EntityGrantRequest(
+    grant: json['grant'] == null
+        ? null
+        : EntityGrant.fromJson(json['grant'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityGrantRequestToJson(EntityGrantRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('grant', instance.grant);
+  return val;
+}
+
+EntityGrantResponse _$EntityGrantResponseFromJson(Map<String, dynamic> json) {
+  return EntityGrantResponse(
+    grant: json['grant'] == null
+        ? null
+        : EntityGrant.fromJson(json['grant'] as Map<String, dynamic>),
+    grants: (json['grants'] as List)
+        ?.map((e) =>
+            e == null ? null : EntityGrant.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$EntityGrantResponseToJson(EntityGrantResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('grant', instance.grant);
+  writeNotNull('grants', instance.grants);
+  return val;
+}
+
+EntityJWTConfiguration _$EntityJWTConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return EntityJWTConfiguration(
+    accessTokenKeyId: json['accessTokenKeyId'] as String,
+    timeToLiveInSeconds: json['timeToLiveInSeconds'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$EntityJWTConfigurationToJson(
+    EntityJWTConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('accessTokenKeyId', instance.accessTokenKeyId);
+  writeNotNull('timeToLiveInSeconds', instance.timeToLiveInSeconds);
+  return val;
+}
+
+EntityRequest _$EntityRequestFromJson(Map<String, dynamic> json) {
+  return EntityRequest(
+    entity: json['entity'] == null
+        ? null
+        : Entity.fromJson(json['entity'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityRequestToJson(EntityRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entity', instance.entity);
+  return val;
+}
+
+EntityResponse _$EntityResponseFromJson(Map<String, dynamic> json) {
+  return EntityResponse(
+    entity: json['entity'] == null
+        ? null
+        : Entity.fromJson(json['entity'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityResponseToJson(EntityResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entity', instance.entity);
+  return val;
+}
+
+EntitySearchCriteria _$EntitySearchCriteriaFromJson(Map<String, dynamic> json) {
+  return EntitySearchCriteria()
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num
+    ..accurateTotal = json['accurateTotal'] as bool
+    ..ids = (json['ids'] as List)?.map((e) => e as String)?.toList()
+    ..query = json['query'] as String
+    ..queryString = json['queryString'] as String
+    ..sortFields = (json['sortFields'] as List)
+        ?.map((e) =>
+            e == null ? null : SortField.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$EntitySearchCriteriaToJson(
+    EntitySearchCriteria instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('accurateTotal', instance.accurateTotal);
+  writeNotNull('ids', instance.ids);
+  writeNotNull('query', instance.query);
+  writeNotNull('queryString', instance.queryString);
+  writeNotNull('sortFields', instance.sortFields);
+  return val;
+}
+
+EntitySearchRequest _$EntitySearchRequestFromJson(Map<String, dynamic> json) {
+  return EntitySearchRequest(
+    search: json['search'] == null
+        ? null
+        : EntitySearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntitySearchRequestToJson(EntitySearchRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  return val;
+}
+
+EntitySearchResponse _$EntitySearchResponseFromJson(Map<String, dynamic> json) {
+  return EntitySearchResponse(
+    entities: (json['entities'] as List)
+        ?.map((e) =>
+            e == null ? null : Entity.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    total: json['total'] as num,
+  );
+}
+
+Map<String, dynamic> _$EntitySearchResponseToJson(
+    EntitySearchResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entities', instance.entities);
+  writeNotNull('total', instance.total);
+  return val;
+}
+
+EntityType _$EntityTypeFromJson(Map<String, dynamic> json) {
+  return EntityType(
+    data: json['data'] as Map<String, dynamic>,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    jwtConfiguration: json['jwtConfiguration'] == null
+        ? null
+        : EntityJWTConfiguration.fromJson(
+            json['jwtConfiguration'] as Map<String, dynamic>),
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+    permissions: (json['permissions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : EntityTypePermission.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$EntityTypeToJson(EntityType instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('jwtConfiguration', instance.jwtConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('permissions', instance.permissions);
+  return val;
+}
+
+EntityTypePermission _$EntityTypePermissionFromJson(Map<String, dynamic> json) {
+  return EntityTypePermission(
+    data: json['data'] as Map<String, dynamic>,
+    description: json['description'] as String,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    isDefault: json['isDefault'] as bool,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$EntityTypePermissionToJson(
+    EntityTypePermission instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('description', instance.description);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('isDefault', instance.isDefault);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+EntityTypeRequest _$EntityTypeRequestFromJson(Map<String, dynamic> json) {
+  return EntityTypeRequest(
+    entityType: json['entityType'] == null
+        ? null
+        : EntityType.fromJson(json['entityType'] as Map<String, dynamic>),
+    permission: json['permission'] == null
+        ? null
+        : EntityTypePermission.fromJson(
+            json['permission'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityTypeRequestToJson(EntityTypeRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entityType', instance.entityType);
+  writeNotNull('permission', instance.permission);
+  return val;
+}
+
+EntityTypeResponse _$EntityTypeResponseFromJson(Map<String, dynamic> json) {
+  return EntityTypeResponse(
+    entityType: json['entityType'] == null
+        ? null
+        : EntityType.fromJson(json['entityType'] as Map<String, dynamic>),
+    entityTypes: (json['entityTypes'] as List)
+        ?.map((e) =>
+            e == null ? null : EntityType.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    permission: json['permission'] == null
+        ? null
+        : EntityTypePermission.fromJson(
+            json['permission'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityTypeResponseToJson(EntityTypeResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entityType', instance.entityType);
+  writeNotNull('entityTypes', instance.entityTypes);
+  writeNotNull('permission', instance.permission);
+  return val;
+}
+
+EntityTypeSearchCriteria _$EntityTypeSearchCriteriaFromJson(
+    Map<String, dynamic> json) {
+  return EntityTypeSearchCriteria(
+    name: json['name'] as String,
+  )
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num;
+}
+
+Map<String, dynamic> _$EntityTypeSearchCriteriaToJson(
+    EntityTypeSearchCriteria instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+EntityTypeSearchRequest _$EntityTypeSearchRequestFromJson(
+    Map<String, dynamic> json) {
+  return EntityTypeSearchRequest(
+    search: json['search'] == null
+        ? null
+        : EntityTypeSearchCriteria.fromJson(
+            json['search'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityTypeSearchRequestToJson(
+    EntityTypeSearchRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  return val;
+}
+
+EntityTypeSearchResponse _$EntityTypeSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return EntityTypeSearchResponse(
+    entityTypes: (json['entityTypes'] as List)
+        ?.map((e) =>
+            e == null ? null : EntityType.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    total: json['total'] as num,
+  );
+}
+
+Map<String, dynamic> _$EntityTypeSearchResponseToJson(
+    EntityTypeSearchResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('entityTypes', instance.entityTypes);
+  writeNotNull('total', instance.total);
   return val;
 }
 
@@ -5060,6 +5601,7 @@ const _$OAuthErrorTypeEnumMap = {
   OAuthErrorType.unsupported_grant_type: 'unsupported_grant_type',
   OAuthErrorType.unsupported_response_type: 'unsupported_response_type',
   OAuthErrorType.change_password_required: 'change_password_required',
+  OAuthErrorType.not_licensed: 'not_licensed',
   OAuthErrorType.two_factor_required: 'two_factor_required',
   OAuthErrorType.authorization_pending: 'authorization_pending',
   OAuthErrorType.expired_token: 'expired_token',
@@ -5095,8 +5637,12 @@ const _$OAuthErrorReasonEnumMap = {
   OAuthErrorReason.invalid_device_code: 'invalid_device_code',
   OAuthErrorReason.invalid_user_code: 'invalid_user_code',
   OAuthErrorReason.invalid_additional_client_id: 'invalid_additional_client_id',
+  OAuthErrorReason.invalid_target_entity_scope: 'invalid_target_entity_scope',
+  OAuthErrorReason.invalid_entity_permission_scope:
+      'invalid_entity_permission_scope',
   OAuthErrorReason.grant_type_disabled: 'grant_type_disabled',
   OAuthErrorReason.missing_client_id: 'missing_client_id',
+  OAuthErrorReason.missing_client_secret: 'missing_client_secret',
   OAuthErrorReason.missing_code: 'missing_code',
   OAuthErrorReason.missing_device_code: 'missing_device_code',
   OAuthErrorReason.missing_grant_type: 'missing_grant_type',
@@ -5107,6 +5653,7 @@ const _$OAuthErrorReasonEnumMap = {
   OAuthErrorReason.missing_user_code: 'missing_user_code',
   OAuthErrorReason.missing_verification_uri: 'missing_verification_uri',
   OAuthErrorReason.login_prevented: 'login_prevented',
+  OAuthErrorReason.not_licensed: 'not_licensed',
   OAuthErrorReason.user_code_expired: 'user_code_expired',
   OAuthErrorReason.user_expired: 'user_expired',
   OAuthErrorReason.user_locked: 'user_locked',
@@ -5691,6 +6238,85 @@ Map<String, dynamic> _$RawLoginToJson(RawLogin instance) {
   return val;
 }
 
+ReactorRequest _$ReactorRequestFromJson(Map<String, dynamic> json) {
+  return ReactorRequest(
+    license: json['license'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReactorRequestToJson(ReactorRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('license', instance.license);
+  return val;
+}
+
+ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
+  return ReactorStatus(
+    advancedIdentityProviders: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['advancedIdentityProviders']),
+    advancedRegistrationForms: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['advancedRegistrationForms']),
+    breachedPasswordDetection: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['breachedPasswordDetection']),
+    breachedPasswordMetrics:
+        (json['breachedPasswordMetrics'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : BreachedPasswordTenantMetric.fromJson(
+                  e as Map<String, dynamic>)),
+    ),
+    connectors:
+        _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['connectors']),
+    entityManagement: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['entityManagement']),
+    licensed: json['licensed'] as bool,
+    multiFactorAuthentication: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['multiFactorAuthentication']),
+  );
+}
+
+Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('advancedIdentityProviders',
+      _$ReactorFeatureStatusEnumMap[instance.advancedIdentityProviders]);
+  writeNotNull('advancedRegistrationForms',
+      _$ReactorFeatureStatusEnumMap[instance.advancedRegistrationForms]);
+  writeNotNull('breachedPasswordDetection',
+      _$ReactorFeatureStatusEnumMap[instance.breachedPasswordDetection]);
+  writeNotNull('breachedPasswordMetrics', instance.breachedPasswordMetrics);
+  writeNotNull(
+      'connectors', _$ReactorFeatureStatusEnumMap[instance.connectors]);
+  writeNotNull('entityManagement',
+      _$ReactorFeatureStatusEnumMap[instance.entityManagement]);
+  writeNotNull('licensed', instance.licensed);
+  writeNotNull('multiFactorAuthentication',
+      _$ReactorFeatureStatusEnumMap[instance.multiFactorAuthentication]);
+  return val;
+}
+
+const _$ReactorFeatureStatusEnumMap = {
+  ReactorFeatureStatus.ACTIVE: 'ACTIVE',
+  ReactorFeatureStatus.DISCONNECTED: 'DISCONNECTED',
+  ReactorFeatureStatus.PENDING: 'PENDING',
+  ReactorFeatureStatus.UNKNOWN: 'UNKNOWN',
+};
+
 RecentLoginResponse _$RecentLoginResponseFromJson(Map<String, dynamic> json) {
   return RecentLoginResponse(
     logins: (json['logins'] as List)
@@ -6240,6 +6866,86 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
   writeNotNull('xmlSignatureC14nMethod',
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
+  return val;
+}
+
+SAMLv2IdPInitiatedApplicationConfiguration
+    _$SAMLv2IdPInitiatedApplicationConfigurationFromJson(
+        Map<String, dynamic> json) {
+  return SAMLv2IdPInitiatedApplicationConfiguration()
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$SAMLv2IdPInitiatedApplicationConfigurationToJson(
+    SAMLv2IdPInitiatedApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  return val;
+}
+
+SAMLv2IdPInitiatedIdentityProvider _$SAMLv2IdPInitiatedIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return SAMLv2IdPInitiatedIdentityProvider(
+    emailClaim: json['emailClaim'] as String,
+    issuer: json['issuer'] as String,
+    keyId: json['keyId'] as String,
+    useNameIdForEmail: json['useNameIdForEmail'] as bool,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : SAMLv2IdPInitiatedApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
+    SAMLv2IdPInitiatedIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('emailClaim', instance.emailClaim);
+  writeNotNull('issuer', instance.issuer);
+  writeNotNull('keyId', instance.keyId);
+  writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
   return val;
 }
 
@@ -8593,19 +9299,18 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) {
 }
 
 UserSearchCriteria _$UserSearchCriteriaFromJson(Map<String, dynamic> json) {
-  return UserSearchCriteria(
-    accurateTotal: json['accurateTotal'] as bool,
-    ids: (json['ids'] as List)?.map((e) => e as String)?.toList(),
-    query: json['query'] as String,
-    queryString: json['queryString'] as String,
-    sortFields: (json['sortFields'] as List)
-        ?.map((e) =>
-            e == null ? null : SortField.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  )
+  return UserSearchCriteria()
     ..numberOfResults = json['numberOfResults'] as num
     ..orderBy = json['orderBy'] as String
-    ..startRow = json['startRow'] as num;
+    ..startRow = json['startRow'] as num
+    ..accurateTotal = json['accurateTotal'] as bool
+    ..ids = (json['ids'] as List)?.map((e) => e as String)?.toList()
+    ..query = json['query'] as String
+    ..queryString = json['queryString'] as String
+    ..sortFields = (json['sortFields'] as List)
+        ?.map((e) =>
+            e == null ? null : SortField.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$UserSearchCriteriaToJson(UserSearchCriteria instance) {
