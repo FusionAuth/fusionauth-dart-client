@@ -3696,6 +3696,7 @@ class OAuth2Configuration {
   LogoutBehavior logoutBehavior;
   String logoutURL;
   bool requireClientAuthentication;
+  bool requireRegistration;
 
   OAuth2Configuration(
       {this.authorizedOriginURLs,
@@ -3708,7 +3709,8 @@ class OAuth2Configuration {
       this.generateRefreshTokens,
       this.logoutBehavior,
       this.logoutURL,
-      this.requireClientAuthentication});
+      this.requireClientAuthentication,
+      this.requireRegistration});
 
   factory OAuth2Configuration.fromJson(Map<String, dynamic> json) =>
       _$OAuth2ConfigurationFromJson(json);

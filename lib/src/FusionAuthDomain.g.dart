@@ -5468,6 +5468,7 @@ OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) {
         _$enumDecodeNullable(_$LogoutBehaviorEnumMap, json['logoutBehavior']),
     logoutURL: json['logoutURL'] as String,
     requireClientAuthentication: json['requireClientAuthentication'] as bool,
+    requireRegistration: json['requireRegistration'] as bool,
   );
 }
 
@@ -5494,6 +5495,7 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(OAuth2Configuration instance) {
   writeNotNull('logoutURL', instance.logoutURL);
   writeNotNull(
       'requireClientAuthentication', instance.requireClientAuthentication);
+  writeNotNull('requireRegistration', instance.requireRegistration);
   return val;
 }
 
