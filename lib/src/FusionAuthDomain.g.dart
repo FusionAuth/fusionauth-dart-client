@@ -1913,6 +1913,9 @@ Map<String, dynamic> _$EntityToJson(Entity instance) {
 EntityGrant _$EntityGrantFromJson(Map<String, dynamic> json) {
   return EntityGrant(
     data: json['data'] as Map<String, dynamic>,
+    entity: json['entity'] == null
+        ? null
+        : Entity.fromJson(json['entity'] as Map<String, dynamic>),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
     lastUpdateInstant: json['lastUpdateInstant'] as num,
@@ -1933,6 +1936,7 @@ Map<String, dynamic> _$EntityGrantToJson(EntityGrant instance) {
   }
 
   writeNotNull('data', instance.data);
+  writeNotNull('entity', instance.entity);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
@@ -1986,6 +1990,87 @@ Map<String, dynamic> _$EntityGrantResponseToJson(EntityGrantResponse instance) {
 
   writeNotNull('grant', instance.grant);
   writeNotNull('grants', instance.grants);
+  return val;
+}
+
+EntityGrantSearchCriteria _$EntityGrantSearchCriteriaFromJson(
+    Map<String, dynamic> json) {
+  return EntityGrantSearchCriteria(
+    entityId: json['entityId'] as String,
+    name: json['name'] as String,
+    userId: json['userId'] as String,
+  )
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num;
+}
+
+Map<String, dynamic> _$EntityGrantSearchCriteriaToJson(
+    EntityGrantSearchCriteria instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('entityId', instance.entityId);
+  writeNotNull('name', instance.name);
+  writeNotNull('userId', instance.userId);
+  return val;
+}
+
+EntityGrantSearchRequest _$EntityGrantSearchRequestFromJson(
+    Map<String, dynamic> json) {
+  return EntityGrantSearchRequest(
+    search: json['search'] == null
+        ? null
+        : EntityGrantSearchCriteria.fromJson(
+            json['search'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$EntityGrantSearchRequestToJson(
+    EntityGrantSearchRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  return val;
+}
+
+EntityGrantSearchResponse _$EntityGrantSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return EntityGrantSearchResponse(
+    grants: (json['grants'] as List)
+        ?.map((e) =>
+            e == null ? null : EntityGrant.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    total: json['total'] as num,
+  );
+}
+
+Map<String, dynamic> _$EntityGrantSearchResponseToJson(
+    EntityGrantSearchResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('grants', instance.grants);
+  writeNotNull('total', instance.total);
   return val;
 }
 
@@ -7395,6 +7480,8 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     emailSend: json['emailSend'] as String,
     emailVerify: json['emailVerify'] as String,
     helpers: json['helpers'] as String,
+    oath2AuthorizedNotRegistered:
+        json['oath2AuthorizedNotRegistered'] as String,
     oauth2Authorize: json['oauth2Authorize'] as String,
     oauth2ChildRegistrationNotAllowed:
         json['oauth2ChildRegistrationNotAllowed'] as String,
@@ -7433,6 +7520,8 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('emailSend', instance.emailSend);
   writeNotNull('emailVerify', instance.emailVerify);
   writeNotNull('helpers', instance.helpers);
+  writeNotNull(
+      'oath2AuthorizedNotRegistered', instance.oath2AuthorizedNotRegistered);
   writeNotNull('oauth2Authorize', instance.oauth2Authorize);
   writeNotNull('oauth2ChildRegistrationNotAllowed',
       instance.oauth2ChildRegistrationNotAllowed);

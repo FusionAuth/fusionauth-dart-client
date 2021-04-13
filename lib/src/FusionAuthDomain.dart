@@ -1345,6 +1345,7 @@ class Entity {
 @JsonSerializable()
 class EntityGrant {
   Map<String, dynamic> data;
+  Entity entity;
   String id;
   num insertInstant;
   num lastUpdateInstant;
@@ -1354,6 +1355,7 @@ class EntityGrant {
 
   EntityGrant(
       {this.data,
+      this.entity,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
@@ -1393,6 +1395,51 @@ class EntityGrantResponse {
   factory EntityGrantResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EntityGrantResponseToJson(this);
+}
+
+/// Search criteria for entity grants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantSearchCriteria extends BaseSearchCriteria {
+  String entityId;
+  String name;
+  String userId;
+
+  EntityGrantSearchCriteria({this.entityId, this.name, this.userId});
+
+  factory EntityGrantSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantSearchCriteriaToJson(this);
+}
+
+/// Search request for entity grants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantSearchRequest {
+  EntityGrantSearchCriteria search;
+
+  EntityGrantSearchRequest({this.search});
+
+  factory EntityGrantSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantSearchRequestToJson(this);
+}
+
+/// Search request for entity grants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantSearchResponse {
+  List<EntityGrant> grants;
+  num total;
+
+  EntityGrantSearchResponse({this.grants, this.total});
+
+  factory EntityGrantSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantSearchResponseToJson(this);
 }
 
 /// JWT Configuration for entities.
@@ -4962,6 +5009,7 @@ class Templates {
   String emailSend;
   String emailVerify;
   String helpers;
+  String oath2AuthorizedNotRegistered;
   String oauth2Authorize;
   String oauth2ChildRegistrationNotAllowed;
   String oauth2ChildRegistrationNotAllowedComplete;
@@ -4988,6 +5036,7 @@ class Templates {
       this.emailSend,
       this.emailVerify,
       this.helpers,
+      this.oath2AuthorizedNotRegistered,
       this.oauth2Authorize,
       this.oauth2ChildRegistrationNotAllowed,
       this.oauth2ChildRegistrationNotAllowedComplete,
