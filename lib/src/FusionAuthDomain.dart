@@ -182,6 +182,7 @@ class Application {
   dynamic lambdaConfiguration;
   num lastUpdateInstant;
   LoginConfiguration loginConfiguration;
+  ApplicationMultiFactorConfiguration multiFactorConfiguration;
   String name;
   OAuth2Configuration oauthConfiguration;
   PasswordlessConfiguration passwordlessConfiguration;
@@ -207,6 +208,7 @@ class Application {
       this.lambdaConfiguration,
       this.lastUpdateInstant,
       this.loginConfiguration,
+      this.multiFactorConfiguration,
       this.name,
       this.oauthConfiguration,
       this.passwordlessConfiguration,
@@ -258,12 +260,29 @@ class ApplicationEvent {
 @JsonSerializable()
 class ApplicationFormConfiguration {
   String adminRegistrationFormId;
+  String selfServiceUserFormId;
 
-  ApplicationFormConfiguration({this.adminRegistrationFormId});
+  ApplicationFormConfiguration(
+      {this.adminRegistrationFormId, this.selfServiceUserFormId});
 
   factory ApplicationFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ApplicationFormConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationFormConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ApplicationMultiFactorConfiguration {
+  MultiFactorEmailTemplate email;
+  MultiFactorSMSTemplate sms;
+
+  ApplicationMultiFactorConfiguration({this.email, this.sms});
+
+  factory ApplicationMultiFactorConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationMultiFactorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationMultiFactorConfigurationToJson(this);
 }
 
 /// A Application-level policy for deleting Users.
@@ -488,6 +507,20 @@ class AuthenticationTokenConfiguration extends Enableable {
       _$AuthenticationTokenConfigurationToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class AuthenticatorConfiguration {
+  TOTPAlgorithm algorithm;
+  num codeLength;
+  num timeStep;
+
+  AuthenticatorConfiguration({this.algorithm, this.codeLength, this.timeStep});
+
+  factory AuthenticatorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$AuthenticatorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$AuthenticatorConfigurationToJson(this);
+}
+
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
 @JsonSerializable()
 class BaseConnectorConfiguration {
@@ -624,6 +657,33 @@ class BaseLoginRequest {
   factory BaseLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$BaseLoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$BaseLoginRequestToJson(this);
+}
+
+// Do not require a setter for 'type', it is defined by the concrete class and is not mutable
+@JsonSerializable()
+class BaseMessengerConfiguration {
+  Map<String, dynamic> data;
+  bool debug;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+  String transport;
+  MessengerType type;
+
+  BaseMessengerConfiguration(
+      {this.data,
+      this.debug,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name,
+      this.transport,
+      this.type});
+
+  factory BaseMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$BaseMessengerConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseMessengerConfigurationToJson(this);
 }
 
 /// @author Brian Pontarelli
@@ -1345,6 +1405,7 @@ class Entity {
 @JsonSerializable()
 class EntityGrant {
   Map<String, dynamic> data;
+  Entity entity;
   String id;
   num insertInstant;
   num lastUpdateInstant;
@@ -1354,6 +1415,7 @@ class EntityGrant {
 
   EntityGrant(
       {this.data,
+      this.entity,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
@@ -1393,6 +1455,51 @@ class EntityGrantResponse {
   factory EntityGrantResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EntityGrantResponseToJson(this);
+}
+
+/// Search criteria for entity grants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantSearchCriteria extends BaseSearchCriteria {
+  String entityId;
+  String name;
+  String userId;
+
+  EntityGrantSearchCriteria({this.entityId, this.name, this.userId});
+
+  factory EntityGrantSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantSearchCriteriaToJson(this);
+}
+
+/// Search request for entity grants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantSearchRequest {
+  EntityGrantSearchCriteria search;
+
+  EntityGrantSearchRequest({this.search});
+
+  factory EntityGrantSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantSearchRequestToJson(this);
+}
+
+/// Search request for entity grants.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EntityGrantSearchResponse {
+  List<EntityGrant> grants;
+  num total;
+
+  EntityGrantSearchResponse({this.grants, this.total});
+
+  factory EntityGrantSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EntityGrantSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EntityGrantSearchResponseToJson(this);
 }
 
 /// JWT Configuration for entities.
@@ -1848,6 +1955,8 @@ class ExternalIdentifierConfiguration {
   SecureGeneratorConfiguration setupPasswordIdGenerator;
   num setupPasswordIdTimeToLiveInSeconds;
   num twoFactorIdTimeToLiveInSeconds;
+  SecureGeneratorConfiguration twoFactorOneTimeCodeIdGenerator;
+  num twoFactorOneTimeCodeIdTimeToLiveInSeconds;
   num twoFactorTrustIdTimeToLiveInSeconds;
 
   ExternalIdentifierConfiguration(
@@ -1868,6 +1977,8 @@ class ExternalIdentifierConfiguration {
       this.setupPasswordIdGenerator,
       this.setupPasswordIdTimeToLiveInSeconds,
       this.twoFactorIdTimeToLiveInSeconds,
+      this.twoFactorOneTimeCodeIdGenerator,
+      this.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
       this.twoFactorTrustIdTimeToLiveInSeconds});
 
   factory ExternalIdentifierConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -2346,7 +2457,9 @@ enum FormType {
   @JsonValue('adminRegistration')
   adminRegistration,
   @JsonValue('adminUser')
-  adminUser
+  adminUser,
+  @JsonValue('selfServiceUser')
+  selfServiceUser
 }
 
 /// Models the FusionAuth connector.
@@ -2388,6 +2501,31 @@ class GenericConnectorConfiguration extends BaseConnectorConfiguration {
   factory GenericConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$GenericConnectorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$GenericConnectorConfigurationToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class GenericMessengerConfiguration extends BaseMessengerConfiguration {
+  num connectTimeout;
+  Map<String, String> headers;
+  String httpAuthenticationPassword;
+  String httpAuthenticationUsername;
+  num readTimeout;
+  String sslCertificate;
+  String url;
+
+  GenericMessengerConfiguration(
+      {this.connectTimeout,
+      this.headers,
+      this.httpAuthenticationPassword,
+      this.httpAuthenticationUsername,
+      this.readTimeout,
+      this.sslCertificate,
+      this.url});
+
+  factory GenericMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$GenericMessengerConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$GenericMessengerConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -2714,6 +2852,7 @@ class IdentityProviderStartLoginResponse {
       _$IdentityProviderStartLoginResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
 enum IdentityProviderType {
   @JsonValue('ExternalJWT')
   ExternalJWT,
@@ -2793,9 +2932,8 @@ class IntegrationResponse {
 class Integrations {
   CleanSpeakConfiguration cleanspeak;
   KafkaConfiguration kafka;
-  TwilioConfiguration twilio;
 
-  Integrations({this.cleanspeak, this.kafka, this.twilio});
+  Integrations({this.cleanspeak, this.kafka});
 
   factory Integrations.fromJson(Map<String, dynamic> json) =>
       _$IntegrationsFromJson(json);
@@ -3071,6 +3209,19 @@ class KafkaConfiguration extends Enableable {
   factory KafkaConfiguration.fromJson(Map<String, dynamic> json) =>
       _$KafkaConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$KafkaConfigurationToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class KafkaMessengerConfiguration extends BaseMessengerConfiguration {
+  String defaultTopic;
+  Map<String, String> producer;
+
+  KafkaMessengerConfiguration({this.defaultTopic, this.producer});
+
+  factory KafkaMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$KafkaMessengerConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$KafkaMessengerConfigurationToJson(this);
 }
 
 /// Domain for a public key, key pair or an HMAC secret. This is used by KeyMaster to manage keys for JWTs, SAML, etc.
@@ -3532,6 +3683,7 @@ class LoginResponse {
   List<LoginPreventedResponse> actions;
   String changePasswordId;
   ChangePasswordReason changePasswordReason;
+  List<TwoFactorMethod> methods;
   String refreshToken;
   Map<String, dynamic> state;
   String token;
@@ -3543,6 +3695,7 @@ class LoginResponse {
       {this.actions,
       this.changePasswordId,
       this.changePasswordReason,
+      this.methods,
       this.refreshToken,
       this.state,
       this.token,
@@ -3630,6 +3783,109 @@ class MemberResponse {
   Map<String, dynamic> toJson() => _$MemberResponseToJson(this);
 }
 
+/// @author Mikey Sleevi
+@JsonSerializable()
+class Message {
+  Message();
+
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageToJson(this);
+}
+
+/// Stores an message template used to distribute messages;
+///
+/// @author Michael Sleevi
+@JsonSerializable()
+class MessageTemplate {
+  Map<String, dynamic> data;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+  MessageType type;
+
+  MessageTemplate(
+      {this.data,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name,
+      this.type});
+
+  factory MessageTemplate.fromJson(Map<String, dynamic> json) =>
+      _$MessageTemplateFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageTemplateToJson(this);
+}
+
+/// A Message Template Request to the API
+///
+/// @author Michael Sleevi
+@JsonSerializable()
+class MessageTemplateRequest {
+  MessageTemplate messageTemplate;
+
+  MessageTemplateRequest({this.messageTemplate});
+
+  factory MessageTemplateRequest.fromJson(Map<String, dynamic> json) =>
+      _$MessageTemplateRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageTemplateRequestToJson(this);
+}
+
+/// @author Michael Sleevi
+@JsonSerializable()
+class MessageTemplateResponse {
+  MessageTemplate messageTemplate;
+  List<MessageTemplate> messageTemplates;
+
+  MessageTemplateResponse({this.messageTemplate, this.messageTemplates});
+
+  factory MessageTemplateResponse.fromJson(Map<String, dynamic> json) =>
+      _$MessageTemplateResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageTemplateResponseToJson(this);
+}
+
+/// @author Mikey Sleevi
+enum MessageType {
+  @JsonValue('SMS')
+  SMS
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class MessengerRequest {
+  BaseMessengerConfiguration messenger;
+
+  MessengerRequest({this.messenger});
+
+  factory MessengerRequest.fromJson(Map<String, dynamic> json) =>
+      _$MessengerRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$MessengerRequestToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class MessengerResponse {
+  BaseMessengerConfiguration messenger;
+  List<BaseMessengerConfiguration> messengers;
+
+  MessengerResponse({this.messenger, this.messengers});
+
+  factory MessengerResponse.fromJson(Map<String, dynamic> json) =>
+      _$MessengerResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$MessengerResponseToJson(this);
+}
+
+/// @author Brett Guy
+enum MessengerType {
+  @JsonValue('Generic')
+  Generic,
+  @JsonValue('Kafka')
+  Kafka,
+  @JsonValue('Twilio')
+  Twilio
+}
+
 @JsonSerializable()
 class MetaData {
   DeviceInfo device;
@@ -3668,6 +3924,65 @@ class MonthlyActiveUserReportResponse {
       _$MonthlyActiveUserReportResponseFromJson(json);
   Map<String, dynamic> toJson() =>
       _$MonthlyActiveUserReportResponseToJson(this);
+}
+
+@JsonSerializable()
+class MultiFactorAuthenticatorMethod extends Enableable {
+  TOTPAlgorithm algorithm;
+  num codeLength;
+  num timeStep;
+
+  MultiFactorAuthenticatorMethod(
+      {this.algorithm, this.codeLength, this.timeStep});
+
+  factory MultiFactorAuthenticatorMethod.fromJson(Map<String, dynamic> json) =>
+      _$MultiFactorAuthenticatorMethodFromJson(json);
+  Map<String, dynamic> toJson() => _$MultiFactorAuthenticatorMethodToJson(this);
+}
+
+@JsonSerializable()
+class MultiFactorEmailMethod extends Enableable {
+  String templateId;
+
+  MultiFactorEmailMethod({this.templateId});
+
+  factory MultiFactorEmailMethod.fromJson(Map<String, dynamic> json) =>
+      _$MultiFactorEmailMethodFromJson(json);
+  Map<String, dynamic> toJson() => _$MultiFactorEmailMethodToJson(this);
+}
+
+@JsonSerializable()
+class MultiFactorEmailTemplate {
+  String templateId;
+
+  MultiFactorEmailTemplate({this.templateId});
+
+  factory MultiFactorEmailTemplate.fromJson(Map<String, dynamic> json) =>
+      _$MultiFactorEmailTemplateFromJson(json);
+  Map<String, dynamic> toJson() => _$MultiFactorEmailTemplateToJson(this);
+}
+
+@JsonSerializable()
+class MultiFactorSMSMethod extends Enableable {
+  String messengerId;
+  String templateId;
+
+  MultiFactorSMSMethod({this.messengerId, this.templateId});
+
+  factory MultiFactorSMSMethod.fromJson(Map<String, dynamic> json) =>
+      _$MultiFactorSMSMethodFromJson(json);
+  Map<String, dynamic> toJson() => _$MultiFactorSMSMethodToJson(this);
+}
+
+@JsonSerializable()
+class MultiFactorSMSTemplate {
+  String templateId;
+
+  MultiFactorSMSTemplate({this.templateId});
+
+  factory MultiFactorSMSTemplate.fromJson(Map<String, dynamic> json) =>
+      _$MultiFactorSMSTemplateFromJson(json);
+  Map<String, dynamic> toJson() => _$MultiFactorSMSTemplateToJson(this);
 }
 
 /// Helper methods for normalizing values.
@@ -4164,6 +4479,32 @@ class PendingResponse {
   factory PendingResponse.fromJson(Map<String, dynamic> json) =>
       _$PendingResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PendingResponseToJson(this);
+}
+
+/// @author Michael Sleevi
+@JsonSerializable()
+class PreviewMessageTemplateRequest {
+  String locale;
+  MessageTemplate messageTemplate;
+
+  PreviewMessageTemplateRequest({this.locale, this.messageTemplate});
+
+  factory PreviewMessageTemplateRequest.fromJson(Map<String, dynamic> json) =>
+      _$PreviewMessageTemplateRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$PreviewMessageTemplateRequestToJson(this);
+}
+
+/// @author Michael Sleevi
+@JsonSerializable()
+class PreviewMessageTemplateResponse {
+  Errors errors;
+  SMSMessage message;
+
+  PreviewMessageTemplateResponse({this.errors, this.message});
+
+  factory PreviewMessageTemplateResponse.fromJson(Map<String, dynamic> json) =>
+      _$PreviewMessageTemplateResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$PreviewMessageTemplateResponseToJson(this);
 }
 
 /// @author Brian Pontarelli
@@ -4791,9 +5132,6 @@ class SecureIdentity {
   bool passwordChangeRequired;
   num passwordLastUpdateInstant;
   String salt;
-  TwoFactorDelivery twoFactorDelivery;
-  bool twoFactorEnabled;
-  String twoFactorSecret;
   String username;
   ContentStatus usernameStatus;
   bool verified;
@@ -4811,9 +5149,6 @@ class SecureIdentity {
       this.passwordChangeRequired,
       this.passwordLastUpdateInstant,
       this.salt,
-      this.twoFactorDelivery,
-      this.twoFactorEnabled,
-      this.twoFactorSecret,
       this.username,
       this.usernameStatus,
       this.verified});
@@ -4849,6 +5184,32 @@ class SendResponse {
   factory SendResponse.fromJson(Map<String, dynamic> json) =>
       _$SendResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SendResponseToJson(this);
+}
+
+/// @author Michael Sleevi
+@JsonSerializable()
+class SMSMessage {
+  String phoneNumber;
+  String textMessage;
+
+  SMSMessage({this.phoneNumber, this.textMessage});
+
+  factory SMSMessage.fromJson(Map<String, dynamic> json) =>
+      _$SMSMessageFromJson(json);
+  Map<String, dynamic> toJson() => _$SMSMessageToJson(this);
+}
+
+/// @author Michael Sleevi
+@JsonSerializable()
+class SMSMessageTemplate extends MessageTemplate {
+  String defaultTemplate;
+  Map<String, String> localizedTemplates;
+
+  SMSMessageTemplate({this.defaultTemplate, this.localizedTemplates});
+
+  factory SMSMessageTemplate.fromJson(Map<String, dynamic> json) =>
+      _$SMSMessageTemplateFromJson(json);
+  Map<String, dynamic> toJson() => _$SMSMessageTemplateToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -4956,10 +5317,16 @@ class SystemLogsExportRequest extends BaseExportRequest {
 
 @JsonSerializable()
 class Templates {
+  String accountEdit;
+  String accountIndex;
+  String accountTwoFactorDisable;
+  String accountTwoFactorEnable;
+  String accountTwoFactorIndex;
   String emailComplete;
   String emailSend;
   String emailVerify;
   String helpers;
+  String index;
   String oauth2Authorize;
   String oauth2ChildRegistrationNotAllowed;
   String oauth2ChildRegistrationNotAllowedComplete;
@@ -4971,6 +5338,7 @@ class Templates {
   String oauth2Passwordless;
   String oauth2Register;
   String oauth2TwoFactor;
+  String oauth2TwoFactorMethods;
   String oauth2Wait;
   String passwordChange;
   String passwordComplete;
@@ -4982,10 +5350,16 @@ class Templates {
   String samlv2Logout;
 
   Templates(
-      {this.emailComplete,
+      {this.accountEdit,
+      this.accountIndex,
+      this.accountTwoFactorDisable,
+      this.accountTwoFactorEnable,
+      this.accountTwoFactorIndex,
+      this.emailComplete,
       this.emailSend,
       this.emailVerify,
       this.helpers,
+      this.index,
       this.oauth2Authorize,
       this.oauth2ChildRegistrationNotAllowed,
       this.oauth2ChildRegistrationNotAllowedComplete,
@@ -4997,6 +5371,7 @@ class Templates {
       this.oauth2Passwordless,
       this.oauth2Register,
       this.oauth2TwoFactor,
+      this.oauth2TwoFactorMethods,
       this.oauth2Wait,
       this.passwordChange,
       this.passwordComplete,
@@ -5033,6 +5408,7 @@ class Tenant {
   String logoutURL;
   MaximumPasswordAge maximumPasswordAge;
   MinimumPasswordAge minimumPasswordAge;
+  TenantMultiFactorConfiguration multiFactorConfiguration;
   String name;
   PasswordEncryptionConfiguration passwordEncryptionConfiguration;
   PasswordValidationRules passwordValidationRules;
@@ -5059,6 +5435,7 @@ class Tenant {
       this.logoutURL,
       this.maximumPasswordAge,
       this.minimumPasswordAge,
+      this.multiFactorConfiguration,
       this.name,
       this.passwordEncryptionConfiguration,
       this.passwordValidationRules,
@@ -5090,6 +5467,20 @@ class TenantFormConfiguration {
   factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantFormConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantFormConfigurationToJson(this);
+}
+
+/// @author Mikey Sleevi
+@JsonSerializable()
+class TenantMultiFactorConfiguration {
+  MultiFactorAuthenticatorMethod authenticator;
+  MultiFactorEmailMethod email;
+  MultiFactorSMSMethod sms;
+
+  TenantMultiFactorConfiguration({this.authenticator, this.email, this.sms});
+
+  factory TenantMultiFactorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantMultiFactorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantMultiFactorConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5263,6 +5654,15 @@ class TotalsReportResponse {
   Map<String, dynamic> toJson() => _$TotalsReportResponseToJson(this);
 }
 
+enum TOTPAlgorithm {
+  @JsonValue('HmacSHA1')
+  HmacSHA1,
+  @JsonValue('HmacSHA256')
+  HmacSHA256,
+  @JsonValue('HmacSHA512')
+  HmacSHA512
+}
+
 /// The transaction types for Webhooks and other event systems within FusionAuth.
 ///
 /// @author Brian Pontarelli
@@ -5279,27 +5679,25 @@ enum TransactionType {
   AbsoluteMajority
 }
 
-/// Twilio Service Configuration.
-///
-/// @author Daniel DeGroff
+/// @author Brett Guy
 @JsonSerializable()
-class TwilioConfiguration extends Enableable {
+class TwilioMessengerConfiguration extends BaseMessengerConfiguration {
   String accountSID;
   String authToken;
   String fromPhoneNumber;
   String messagingServiceSid;
   String url;
 
-  TwilioConfiguration(
+  TwilioMessengerConfiguration(
       {this.accountSID,
       this.authToken,
       this.fromPhoneNumber,
       this.messagingServiceSid,
       this.url});
 
-  factory TwilioConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$TwilioConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$TwilioConfigurationToJson(this);
+  factory TwilioMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TwilioMessengerConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TwilioMessengerConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5338,6 +5736,7 @@ class TwitterIdentityProvider
 }
 
 /// @author Daniel DeGroff
+/// @deprecated Use <code>User.twoFactor.methods</code>
 enum TwoFactorDelivery {
   @JsonValue('None')
   None,
@@ -5347,28 +5746,94 @@ enum TwoFactorDelivery {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class TwoFactorEnableDisableSendRequest {
+  String email;
+  String method;
+  String methodId;
+  String mobilePhone;
+
+  TwoFactorEnableDisableSendRequest(
+      {this.email, this.method, this.methodId, this.mobilePhone});
+
+  factory TwoFactorEnableDisableSendRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$TwoFactorEnableDisableSendRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$TwoFactorEnableDisableSendRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class TwoFactorLoginRequest extends BaseLoginRequest {
   String code;
   bool trustComputer;
   String twoFactorId;
+  String userId;
 
-  TwoFactorLoginRequest({this.code, this.trustComputer, this.twoFactorId});
+  TwoFactorLoginRequest(
+      {this.code, this.trustComputer, this.twoFactorId, this.userId});
 
   factory TwoFactorLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorLoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TwoFactorLoginRequestToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TwoFactorMethod {
+  AuthenticatorConfiguration authenticator;
+  String email;
+  String id;
+  bool lastUsed;
+  String method;
+  String mobilePhone;
+  String secret;
+
+  TwoFactorMethod(
+      {this.authenticator,
+      this.email,
+      this.id,
+      this.lastUsed,
+      this.method,
+      this.mobilePhone,
+      this.secret});
+
+  factory TwoFactorMethod.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorMethodFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorMethodToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TwoFactorRecoveryCodeResponse {
+  List<String> recoveryCodes;
+
+  TwoFactorRecoveryCodeResponse({this.recoveryCodes});
+
+  factory TwoFactorRecoveryCodeResponse.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorRecoveryCodeResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorRecoveryCodeResponseToJson(this);
+}
+
 /// @author Brian Pontarelli
 @JsonSerializable()
 class TwoFactorRequest {
+  String authenticatorId;
   String code;
-  TwoFactorDelivery delivery;
+  String email;
+  String method;
+  String mobilePhone;
   String secret;
   String secretBase32Encoded;
 
   TwoFactorRequest(
-      {this.code, this.delivery, this.secret, this.secretBase32Encoded});
+      {this.authenticatorId,
+      this.code,
+      this.email,
+      this.method,
+      this.mobilePhone,
+      this.secret,
+      this.secretBase32Encoded});
 
   factory TwoFactorRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorRequestFromJson(json);
@@ -5377,16 +5842,61 @@ class TwoFactorRequest {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class TwoFactorResponse {
+  List<String> recoveryCodes;
+
+  TwoFactorResponse({this.recoveryCodes});
+
+  factory TwoFactorResponse.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class TwoFactorSendRequest {
+  String email;
+  String method;
+  String methodId;
   String mobilePhone;
-  String secret;
   String userId;
 
-  TwoFactorSendRequest({this.mobilePhone, this.secret, this.userId});
+  TwoFactorSendRequest(
+      {this.email, this.method, this.methodId, this.mobilePhone, this.userId});
 
   factory TwoFactorSendRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorSendRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TwoFactorSendRequestToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class TwoFactorStartRequest {
+  String applicationId;
+  String code;
+  String loginId;
+  Map<String, dynamic> state;
+
+  TwoFactorStartRequest(
+      {this.applicationId, this.code, this.loginId, this.state});
+
+  factory TwoFactorStartRequest.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorStartRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorStartRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TwoFactorStartResponse {
+  String code;
+  List<TwoFactorMethod> methods;
+  String twoFactorId;
+
+  TwoFactorStartResponse({this.code, this.methods, this.twoFactorId});
+
+  factory TwoFactorStartResponse.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorStartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorStartResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -5428,6 +5938,7 @@ class User extends SecureIdentity {
   List<UserRegistration> registrations;
   String tenantId;
   String timezone;
+  UserTwoFactorConfiguration twoFactor;
 
   User(
       {this.active,
@@ -5449,7 +5960,8 @@ class User extends SecureIdentity {
       this.preferredLanguages,
       this.registrations,
       this.tenantId,
-      this.timezone});
+      this.timezone,
+      this.twoFactor});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
@@ -5946,10 +6458,11 @@ class UserEmailVerifiedEvent extends BaseEvent {
 class UserLoginFailedEvent extends BaseEvent {
   String applicationId;
   String authenticationType;
+  String ipAddress;
   User user;
 
   UserLoginFailedEvent(
-      {this.applicationId, this.authenticationType, this.user});
+      {this.applicationId, this.authenticationType, this.ipAddress, this.user});
 
   factory UserLoginFailedEvent.fromJson(Map<String, dynamic> json) =>
       _$UserLoginFailedEventFromJson(json);
@@ -5966,6 +6479,7 @@ class UserLoginSuccessEvent extends BaseEvent {
   String connectorId;
   String identityProviderId;
   String identityProviderName;
+  String ipAddress;
   User user;
 
   UserLoginSuccessEvent(
@@ -5974,6 +6488,7 @@ class UserLoginSuccessEvent extends BaseEvent {
       this.connectorId,
       this.identityProviderId,
       this.identityProviderName,
+      this.ipAddress,
       this.user});
 
   factory UserLoginSuccessEvent.fromJson(Map<String, dynamic> json) =>
@@ -6181,6 +6696,19 @@ enum UserState {
   Authenticated,
   @JsonValue('AuthenticatedNotRegistered')
   AuthenticatedNotRegistered
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserTwoFactorConfiguration {
+  List<TwoFactorMethod> methods;
+  List<String> recoveryCodes;
+
+  UserTwoFactorConfiguration({this.methods, this.recoveryCodes});
+
+  factory UserTwoFactorConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$UserTwoFactorConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$UserTwoFactorConfigurationToJson(this);
 }
 
 /// Models the User Update Event (and can be converted to JSON).
