@@ -426,7 +426,7 @@ ApplicationFormConfiguration _$ApplicationFormConfigurationFromJson(
     Map<String, dynamic> json) {
   return ApplicationFormConfiguration(
     adminRegistrationFormId: json['adminRegistrationFormId'] as String,
-    selfServiceUserFormId: json['selfServiceUserFormId'] as String,
+    selfServiceFormId: json['selfServiceFormId'] as String,
   );
 }
 
@@ -441,7 +441,7 @@ Map<String, dynamic> _$ApplicationFormConfigurationToJson(
   }
 
   writeNotNull('adminRegistrationFormId', instance.adminRegistrationFormId);
-  writeNotNull('selfServiceUserFormId', instance.selfServiceUserFormId);
+  writeNotNull('selfServiceFormId', instance.selfServiceFormId);
   return val;
 }
 
