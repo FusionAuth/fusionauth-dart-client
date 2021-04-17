@@ -5429,6 +5429,7 @@ class Tenant {
   String issuer;
   JWTConfiguration jwtConfiguration;
   num lastUpdateInstant;
+  TenantLoginConfiguration loginConfiguration;
   String logoutURL;
   MaximumPasswordAge maximumPasswordAge;
   MinimumPasswordAge minimumPasswordAge;
@@ -5456,6 +5457,7 @@ class Tenant {
       this.issuer,
       this.jwtConfiguration,
       this.lastUpdateInstant,
+      this.loginConfiguration,
       this.logoutURL,
       this.maximumPasswordAge,
       this.minimumPasswordAge,
@@ -5491,6 +5493,18 @@ class TenantFormConfiguration {
   factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantFormConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantFormConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantLoginConfiguration {
+  bool requireAuthentication;
+
+  TenantLoginConfiguration({this.requireAuthentication});
+
+  factory TenantLoginConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantLoginConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantLoginConfigurationToJson(this);
 }
 
 /// @author Mikey Sleevi
