@@ -4565,6 +4565,7 @@ class RawLogin {
   Map<String, dynamic> toJson() => _$RawLoginToJson(this);
 }
 
+/// @author Brian Pontarelli
 enum ReactorFeatureStatus {
   @JsonValue('ACTIVE')
   ACTIVE,
@@ -4574,6 +4575,18 @@ enum ReactorFeatureStatus {
   PENDING,
   @JsonValue('UNKNOWN')
   UNKNOWN
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ReactorMetrics {
+  Map<String, BreachedPasswordTenantMetric> breachedPasswordMetrics;
+
+  ReactorMetrics({this.breachedPasswordMetrics});
+
+  factory ReactorMetrics.fromJson(Map<String, dynamic> json) =>
+      _$ReactorMetricsFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorMetricsToJson(this);
 }
 
 /// Request for managing FusionAuth Reactor and licenses.
@@ -4592,25 +4605,36 @@ class ReactorRequest {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class ReactorResponse {
+  ReactorMetrics metrics;
+  ReactorStatus status;
+
+  ReactorResponse({this.metrics, this.status});
+
+  factory ReactorResponse.fromJson(Map<String, dynamic> json) =>
+      _$ReactorResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class ReactorStatus {
   ReactorFeatureStatus advancedIdentityProviders;
+  ReactorFeatureStatus advancedMultiFactorAuthentication;
   ReactorFeatureStatus advancedRegistrationForms;
   ReactorFeatureStatus breachedPasswordDetection;
-  Map<String, BreachedPasswordTenantMetric> breachedPasswordMetrics;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
   bool licensed;
-  ReactorFeatureStatus multiFactorAuthentication;
 
   ReactorStatus(
       {this.advancedIdentityProviders,
+      this.advancedMultiFactorAuthentication,
       this.advancedRegistrationForms,
       this.breachedPasswordDetection,
-      this.breachedPasswordMetrics,
       this.connectors,
       this.entityManagement,
-      this.licensed,
-      this.multiFactorAuthentication});
+      this.licensed});
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
       _$ReactorStatusFromJson(json);

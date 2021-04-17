@@ -2927,13 +2927,13 @@ class FusionAuthClient {
 
   /// Retrieves the FusionAuth Reactor status.
   ///
-  /// @returns {Promise<ClientResponse<ReactorStatus>>}
-  Future<ClientResponse<ReactorStatus, void>> retrieveReactorStatus() {
-    return _start<ReactorStatus, void>()
+  /// @returns {Promise<ClientResponse<ReactorResponse>>}
+  Future<ClientResponse<ReactorResponse, void>> retrieveReactorStatus() {
+    return _start<ReactorResponse, void>()
         .withUri('/api/reactor')
         .withMethod('GET')
         .withResponseHandler(
-            defaultResponseHandlerBuilder((d) => ReactorStatus.fromJson(d)))
+            defaultResponseHandlerBuilder((d) => ReactorResponse.fromJson(d)))
         .go();
   }
 

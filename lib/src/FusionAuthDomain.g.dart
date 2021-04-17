@@ -6830,6 +6830,33 @@ Map<String, dynamic> _$RawLoginToJson(RawLogin instance) {
   return val;
 }
 
+ReactorMetrics _$ReactorMetricsFromJson(Map<String, dynamic> json) {
+  return ReactorMetrics(
+    breachedPasswordMetrics:
+        (json['breachedPasswordMetrics'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : BreachedPasswordTenantMetric.fromJson(
+                  e as Map<String, dynamic>)),
+    ),
+  );
+}
+
+Map<String, dynamic> _$ReactorMetricsToJson(ReactorMetrics instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('breachedPasswordMetrics', instance.breachedPasswordMetrics);
+  return val;
+}
+
 ReactorRequest _$ReactorRequestFromJson(Map<String, dynamic> json) {
   return ReactorRequest(
     license: json['license'] as String,
@@ -6853,26 +6880,18 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
   return ReactorStatus(
     advancedIdentityProviders: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['advancedIdentityProviders']),
+    advancedMultiFactorAuthentication: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap,
+        json['advancedMultiFactorAuthentication']),
     advancedRegistrationForms: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['advancedRegistrationForms']),
     breachedPasswordDetection: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['breachedPasswordDetection']),
-    breachedPasswordMetrics:
-        (json['breachedPasswordMetrics'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(
-          k,
-          e == null
-              ? null
-              : BreachedPasswordTenantMetric.fromJson(
-                  e as Map<String, dynamic>)),
-    ),
     connectors:
         _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['connectors']),
     entityManagement: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['entityManagement']),
     licensed: json['licensed'] as bool,
-    multiFactorAuthentication: _$enumDecodeNullable(
-        _$ReactorFeatureStatusEnumMap, json['multiFactorAuthentication']),
   );
 }
 
@@ -6887,18 +6906,19 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
 
   writeNotNull('advancedIdentityProviders',
       _$ReactorFeatureStatusEnumMap[instance.advancedIdentityProviders]);
+  writeNotNull(
+      'advancedMultiFactorAuthentication',
+      _$ReactorFeatureStatusEnumMap[
+          instance.advancedMultiFactorAuthentication]);
   writeNotNull('advancedRegistrationForms',
       _$ReactorFeatureStatusEnumMap[instance.advancedRegistrationForms]);
   writeNotNull('breachedPasswordDetection',
       _$ReactorFeatureStatusEnumMap[instance.breachedPasswordDetection]);
-  writeNotNull('breachedPasswordMetrics', instance.breachedPasswordMetrics);
   writeNotNull(
       'connectors', _$ReactorFeatureStatusEnumMap[instance.connectors]);
   writeNotNull('entityManagement',
       _$ReactorFeatureStatusEnumMap[instance.entityManagement]);
   writeNotNull('licensed', instance.licensed);
-  writeNotNull('multiFactorAuthentication',
-      _$ReactorFeatureStatusEnumMap[instance.multiFactorAuthentication]);
   return val;
 }
 
@@ -6908,6 +6928,33 @@ const _$ReactorFeatureStatusEnumMap = {
   ReactorFeatureStatus.PENDING: 'PENDING',
   ReactorFeatureStatus.UNKNOWN: 'UNKNOWN',
 };
+
+ReactorStatusResponse _$ReactorStatusResponseFromJson(
+    Map<String, dynamic> json) {
+  return ReactorStatusResponse(
+    metrics: json['metrics'] == null
+        ? null
+        : ReactorMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
+    status: json['status'] == null
+        ? null
+        : ReactorStatus.fromJson(json['status'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ReactorStatusResponseToJson(
+    ReactorStatusResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metrics', instance.metrics);
+  writeNotNull('status', instance.status);
+  return val;
+}
 
 RecentLoginResponse _$RecentLoginResponseFromJson(Map<String, dynamic> json) {
   return RecentLoginResponse(
