@@ -6876,6 +6876,31 @@ Map<String, dynamic> _$ReactorRequestToJson(ReactorRequest instance) {
   return val;
 }
 
+ReactorResponse _$ReactorResponseFromJson(Map<String, dynamic> json) {
+  return ReactorResponse(
+    metrics: json['metrics'] == null
+        ? null
+        : ReactorMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
+    status: json['status'] == null
+        ? null
+        : ReactorStatus.fromJson(json['status'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ReactorResponseToJson(ReactorResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metrics', instance.metrics);
+  writeNotNull('status', instance.status);
+  return val;
+}
+
 ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
   return ReactorStatus(
     advancedIdentityProviders: _$enumDecodeNullable(
@@ -6928,33 +6953,6 @@ const _$ReactorFeatureStatusEnumMap = {
   ReactorFeatureStatus.PENDING: 'PENDING',
   ReactorFeatureStatus.UNKNOWN: 'UNKNOWN',
 };
-
-ReactorStatusResponse _$ReactorStatusResponseFromJson(
-    Map<String, dynamic> json) {
-  return ReactorStatusResponse(
-    metrics: json['metrics'] == null
-        ? null
-        : ReactorMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
-    status: json['status'] == null
-        ? null
-        : ReactorStatus.fromJson(json['status'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$ReactorStatusResponseToJson(
-    ReactorStatusResponse instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('metrics', instance.metrics);
-  writeNotNull('status', instance.status);
-  return val;
-}
 
 RecentLoginResponse _$RecentLoginResponseFromJson(Map<String, dynamic> json) {
   return RecentLoginResponse(
@@ -8217,6 +8215,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
         : JWTConfiguration.fromJson(
             json['jwtConfiguration'] as Map<String, dynamic>),
     lastUpdateInstant: json['lastUpdateInstant'] as num,
+    loginConfiguration: json['loginConfiguration'] == null
+        ? null
+        : TenantLoginConfiguration.fromJson(
+            json['loginConfiguration'] as Map<String, dynamic>),
     logoutURL: json['logoutURL'] as String,
     maximumPasswordAge: json['maximumPasswordAge'] == null
         ? null
@@ -8276,6 +8278,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('issuer', instance.issuer);
   writeNotNull('jwtConfiguration', instance.jwtConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('loginConfiguration', instance.loginConfiguration);
   writeNotNull('logoutURL', instance.logoutURL);
   writeNotNull('maximumPasswordAge', instance.maximumPasswordAge);
   writeNotNull('minimumPasswordAge', instance.minimumPasswordAge);
@@ -8315,6 +8318,27 @@ Map<String, dynamic> _$TenantFormConfigurationToJson(
   }
 
   writeNotNull('adminUserFormId', instance.adminUserFormId);
+  return val;
+}
+
+TenantLoginConfiguration _$TenantLoginConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantLoginConfiguration(
+    requireAuthentication: json['requireAuthentication'] as bool,
+  );
+}
+
+Map<String, dynamic> _$TenantLoginConfigurationToJson(
+    TenantLoginConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('requireAuthentication', instance.requireAuthentication);
   return val;
 }
 
