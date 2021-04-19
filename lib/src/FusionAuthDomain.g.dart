@@ -162,6 +162,131 @@ Map<String, dynamic> _$ActionResponseToJson(ActionResponse instance) {
   return val;
 }
 
+APIKey _$APIKeyFromJson(Map<String, dynamic> json) {
+  return APIKey(
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    key: json['key'] as String,
+    keyManager: json['keyManager'] as bool,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    metaData: json['metaData'] == null
+        ? null
+        : APIKeyMetaData.fromJson(json['metaData'] as Map<String, dynamic>),
+    permissions: json['permissions'] == null
+        ? null
+        : APIKeyPermissions.fromJson(
+            json['permissions'] as Map<String, dynamic>),
+    tenantId: json['tenantId'] as String,
+  );
+}
+
+Map<String, dynamic> _$APIKeyToJson(APIKey instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('key', instance.key);
+  writeNotNull('keyManager', instance.keyManager);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('metaData', instance.metaData);
+  writeNotNull('permissions', instance.permissions);
+  writeNotNull('tenantId', instance.tenantId);
+  return val;
+}
+
+APIKeyMetaData _$APIKeyMetaDataFromJson(Map<String, dynamic> json) {
+  return APIKeyMetaData(
+    attributes: (json['attributes'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, e as String),
+    ),
+  );
+}
+
+Map<String, dynamic> _$APIKeyMetaDataToJson(APIKeyMetaData instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('attributes', instance.attributes);
+  return val;
+}
+
+APIKeyPermissions _$APIKeyPermissionsFromJson(Map<String, dynamic> json) {
+  return APIKeyPermissions(
+    endpoints: (json['endpoints'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, (e as List)?.map((e) => e as String)?.toSet()),
+    ),
+  );
+}
+
+Map<String, dynamic> _$APIKeyPermissionsToJson(APIKeyPermissions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'endpoints', instance.endpoints?.map((k, e) => MapEntry(k, e?.toList())));
+  return val;
+}
+
+APIKeyRequest _$APIKeyRequestFromJson(Map<String, dynamic> json) {
+  return APIKeyRequest(
+    apiKey: json['apiKey'] == null
+        ? null
+        : APIKey.fromJson(json['apiKey'] as Map<String, dynamic>),
+    sourceKeyId: json['sourceKeyId'] as String,
+  );
+}
+
+Map<String, dynamic> _$APIKeyRequestToJson(APIKeyRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('apiKey', instance.apiKey);
+  writeNotNull('sourceKeyId', instance.sourceKeyId);
+  return val;
+}
+
+APIKeyResponse _$APIKeyResponseFromJson(Map<String, dynamic> json) {
+  return APIKeyResponse(
+    apiKey: json['apiKey'] == null
+        ? null
+        : APIKey.fromJson(json['apiKey'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$APIKeyResponseToJson(APIKeyResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('apiKey', instance.apiKey);
+  return val;
+}
+
 AppleApplicationConfiguration _$AppleApplicationConfigurationFromJson(
     Map<String, dynamic> json) {
   return AppleApplicationConfiguration(

@@ -173,6 +173,27 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
+  /// an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted
+  /// to that API key.
+  ///
+  /// If an API key is locked to a tenant, it can only create API Keys for that same tenant.
+  ///
+  /// @param {String} keyId (Optional) The unique Id of the API key. If not provided a secure random Id will be generated.
+  /// @param {APIKeyRequest} request The request object that contains all of the information needed to create the APIKey.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> createAPIKey(
+      String keyId, APIKeyRequest request) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
+        .go();
+  }
+
   /// Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
   ///
   /// @param {String} applicationId (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
@@ -690,6 +711,18 @@ class FusionAuthClient {
         .withMethod('DELETE')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => UserDeleteResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Deletes the API key for the given Id.
+  ///
+  /// @param {String} keyId The Id of the authentication API key to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteAPIKey(String keyId) {
+    return _start<void, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withMethod('DELETE')
         .go();
   }
 
@@ -1582,6 +1615,23 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates an authentication API key by given id
+  ///
+  /// @param {String} keyId The Id of the authentication key. If not provided a secure random api key will be generated.
+  /// @param {APIKeyRequest} request The request object that contains all of the information needed to create the APIKey.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> patchAPIKey(
+      String keyId, APIKeyRequest request) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates, via PATCH, the application with the given Id.
   ///
   /// @param {String} applicationId The Id of the application to update.
@@ -2102,6 +2152,20 @@ class FusionAuthClient {
         .withMethod('PUT')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => VerifyRegistrationResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves an authentication API key for the given id
+  ///
+  /// @param {String} keyId The Id of the API key to retrieve.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> retrieveAPIKey(String keyId) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
         .go();
   }
 
@@ -3884,6 +3948,23 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => LoginResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates an API key by given id
+  ///
+  /// @param {String} apiKeyId The Id of the API key to update.
+  /// @param {APIKeyRequest} request The request object that contains all of the information used to create the API Key.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> updateAPIKey(
+      String apiKeyId, APIKeyRequest request) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(apiKeyId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
         .go();
   }
 

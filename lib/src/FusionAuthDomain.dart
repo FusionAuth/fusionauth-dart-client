@@ -131,6 +131,85 @@ enum Algorithm {
   none
 }
 
+/// domain POJO to represent AuthenticationKey
+///
+/// @author sanjay
+@JsonSerializable()
+class APIKey {
+  String id;
+  num insertInstant;
+  String key;
+  bool keyManager;
+  num lastUpdateInstant;
+  APIKeyMetaData metaData;
+  APIKeyPermissions permissions;
+  String tenantId;
+
+  APIKey(
+      {this.id,
+      this.insertInstant,
+      this.key,
+      this.keyManager,
+      this.lastUpdateInstant,
+      this.metaData,
+      this.permissions,
+      this.tenantId});
+
+  factory APIKey.fromJson(Map<String, dynamic> json) => _$APIKeyFromJson(json);
+  Map<String, dynamic> toJson() => _$APIKeyToJson(this);
+}
+
+@JsonSerializable()
+class APIKeyMetaData {
+  Map<String, String> attributes;
+
+  APIKeyMetaData({this.attributes});
+
+  factory APIKeyMetaData.fromJson(Map<String, dynamic> json) =>
+      _$APIKeyMetaDataFromJson(json);
+  Map<String, dynamic> toJson() => _$APIKeyMetaDataToJson(this);
+}
+
+@JsonSerializable()
+class APIKeyPermissions {
+  Map<String, Set<String>> endpoints;
+
+  APIKeyPermissions({this.endpoints});
+
+  factory APIKeyPermissions.fromJson(Map<String, dynamic> json) =>
+      _$APIKeyPermissionsFromJson(json);
+  Map<String, dynamic> toJson() => _$APIKeyPermissionsToJson(this);
+}
+
+/// Authentication key request object.
+///
+/// @author Sanjay
+@JsonSerializable()
+class APIKeyRequest {
+  APIKey apiKey;
+  String sourceKeyId;
+
+  APIKeyRequest({this.apiKey, this.sourceKeyId});
+
+  factory APIKeyRequest.fromJson(Map<String, dynamic> json) =>
+      _$APIKeyRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$APIKeyRequestToJson(this);
+}
+
+/// Authentication key response object.
+///
+/// @author Sanjay
+@JsonSerializable()
+class APIKeyResponse {
+  APIKey apiKey;
+
+  APIKeyResponse({this.apiKey});
+
+  factory APIKeyResponse.fromJson(Map<String, dynamic> json) =>
+      _$APIKeyResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$APIKeyResponseToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class AppleApplicationConfiguration
