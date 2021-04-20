@@ -3174,8 +3174,8 @@ FacebookApplicationConfiguration _$FacebookApplicationConfigurationFromJson(
     buttonText: json['buttonText'] as String,
     client_secret: json['client_secret'] as String,
     fields: json['fields'] as String,
-    loginMethod:
-        _$enumDecodeNullable(_$LoginMethodEnumMap, json['loginMethod']),
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     permissions: json['permissions'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3200,14 +3200,15 @@ Map<String, dynamic> _$FacebookApplicationConfigurationToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('fields', instance.fields);
-  writeNotNull('loginMethod', _$LoginMethodEnumMap[instance.loginMethod]);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('permissions', instance.permissions);
   return val;
 }
 
-const _$LoginMethodEnumMap = {
-  LoginMethod.UsePopup: 'UsePopup',
-  LoginMethod.UseRedirect: 'UseRedirect',
+const _$IdentityProviderLoginMethodEnumMap = {
+  IdentityProviderLoginMethod.UsePopup: 'UsePopup',
+  IdentityProviderLoginMethod.UseRedirect: 'UseRedirect',
 };
 
 FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
@@ -3217,8 +3218,8 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     buttonText: json['buttonText'] as String,
     client_secret: json['client_secret'] as String,
     fields: json['fields'] as String,
-    loginMethod:
-        _$enumDecodeNullable(_$LoginMethodEnumMap, json['loginMethod']),
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     permissions: json['permissions'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3265,7 +3266,8 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('fields', instance.fields);
-  writeNotNull('loginMethod', _$LoginMethodEnumMap[instance.loginMethod]);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('permissions', instance.permissions);
   return val;
 }
@@ -3923,8 +3925,8 @@ GoogleApplicationConfiguration _$GoogleApplicationConfigurationFromJson(
     buttonText: json['buttonText'] as String,
     client_id: json['client_id'] as String,
     client_secret: json['client_secret'] as String,
-    loginMethod:
-        _$enumDecodeNullable(_$LoginMethodEnumMap, json['loginMethod']),
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     scope: json['scope'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3948,7 +3950,8 @@ Map<String, dynamic> _$GoogleApplicationConfigurationToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
-  writeNotNull('loginMethod', _$LoginMethodEnumMap[instance.loginMethod]);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('scope', instance.scope);
   return val;
 }
@@ -3959,8 +3962,8 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     buttonText: json['buttonText'] as String,
     client_id: json['client_id'] as String,
     client_secret: json['client_secret'] as String,
-    loginMethod:
-        _$enumDecodeNullable(_$LoginMethodEnumMap, json['loginMethod']),
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     scope: json['scope'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -4006,7 +4009,8 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
-  writeNotNull('loginMethod', _$LoginMethodEnumMap[instance.loginMethod]);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('scope', instance.scope);
   return val;
 }
@@ -4541,9 +4545,6 @@ Integrations _$IntegrationsFromJson(Map<String, dynamic> json) {
     kafka: json['kafka'] == null
         ? null
         : KafkaConfiguration.fromJson(json['kafka'] as Map<String, dynamic>),
-    twilio: json['twilio'] == null
-        ? null
-        : TwilioConfiguration.fromJson(json['twilio'] as Map<String, dynamic>),
   );
 }
 
@@ -4558,7 +4559,6 @@ Map<String, dynamic> _$IntegrationsToJson(Integrations instance) {
 
   writeNotNull('cleanspeak', instance.cleanspeak);
   writeNotNull('kafka', instance.kafka);
-  writeNotNull('twilio', instance.twilio);
   return val;
 }
 

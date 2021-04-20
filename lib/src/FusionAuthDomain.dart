@@ -2113,7 +2113,7 @@ class FacebookApplicationConfiguration
   String buttonText;
   String client_secret;
   String fields;
-  LoginMethod loginMethod;
+  IdentityProviderLoginMethod loginMethod;
   String permissions;
 
   FacebookApplicationConfiguration(
@@ -2141,7 +2141,7 @@ class FacebookIdentityProvider
   String buttonText;
   String client_secret;
   String fields;
-  LoginMethod loginMethod;
+  IdentityProviderLoginMethod loginMethod;
   String permissions;
 
   FacebookIdentityProvider(
@@ -2618,7 +2618,7 @@ class GoogleApplicationConfiguration
   String buttonText;
   String client_id;
   String client_secret;
-  LoginMethod loginMethod;
+  IdentityProviderLoginMethod loginMethod;
   String scope;
 
   GoogleApplicationConfiguration(
@@ -2642,7 +2642,7 @@ class GoogleIdentityProvider
   String buttonText;
   String client_id;
   String client_secret;
-  LoginMethod loginMethod;
+  IdentityProviderLoginMethod loginMethod;
   String scope;
 
   GoogleIdentityProvider(
@@ -2836,6 +2836,14 @@ class IdentityProviderDetails {
   factory IdentityProviderDetails.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$IdentityProviderDetailsToJson(this);
+}
+
+/// @author Brett Pontarelli
+enum IdentityProviderLoginMethod {
+  @JsonValue('UsePopup')
+  UsePopup,
+  @JsonValue('UseRedirect')
+  UseRedirect
 }
 
 /// Login API request object used for login to third-party systems (i.e. Login with Facebook).
@@ -3632,14 +3640,6 @@ enum LoginIdType {
   email,
   @JsonValue('username')
   username
-}
-
-/// @author Brett Pontarelli
-enum LoginMethod {
-  @JsonValue('UsePopup')
-  UsePopup,
-  @JsonValue('UseRedirect')
-  UseRedirect
 }
 
 /// The summary of the action that is preventing login to be returned on the login response.
