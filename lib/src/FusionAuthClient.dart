@@ -173,6 +173,27 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
+  /// an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted
+  /// to that API key.
+  ///
+  /// If an API key is locked to a tenant, it can only create API Keys for that same tenant.
+  ///
+  /// @param {String} keyId (Optional) The unique Id of the API key. If not provided a secure random Id will be generated.
+  /// @param {APIKeyRequest} request The request object that contains all of the information needed to create the APIKey.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> createAPIKey(
+      String keyId, APIKeyRequest request) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
+        .go();
+  }
+
   /// Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
   ///
   /// @param {String} applicationId (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
@@ -453,6 +474,40 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
+  ///
+  /// @param {String} messageTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
+  /// @param {MessageTemplateRequest} request The request object that contains all of the information used to create the message template.
+  /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
+  Future<ClientResponse<MessageTemplateResponse, Errors>> createMessageTemplate(
+      String messageTemplateId, MessageTemplateRequest request) {
+    return _start<MessageTemplateResponse, Errors>()
+        .withUri('/api/message/template')
+        .withUriSegment(messageTemplateId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => MessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
+  ///
+  /// @param {String} messengerId (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
+  /// @param {MessengerRequest} request The request object that contains all of the information used to create the messenger.
+  /// @returns {Promise<ClientResponse<MessengerResponse>>}
+  Future<ClientResponse<MessengerResponse, Errors>> createMessenger(
+      String messengerId, MessengerRequest request) {
+    return _start<MessengerResponse, Errors>()
+        .withUri('/api/messenger')
+        .withUriSegment(messengerId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => MessengerResponse.fromJson(d)))
+        .go();
+  }
+
   /// Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
   ///
   /// @param {String} tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -659,6 +714,18 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deletes the API key for the given Id.
+  ///
+  /// @param {String} keyId The Id of the authentication API key to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteAPIKey(String keyId) {
+    return _start<void, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Hard deletes an application. This is a dangerous operation and should not be used in most circumstances. This will
   /// delete the application, any registrations for that application, metrics and reports for the application, all the
   /// roles for the application, and any other data associated with the application. This operation could take a very
@@ -737,6 +804,24 @@ class FusionAuthClient {
     return _start<void, Errors>()
         .withUri('/api/entity')
         .withUriSegment(entityId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes an Entity Grant for the given User or Entity.
+  ///
+  /// @param {String} entityId The Id of the Entity that the Entity Grant is being deleted for.
+  /// @param {String} recipientEntityId (Optional) The Id of the Entity that the Entity Grant is for.
+  /// @param {String} userId (Optional) The Id of the User that the Entity Grant is for.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteEntityGrant(
+      String entityId, String recipientEntityId, String userId) {
+    return _start<void, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withUriSegment("grant")
+        .withParameter('recipientEntityId', recipientEntityId)
+        .withParameter('userId', userId)
         .withMethod('DELETE')
         .go();
   }
@@ -852,6 +937,31 @@ class FusionAuthClient {
     return _start<void, Errors>()
         .withUri('/api/lambda')
         .withUriSegment(lambdaId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the message template for the given Id.
+  ///
+  /// @param {String} messageTemplateId The Id of the message template to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteMessageTemplate(
+      String messageTemplateId) {
+    return _start<void, Errors>()
+        .withUri('/api/message/template')
+        .withUriSegment(messageTemplateId)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the messenger for the given Id.
+  ///
+  /// @param {String} messengerId The Id of the messenger to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteMessenger(String messengerId) {
+    return _start<void, Errors>()
+        .withUri('/api/messenger')
+        .withUriSegment(messengerId)
         .withMethod('DELETE')
         .go();
   }
@@ -1005,13 +1115,15 @@ class FusionAuthClient {
   /// Disable Two Factor authentication for a user.
   ///
   /// @param {String} userId The Id of the User for which you're disabling Two Factor authentication.
+  /// @param {String} methodId The two-factor method identifier you wish to disable
   /// @param {String} code The Two Factor code used verify the the caller knows the Two Factor secret.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> disableTwoFactor(
-      String userId, String code) {
+      String userId, String methodId, String code) {
     return _start<void, Errors>()
         .withUri('/api/user/two-factor')
         .withParameter('userId', userId)
+        .withParameter('methodId', methodId)
         .withParameter('code', code)
         .withMethod('DELETE')
         .go();
@@ -1021,14 +1133,16 @@ class FusionAuthClient {
   ///
   /// @param {String} userId The Id of the user to enable Two Factor authentication.
   /// @param {TwoFactorRequest} request The two factor enable request information.
-  /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> enableTwoFactor(
+  /// @returns {Promise<ClientResponse<TwoFactorResponse>>}
+  Future<ClientResponse<TwoFactorResponse, Errors>> enableTwoFactor(
       String userId, TwoFactorRequest request) {
-    return _start<void, Errors>()
+    return _start<TwoFactorResponse, Errors>()
         .withUri('/api/user/two-factor')
         .withUriSegment(userId)
         .withJSONBody(request)
         .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => TwoFactorResponse.fromJson(d)))
         .go();
   }
 
@@ -1229,6 +1343,22 @@ class FusionAuthClient {
         .withMethod('PUT')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => VerifyRegistrationResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Generate two-factor recovery codes for a user. Generating two-factor recovery codes will invalidate any existing recovery codes.
+  ///
+  /// @param {String} userId The Id of the user to generate new Two Factor recovery codes.
+  /// @returns {Promise<ClientResponse<TwoFactorRecoveryCodeResponse>>}
+  Future<ClientResponse<TwoFactorRecoveryCodeResponse, Errors>>
+      generateTwoFactorRecoveryCodes(String userId) {
+    return _start<TwoFactorRecoveryCodeResponse, Errors>()
+        .withHeader('Content-Type', 'text/plain')
+        .withUri('/api/user/two-factor/recovery-code')
+        .withUriSegment(userId)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => TwoFactorRecoveryCodeResponse.fromJson(d)))
         .go();
   }
 
@@ -1485,6 +1615,23 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates an authentication API key by given id
+  ///
+  /// @param {String} keyId The Id of the authentication key. If not provided a secure random api key will be generated.
+  /// @param {APIKeyRequest} request The request object that contains all of the information needed to create the APIKey.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> patchAPIKey(
+      String keyId, APIKeyRequest request) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates, via PATCH, the application with the given Id.
   ///
   /// @param {String} applicationId The Id of the application to update.
@@ -1654,6 +1801,40 @@ class FusionAuthClient {
         .withMethod('PATCH')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => LambdaResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates, via PATCH, the message template with the given Id.
+  ///
+  /// @param {String} messageTemplateId The Id of the message template to update.
+  /// @param {MessageTemplateRequest} request The request that contains just the new message template information.
+  /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
+  Future<ClientResponse<MessageTemplateResponse, Errors>> patchMessageTemplate(
+      String messageTemplateId, MessageTemplateRequest request) {
+    return _start<MessageTemplateResponse, Errors>()
+        .withUri('/api/message/template')
+        .withUriSegment(messageTemplateId)
+        .withJSONBody(request)
+        .withMethod('PATCH')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => MessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates, via PATCH, the messenger with the given Id.
+  ///
+  /// @param {String} messengerId The Id of the messenger to update.
+  /// @param {MessengerRequest} request The request that contains just the new messenger information.
+  /// @returns {Promise<ClientResponse<MessengerResponse>>}
+  Future<ClientResponse<MessengerResponse, Errors>> patchMessenger(
+      String messengerId, MessengerRequest request) {
+    return _start<MessengerResponse, Errors>()
+        .withUri('/api/messenger')
+        .withUriSegment(messengerId)
+        .withJSONBody(request)
+        .withMethod('PATCH')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => MessengerResponse.fromJson(d)))
         .go();
   }
 
@@ -1974,6 +2155,20 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves an authentication API key for the given id
+  ///
+  /// @param {String} keyId The Id of the API key to retrieve.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> retrieveAPIKey(String keyId) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(keyId)
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves a single action log (the log of a user action that was taken on a user previously) for the given Id.
   ///
   /// @param {String} actionId The Id of the action to retrieve.
@@ -2210,6 +2405,26 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => EntityResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves an Entity Grant for the given Entity and User/Entity.
+  ///
+  /// @param {String} entityId The Id of the Entity.
+  /// @param {String} recipientEntityId (Optional) The Id of the Entity that the Entity Grant is for.
+  /// @param {String} userId (Optional) The Id of the User that the Entity Grant is for.
+  /// @returns {Promise<ClientResponse<EntityGrantResponse>>}
+  Future<ClientResponse<EntityGrantResponse, Errors>> retrieveEntityGrant(
+      String entityId, String recipientEntityId, String userId) {
+    return _start<EntityGrantResponse, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withUriSegment("grant")
+        .withParameter('recipientEntityId', recipientEntityId)
+        .withParameter('userId', userId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityGrantResponse.fromJson(d)))
         .go();
   }
 
@@ -2607,6 +2822,76 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves the message template for the given Id. If you don't specify the id, this will return all of the message templates.
+  ///
+  /// @param {String} messageTemplateId (Optional) The Id of the message template.
+  /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
+  Future<ClientResponse<MessageTemplateResponse, void>> retrieveMessageTemplate(
+      String messageTemplateId) {
+    return _start<MessageTemplateResponse, void>()
+        .withUri('/api/message/template')
+        .withUriSegment(messageTemplateId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => MessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a preview of the message template provided in the request, normalized to a given locale.
+  ///
+  /// @param {PreviewMessageTemplateRequest} request The request that contains the email template and optionally a locale to render it in.
+  /// @returns {Promise<ClientResponse<PreviewMessageTemplateResponse>>}
+  Future<ClientResponse<PreviewMessageTemplateResponse, Errors>>
+      retrieveMessageTemplatePreview(PreviewMessageTemplateRequest request) {
+    return _start<PreviewMessageTemplateResponse, Errors>()
+        .withUri('/api/message/template/preview')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => PreviewMessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all of the message templates.
+  ///
+  /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
+  Future<ClientResponse<MessageTemplateResponse, void>>
+      retrieveMessageTemplates() {
+    return _start<MessageTemplateResponse, void>()
+        .withUri('/api/message/template')
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => MessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the messenger with the given Id.
+  ///
+  /// @param {String} messengerId The Id of the messenger.
+  /// @returns {Promise<ClientResponse<MessengerResponse>>}
+  Future<ClientResponse<MessengerResponse, void>> retrieveMessenger(
+      String messengerId) {
+    return _start<MessengerResponse, void>()
+        .withUri('/api/messenger')
+        .withUriSegment(messengerId)
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => MessengerResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all of the messengers.
+  ///
+  /// @returns {Promise<ClientResponse<MessengerResponse>>}
+  Future<ClientResponse<MessengerResponse, void>> retrieveMessengers() {
+    return _start<MessengerResponse, void>()
+        .withUri('/api/messenger')
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => MessengerResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves the monthly active user report between the two instants. If you specify an application id, it will only
   /// return the monthly active counts for that application.
   ///
@@ -2706,13 +2991,13 @@ class FusionAuthClient {
 
   /// Retrieves the FusionAuth Reactor status.
   ///
-  /// @returns {Promise<ClientResponse<ReactorStatus>>}
-  Future<ClientResponse<ReactorStatus, void>> retrieveReactorStatus() {
-    return _start<ReactorStatus, void>()
+  /// @returns {Promise<ClientResponse<ReactorResponse>>}
+  Future<ClientResponse<ReactorResponse, void>> retrieveReactorStatus() {
+    return _start<ReactorResponse, void>()
         .withUri('/api/reactor')
         .withMethod('GET')
         .withResponseHandler(
-            defaultResponseHandlerBuilder((d) => ReactorStatus.fromJson(d)))
+            defaultResponseHandlerBuilder((d) => ReactorResponse.fromJson(d)))
         .go();
   }
 
@@ -2876,6 +3161,21 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => TotalsReportResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieve two-factor recovery codes for a user.
+  ///
+  /// @param {String} userId The Id of the user to retrieve Two Factor recovery codes.
+  /// @returns {Promise<ClientResponse<TwoFactorRecoveryCodeResponse>>}
+  Future<ClientResponse<TwoFactorRecoveryCodeResponse, Errors>>
+      retrieveTwoFactorRecoveryCodes(String userId) {
+    return _start<TwoFactorRecoveryCodeResponse, Errors>()
+        .withUri('/api/user/two-factor/recovery-code')
+        .withUriSegment(userId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => TwoFactorRecoveryCodeResponse.fromJson(d)))
         .go();
   }
 
@@ -3356,6 +3656,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches Entity Grants with the specified criteria and pagination.
+  ///
+  /// @param {EntityGrantSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<EntityGrantSearchResponse>>}
+  Future<ClientResponse<EntityGrantSearchResponse, Errors>> searchEntityGrants(
+      EntityGrantSearchRequest request) {
+    return _start<EntityGrantSearchResponse, Errors>()
+        .withUri('/api/entity/grant/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EntityGrantSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the entity types with the specified criteria and pagination.
   ///
   /// @param {EntityTypeSearchRequest} request The search criteria and pagination information.
@@ -3514,7 +3829,22 @@ class FusionAuthClient {
   ///
   /// @param {TwoFactorSendRequest} request The request object that contains all of the information used to send the code.
   /// @returns {Promise<ClientResponse<void>>}
+  ///
+  /// @deprecated This method has been renamed to sendTwoFactorCodeForEnableDisable, use that method instead.
   Future<ClientResponse<void, Errors>> sendTwoFactorCode(
+      TwoFactorSendRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/two-factor/send')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .go();
+  }
+
+  /// Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
+  ///
+  /// @param {TwoFactorSendRequest} request The request object that contains all of the information used to send the code.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> sendTwoFactorCodeForEnableDisable(
       TwoFactorSendRequest request) {
     return _start<void, Errors>()
         .withUri('/api/two-factor/send')
@@ -3527,12 +3857,29 @@ class FusionAuthClient {
   ///
   /// @param {String} twoFactorId The Id returned by the Login API necessary to complete Two Factor authentication.
   /// @returns {Promise<ClientResponse<void>>}
+  ///
+  /// @deprecated This method has been renamed to sendTwoFactorCodeForLoginUsingMethod, use that method instead.
   Future<ClientResponse<void, Errors>> sendTwoFactorCodeForLogin(
       String twoFactorId) {
     return _startAnonymous<void, Errors>()
         .withHeader('Content-Type', 'text/plain')
         .withUri('/api/two-factor/send')
         .withUriSegment(twoFactorId)
+        .withMethod('POST')
+        .go();
+  }
+
+  /// Send a Two Factor authentication code to allow the completion of Two Factor authentication.
+  ///
+  /// @param {String} twoFactorId The Id returned by the Login API necessary to complete Two Factor authentication.
+  /// @param {TwoFactorSendRequest} request The Two Factor send request that contains all of the information used to send the Two Factor code to the user.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> sendTwoFactorCodeForLoginUsingMethod(
+      String twoFactorId, TwoFactorSendRequest request) {
+    return _startAnonymous<void, Errors>()
+        .withUri('/api/two-factor/send')
+        .withUriSegment(twoFactorId)
+        .withJSONBody(request)
         .withMethod('POST')
         .go();
   }
@@ -3569,6 +3916,26 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Start a Two-Factor login request by generating a two-factor identifier. This code can then be sent to the Two Factor Send
+  /// API (/api/two-factor/send)in order to send a one-time use code to a user. You can also use one-time use code returned
+  /// to send the code out-of-band. The Two-Factor login is completed by making a request to the Two-Factor Login
+  /// API (/api/two-factor/login). with the two-factor identifier and the one-time use code.
+  ///
+  /// This API is intended to allow you to begin a Two-Factor login outside of a normal login that originated from the Login API (/api/login).
+  ///
+  /// @param {TwoFactorStartRequest} request The Two-Factor start request that contains all of the information used to begin the Two-Factor login request.
+  /// @returns {Promise<ClientResponse<TwoFactorStartResponse>>}
+  Future<ClientResponse<TwoFactorStartResponse, Errors>> startTwoFactorLogin(
+      TwoFactorStartRequest request) {
+    return _start<TwoFactorStartResponse, Errors>()
+        .withUri('/api/two-factor/start')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => TwoFactorStartResponse.fromJson(d)))
+        .go();
+  }
+
   /// Complete login using a 2FA challenge
   ///
   /// @param {TwoFactorLoginRequest} request The login request that contains the user credentials used to log them in.
@@ -3581,6 +3948,23 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => LoginResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates an API key by given id
+  ///
+  /// @param {String} apiKeyId The Id of the API key to update.
+  /// @param {APIKeyRequest} request The request object that contains all of the information used to create the API Key.
+  /// @returns {Promise<ClientResponse<APIKeyResponse>>}
+  Future<ClientResponse<APIKeyResponse, Errors>> updateAPIKey(
+      String apiKeyId, APIKeyRequest request) {
+    return _start<APIKeyResponse, Errors>()
+        .withUri('/api/api-key')
+        .withUriSegment(apiKeyId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => APIKeyResponse.fromJson(d)))
         .go();
   }
 
@@ -3844,6 +4228,40 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates the message template with the given Id.
+  ///
+  /// @param {String} messageTemplateId The Id of the message template to update.
+  /// @param {MessageTemplateRequest} request The request that contains all of the new message template information.
+  /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
+  Future<ClientResponse<MessageTemplateResponse, Errors>> updateMessageTemplate(
+      String messageTemplateId, MessageTemplateRequest request) {
+    return _start<MessageTemplateResponse, Errors>()
+        .withUri('/api/message/template')
+        .withUriSegment(messageTemplateId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => MessageTemplateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the messenger with the given Id.
+  ///
+  /// @param {String} messengerId The Id of the messenger to update.
+  /// @param {MessengerRequest} request The request object that contains all of the new messenger information.
+  /// @returns {Promise<ClientResponse<MessengerResponse>>}
+  Future<ClientResponse<MessengerResponse, Errors>> updateMessenger(
+      String messengerId, MessengerRequest request) {
+    return _start<MessengerResponse, Errors>()
+        .withUri('/api/messenger')
+        .withUriSegment(messengerId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => MessengerResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates the registration for the user with the given id and the application defined in the request.
   ///
   /// @param {String} userId The Id of the user whose registration is going to be updated.
@@ -3993,6 +4411,22 @@ class FusionAuthClient {
         .withMethod('PUT')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => WebhookResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates or updates an Entity Grant. This is when a User/Entity is granted permissions to an Entity.
+  ///
+  /// @param {String} entityId The Id of the Entity that the User/Entity is being granted access to.
+  /// @param {EntityGrantRequest} request The request object that contains all of the information used to create the Entity Grant.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> upsertEntityGrant(
+      String entityId, EntityGrantRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/entity')
+        .withUriSegment(entityId)
+        .withUriSegment("grant")
+        .withJSONBody(request)
+        .withMethod('POST')
         .go();
   }
 
