@@ -6149,6 +6149,7 @@ OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) {
         _$enumDecodeNullable(_$LogoutBehaviorEnumMap, json['logoutBehavior']),
     logoutURL: json['logoutURL'] as String,
     requireClientAuthentication: json['requireClientAuthentication'] as bool,
+    requireRegistration: json['requireRegistration'] as bool,
   );
 }
 
@@ -6175,6 +6176,7 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(OAuth2Configuration instance) {
   writeNotNull('logoutURL', instance.logoutURL);
   writeNotNull(
       'requireClientAuthentication', instance.requireClientAuthentication);
+  writeNotNull('requireRegistration', instance.requireRegistration);
   return val;
 }
 
@@ -8223,6 +8225,8 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     helpers: json['helpers'] as String,
     index: json['index'] as String,
     oauth2Authorize: json['oauth2Authorize'] as String,
+    oauth2AuthorizedNotRegistered:
+        json['oauth2AuthorizedNotRegistered'] as String,
     oauth2ChildRegistrationNotAllowed:
         json['oauth2ChildRegistrationNotAllowed'] as String,
     oauth2ChildRegistrationNotAllowedComplete:
@@ -8268,6 +8272,8 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('helpers', instance.helpers);
   writeNotNull('index', instance.index);
   writeNotNull('oauth2Authorize', instance.oauth2Authorize);
+  writeNotNull(
+      'oauth2AuthorizedNotRegistered', instance.oauth2AuthorizedNotRegistered);
   writeNotNull('oauth2ChildRegistrationNotAllowed',
       instance.oauth2ChildRegistrationNotAllowed);
   writeNotNull('oauth2ChildRegistrationNotAllowedComplete',

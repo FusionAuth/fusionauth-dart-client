@@ -4090,6 +4090,7 @@ class OAuth2Configuration {
   LogoutBehavior logoutBehavior;
   String logoutURL;
   bool requireClientAuthentication;
+  bool requireRegistration;
 
   OAuth2Configuration(
       {this.authorizedOriginURLs,
@@ -4102,7 +4103,8 @@ class OAuth2Configuration {
       this.generateRefreshTokens,
       this.logoutBehavior,
       this.logoutURL,
-      this.requireClientAuthentication});
+      this.requireClientAuthentication,
+      this.requireRegistration});
 
   factory OAuth2Configuration.fromJson(Map<String, dynamic> json) =>
       _$OAuth2ConfigurationFromJson(json);
@@ -5431,6 +5433,7 @@ class Templates {
   String helpers;
   String index;
   String oauth2Authorize;
+  String oauth2AuthorizedNotRegistered;
   String oauth2ChildRegistrationNotAllowed;
   String oauth2ChildRegistrationNotAllowedComplete;
   String oauth2CompleteRegistration;
@@ -5464,6 +5467,7 @@ class Templates {
       this.helpers,
       this.index,
       this.oauth2Authorize,
+      this.oauth2AuthorizedNotRegistered,
       this.oauth2ChildRegistrationNotAllowed,
       this.oauth2ChildRegistrationNotAllowedComplete,
       this.oauth2CompleteRegistration,
