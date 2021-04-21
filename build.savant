@@ -15,7 +15,7 @@
  */
 savantVersion = "1.0.0"
 
-project(group: "io.fusionauth", name: "fusionauth-dart-client", version: "1.26.0", licenses: ["ApacheV2_0"]) {
+project(group: "io.fusionauth", name: "fusionauth-dart-client", version: "1.26.1", licenses: ["ApacheV2_0"]) {
   workflow {
     standard()
   }
@@ -51,16 +51,6 @@ target(name: "format", description: "Formats the source code") {
   def process = pb.start()
   process.consumeProcessOutput(System.out, System.err)
   process.waitFor()
-}
-
-target(name: "setup", description: "Setup Dart build tools") {
-  if (new ProcessBuilder('brew', 'tap', 'dart-lang/dart').inheritIO().start().waitFor() != 0) {
-    fail('Failed to brew tap dart-lang/dart')
-  }
-
-  if (new ProcessBuilder('brew', 'install', 'dart').inheritIO().start().waitFor() != 0) {
-    fail('Failed to brew install dart')
-  }
 }
 
 target(name: "build", description: "Builds the generated file", dependsOn: ["format"]) {
