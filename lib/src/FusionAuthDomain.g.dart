@@ -8375,6 +8375,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
         ? null
         : TenantUserDeletePolicy.fromJson(
             json['userDeletePolicy'] as Map<String, dynamic>),
+    usernameConfiguration: json['usernameConfiguration'] == null
+        ? null
+        : TenantUsernameConfiguration.fromJson(
+            json['usernameConfiguration'] as Map<String, dynamic>),
   );
 }
 
@@ -8417,6 +8421,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('themeId', instance.themeId);
   writeNotNull('userDeletePolicy', instance.userDeletePolicy);
+  writeNotNull('usernameConfiguration', instance.usernameConfiguration);
   return val;
 }
 
@@ -8572,6 +8577,30 @@ Map<String, dynamic> _$TenantUserDeletePolicyToJson(
   }
 
   writeNotNull('unverified', instance.unverified);
+  return val;
+}
+
+TenantUsernameConfiguration _$TenantUsernameConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantUsernameConfiguration(
+    unique: json['unique'] == null
+        ? null
+        : UniqueUsernameConfiguration.fromJson(
+            json['unique'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TenantUsernameConfigurationToJson(
+    TenantUsernameConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('unique', instance.unique);
   return val;
 }
 
@@ -9166,6 +9195,37 @@ Map<String, dynamic> _$UIConfigurationToJson(UIConfiguration instance) {
   writeNotNull('menuFontColor', instance.menuFontColor);
   return val;
 }
+
+UniqueUsernameConfiguration _$UniqueUsernameConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return UniqueUsernameConfiguration(
+    appendPolicy: _$enumDecodeNullable(
+        _$UniqueUsernameAppendPolicyEnumMap, json['appendPolicy']),
+    numberOfDigits: json['numberOfDigits'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
+    UniqueUsernameConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('appendPolicy',
+      _$UniqueUsernameAppendPolicyEnumMap[instance.appendPolicy]);
+  writeNotNull('numberOfDigits', instance.numberOfDigits);
+  return val;
+}
+
+const _$UniqueUsernameAppendPolicyEnumMap = {
+  UniqueUsernameAppendPolicy.Always: 'Always',
+  UniqueUsernameAppendPolicy.OnDuplicate: 'OnDuplicate',
+};
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(

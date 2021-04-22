@@ -5521,6 +5521,7 @@ class Tenant {
   ObjectState state;
   String themeId;
   TenantUserDeletePolicy userDeletePolicy;
+  TenantUsernameConfiguration usernameConfiguration;
 
   Tenant(
       {this.configured,
@@ -5548,7 +5549,8 @@ class Tenant {
       this.passwordValidationRules,
       this.state,
       this.themeId,
-      this.userDeletePolicy});
+      this.userDeletePolicy,
+      this.usernameConfiguration});
 
   factory Tenant.fromJson(Map<String, dynamic> json) => _$TenantFromJson(json);
   Map<String, dynamic> toJson() => _$TenantToJson(this);
@@ -5640,6 +5642,18 @@ class TenantUserDeletePolicy {
   factory TenantUserDeletePolicy.fromJson(Map<String, dynamic> json) =>
       _$TenantUserDeletePolicyFromJson(json);
   Map<String, dynamic> toJson() => _$TenantUserDeletePolicyToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantUsernameConfiguration {
+  UniqueUsernameConfiguration unique;
+
+  TenantUsernameConfiguration({this.unique});
+
+  factory TenantUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantUsernameConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantUsernameConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -6029,6 +6043,25 @@ class UIConfiguration {
   factory UIConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UIConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UIConfigurationToJson(this);
+}
+
+enum UniqueUsernameAppendPolicy {
+  @JsonValue('Always')
+  Always,
+  @JsonValue('OnDuplicate')
+  OnDuplicate
+}
+
+@JsonSerializable()
+class UniqueUsernameConfiguration extends Enableable {
+  UniqueUsernameAppendPolicy appendPolicy;
+  num numberOfDigits;
+
+  UniqueUsernameConfiguration({this.appendPolicy, this.numberOfDigits});
+
+  factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$UniqueUsernameConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
 }
 
 /// The global view of a User. This object contains all global information about the user including birth date, registration information
