@@ -458,6 +458,7 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
             json['samlv2Configuration'] as Map<String, dynamic>),
     state: _$enumDecodeNullable(_$ObjectStateEnumMap, json['state']),
     tenantId: json['tenantId'] as String,
+    themeId: json['themeId'] as String,
     verificationEmailTemplateId: json['verificationEmailTemplateId'] as String,
     verifyRegistration: json['verifyRegistration'] as bool,
   );
@@ -495,6 +496,7 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
   writeNotNull('samlv2Configuration', instance.samlv2Configuration);
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('themeId', instance.themeId);
   writeNotNull(
       'verificationEmailTemplateId', instance.verificationEmailTemplateId);
   writeNotNull('verifyRegistration', instance.verifyRegistration);

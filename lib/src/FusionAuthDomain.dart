@@ -271,6 +271,7 @@ class Application {
   SAMLv2Configuration samlv2Configuration;
   ObjectState state;
   String tenantId;
+  String themeId;
   String verificationEmailTemplateId;
   bool verifyRegistration;
 
@@ -297,6 +298,7 @@ class Application {
       this.samlv2Configuration,
       this.state,
       this.tenantId,
+      this.themeId,
       this.verificationEmailTemplateId,
       this.verifyRegistration});
 
