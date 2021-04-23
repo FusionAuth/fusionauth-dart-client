@@ -9199,8 +9199,6 @@ Map<String, dynamic> _$UIConfigurationToJson(UIConfiguration instance) {
 UniqueUsernameConfiguration _$UniqueUsernameConfigurationFromJson(
     Map<String, dynamic> json) {
   return UniqueUsernameConfiguration(
-    appendPolicy: _$enumDecodeNullable(
-        _$UniqueUsernameAppendPolicyEnumMap, json['appendPolicy']),
     numberOfDigits: json['numberOfDigits'] as num,
   )..enabled = json['enabled'] as bool;
 }
@@ -9216,16 +9214,9 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
   }
 
   writeNotNull('enabled', instance.enabled);
-  writeNotNull('appendPolicy',
-      _$UniqueUsernameAppendPolicyEnumMap[instance.appendPolicy]);
   writeNotNull('numberOfDigits', instance.numberOfDigits);
   return val;
 }
-
-const _$UniqueUsernameAppendPolicyEnumMap = {
-  UniqueUsernameAppendPolicy.Always: 'Always',
-  UniqueUsernameAppendPolicy.OnDuplicate: 'OnDuplicate',
-};
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
