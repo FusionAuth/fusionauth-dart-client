@@ -6045,19 +6045,11 @@ class UIConfiguration {
   Map<String, dynamic> toJson() => _$UIConfigurationToJson(this);
 }
 
-enum UniqueUsernameAppendPolicy {
-  @JsonValue('Always')
-  Always,
-  @JsonValue('OnDuplicate')
-  OnDuplicate
-}
-
 @JsonSerializable()
 class UniqueUsernameConfiguration extends Enableable {
-  UniqueUsernameAppendPolicy appendPolicy;
   num numberOfDigits;
 
-  UniqueUsernameConfiguration({this.appendPolicy, this.numberOfDigits});
+  UniqueUsernameConfiguration({this.numberOfDigits});
 
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
