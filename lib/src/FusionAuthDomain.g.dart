@@ -8221,6 +8221,7 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     accountTwoFactorIndex: json['accountTwoFactorIndex'] as String,
     emailComplete: json['emailComplete'] as String,
     emailSend: json['emailSend'] as String,
+    emailVerificationRequired: json['emailVerificationRequired'] as String,
     emailVerify: json['emailVerify'] as String,
     helpers: json['helpers'] as String,
     index: json['index'] as String,
@@ -8245,6 +8246,8 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     passwordSent: json['passwordSent'] as String,
     registrationComplete: json['registrationComplete'] as String,
     registrationSend: json['registrationSend'] as String,
+    registrationVerificationRequired:
+        json['registrationVerificationRequired'] as String,
     registrationVerify: json['registrationVerify'] as String,
     samlv2Logout: json['samlv2Logout'] as String,
   );
@@ -8266,6 +8269,7 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('accountTwoFactorIndex', instance.accountTwoFactorIndex);
   writeNotNull('emailComplete', instance.emailComplete);
   writeNotNull('emailSend', instance.emailSend);
+  writeNotNull('emailVerificationRequired', instance.emailVerificationRequired);
   writeNotNull('emailVerify', instance.emailVerify);
   writeNotNull('helpers', instance.helpers);
   writeNotNull('index', instance.index);
@@ -8291,6 +8295,8 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('passwordSent', instance.passwordSent);
   writeNotNull('registrationComplete', instance.registrationComplete);
   writeNotNull('registrationSend', instance.registrationSend);
+  writeNotNull('registrationVerificationRequired',
+      instance.registrationVerificationRequired);
   writeNotNull('registrationVerify', instance.registrationVerify);
   writeNotNull('samlv2Logout', instance.samlv2Logout);
   return val;
