@@ -9206,6 +9206,7 @@ UniqueUsernameConfiguration _$UniqueUsernameConfigurationFromJson(
     Map<String, dynamic> json) {
   return UniqueUsernameConfiguration(
     numberOfDigits: json['numberOfDigits'] as num,
+    separator: json['separator'],
   )..enabled = json['enabled'] as bool;
 }
 
@@ -9221,6 +9222,7 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
 
   writeNotNull('enabled', instance.enabled);
   writeNotNull('numberOfDigits', instance.numberOfDigits);
+  writeNotNull('separator', instance.separator);
   return val;
 }
 

@@ -6052,8 +6052,9 @@ class UIConfiguration {
 @JsonSerializable()
 class UniqueUsernameConfiguration extends Enableable {
   num numberOfDigits;
+  char separator;
 
-  UniqueUsernameConfiguration({this.numberOfDigits});
+  UniqueUsernameConfiguration({this.numberOfDigits, this.separator});
 
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
