@@ -5429,6 +5429,7 @@ class Templates {
   String accountTwoFactorIndex;
   String emailComplete;
   String emailSend;
+  String emailSent;
   String emailVerificationRequired;
   String emailVerify;
   String helpers;
@@ -5452,6 +5453,7 @@ class Templates {
   String passwordSent;
   String registrationComplete;
   String registrationSend;
+  String registrationSent;
   String registrationVerificationRequired;
   String registrationVerify;
   String samlv2Logout;
@@ -5464,6 +5466,7 @@ class Templates {
       this.accountTwoFactorIndex,
       this.emailComplete,
       this.emailSend,
+      this.emailSent,
       this.emailVerificationRequired,
       this.emailVerify,
       this.helpers,
@@ -5487,6 +5490,7 @@ class Templates {
       this.passwordSent,
       this.registrationComplete,
       this.registrationSend,
+      this.registrationSent,
       this.registrationVerificationRequired,
       this.registrationVerify,
       this.samlv2Logout});
