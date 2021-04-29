@@ -4703,6 +4703,7 @@ class ReactorStatus {
   ReactorFeatureStatus advancedIdentityProviders;
   ReactorFeatureStatus advancedMultiFactorAuthentication;
   ReactorFeatureStatus advancedRegistrationForms;
+  ReactorFeatureStatus applicationThemes;
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
@@ -4712,6 +4713,7 @@ class ReactorStatus {
       {this.advancedIdentityProviders,
       this.advancedMultiFactorAuthentication,
       this.advancedRegistrationForms,
+      this.applicationThemes,
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,

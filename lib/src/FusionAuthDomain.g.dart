@@ -7037,6 +7037,8 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
         json['advancedMultiFactorAuthentication']),
     advancedRegistrationForms: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['advancedRegistrationForms']),
+    applicationThemes: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['applicationThemes']),
     breachedPasswordDetection: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['breachedPasswordDetection']),
     connectors:
@@ -7064,6 +7066,8 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
           instance.advancedMultiFactorAuthentication]);
   writeNotNull('advancedRegistrationForms',
       _$ReactorFeatureStatusEnumMap[instance.advancedRegistrationForms]);
+  writeNotNull('applicationThemes',
+      _$ReactorFeatureStatusEnumMap[instance.applicationThemes]);
   writeNotNull('breachedPasswordDetection',
       _$ReactorFeatureStatusEnumMap[instance.breachedPasswordDetection]);
   writeNotNull(
