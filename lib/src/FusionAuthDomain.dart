@@ -2026,6 +2026,7 @@ class ExternalIdentifierConfiguration {
   SecureGeneratorConfiguration deviceUserCodeIdGenerator;
   SecureGeneratorConfiguration emailVerificationIdGenerator;
   num emailVerificationIdTimeToLiveInSeconds;
+  SecureGeneratorConfiguration emailVerificationOneTimeCodeGenerator;
   num externalAuthenticationIdTimeToLiveInSeconds;
   num oneTimePasswordTimeToLiveInSeconds;
   SecureGeneratorConfiguration passwordlessLoginGenerator;
@@ -2048,6 +2049,7 @@ class ExternalIdentifierConfiguration {
       this.deviceUserCodeIdGenerator,
       this.emailVerificationIdGenerator,
       this.emailVerificationIdTimeToLiveInSeconds,
+      this.emailVerificationOneTimeCodeGenerator,
       this.externalAuthenticationIdTimeToLiveInSeconds,
       this.oneTimePasswordTimeToLiveInSeconds,
       this.passwordlessLoginGenerator,
@@ -3773,6 +3775,7 @@ class LoginResponse {
   String twoFactorId;
   String twoFactorTrustId;
   User user;
+  String verificationId;
 
   LoginResponse(
       {this.actions,
@@ -3784,7 +3787,8 @@ class LoginResponse {
       this.token,
       this.twoFactorId,
       this.twoFactorTrustId,
-      this.user});
+      this.user,
+      this.verificationId});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
@@ -6909,10 +6913,24 @@ class ValidateResponse {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class VerifyEmailResponse {
+class VerifyEmailRequest {
+  String oneTimeCode;
   String verificationId;
 
-  VerifyEmailResponse({this.verificationId});
+  VerifyEmailRequest({this.oneTimeCode, this.verificationId});
+
+  factory VerifyEmailRequest.fromJson(Map<String, dynamic> json) =>
+      _$VerifyEmailRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$VerifyEmailRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class VerifyEmailResponse {
+  String oneTimeCode;
+  String verificationId;
+
+  VerifyEmailResponse({this.oneTimeCode, this.verificationId});
 
   factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyEmailResponseFromJson(json);
