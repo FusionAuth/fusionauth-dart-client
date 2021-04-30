@@ -6868,7 +6868,9 @@ enum UserState {
   @JsonValue('Authenticated')
   Authenticated,
   @JsonValue('AuthenticatedNotRegistered')
-  AuthenticatedNotRegistered
+  AuthenticatedNotRegistered,
+  @JsonValue('AuthenticatedNotVerified')
+  AuthenticatedNotVerified
 }
 
 /// @author Daniel DeGroff
