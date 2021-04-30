@@ -3604,11 +3604,13 @@ class LoginConfiguration {
   bool allowTokenRefresh;
   bool generateRefreshTokens;
   bool requireAuthentication;
+  UnverifiedBehavior unverifiedEmailBehavior;
 
   LoginConfiguration(
       {this.allowTokenRefresh,
       this.generateRefreshTokens,
-      this.requireAuthentication});
+      this.requireAuthentication,
+      this.unverifiedEmailBehavior});
 
   factory LoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LoginConfigurationFromJson(json);
@@ -5239,6 +5241,7 @@ class SecureIdentity {
   bool passwordChangeRequired;
   num passwordLastUpdateInstant;
   String salt;
+  String uniqueUsername;
   String username;
   ContentStatus usernameStatus;
   bool verified;
@@ -5256,6 +5259,7 @@ class SecureIdentity {
       this.passwordChangeRequired,
       this.passwordLastUpdateInstant,
       this.salt,
+      this.uniqueUsername,
       this.username,
       this.usernameStatus,
       this.verified});
@@ -5592,8 +5596,10 @@ class TenantFormConfiguration {
 @JsonSerializable()
 class TenantLoginConfiguration {
   bool requireAuthentication;
+  UnverifiedBehavior unverifiedEmailBehavior;
 
-  TenantLoginConfiguration({this.requireAuthentication});
+  TenantLoginConfiguration(
+      {this.requireAuthentication, this.unverifiedEmailBehavior});
 
   factory TenantLoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantLoginConfigurationFromJson(json);
@@ -6065,6 +6071,14 @@ class UniqueUsernameConfiguration extends Enableable {
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum UnverifiedBehavior {
+  @JsonValue('Allow')
+  Allow,
+  @JsonValue('Gated')
+  Gated
 }
 
 /// The global view of a User. This object contains all global information about the user including birth date, registration information
