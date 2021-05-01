@@ -712,6 +712,39 @@ Map<String, dynamic> _$ApplicationRoleToJson(ApplicationRole instance) {
   return val;
 }
 
+ApplicationUnverifiedConfiguration _$ApplicationUnverifiedConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return ApplicationUnverifiedConfiguration(
+    registration:
+        _$enumDecodeNullable(_$UnverifiedBehaviorEnumMap, json['registration']),
+    whenGated: json['whenGated'] == null
+        ? null
+        : UnverifiedGatedOptions.fromJson(
+            json['whenGated'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ApplicationUnverifiedConfigurationToJson(
+    ApplicationUnverifiedConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'registration', _$UnverifiedBehaviorEnumMap[instance.registration]);
+  writeNotNull('whenGated', instance.whenGated);
+  return val;
+}
+
+const _$UnverifiedBehaviorEnumMap = {
+  UnverifiedBehavior.Allow: 'Allow',
+  UnverifiedBehavior.Gated: 'Gated',
+};
+
 Attachment _$AttachmentFromJson(Map<String, dynamic> json) {
   return Attachment(
     attachment: (json['attachment'] as List)?.map((e) => e as num)?.toList(),
@@ -2991,6 +3024,12 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
             json['emailVerificationIdGenerator'] as Map<String, dynamic>),
     emailVerificationIdTimeToLiveInSeconds:
         json['emailVerificationIdTimeToLiveInSeconds'] as num,
+    emailVerificationOneTimeCodeGenerator:
+        json['emailVerificationOneTimeCodeGenerator'] == null
+            ? null
+            : SecureGeneratorConfiguration.fromJson(
+                json['emailVerificationOneTimeCodeGenerator']
+                    as Map<String, dynamic>),
     externalAuthenticationIdTimeToLiveInSeconds:
         json['externalAuthenticationIdTimeToLiveInSeconds'] as num,
     oneTimePasswordTimeToLiveInSeconds:
@@ -3053,6 +3092,8 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
       'emailVerificationIdGenerator', instance.emailVerificationIdGenerator);
   writeNotNull('emailVerificationIdTimeToLiveInSeconds',
       instance.emailVerificationIdTimeToLiveInSeconds);
+  writeNotNull('emailVerificationOneTimeCodeGenerator',
+      instance.emailVerificationOneTimeCodeGenerator);
   writeNotNull('externalAuthenticationIdTimeToLiveInSeconds',
       instance.externalAuthenticationIdTimeToLiveInSeconds);
   writeNotNull('oneTimePasswordTimeToLiveInSeconds',
@@ -5371,6 +5412,10 @@ LoginConfiguration _$LoginConfigurationFromJson(Map<String, dynamic> json) {
     allowTokenRefresh: json['allowTokenRefresh'] as bool,
     generateRefreshTokens: json['generateRefreshTokens'] as bool,
     requireAuthentication: json['requireAuthentication'] as bool,
+    unverified: json['unverified'] == null
+        ? null
+        : ApplicationUnverifiedConfiguration.fromJson(
+            json['unverified'] as Map<String, dynamic>),
   );
 }
 
@@ -5386,6 +5431,7 @@ Map<String, dynamic> _$LoginConfigurationToJson(LoginConfiguration instance) {
   writeNotNull('allowTokenRefresh', instance.allowTokenRefresh);
   writeNotNull('generateRefreshTokens', instance.generateRefreshTokens);
   writeNotNull('requireAuthentication', instance.requireAuthentication);
+  writeNotNull('unverified', instance.unverified);
   return val;
 }
 
@@ -5647,6 +5693,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
+    verificationId: json['verificationId'] as String,
   );
 }
 
@@ -5670,6 +5717,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) {
   writeNotNull('twoFactorId', instance.twoFactorId);
   writeNotNull('twoFactorTrustId', instance.twoFactorTrustId);
   writeNotNull('user', instance.user);
+  writeNotNull('verificationId', instance.verificationId);
   return val;
 }
 
@@ -7896,6 +7944,7 @@ SecureIdentity _$SecureIdentityFromJson(Map<String, dynamic> json) {
     passwordChangeRequired: json['passwordChangeRequired'] as bool,
     passwordLastUpdateInstant: json['passwordLastUpdateInstant'] as num,
     salt: json['salt'] as String,
+    uniqueUsername: json['uniqueUsername'] as String,
     username: json['username'] as String,
     usernameStatus:
         _$enumDecodeNullable(_$ContentStatusEnumMap, json['usernameStatus']),
@@ -7927,6 +7976,7 @@ Map<String, dynamic> _$SecureIdentityToJson(SecureIdentity instance) {
   writeNotNull('passwordChangeRequired', instance.passwordChangeRequired);
   writeNotNull('passwordLastUpdateInstant', instance.passwordLastUpdateInstant);
   writeNotNull('salt', instance.salt);
+  writeNotNull('uniqueUsername', instance.uniqueUsername);
   writeNotNull('username', instance.username);
   writeNotNull(
       'usernameStatus', _$ContentStatusEnumMap[instance.usernameStatus]);
@@ -8471,6 +8521,10 @@ TenantLoginConfiguration _$TenantLoginConfigurationFromJson(
     Map<String, dynamic> json) {
   return TenantLoginConfiguration(
     requireAuthentication: json['requireAuthentication'] as bool,
+    unverified: json['unverified'] == null
+        ? null
+        : TenantUnverifiedConfiguration.fromJson(
+            json['unverified'] as Map<String, dynamic>),
   );
 }
 
@@ -8485,6 +8539,7 @@ Map<String, dynamic> _$TenantLoginConfigurationToJson(
   }
 
   writeNotNull('requireAuthentication', instance.requireAuthentication);
+  writeNotNull('unverified', instance.unverified);
   return val;
 }
 
@@ -8567,6 +8622,32 @@ Map<String, dynamic> _$TenantResponseToJson(TenantResponse instance) {
 
   writeNotNull('tenant', instance.tenant);
   writeNotNull('tenants', instance.tenants);
+  return val;
+}
+
+TenantUnverifiedConfiguration _$TenantUnverifiedConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantUnverifiedConfiguration(
+    email: _$enumDecodeNullable(_$UnverifiedBehaviorEnumMap, json['email']),
+    whenGated: json['whenGated'] == null
+        ? null
+        : UnverifiedGatedOptions.fromJson(
+            json['whenGated'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TenantUnverifiedConfigurationToJson(
+    TenantUnverifiedConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('email', _$UnverifiedBehaviorEnumMap[instance.email]);
+  writeNotNull('whenGated', instance.whenGated);
   return val;
 }
 
@@ -9234,6 +9315,37 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
   return val;
 }
 
+UnverifiedGatedOptions _$UnverifiedGatedOptionsFromJson(
+    Map<String, dynamic> json) {
+  return UnverifiedGatedOptions(
+    allowEmailChange: json['allowEmailChange'] as bool,
+    verificationStrategy: _$enumDecodeNullable(
+        _$VerificationStrategyEnumMap, json['verificationStrategy']),
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$UnverifiedGatedOptionsToJson(
+    UnverifiedGatedOptions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('allowEmailChange', instance.allowEmailChange);
+  writeNotNull('verificationStrategy',
+      _$VerificationStrategyEnumMap[instance.verificationStrategy]);
+  return val;
+}
+
+const _$VerificationStrategyEnumMap = {
+  VerificationStrategy.ClickableLink: 'ClickableLink',
+  VerificationStrategy.FormField: 'FormField',
+};
+
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     active: json['active'] as bool,
@@ -9284,6 +9396,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..passwordChangeRequired = json['passwordChangeRequired'] as bool
     ..passwordLastUpdateInstant = json['passwordLastUpdateInstant'] as num
     ..salt = json['salt'] as String
+    ..uniqueUsername = json['uniqueUsername'] as String
     ..username = json['username'] as String
     ..usernameStatus =
         _$enumDecodeNullable(_$ContentStatusEnumMap, json['usernameStatus'])
@@ -9314,6 +9427,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
   writeNotNull('passwordChangeRequired', instance.passwordChangeRequired);
   writeNotNull('passwordLastUpdateInstant', instance.passwordLastUpdateInstant);
   writeNotNull('salt', instance.salt);
+  writeNotNull('uniqueUsername', instance.uniqueUsername);
   writeNotNull('username', instance.username);
   writeNotNull(
       'usernameStatus', _$ContentStatusEnumMap[instance.usernameStatus]);
@@ -10554,8 +10668,30 @@ Map<String, dynamic> _$ValidateResponseToJson(ValidateResponse instance) {
   return val;
 }
 
+VerifyEmailRequest _$VerifyEmailRequestFromJson(Map<String, dynamic> json) {
+  return VerifyEmailRequest(
+    oneTimeCode: json['oneTimeCode'] as String,
+    verificationId: json['verificationId'] as String,
+  );
+}
+
+Map<String, dynamic> _$VerifyEmailRequestToJson(VerifyEmailRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('oneTimeCode', instance.oneTimeCode);
+  writeNotNull('verificationId', instance.verificationId);
+  return val;
+}
+
 VerifyEmailResponse _$VerifyEmailResponseFromJson(Map<String, dynamic> json) {
   return VerifyEmailResponse(
+    oneTimeCode: json['oneTimeCode'] as String,
     verificationId: json['verificationId'] as String,
   );
 }
@@ -10569,6 +10705,7 @@ Map<String, dynamic> _$VerifyEmailResponseToJson(VerifyEmailResponse instance) {
     }
   }
 
+  writeNotNull('oneTimeCode', instance.oneTimeCode);
   writeNotNull('verificationId', instance.verificationId);
   return val;
 }
@@ -10591,6 +10728,25 @@ Map<String, dynamic> _$VerifyRegistrationResponseToJson(
   }
 
   writeNotNull('verificationId', instance.verificationId);
+  return val;
+}
+
+VersionResponse _$VersionResponseFromJson(Map<String, dynamic> json) {
+  return VersionResponse(
+    version: json['version'] as String,
+  );
+}
+
+Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('version', instance.version);
   return val;
 }
 
