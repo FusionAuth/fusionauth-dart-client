@@ -441,6 +441,21 @@ class ApplicationRole {
   Map<String, dynamic> toJson() => _$ApplicationRoleToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ApplicationUnverifiedConfiguration {
+  UnverifiedBehavior registration;
+  UnverifiedGatedOptions whenGated;
+
+  ApplicationUnverifiedConfiguration({this.registration, this.whenGated});
+
+  factory ApplicationUnverifiedConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationUnverifiedConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationUnverifiedConfigurationToJson(this);
+}
+
 /// This class is a simple attachment with a byte array, name and MIME type.
 ///
 /// @author Brian Pontarelli
@@ -3606,13 +3621,13 @@ class LoginConfiguration {
   bool allowTokenRefresh;
   bool generateRefreshTokens;
   bool requireAuthentication;
-  UnverifiedBehavior unverifiedEmailBehavior;
+  ApplicationUnverifiedConfiguration unverified;
 
   LoginConfiguration(
       {this.allowTokenRefresh,
       this.generateRefreshTokens,
       this.requireAuthentication,
-      this.unverifiedEmailBehavior});
+      this.unverified});
 
   factory LoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LoginConfigurationFromJson(json);
@@ -5600,10 +5615,9 @@ class TenantFormConfiguration {
 @JsonSerializable()
 class TenantLoginConfiguration {
   bool requireAuthentication;
-  UnverifiedBehavior unverifiedEmailBehavior;
+  TenantUnverifiedConfiguration unverified;
 
-  TenantLoginConfiguration(
-      {this.requireAuthentication, this.unverifiedEmailBehavior});
+  TenantLoginConfiguration({this.requireAuthentication, this.unverified});
 
   factory TenantLoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantLoginConfigurationFromJson(json);
@@ -5648,6 +5662,19 @@ class TenantResponse {
   factory TenantResponse.fromJson(Map<String, dynamic> json) =>
       _$TenantResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TenantResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantUnverifiedConfiguration {
+  UnverifiedBehavior email;
+  UnverifiedGatedOptions whenGated;
+
+  TenantUnverifiedConfiguration({this.email, this.whenGated});
+
+  factory TenantUnverifiedConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantUnverifiedConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantUnverifiedConfigurationToJson(this);
 }
 
 /// A Tenant-level policy for deleting Users.
@@ -6083,6 +6110,19 @@ enum UnverifiedBehavior {
   Allow,
   @JsonValue('Gated')
   Gated
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UnverifiedGatedOptions extends Enableable {
+  bool allowEmailChange;
+  VerificationStrategy verificationStrategy;
+
+  UnverifiedGatedOptions({this.allowEmailChange, this.verificationStrategy});
+
+  factory UnverifiedGatedOptions.fromJson(Map<String, dynamic> json) =>
+      _$UnverifiedGatedOptionsFromJson(json);
+  Map<String, dynamic> toJson() => _$UnverifiedGatedOptionsToJson(this);
 }
 
 /// The global view of a User. This object contains all global information about the user including birth date, registration information
@@ -6914,6 +6954,14 @@ class ValidateResponse {
 }
 
 /// @author Daniel DeGroff
+enum VerificationStrategy {
+  @JsonValue('ClickableLink')
+  ClickableLink,
+  @JsonValue('FormField')
+  FormField
+}
+
+/// @author Daniel DeGroff
 @JsonSerializable()
 class VerifyEmailRequest {
   String oneTimeCode;
@@ -6949,6 +6997,18 @@ class VerifyRegistrationResponse {
   factory VerifyRegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyRegistrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$VerifyRegistrationResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class VersionResponse {
+  String version;
+
+  VersionResponse({this.version});
+
+  factory VersionResponse.fromJson(Map<String, dynamic> json) =>
+      _$VersionResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$VersionResponseToJson(this);
 }
 
 /// A server where events are sent. This includes user action events and any other events sent by FusionAuth.
