@@ -3466,6 +3466,18 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves the FusionAuth version string.
+  ///
+  /// @returns {Promise<ClientResponse<VersionResponse>>}
+  Future<ClientResponse<VersionResponse, Errors>> retrieveVersion() {
+    return _start<VersionResponse, Errors>()
+        .withUri('/api/system/version')
+        .withMethod('GET')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => VersionResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
   ///
   /// @param {String} webhookId (Optional) The Id of the webhook.
