@@ -6883,8 +6883,9 @@ class UserRequest {
 class UserResponse {
   String token;
   User user;
+  String verificationId;
 
-  UserResponse({this.token, this.user});
+  UserResponse({this.token, this.user, this.verificationId});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
