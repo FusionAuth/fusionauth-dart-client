@@ -10536,6 +10536,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
+    verificationId: json['verificationId'] as String,
   );
 }
 
@@ -10550,6 +10551,7 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) {
 
   writeNotNull('token', instance.token);
   writeNotNull('user', instance.user);
+  writeNotNull('verificationId', instance.verificationId);
   return val;
 }
 
