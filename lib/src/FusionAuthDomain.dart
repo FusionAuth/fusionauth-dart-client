@@ -7009,6 +7009,19 @@ class VerifyEmailResponse {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class VerifyRegistrationRequest {
+  String oneTimeCode;
+  String verificationId;
+
+  VerifyRegistrationRequest({this.oneTimeCode, this.verificationId});
+
+  factory VerifyRegistrationRequest.fromJson(Map<String, dynamic> json) =>
+      _$VerifyRegistrationRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$VerifyRegistrationRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class VerifyRegistrationResponse {
   String verificationId;
 
