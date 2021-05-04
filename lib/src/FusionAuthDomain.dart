@@ -272,7 +272,9 @@ class Application {
   ObjectState state;
   String tenantId;
   String themeId;
+  RegistrationUnverifiedOptions unverified;
   String verificationEmailTemplateId;
+  VerificationStrategy verificationStrategy;
   bool verifyRegistration;
 
   Application(
@@ -299,7 +301,9 @@ class Application {
       this.state,
       this.tenantId,
       this.themeId,
+      this.unverified,
       this.verificationEmailTemplateId,
+      this.verificationStrategy,
       this.verifyRegistration});
 
   factory Application.fromJson(Map<String, dynamic> json) =>
@@ -445,9 +449,11 @@ class ApplicationRole {
 @JsonSerializable()
 class ApplicationUnverifiedConfiguration {
   UnverifiedBehavior registration;
-  UnverifiedGatedOptions whenGated;
+  VerificationStrategy verificationStrategy;
+  RegistrationUnverifiedOptions whenGated;
 
-  ApplicationUnverifiedConfiguration({this.registration, this.whenGated});
+  ApplicationUnverifiedConfiguration(
+      {this.registration, this.verificationStrategy, this.whenGated});
 
   factory ApplicationUnverifiedConfiguration.fromJson(
           Map<String, dynamic> json) =>
@@ -1318,8 +1324,10 @@ class EmailConfiguration {
   String properties;
   EmailSecurityType security;
   String setPasswordEmailTemplateId;
+  EmailUnverifiedOptions unverified;
   String username;
   String verificationEmailTemplateId;
+  VerificationStrategy verificationStrategy;
   bool verifyEmail;
   bool verifyEmailWhenChanged;
 
@@ -1334,8 +1342,10 @@ class EmailConfiguration {
       this.properties,
       this.security,
       this.setPasswordEmailTemplateId,
+      this.unverified,
       this.username,
       this.verificationEmailTemplateId,
+      this.verificationStrategy,
       this.verifyEmail,
       this.verifyEmailWhenChanged});
 
@@ -1447,6 +1457,19 @@ class EmailTemplateResponse {
   factory EmailTemplateResponse.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class EmailUnverifiedOptions {
+  bool allowEmailChangeWhenGated;
+  UnverifiedBehavior behavior;
+
+  EmailUnverifiedOptions({this.allowEmailChangeWhenGated, this.behavior});
+
+  factory EmailUnverifiedOptions.fromJson(Map<String, dynamic> json) =>
+      _$EmailUnverifiedOptionsFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailUnverifiedOptionsToJson(this);
 }
 
 /// Something that can be enabled and thus also disabled.
@@ -3621,13 +3644,11 @@ class LoginConfiguration {
   bool allowTokenRefresh;
   bool generateRefreshTokens;
   bool requireAuthentication;
-  ApplicationUnverifiedConfiguration unverified;
 
   LoginConfiguration(
       {this.allowTokenRefresh,
       this.generateRefreshTokens,
-      this.requireAuthentication,
-      this.unverified});
+      this.requireAuthentication});
 
   factory LoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LoginConfigurationFromJson(json);
@@ -4723,7 +4744,7 @@ class ReactorResponse {
 class ReactorStatus {
   ReactorFeatureStatus advancedIdentityProviders;
   ReactorFeatureStatus advancedMultiFactorAuthentication;
-  ReactorFeatureStatus advancedRegistrationForms;
+  ReactorFeatureStatus advancedRegistration;
   ReactorFeatureStatus applicationThemes;
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
@@ -4733,7 +4754,7 @@ class ReactorStatus {
   ReactorStatus(
       {this.advancedIdentityProviders,
       this.advancedMultiFactorAuthentication,
-      this.advancedRegistrationForms,
+      this.advancedRegistration,
       this.applicationThemes,
       this.breachedPasswordDetection,
       this.connectors,
@@ -4963,6 +4984,18 @@ enum RegistrationType {
   basic,
   @JsonValue('advanced')
   advanced
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class RegistrationUnverifiedOptions {
+  UnverifiedBehavior behavior;
+
+  RegistrationUnverifiedOptions({this.behavior});
+
+  factory RegistrationUnverifiedOptions.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationUnverifiedOptionsFromJson(json);
+  Map<String, dynamic> toJson() => _$RegistrationUnverifiedOptionsToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5615,9 +5648,8 @@ class TenantFormConfiguration {
 @JsonSerializable()
 class TenantLoginConfiguration {
   bool requireAuthentication;
-  TenantUnverifiedConfiguration unverified;
 
-  TenantLoginConfiguration({this.requireAuthentication, this.unverified});
+  TenantLoginConfiguration({this.requireAuthentication});
 
   factory TenantLoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantLoginConfigurationFromJson(json);
@@ -5668,7 +5700,7 @@ class TenantResponse {
 @JsonSerializable()
 class TenantUnverifiedConfiguration {
   UnverifiedBehavior email;
-  UnverifiedGatedOptions whenGated;
+  RegistrationUnverifiedOptions whenGated;
 
   TenantUnverifiedConfiguration({this.email, this.whenGated});
 
@@ -6110,19 +6142,6 @@ enum UnverifiedBehavior {
   Allow,
   @JsonValue('Gated')
   Gated
-}
-
-/// @author Daniel DeGroff
-@JsonSerializable()
-class UnverifiedGatedOptions extends Enableable {
-  bool allowEmailChange;
-  VerificationStrategy verificationStrategy;
-
-  UnverifiedGatedOptions({this.allowEmailChange, this.verificationStrategy});
-
-  factory UnverifiedGatedOptions.fromJson(Map<String, dynamic> json) =>
-      _$UnverifiedGatedOptionsFromJson(json);
-  Map<String, dynamic> toJson() => _$UnverifiedGatedOptionsToJson(this);
 }
 
 /// The global view of a User. This object contains all global information about the user including birth date, registration information
