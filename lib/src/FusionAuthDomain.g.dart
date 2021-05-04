@@ -459,7 +459,13 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
     state: _$enumDecodeNullable(_$ObjectStateEnumMap, json['state']),
     tenantId: json['tenantId'] as String,
     themeId: json['themeId'] as String,
+    unverified: json['unverified'] == null
+        ? null
+        : RegistrationUnverifiedOptions.fromJson(
+            json['unverified'] as Map<String, dynamic>),
     verificationEmailTemplateId: json['verificationEmailTemplateId'] as String,
+    verificationStrategy: _$enumDecodeNullable(
+        _$VerificationStrategyEnumMap, json['verificationStrategy']),
     verifyRegistration: json['verifyRegistration'] as bool,
   );
 }
@@ -497,8 +503,11 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('themeId', instance.themeId);
+  writeNotNull('unverified', instance.unverified);
   writeNotNull(
       'verificationEmailTemplateId', instance.verificationEmailTemplateId);
+  writeNotNull('verificationStrategy',
+      _$VerificationStrategyEnumMap[instance.verificationStrategy]);
   writeNotNull('verifyRegistration', instance.verifyRegistration);
   return val;
 }
@@ -507,6 +516,11 @@ const _$ObjectStateEnumMap = {
   ObjectState.Active: 'Active',
   ObjectState.Inactive: 'Inactive',
   ObjectState.PendingDelete: 'PendingDelete',
+};
+
+const _$VerificationStrategyEnumMap = {
+  VerificationStrategy.ClickableLink: 'ClickableLink',
+  VerificationStrategy.FormField: 'FormField',
 };
 
 ApplicationEmailConfiguration _$ApplicationEmailConfigurationFromJson(
@@ -717,9 +731,11 @@ ApplicationUnverifiedConfiguration _$ApplicationUnverifiedConfigurationFromJson(
   return ApplicationUnverifiedConfiguration(
     registration:
         _$enumDecodeNullable(_$UnverifiedBehaviorEnumMap, json['registration']),
+    verificationStrategy: _$enumDecodeNullable(
+        _$VerificationStrategyEnumMap, json['verificationStrategy']),
     whenGated: json['whenGated'] == null
         ? null
-        : UnverifiedGatedOptions.fromJson(
+        : RegistrationUnverifiedOptions.fromJson(
             json['whenGated'] as Map<String, dynamic>),
   );
 }
@@ -736,6 +752,8 @@ Map<String, dynamic> _$ApplicationUnverifiedConfigurationToJson(
 
   writeNotNull(
       'registration', _$UnverifiedBehaviorEnumMap[instance.registration]);
+  writeNotNull('verificationStrategy',
+      _$VerificationStrategyEnumMap[instance.verificationStrategy]);
   writeNotNull('whenGated', instance.whenGated);
   return val;
 }
@@ -1920,8 +1938,14 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) {
     security:
         _$enumDecodeNullable(_$EmailSecurityTypeEnumMap, json['security']),
     setPasswordEmailTemplateId: json['setPasswordEmailTemplateId'] as String,
+    unverified: json['unverified'] == null
+        ? null
+        : EmailUnverifiedOptions.fromJson(
+            json['unverified'] as Map<String, dynamic>),
     username: json['username'] as String,
     verificationEmailTemplateId: json['verificationEmailTemplateId'] as String,
+    verificationStrategy: _$enumDecodeNullable(
+        _$VerificationStrategyEnumMap, json['verificationStrategy']),
     verifyEmail: json['verifyEmail'] as bool,
     verifyEmailWhenChanged: json['verifyEmailWhenChanged'] as bool,
   );
@@ -1949,9 +1973,12 @@ Map<String, dynamic> _$EmailConfigurationToJson(EmailConfiguration instance) {
   writeNotNull('security', _$EmailSecurityTypeEnumMap[instance.security]);
   writeNotNull(
       'setPasswordEmailTemplateId', instance.setPasswordEmailTemplateId);
+  writeNotNull('unverified', instance.unverified);
   writeNotNull('username', instance.username);
   writeNotNull(
       'verificationEmailTemplateId', instance.verificationEmailTemplateId);
+  writeNotNull('verificationStrategy',
+      _$VerificationStrategyEnumMap[instance.verificationStrategy]);
   writeNotNull('verifyEmail', instance.verifyEmail);
   writeNotNull('verifyEmailWhenChanged', instance.verifyEmailWhenChanged);
   return val;
@@ -2116,6 +2143,30 @@ Map<String, dynamic> _$EmailTemplateResponseToJson(
 
   writeNotNull('emailTemplate', instance.emailTemplate);
   writeNotNull('emailTemplates', instance.emailTemplates);
+  return val;
+}
+
+EmailUnverifiedOptions _$EmailUnverifiedOptionsFromJson(
+    Map<String, dynamic> json) {
+  return EmailUnverifiedOptions(
+    allowEmailChangeWhenGated: json['allowEmailChangeWhenGated'] as bool,
+    behavior:
+        _$enumDecodeNullable(_$UnverifiedBehaviorEnumMap, json['behavior']),
+  );
+}
+
+Map<String, dynamic> _$EmailUnverifiedOptionsToJson(
+    EmailUnverifiedOptions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('allowEmailChangeWhenGated', instance.allowEmailChangeWhenGated);
+  writeNotNull('behavior', _$UnverifiedBehaviorEnumMap[instance.behavior]);
   return val;
 }
 
@@ -5412,10 +5463,6 @@ LoginConfiguration _$LoginConfigurationFromJson(Map<String, dynamic> json) {
     allowTokenRefresh: json['allowTokenRefresh'] as bool,
     generateRefreshTokens: json['generateRefreshTokens'] as bool,
     requireAuthentication: json['requireAuthentication'] as bool,
-    unverified: json['unverified'] == null
-        ? null
-        : ApplicationUnverifiedConfiguration.fromJson(
-            json['unverified'] as Map<String, dynamic>),
   );
 }
 
@@ -5431,7 +5478,6 @@ Map<String, dynamic> _$LoginConfigurationToJson(LoginConfiguration instance) {
   writeNotNull('allowTokenRefresh', instance.allowTokenRefresh);
   writeNotNull('generateRefreshTokens', instance.generateRefreshTokens);
   writeNotNull('requireAuthentication', instance.requireAuthentication);
-  writeNotNull('unverified', instance.unverified);
   return val;
 }
 
@@ -7083,8 +7129,8 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
     advancedMultiFactorAuthentication: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap,
         json['advancedMultiFactorAuthentication']),
-    advancedRegistrationForms: _$enumDecodeNullable(
-        _$ReactorFeatureStatusEnumMap, json['advancedRegistrationForms']),
+    advancedRegistration: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['advancedRegistration']),
     applicationThemes: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['applicationThemes']),
     breachedPasswordDetection: _$enumDecodeNullable(
@@ -7112,8 +7158,8 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
       'advancedMultiFactorAuthentication',
       _$ReactorFeatureStatusEnumMap[
           instance.advancedMultiFactorAuthentication]);
-  writeNotNull('advancedRegistrationForms',
-      _$ReactorFeatureStatusEnumMap[instance.advancedRegistrationForms]);
+  writeNotNull('advancedRegistration',
+      _$ReactorFeatureStatusEnumMap[instance.advancedRegistration]);
   writeNotNull('applicationThemes',
       _$ReactorFeatureStatusEnumMap[instance.applicationThemes]);
   writeNotNull('breachedPasswordDetection',
@@ -7448,6 +7494,28 @@ Map<String, dynamic> _$RegistrationResponseToJson(
   writeNotNull('registration', instance.registration);
   writeNotNull('token', instance.token);
   writeNotNull('user', instance.user);
+  return val;
+}
+
+RegistrationUnverifiedOptions _$RegistrationUnverifiedOptionsFromJson(
+    Map<String, dynamic> json) {
+  return RegistrationUnverifiedOptions(
+    behavior:
+        _$enumDecodeNullable(_$UnverifiedBehaviorEnumMap, json['behavior']),
+  );
+}
+
+Map<String, dynamic> _$RegistrationUnverifiedOptionsToJson(
+    RegistrationUnverifiedOptions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('behavior', _$UnverifiedBehaviorEnumMap[instance.behavior]);
   return val;
 }
 
@@ -8521,10 +8589,6 @@ TenantLoginConfiguration _$TenantLoginConfigurationFromJson(
     Map<String, dynamic> json) {
   return TenantLoginConfiguration(
     requireAuthentication: json['requireAuthentication'] as bool,
-    unverified: json['unverified'] == null
-        ? null
-        : TenantUnverifiedConfiguration.fromJson(
-            json['unverified'] as Map<String, dynamic>),
   );
 }
 
@@ -8539,7 +8603,6 @@ Map<String, dynamic> _$TenantLoginConfigurationToJson(
   }
 
   writeNotNull('requireAuthentication', instance.requireAuthentication);
-  writeNotNull('unverified', instance.unverified);
   return val;
 }
 
@@ -8631,7 +8694,7 @@ TenantUnverifiedConfiguration _$TenantUnverifiedConfigurationFromJson(
     email: _$enumDecodeNullable(_$UnverifiedBehaviorEnumMap, json['email']),
     whenGated: json['whenGated'] == null
         ? null
-        : UnverifiedGatedOptions.fromJson(
+        : RegistrationUnverifiedOptions.fromJson(
             json['whenGated'] as Map<String, dynamic>),
   );
 }
@@ -9314,37 +9377,6 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
   writeNotNull('separator', instance.separator);
   return val;
 }
-
-UnverifiedGatedOptions _$UnverifiedGatedOptionsFromJson(
-    Map<String, dynamic> json) {
-  return UnverifiedGatedOptions(
-    allowEmailChange: json['allowEmailChange'] as bool,
-    verificationStrategy: _$enumDecodeNullable(
-        _$VerificationStrategyEnumMap, json['verificationStrategy']),
-  )..enabled = json['enabled'] as bool;
-}
-
-Map<String, dynamic> _$UnverifiedGatedOptionsToJson(
-    UnverifiedGatedOptions instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('enabled', instance.enabled);
-  writeNotNull('allowEmailChange', instance.allowEmailChange);
-  writeNotNull('verificationStrategy',
-      _$VerificationStrategyEnumMap[instance.verificationStrategy]);
-  return val;
-}
-
-const _$VerificationStrategyEnumMap = {
-  VerificationStrategy.ClickableLink: 'ClickableLink',
-  VerificationStrategy.FormField: 'FormField',
-};
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
