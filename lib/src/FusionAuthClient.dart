@@ -1535,15 +1535,17 @@ class FusionAuthClient {
   /// @param {String} applicationId The Id of the application that they logged into.
   /// @param {String} callerIPAddress (Optional) The IP address of the end-user that is logging in. If a null value is provided
   ///    the IP address will be that of the client or last proxy that sent the request.
-  /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> loginPing(
+  /// @returns {Promise<ClientResponse<LoginResponse>>}
+  Future<ClientResponse<LoginResponse, Errors>> loginPing(
       String userId, String applicationId, String callerIPAddress) {
-    return _start<void, Errors>()
+    return _start<LoginResponse, Errors>()
         .withUri('/api/login')
         .withUriSegment(userId)
         .withUriSegment(applicationId)
         .withParameter('ipAddress', callerIPAddress)
         .withMethod('PUT')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => LoginResponse.fromJson(d)))
         .go();
   }
 

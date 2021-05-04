@@ -3804,27 +3804,29 @@ class LoginResponse {
   List<LoginPreventedResponse> actions;
   String changePasswordId;
   ChangePasswordReason changePasswordReason;
+  String emailVerificationId;
   List<TwoFactorMethod> methods;
   String refreshToken;
+  String registrationVerificationId;
   Map<String, dynamic> state;
   String token;
   String twoFactorId;
   String twoFactorTrustId;
   User user;
-  String verificationId;
 
   LoginResponse(
       {this.actions,
       this.changePasswordId,
       this.changePasswordReason,
+      this.emailVerificationId,
       this.methods,
       this.refreshToken,
+      this.registrationVerificationId,
       this.state,
       this.token,
       this.twoFactorId,
       this.twoFactorTrustId,
-      this.user,
-      this.verificationId});
+      this.user});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
@@ -4968,11 +4970,16 @@ class RegistrationRequest {
 class RegistrationResponse {
   String refreshToken;
   UserRegistration registration;
+  String registrationVerificationId;
   String token;
   User user;
 
   RegistrationResponse(
-      {this.refreshToken, this.registration, this.token, this.user});
+      {this.refreshToken,
+      this.registration,
+      this.registrationVerificationId,
+      this.token,
+      this.user});
 
   factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$RegistrationResponseFromJson(json);
@@ -6900,11 +6907,16 @@ class UserRequest {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class UserResponse {
+  String emailVerificationId;
+  Map<String, String> registrationVerificationIds;
   String token;
   User user;
-  String verificationId;
 
-  UserResponse({this.token, this.user, this.verificationId});
+  UserResponse(
+      {this.emailVerificationId,
+      this.registrationVerificationIds,
+      this.token,
+      this.user});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
@@ -6930,7 +6942,9 @@ enum UserState {
   @JsonValue('AuthenticatedNotRegistered')
   AuthenticatedNotRegistered,
   @JsonValue('AuthenticatedNotVerified')
-  AuthenticatedNotVerified
+  AuthenticatedNotVerified,
+  @JsonValue('AuthenticatedRegistrationNotVerified')
+  AuthenticatedRegistrationNotVerified
 }
 
 /// @author Daniel DeGroff
@@ -7023,9 +7037,10 @@ class VerifyRegistrationRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class VerifyRegistrationResponse {
+  String oneTimeCode;
   String verificationId;
 
-  VerifyRegistrationResponse({this.verificationId});
+  VerifyRegistrationResponse({this.oneTimeCode, this.verificationId});
 
   factory VerifyRegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyRegistrationResponseFromJson(json);
