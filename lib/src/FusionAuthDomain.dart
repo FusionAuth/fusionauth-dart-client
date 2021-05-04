@@ -2071,6 +2071,7 @@ class ExternalIdentifierConfiguration {
   num passwordlessLoginTimeToLiveInSeconds;
   SecureGeneratorConfiguration registrationVerificationIdGenerator;
   num registrationVerificationIdTimeToLiveInSeconds;
+  SecureGeneratorConfiguration registrationVerificationOneTimeCodeGenerator;
   num samlv2AuthNRequestIdTimeToLiveInSeconds;
   SecureGeneratorConfiguration setupPasswordIdGenerator;
   num setupPasswordIdTimeToLiveInSeconds;
@@ -2094,6 +2095,7 @@ class ExternalIdentifierConfiguration {
       this.passwordlessLoginTimeToLiveInSeconds,
       this.registrationVerificationIdGenerator,
       this.registrationVerificationIdTimeToLiveInSeconds,
+      this.registrationVerificationOneTimeCodeGenerator,
       this.samlv2AuthNRequestIdTimeToLiveInSeconds,
       this.setupPasswordIdGenerator,
       this.setupPasswordIdTimeToLiveInSeconds,
