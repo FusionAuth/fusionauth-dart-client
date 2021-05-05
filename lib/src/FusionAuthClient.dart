@@ -80,14 +80,11 @@ class FusionAuthClient {
 
   /// Activates the FusionAuth Reactor using a license id and optionally a license text (for air-gapped deployments)
   ///
-  /// @param {String} licenseId The license id
   /// @param {ReactorRequest} request An optional request that contains the license text to activate Reactor (useful for air-gap deployments of FusionAuth).
   /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> activateReactor(
-      String licenseId, ReactorRequest request) {
+  Future<ClientResponse<void, Errors>> activateReactor(ReactorRequest request) {
     return _start<void, Errors>()
         .withUri('/api/reactor')
-        .withUriSegment(licenseId)
         .withJSONBody(request)
         .withMethod('POST')
         .go();

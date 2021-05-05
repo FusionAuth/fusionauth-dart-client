@@ -4722,8 +4722,9 @@ class ReactorMetrics {
 @JsonSerializable()
 class ReactorRequest {
   String license;
+  String licenseId;
 
-  ReactorRequest({this.license});
+  ReactorRequest({this.license, this.licenseId});
 
   factory ReactorRequest.fromJson(Map<String, dynamic> json) =>
       _$ReactorRequestFromJson(json);

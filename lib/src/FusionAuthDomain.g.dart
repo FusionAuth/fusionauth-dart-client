@@ -7092,6 +7092,7 @@ Map<String, dynamic> _$ReactorMetricsToJson(ReactorMetrics instance) {
 ReactorRequest _$ReactorRequestFromJson(Map<String, dynamic> json) {
   return ReactorRequest(
     license: json['license'] as String,
+    licenseId: json['licenseId'] as String,
   );
 }
 
@@ -7105,6 +7106,7 @@ Map<String, dynamic> _$ReactorRequestToJson(ReactorRequest instance) {
   }
 
   writeNotNull('license', instance.license);
+  writeNotNull('licenseId', instance.licenseId);
   return val;
 }
 
