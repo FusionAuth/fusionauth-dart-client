@@ -5958,15 +5958,6 @@ class TwitterIdentityProvider
 }
 
 /// @author Daniel DeGroff
-/// @deprecated Use <code>User.twoFactor.methods</code>
-enum TwoFactorDelivery {
-  @JsonValue('None')
-  None,
-  @JsonValue('TextMessage')
-  TextMessage
-}
-
-/// @author Daniel DeGroff
 @JsonSerializable()
 class TwoFactorEnableDisableSendRequest {
   String email;
