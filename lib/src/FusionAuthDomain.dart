@@ -271,7 +271,10 @@ class Application {
   SAMLv2Configuration samlv2Configuration;
   ObjectState state;
   String tenantId;
+  String themeId;
+  RegistrationUnverifiedOptions unverified;
   String verificationEmailTemplateId;
+  VerificationStrategy verificationStrategy;
   bool verifyRegistration;
 
   Application(
@@ -297,7 +300,10 @@ class Application {
       this.samlv2Configuration,
       this.state,
       this.tenantId,
+      this.themeId,
+      this.unverified,
       this.verificationEmailTemplateId,
+      this.verificationStrategy,
       this.verifyRegistration});
 
   factory Application.fromJson(Map<String, dynamic> json) =>
@@ -437,6 +443,23 @@ class ApplicationRole {
   factory ApplicationRole.fromJson(Map<String, dynamic> json) =>
       _$ApplicationRoleFromJson(json);
   Map<String, dynamic> toJson() => _$ApplicationRoleToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ApplicationUnverifiedConfiguration {
+  UnverifiedBehavior registration;
+  VerificationStrategy verificationStrategy;
+  RegistrationUnverifiedOptions whenGated;
+
+  ApplicationUnverifiedConfiguration(
+      {this.registration, this.verificationStrategy, this.whenGated});
+
+  factory ApplicationUnverifiedConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationUnverifiedConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationUnverifiedConfigurationToJson(this);
 }
 
 /// This class is a simple attachment with a byte array, name and MIME type.
@@ -1301,8 +1324,10 @@ class EmailConfiguration {
   String properties;
   EmailSecurityType security;
   String setPasswordEmailTemplateId;
+  EmailUnverifiedOptions unverified;
   String username;
   String verificationEmailTemplateId;
+  VerificationStrategy verificationStrategy;
   bool verifyEmail;
   bool verifyEmailWhenChanged;
 
@@ -1317,8 +1342,10 @@ class EmailConfiguration {
       this.properties,
       this.security,
       this.setPasswordEmailTemplateId,
+      this.unverified,
       this.username,
       this.verificationEmailTemplateId,
+      this.verificationStrategy,
       this.verifyEmail,
       this.verifyEmailWhenChanged});
 
@@ -1430,6 +1457,19 @@ class EmailTemplateResponse {
   factory EmailTemplateResponse.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class EmailUnverifiedOptions {
+  bool allowEmailChangeWhenGated;
+  UnverifiedBehavior behavior;
+
+  EmailUnverifiedOptions({this.allowEmailChangeWhenGated, this.behavior});
+
+  factory EmailUnverifiedOptions.fromJson(Map<String, dynamic> json) =>
+      _$EmailUnverifiedOptionsFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailUnverifiedOptionsToJson(this);
 }
 
 /// Something that can be enabled and thus also disabled.
@@ -2024,12 +2064,14 @@ class ExternalIdentifierConfiguration {
   SecureGeneratorConfiguration deviceUserCodeIdGenerator;
   SecureGeneratorConfiguration emailVerificationIdGenerator;
   num emailVerificationIdTimeToLiveInSeconds;
+  SecureGeneratorConfiguration emailVerificationOneTimeCodeGenerator;
   num externalAuthenticationIdTimeToLiveInSeconds;
   num oneTimePasswordTimeToLiveInSeconds;
   SecureGeneratorConfiguration passwordlessLoginGenerator;
   num passwordlessLoginTimeToLiveInSeconds;
   SecureGeneratorConfiguration registrationVerificationIdGenerator;
   num registrationVerificationIdTimeToLiveInSeconds;
+  SecureGeneratorConfiguration registrationVerificationOneTimeCodeGenerator;
   num samlv2AuthNRequestIdTimeToLiveInSeconds;
   SecureGeneratorConfiguration setupPasswordIdGenerator;
   num setupPasswordIdTimeToLiveInSeconds;
@@ -2046,12 +2088,14 @@ class ExternalIdentifierConfiguration {
       this.deviceUserCodeIdGenerator,
       this.emailVerificationIdGenerator,
       this.emailVerificationIdTimeToLiveInSeconds,
+      this.emailVerificationOneTimeCodeGenerator,
       this.externalAuthenticationIdTimeToLiveInSeconds,
       this.oneTimePasswordTimeToLiveInSeconds,
       this.passwordlessLoginGenerator,
       this.passwordlessLoginTimeToLiveInSeconds,
       this.registrationVerificationIdGenerator,
       this.registrationVerificationIdTimeToLiveInSeconds,
+      this.registrationVerificationOneTimeCodeGenerator,
       this.samlv2AuthNRequestIdTimeToLiveInSeconds,
       this.setupPasswordIdGenerator,
       this.setupPasswordIdTimeToLiveInSeconds,
@@ -3784,8 +3828,10 @@ class LoginResponse {
   List<LoginPreventedResponse> actions;
   String changePasswordId;
   ChangePasswordReason changePasswordReason;
+  String emailVerificationId;
   List<TwoFactorMethod> methods;
   String refreshToken;
+  String registrationVerificationId;
   Map<String, dynamic> state;
   String token;
   String twoFactorId;
@@ -3796,8 +3842,10 @@ class LoginResponse {
       {this.actions,
       this.changePasswordId,
       this.changePasswordReason,
+      this.emailVerificationId,
       this.methods,
       this.refreshToken,
+      this.registrationVerificationId,
       this.state,
       this.token,
       this.twoFactorId,
@@ -4696,8 +4744,9 @@ class ReactorMetrics {
 @JsonSerializable()
 class ReactorRequest {
   String license;
+  String licenseId;
 
-  ReactorRequest({this.license});
+  ReactorRequest({this.license, this.licenseId});
 
   factory ReactorRequest.fromJson(Map<String, dynamic> json) =>
       _$ReactorRequestFromJson(json);
@@ -4722,7 +4771,8 @@ class ReactorResponse {
 class ReactorStatus {
   ReactorFeatureStatus advancedIdentityProviders;
   ReactorFeatureStatus advancedMultiFactorAuthentication;
-  ReactorFeatureStatus advancedRegistrationForms;
+  ReactorFeatureStatus advancedRegistration;
+  ReactorFeatureStatus applicationThemes;
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
@@ -4731,7 +4781,8 @@ class ReactorStatus {
   ReactorStatus(
       {this.advancedIdentityProviders,
       this.advancedMultiFactorAuthentication,
-      this.advancedRegistrationForms,
+      this.advancedRegistration,
+      this.applicationThemes,
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
@@ -4944,11 +4995,16 @@ class RegistrationRequest {
 class RegistrationResponse {
   String refreshToken;
   UserRegistration registration;
+  String registrationVerificationId;
   String token;
   User user;
 
   RegistrationResponse(
-      {this.refreshToken, this.registration, this.token, this.user});
+      {this.refreshToken,
+      this.registration,
+      this.registrationVerificationId,
+      this.token,
+      this.user});
 
   factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$RegistrationResponseFromJson(json);
@@ -4960,6 +5016,18 @@ enum RegistrationType {
   basic,
   @JsonValue('advanced')
   advanced
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class RegistrationUnverifiedOptions {
+  UnverifiedBehavior behavior;
+
+  RegistrationUnverifiedOptions({this.behavior});
+
+  factory RegistrationUnverifiedOptions.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationUnverifiedOptionsFromJson(json);
+  Map<String, dynamic> toJson() => _$RegistrationUnverifiedOptionsToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5257,6 +5325,7 @@ class SecureIdentity {
   bool passwordChangeRequired;
   num passwordLastUpdateInstant;
   String salt;
+  String uniqueUsername;
   String username;
   ContentStatus usernameStatus;
   bool verified;
@@ -5274,6 +5343,7 @@ class SecureIdentity {
       this.passwordChangeRequired,
       this.passwordLastUpdateInstant,
       this.salt,
+      this.uniqueUsername,
       this.username,
       this.usernameStatus,
       this.verified});
@@ -5449,6 +5519,8 @@ class Templates {
   String accountTwoFactorIndex;
   String emailComplete;
   String emailSend;
+  String emailSent;
+  String emailVerificationRequired;
   String emailVerify;
   String helpers;
   String index;
@@ -5471,6 +5543,8 @@ class Templates {
   String passwordSent;
   String registrationComplete;
   String registrationSend;
+  String registrationSent;
+  String registrationVerificationRequired;
   String registrationVerify;
   String samlv2Logout;
 
@@ -5482,6 +5556,8 @@ class Templates {
       this.accountTwoFactorIndex,
       this.emailComplete,
       this.emailSend,
+      this.emailSent,
+      this.emailVerificationRequired,
       this.emailVerify,
       this.helpers,
       this.index,
@@ -5504,6 +5580,8 @@ class Templates {
       this.passwordSent,
       this.registrationComplete,
       this.registrationSend,
+      this.registrationSent,
+      this.registrationVerificationRequired,
       this.registrationVerify,
       this.samlv2Logout});
 
@@ -5541,6 +5619,7 @@ class Tenant {
   ObjectState state;
   String themeId;
   TenantUserDeletePolicy userDeletePolicy;
+  TenantUsernameConfiguration usernameConfiguration;
 
   Tenant(
       {this.configured,
@@ -5568,7 +5647,8 @@ class Tenant {
       this.passwordValidationRules,
       this.state,
       this.themeId,
-      this.userDeletePolicy});
+      this.userDeletePolicy,
+      this.usernameConfiguration});
 
   factory Tenant.fromJson(Map<String, dynamic> json) => _$TenantFromJson(json);
   Map<String, dynamic> toJson() => _$TenantToJson(this);
@@ -5648,6 +5728,19 @@ class TenantResponse {
   Map<String, dynamic> toJson() => _$TenantResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantUnverifiedConfiguration {
+  UnverifiedBehavior email;
+  RegistrationUnverifiedOptions whenGated;
+
+  TenantUnverifiedConfiguration({this.email, this.whenGated});
+
+  factory TenantUnverifiedConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantUnverifiedConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantUnverifiedConfigurationToJson(this);
+}
+
 /// A Tenant-level policy for deleting Users.
 ///
 /// @author Trevor Smith
@@ -5660,6 +5753,18 @@ class TenantUserDeletePolicy {
   factory TenantUserDeletePolicy.fromJson(Map<String, dynamic> json) =>
       _$TenantUserDeletePolicyFromJson(json);
   Map<String, dynamic> toJson() => _$TenantUserDeletePolicyToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantUsernameConfiguration {
+  UniqueUsernameConfiguration unique;
+
+  TenantUsernameConfiguration({this.unique});
+
+  factory TenantUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantUsernameConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantUsernameConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5875,15 +5980,6 @@ class TwitterIdentityProvider
 }
 
 /// @author Daniel DeGroff
-/// @deprecated Use <code>User.twoFactor.methods</code>
-enum TwoFactorDelivery {
-  @JsonValue('None')
-  None,
-  @JsonValue('TextMessage')
-  TextMessage
-}
-
-/// @author Daniel DeGroff
 @JsonSerializable()
 class TwoFactorEnableDisableSendRequest {
   String email;
@@ -6049,6 +6145,26 @@ class UIConfiguration {
   factory UIConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UIConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UIConfigurationToJson(this);
+}
+
+@JsonSerializable()
+class UniqueUsernameConfiguration extends Enableable {
+  num numberOfDigits;
+  char separator;
+
+  UniqueUsernameConfiguration({this.numberOfDigits, this.separator});
+
+  factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$UniqueUsernameConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum UnverifiedBehavior {
+  @JsonValue('Allow')
+  Allow,
+  @JsonValue('Gated')
+  Gated
 }
 
 /// The global view of a User. This object contains all global information about the user including birth date, registration information
@@ -6807,10 +6923,16 @@ class UserRequest {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class UserResponse {
+  String emailVerificationId;
+  Map<String, String> registrationVerificationIds;
   String token;
   User user;
 
-  UserResponse({this.token, this.user});
+  UserResponse(
+      {this.emailVerificationId,
+      this.registrationVerificationIds,
+      this.token,
+      this.user});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
@@ -6834,7 +6956,11 @@ enum UserState {
   @JsonValue('Authenticated')
   Authenticated,
   @JsonValue('AuthenticatedNotRegistered')
-  AuthenticatedNotRegistered
+  AuthenticatedNotRegistered,
+  @JsonValue('AuthenticatedNotVerified')
+  AuthenticatedNotVerified,
+  @JsonValue('AuthenticatedRegistrationNotVerified')
+  AuthenticatedRegistrationNotVerified
 }
 
 /// @author Daniel DeGroff
@@ -6878,11 +7004,33 @@ class ValidateResponse {
 }
 
 /// @author Daniel DeGroff
+enum VerificationStrategy {
+  @JsonValue('ClickableLink')
+  ClickableLink,
+  @JsonValue('FormField')
+  FormField
+}
+
+/// @author Daniel DeGroff
 @JsonSerializable()
-class VerifyEmailResponse {
+class VerifyEmailRequest {
+  String oneTimeCode;
   String verificationId;
 
-  VerifyEmailResponse({this.verificationId});
+  VerifyEmailRequest({this.oneTimeCode, this.verificationId});
+
+  factory VerifyEmailRequest.fromJson(Map<String, dynamic> json) =>
+      _$VerifyEmailRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$VerifyEmailRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class VerifyEmailResponse {
+  String oneTimeCode;
+  String verificationId;
+
+  VerifyEmailResponse({this.oneTimeCode, this.verificationId});
 
   factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyEmailResponseFromJson(json);
@@ -6891,14 +7039,40 @@ class VerifyEmailResponse {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class VerifyRegistrationResponse {
+class VerifyRegistrationRequest {
+  String oneTimeCode;
   String verificationId;
 
-  VerifyRegistrationResponse({this.verificationId});
+  VerifyRegistrationRequest({this.oneTimeCode, this.verificationId});
+
+  factory VerifyRegistrationRequest.fromJson(Map<String, dynamic> json) =>
+      _$VerifyRegistrationRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$VerifyRegistrationRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class VerifyRegistrationResponse {
+  String oneTimeCode;
+  String verificationId;
+
+  VerifyRegistrationResponse({this.oneTimeCode, this.verificationId});
 
   factory VerifyRegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyRegistrationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$VerifyRegistrationResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class VersionResponse {
+  String version;
+
+  VersionResponse({this.version});
+
+  factory VersionResponse.fromJson(Map<String, dynamic> json) =>
+      _$VersionResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$VersionResponseToJson(this);
 }
 
 /// A server where events are sent. This includes user action events and any other events sent by FusionAuth.
