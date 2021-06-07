@@ -710,6 +710,7 @@ class BaseIdentityProvider<
   num insertInstant;
   dynamic lambdaConfiguration;
   num lastUpdateInstant;
+  IdentityProviderLinkingStrategy linkingStrategy;
   String name;
   IdentityProviderType type;
 
@@ -721,6 +722,7 @@ class BaseIdentityProvider<
       this.insertInstant,
       this.lambdaConfiguration,
       this.lastUpdateInstant,
+      this.linkingStrategy,
       this.name,
       this.type});
 
@@ -975,6 +977,16 @@ enum ClientAuthenticationMethod {
   client_secret_post
 }
 
+/// @author Brett Guy
+enum ClientAuthenticationPolicy {
+  @JsonValue('Required')
+  Required,
+  @JsonValue('NotRequired')
+  NotRequired,
+  @JsonValue('NotRequiredWhenUsingPKCE')
+  NotRequiredWhenUsingPKCE
+}
+
 /// @author Trevor Smith
 @JsonSerializable()
 class ConnectorPolicy {
@@ -1163,6 +1175,18 @@ class DailyActiveUserReportResponse {
   factory DailyActiveUserReportResponse.fromJson(Map<String, dynamic> json) =>
       _$DailyActiveUserReportResponseFromJson(json);
   Map<String, dynamic> toJson() => _$DailyActiveUserReportResponseToJson(this);
+}
+
+/// Helper for dealing with default values.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class DefaultTools {
+  DefaultTools();
+
+  factory DefaultTools.fromJson(Map<String, dynamic> json) =>
+      _$DefaultToolsFromJson(json);
+  Map<String, dynamic> toJson() => _$DefaultToolsToJson(this);
 }
 
 @JsonSerializable()
@@ -1831,6 +1855,44 @@ class EntityTypeSearchResponse {
   Map<String, dynamic> toJson() => _$EntityTypeSearchResponseToJson(this);
 }
 
+/// @author Brett Pontarelli
+@JsonSerializable()
+class EpicGamesApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  EpicGamesApplicationConfiguration(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory EpicGamesApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$EpicGamesApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$EpicGamesApplicationConfigurationToJson(this);
+}
+
+/// Epic gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class EpicGamesIdentityProvider
+    extends BaseIdentityProvider<EpicGamesApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  EpicGamesIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory EpicGamesIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$EpicGamesIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$EpicGamesIdentityProviderToJson(this);
+}
+
 /// Defines an error.
 ///
 /// @author Brian Pontarelli
@@ -2069,6 +2131,7 @@ class ExternalIdentifierConfiguration {
   num oneTimePasswordTimeToLiveInSeconds;
   SecureGeneratorConfiguration passwordlessLoginGenerator;
   num passwordlessLoginTimeToLiveInSeconds;
+  num pendingAccountLinkTimeToLiveInSeconds;
   SecureGeneratorConfiguration registrationVerificationIdGenerator;
   num registrationVerificationIdTimeToLiveInSeconds;
   SecureGeneratorConfiguration registrationVerificationOneTimeCodeGenerator;
@@ -2093,6 +2156,7 @@ class ExternalIdentifierConfiguration {
       this.oneTimePasswordTimeToLiveInSeconds,
       this.passwordlessLoginGenerator,
       this.passwordlessLoginTimeToLiveInSeconds,
+      this.pendingAccountLinkTimeToLiveInSeconds,
       this.registrationVerificationIdGenerator,
       this.registrationVerificationIdTimeToLiveInSeconds,
       this.registrationVerificationOneTimeCodeGenerator,
@@ -2157,6 +2221,7 @@ class FacebookApplicationConfiguration
   String buttonText;
   String client_secret;
   String fields;
+  IdentityProviderLoginMethod loginMethod;
   String permissions;
 
   FacebookApplicationConfiguration(
@@ -2164,6 +2229,7 @@ class FacebookApplicationConfiguration
       this.buttonText,
       this.client_secret,
       this.fields,
+      this.loginMethod,
       this.permissions});
 
   factory FacebookApplicationConfiguration.fromJson(
@@ -2183,6 +2249,7 @@ class FacebookIdentityProvider
   String buttonText;
   String client_secret;
   String fields;
+  IdentityProviderLoginMethod loginMethod;
   String permissions;
 
   FacebookIdentityProvider(
@@ -2190,6 +2257,7 @@ class FacebookIdentityProvider
       this.buttonText,
       this.client_secret,
       this.fields,
+      this.loginMethod,
       this.permissions});
 
   factory FacebookIdentityProvider.fromJson(Map<String, dynamic> json) =>
@@ -2658,10 +2726,15 @@ class GoogleApplicationConfiguration
   String buttonText;
   String client_id;
   String client_secret;
+  IdentityProviderLoginMethod loginMethod;
   String scope;
 
   GoogleApplicationConfiguration(
-      {this.buttonText, this.client_id, this.client_secret, this.scope});
+      {this.buttonText,
+      this.client_id,
+      this.client_secret,
+      this.loginMethod,
+      this.scope});
 
   factory GoogleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$GoogleApplicationConfigurationFromJson(json);
@@ -2677,10 +2750,15 @@ class GoogleIdentityProvider
   String buttonText;
   String client_id;
   String client_secret;
+  IdentityProviderLoginMethod loginMethod;
   String scope;
 
   GoogleIdentityProvider(
-      {this.buttonText, this.client_id, this.client_secret, this.scope});
+      {this.buttonText,
+      this.client_id,
+      this.client_secret,
+      this.loginMethod,
+      this.scope});
 
   factory GoogleIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$GoogleIdentityProviderFromJson(json);
@@ -2868,6 +2946,96 @@ class IdentityProviderDetails {
   Map<String, dynamic> toJson() => _$IdentityProviderDetailsToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class IdentityProviderLink {
+  Map<String, dynamic> data;
+  String displayName;
+  String identityProviderId;
+  String identityProviderUserId;
+  num insertInstant;
+  num lastLoginInstant;
+  String tenantId;
+  String token;
+  String userId;
+
+  IdentityProviderLink(
+      {this.data,
+      this.displayName,
+      this.identityProviderId,
+      this.identityProviderUserId,
+      this.insertInstant,
+      this.lastLoginInstant,
+      this.tenantId,
+      this.token,
+      this.userId});
+
+  factory IdentityProviderLink.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderLinkFromJson(json);
+  Map<String, dynamic> toJson() => _$IdentityProviderLinkToJson(this);
+}
+
+/// The IdP behavior when no user link has been made yet.
+///
+/// @author Daniel DeGroff
+enum IdentityProviderLinkingStrategy {
+  @JsonValue('CreatePendingLink')
+  CreatePendingLink,
+  @JsonValue('LinkAnonymously')
+  LinkAnonymously,
+  @JsonValue('LinkByEmail')
+  LinkByEmail,
+  @JsonValue('LinkByEmailForExistingUser')
+  LinkByEmailForExistingUser,
+  @JsonValue('LinkByUsername')
+  LinkByUsername,
+  @JsonValue('LinkByUsernameForExistingUser')
+  LinkByUsernameForExistingUser,
+  @JsonValue('Unsupported')
+  Unsupported
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class IdentityProviderLinkRequest {
+  String identityProviderId;
+  String identityProviderUserId;
+  String pendingIdPLinkId;
+  String userId;
+
+  IdentityProviderLinkRequest(
+      {this.identityProviderId,
+      this.identityProviderUserId,
+      this.pendingIdPLinkId,
+      this.userId});
+
+  factory IdentityProviderLinkRequest.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderLinkRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$IdentityProviderLinkRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class IdentityProviderLinkResponse {
+  IdentityProviderLink identityProviderLink;
+  List<IdentityProviderLink> identityProviderLinks;
+
+  IdentityProviderLinkResponse(
+      {this.identityProviderLink, this.identityProviderLinks});
+
+  factory IdentityProviderLinkResponse.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderLinkResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$IdentityProviderLinkResponseToJson(this);
+}
+
+/// @author Brett Pontarelli
+enum IdentityProviderLoginMethod {
+  @JsonValue('UsePopup')
+  UsePopup,
+  @JsonValue('UseRedirect')
+  UseRedirect
+}
+
 /// Login API request object used for login to third-party systems (i.e. Login with Facebook).
 ///
 /// @author Brian Pontarelli
@@ -2896,7 +3064,9 @@ class IdentityProviderOauth2Configuration {
   String issuer;
   String scope;
   String token_endpoint;
+  String uniqueIdClaim;
   String userinfo_endpoint;
+  String usernameClaim;
 
   IdentityProviderOauth2Configuration(
       {this.authorization_endpoint,
@@ -2907,7 +3077,9 @@ class IdentityProviderOauth2Configuration {
       this.issuer,
       this.scope,
       this.token_endpoint,
-      this.userinfo_endpoint});
+      this.uniqueIdClaim,
+      this.userinfo_endpoint,
+      this.usernameClaim});
 
   factory IdentityProviderOauth2Configuration.fromJson(
           Map<String, dynamic> json) =>
@@ -2977,26 +3149,38 @@ class IdentityProviderStartLoginResponse {
 
 /// @author Daniel DeGroff
 enum IdentityProviderType {
+  @JsonValue('Apple')
+  Apple,
+  @JsonValue('EpicGames')
+  EpicGames,
   @JsonValue('ExternalJWT')
   ExternalJWT,
-  @JsonValue('OpenIDConnect')
-  OpenIDConnect,
   @JsonValue('Facebook')
   Facebook,
   @JsonValue('Google')
   Google,
-  @JsonValue('Twitter')
-  Twitter,
-  @JsonValue('SAMLv2')
-  SAMLv2,
   @JsonValue('HYPR')
   HYPR,
-  @JsonValue('Apple')
-  Apple,
   @JsonValue('LinkedIn')
   LinkedIn,
+  @JsonValue('Nintendo')
+  Nintendo,
+  @JsonValue('OpenIDConnect')
+  OpenIDConnect,
+  @JsonValue('SAMLv2')
+  SAMLv2,
   @JsonValue('SAMLv2IdPInitiated')
-  SAMLv2IdPInitiated
+  SAMLv2IdPInitiated,
+  @JsonValue('SonyPSN')
+  SonyPSN,
+  @JsonValue('Steam')
+  Steam,
+  @JsonValue('Twitch')
+  Twitch,
+  @JsonValue('Twitter')
+  Twitter,
+  @JsonValue('Xbox')
+  Xbox
 }
 
 /// Import request.
@@ -3544,7 +3728,21 @@ enum LambdaType {
   @JsonValue('LDAPConnectorReconcile')
   LDAPConnectorReconcile,
   @JsonValue('LinkedInReconcile')
-  LinkedInReconcile
+  LinkedInReconcile,
+  @JsonValue('EpicGamesReconcile')
+  EpicGamesReconcile,
+  @JsonValue('NintendoReconcile')
+  NintendoReconcile,
+  @JsonValue('SonyPSNReconcile')
+  SonyPSNReconcile,
+  @JsonValue('SteamReconcile')
+  SteamReconcile,
+  @JsonValue('TwitchReconcile')
+  TwitchReconcile,
+  @JsonValue('XboxReconcile')
+  XboxReconcile,
+  @JsonValue('ClientCredentialsJWTPopulate')
+  ClientCredentialsJWTPopulate
 }
 
 /// Models an LDAP connector.
@@ -3808,6 +4006,7 @@ class LoginResponse {
   ChangePasswordReason changePasswordReason;
   String emailVerificationId;
   List<TwoFactorMethod> methods;
+  String pendingIdPLinkId;
   String refreshToken;
   String registrationVerificationId;
   Map<String, dynamic> state;
@@ -3822,6 +4021,7 @@ class LoginResponse {
       this.changePasswordReason,
       this.emailVerificationId,
       this.methods,
+      this.pendingIdPLinkId,
       this.refreshToken,
       this.registrationVerificationId,
       this.state,
@@ -3853,6 +4053,21 @@ class LookupResponse {
   factory LookupResponse.fromJson(Map<String, dynamic> json) =>
       _$LookupResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LookupResponseToJson(this);
+}
+
+/// This class contains the managed fields that are also put into the database during FusionAuth setup.
+/// <p>
+/// NOTE TO FUSIONAUTH DEVS: These fields are are also declared in SQL in order to boot strap the system. These need to stay in sync.
+/// - Any changes to these fields needs to also be reflected in mysql.sql and postgresql.sql
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class ManagedFields {
+  ManagedFields();
+
+  factory ManagedFields.fromJson(Map<String, dynamic> json) =>
+      _$ManagedFieldsFromJson(json);
+  Map<String, dynamic> toJson() => _$ManagedFieldsToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -4003,6 +4218,16 @@ class MessengerResponse {
   Map<String, dynamic> toJson() => _$MessengerResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class MessengerTransport {
+  MessengerTransport();
+
+  factory MessengerTransport.fromJson(Map<String, dynamic> json) =>
+      _$MessengerTransportFromJson(json);
+  Map<String, dynamic> toJson() => _$MessengerTransportToJson(this);
+}
+
 /// @author Brett Guy
 enum MessengerType {
   @JsonValue('Generic')
@@ -4112,6 +4337,44 @@ class MultiFactorSMSTemplate {
   Map<String, dynamic> toJson() => _$MultiFactorSMSTemplateToJson(this);
 }
 
+/// @author Brett Pontarelli
+@JsonSerializable()
+class NintendoApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  NintendoApplicationConfiguration(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory NintendoApplicationConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$NintendoApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$NintendoApplicationConfigurationToJson(this);
+}
+
+/// Nintendo gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class NintendoIdentityProvider
+    extends BaseIdentityProvider<NintendoApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  NintendoIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory NintendoIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$NintendoIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$NintendoIdentityProviderToJson(this);
+}
+
 /// Helper methods for normalizing values.
 ///
 /// @author Brian Pontarelli
@@ -4129,6 +4392,7 @@ class Normalizer {
 class OAuth2Configuration {
   List<String> authorizedOriginURLs;
   List<String> authorizedRedirectURLs;
+  ClientAuthenticationPolicy clientAuthenticationPolicy;
   String clientId;
   String clientSecret;
   bool debug;
@@ -4137,11 +4401,14 @@ class OAuth2Configuration {
   bool generateRefreshTokens;
   LogoutBehavior logoutBehavior;
   String logoutURL;
+  ProofKeyForCodeExchangePolicy proofKeyForCodeExchangePolicy;
   bool requireClientAuthentication;
+  bool requireRegistration;
 
   OAuth2Configuration(
       {this.authorizedOriginURLs,
       this.authorizedRedirectURLs,
+      this.clientAuthenticationPolicy,
       this.clientId,
       this.clientSecret,
       this.debug,
@@ -4150,7 +4417,9 @@ class OAuth2Configuration {
       this.generateRefreshTokens,
       this.logoutBehavior,
       this.logoutURL,
-      this.requireClientAuthentication});
+      this.proofKeyForCodeExchangePolicy,
+      this.requireClientAuthentication,
+      this.requireRegistration});
 
   factory OAuth2Configuration.fromJson(Map<String, dynamic> json) =>
       _$OAuth2ConfigurationFromJson(json);
@@ -4256,6 +4525,10 @@ enum OAuthErrorReason {
   missing_client_secret,
   @JsonValue('missing_code')
   missing_code,
+  @JsonValue('missing_code_challenge')
+  missing_code_challenge,
+  @JsonValue('missing_code_verifier')
+  missing_code_verifier,
   @JsonValue('missing_device_code')
   missing_device_code,
   @JsonValue('missing_grant_type')
@@ -4596,6 +4869,33 @@ class PasswordValidationRulesResponse {
       _$PasswordValidationRulesResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class PendingIdPLink {
+  String displayName;
+  String email;
+  String identityProviderId;
+  String identityProviderName;
+  String identityProviderType;
+  String identityProviderUserId;
+  User user;
+  String username;
+
+  PendingIdPLink(
+      {this.displayName,
+      this.email,
+      this.identityProviderId,
+      this.identityProviderName,
+      this.identityProviderType,
+      this.identityProviderUserId,
+      this.user,
+      this.username});
+
+  factory PendingIdPLink.fromJson(Map<String, dynamic> json) =>
+      _$PendingIdPLinkFromJson(json);
+  Map<String, dynamic> toJson() => _$PendingIdPLinkToJson(this);
+}
+
 /// @author Brian Pontarelli
 @JsonSerializable()
 class PendingResponse {
@@ -4658,6 +4958,16 @@ class PreviewResponse {
   factory PreviewResponse.fromJson(Map<String, dynamic> json) =>
       _$PreviewResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PreviewResponseToJson(this);
+}
+
+/// @author Brett Guy
+enum ProofKeyForCodeExchangePolicy {
+  @JsonValue('Required')
+  Required,
+  @JsonValue('NotRequired')
+  NotRequired,
+  @JsonValue('NotRequiredWhenUsingClientAuthentication')
+  NotRequiredWhenUsingClientAuthentication
 }
 
 /// JWT Public Key Response Object
@@ -5008,6 +5318,20 @@ class RegistrationUnverifiedOptions {
   Map<String, dynamic> toJson() => _$RegistrationUnverifiedOptionsToJson(this);
 }
 
+/// Reindex API request
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ReindexRequest {
+  String index;
+
+  ReindexRequest({this.index});
+
+  factory ReindexRequest.fromJson(Map<String, dynamic> json) =>
+      _$ReindexRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ReindexRequestToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class ReloadRequest {
@@ -5127,10 +5451,13 @@ class SAMLv2IdentityProvider
   String idpEndpoint;
   String issuer;
   String keyId;
+  String nameIdFormat;
   bool postRequest;
   String requestSigningKeyId;
   bool signRequest;
+  String uniqueIdClaim;
   bool useNameIdForEmail;
+  String usernameClaim;
   CanonicalizationMethod xmlSignatureC14nMethod;
 
   SAMLv2IdentityProvider(
@@ -5141,10 +5468,13 @@ class SAMLv2IdentityProvider
       this.idpEndpoint,
       this.issuer,
       this.keyId,
+      this.nameIdFormat,
       this.postRequest,
       this.requestSigningKeyId,
       this.signRequest,
+      this.uniqueIdClaim,
       this.useNameIdForEmail,
+      this.usernameClaim,
       this.xmlSignatureC14nMethod});
 
   factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
@@ -5174,10 +5504,17 @@ class SAMLv2IdPInitiatedIdentityProvider
   String emailClaim;
   String issuer;
   String keyId;
+  String uniqueIdClaim;
   bool useNameIdForEmail;
+  String usernameClaim;
 
   SAMLv2IdPInitiatedIdentityProvider(
-      {this.emailClaim, this.issuer, this.keyId, this.useNameIdForEmail});
+      {this.emailClaim,
+      this.issuer,
+      this.keyId,
+      this.uniqueIdClaim,
+      this.useNameIdForEmail,
+      this.usernameClaim});
 
   factory SAMLv2IdPInitiatedIdentityProvider.fromJson(
           Map<String, dynamic> json) =>
@@ -5334,13 +5671,22 @@ class SecureIdentity {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class SendRequest {
+  String applicationId;
   List<String> bccAddresses;
   List<String> ccAddresses;
+  List<String> preferredLanguages;
   Map<String, dynamic> requestData;
+  List<EmailAddress> toAddresses;
   List<String> userIds;
 
   SendRequest(
-      {this.bccAddresses, this.ccAddresses, this.requestData, this.userIds});
+      {this.applicationId,
+      this.bccAddresses,
+      this.ccAddresses,
+      this.preferredLanguages,
+      this.requestData,
+      this.toAddresses,
+      this.userIds});
 
   factory SendRequest.fromJson(Map<String, dynamic> json) =>
       _$SendRequestFromJson(json);
@@ -5350,9 +5696,10 @@ class SendRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class SendResponse {
+  Map<String, EmailTemplateErrors> anonymousResults;
   Map<String, EmailTemplateErrors> results;
 
-  SendResponse({this.results});
+  SendResponse({this.anonymousResults, this.results});
 
   factory SendResponse.fromJson(Map<String, dynamic> json) =>
       _$SendResponseFromJson(json);
@@ -5385,6 +5732,43 @@ class SMSMessageTemplate extends MessageTemplate {
   Map<String, dynamic> toJson() => _$SMSMessageTemplateToJson(this);
 }
 
+/// @author Brett Pontarelli
+@JsonSerializable()
+class SonyPSNApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  SonyPSNApplicationConfiguration(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory SonyPSNApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SonyPSNApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SonyPSNApplicationConfigurationToJson(this);
+}
+
+/// SonyPSN gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class SonyPSNIdentityProvider
+    extends BaseIdentityProvider<SonyPSNApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  SonyPSNIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory SonyPSNIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$SonyPSNIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$SonyPSNIdentityProviderToJson(this);
+}
+
 /// @author Daniel DeGroff
 enum Sort {
   @JsonValue('asc')
@@ -5405,6 +5789,42 @@ class SortField {
   factory SortField.fromJson(Map<String, dynamic> json) =>
       _$SortFieldFromJson(json);
   Map<String, dynamic> toJson() => _$SortFieldToJson(this);
+}
+
+/// @author Brett Pontarelli
+@JsonSerializable()
+class SteamApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String scope;
+  String webAPIKey;
+
+  SteamApplicationConfiguration(
+      {this.buttonText, this.client_id, this.scope, this.webAPIKey});
+
+  factory SteamApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SteamApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$SteamApplicationConfigurationToJson(this);
+}
+
+/// Steam gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class SteamIdentityProvider
+    extends BaseIdentityProvider<SteamApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String scope;
+  String webAPIKey;
+
+  SteamIdentityProvider(
+      {this.buttonText, this.client_id, this.scope, this.webAPIKey});
+
+  factory SteamIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$SteamIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$SteamIdentityProviderToJson(this);
 }
 
 /// Helper interface that indicates an identity provider can be federated to using the HTTP POST method.
@@ -5503,6 +5923,7 @@ class Templates {
   String helpers;
   String index;
   String oauth2Authorize;
+  String oauth2AuthorizedNotRegistered;
   String oauth2ChildRegistrationNotAllowed;
   String oauth2ChildRegistrationNotAllowedComplete;
   String oauth2CompleteRegistration;
@@ -5512,6 +5933,7 @@ class Templates {
   String oauth2Logout;
   String oauth2Passwordless;
   String oauth2Register;
+  String oauth2StartIdPLink;
   String oauth2TwoFactor;
   String oauth2TwoFactorMethods;
   String oauth2Wait;
@@ -5540,6 +5962,7 @@ class Templates {
       this.helpers,
       this.index,
       this.oauth2Authorize,
+      this.oauth2AuthorizedNotRegistered,
       this.oauth2ChildRegistrationNotAllowed,
       this.oauth2ChildRegistrationNotAllowedComplete,
       this.oauth2CompleteRegistration,
@@ -5549,6 +5972,7 @@ class Templates {
       this.oauth2Logout,
       this.oauth2Passwordless,
       this.oauth2Register,
+      this.oauth2StartIdPLink,
       this.oauth2TwoFactor,
       this.oauth2TwoFactorMethods,
       this.oauth2Wait,
@@ -5592,6 +6016,7 @@ class Tenant {
   MinimumPasswordAge minimumPasswordAge;
   TenantMultiFactorConfiguration multiFactorConfiguration;
   String name;
+  TenantOAuth2Configuration oauthConfiguration;
   PasswordEncryptionConfiguration passwordEncryptionConfiguration;
   PasswordValidationRules passwordValidationRules;
   ObjectState state;
@@ -5621,6 +6046,7 @@ class Tenant {
       this.minimumPasswordAge,
       this.multiFactorConfiguration,
       this.name,
+      this.oauthConfiguration,
       this.passwordEncryptionConfiguration,
       this.passwordValidationRules,
       this.state,
@@ -5678,6 +6104,18 @@ class TenantMultiFactorConfiguration {
   factory TenantMultiFactorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantMultiFactorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantMultiFactorConfigurationToJson(this);
+}
+
+@JsonSerializable()
+class TenantOAuth2Configuration {
+  String clientCredentialsAccessTokenPopulateLambdaId;
+
+  TenantOAuth2Configuration(
+      {this.clientCredentialsAccessTokenPopulateLambdaId});
+
+  factory TenantOAuth2Configuration.fromJson(Map<String, dynamic> json) =>
+      _$TenantOAuth2ConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantOAuth2ConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5920,6 +6358,42 @@ class TwilioMessengerConfiguration extends BaseMessengerConfiguration {
   factory TwilioMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TwilioMessengerConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TwilioMessengerConfigurationToJson(this);
+}
+
+/// @author Brett Pontarelli
+@JsonSerializable()
+class TwitchApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  TwitchApplicationConfiguration(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory TwitchApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TwitchApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TwitchApplicationConfigurationToJson(this);
+}
+
+/// Twitch gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class TwitchIdentityProvider
+    extends BaseIdentityProvider<TwitchApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  TwitchIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory TwitchIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$TwitchIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$TwitchIdentityProviderToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -7123,6 +7597,42 @@ class WebhookResponse {
   factory WebhookResponse.fromJson(Map<String, dynamic> json) =>
       _$WebhookResponseFromJson(json);
   Map<String, dynamic> toJson() => _$WebhookResponseToJson(this);
+}
+
+/// @author Brett Pontarelli
+@JsonSerializable()
+class XboxApplicationConfiguration
+    extends BaseIdentityProviderApplicationConfiguration {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  XboxApplicationConfiguration(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory XboxApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$XboxApplicationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$XboxApplicationConfigurationToJson(this);
+}
+
+/// Xbox gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class XboxIdentityProvider
+    extends BaseIdentityProvider<XboxApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  XboxIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory XboxIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$XboxIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$XboxIdentityProviderToJson(this);
 }
 
 enum XMLSignatureLocation {

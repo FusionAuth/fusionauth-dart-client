@@ -610,6 +610,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Link an external user from a 3rd party identity provider to a FusionAuth user.
+  ///
+  /// @param {IdentityProviderLinkRequest} request The request object that contains all of the information used to link the FusionAuth user.
+  /// @returns {Promise<ClientResponse<IdentityProviderLinkResponse>>}
+  Future<ClientResponse<IdentityProviderLinkResponse, Errors>> createUserLink(
+      IdentityProviderLinkRequest request) {
+    return _start<IdentityProviderLinkResponse, Errors>()
+        .withUri('/api/identity-provider/link')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IdentityProviderLinkResponse.fromJson(d)))
+        .go();
+  }
+
   /// Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
   ///
   /// @param {String} webhookId (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
@@ -1054,6 +1069,25 @@ class FusionAuthClient {
         .withUri('/api/user-action-reason')
         .withUriSegment(userActionReasonId)
         .withMethod('DELETE')
+        .go();
+  }
+
+  /// Remove an existing link that has been made from a 3rd party identity provider to a FusionAuth user.
+  ///
+  /// @param {String} identityProviderId The unique Id of the identity provider.
+  /// @param {String} identityProviderUserId The unique Id of the user in the 3rd party identity provider to unlink.
+  /// @param {String} userId The unique Id of the FusionAuth user to unlink.
+  /// @returns {Promise<ClientResponse<IdentityProviderLinkResponse>>}
+  Future<ClientResponse<IdentityProviderLinkResponse, Errors>> deleteUserLink(
+      String identityProviderId, String identityProviderUserId, String userId) {
+    return _start<IdentityProviderLinkResponse, Errors>()
+        .withUri('/api/identity-provider/link')
+        .withParameter('identityProviderId', identityProviderId)
+        .withParameter('identityProviderUserId', identityProviderUserId)
+        .withParameter('userId', userId)
+        .withMethod('DELETE')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IdentityProviderLinkResponse.fromJson(d)))
         .go();
   }
 
@@ -2088,6 +2122,22 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Requests Elasticsearch to delete and rebuild the index for FusionAuth users or entities. Be very careful when running this request as it will
+  /// increase the CPU and I/O load on your database until the operation completes. Generally speaking you do not ever need to run this operation unless
+  /// instructed by FusionAuth support, or if you are migrating a database another system and you are not brining along the Elasticsearch index.
+  ///
+  /// You have been warned.
+  ///
+  /// @param {ReindexRequest} request The request that contains the index name.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> reindex(ReindexRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/system/reindex')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .go();
+  }
+
   /// Removes a user from the family with the given id.
   ///
   /// @param {String} familyId The id of the family to remove the user from.
@@ -3084,6 +3134,17 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieve the status of a re-index process. A status code of 200 indicates the re-index is in progress, a status code of
+  /// 404 indicates no re-index is in progress.
+  ///
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> retrieveReindexStatus() {
+    return _start<void, Errors>()
+        .withUri('/api/system/reindex')
+        .withMethod('GET')
+        .go();
+  }
+
   /// Retrieves the system configuration.
   ///
   /// @returns {Promise<ClientResponse<SystemConfigurationResponse>>}
@@ -3383,6 +3444,42 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => UserResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieve a single Identity Provider user (link).
+  ///
+  /// @param {String} identityProviderId The unique Id of the identity provider.
+  /// @param {String} identityProviderUserId The unique Id of the user in the 3rd party identity provider.
+  /// @param {String} userId The unique Id of the FusionAuth user.
+  /// @returns {Promise<ClientResponse<IdentityProviderLinkResponse>>}
+  Future<ClientResponse<IdentityProviderLinkResponse, Errors>> retrieveUserLink(
+      String identityProviderId, String identityProviderUserId, String userId) {
+    return _start<IdentityProviderLinkResponse, Errors>()
+        .withUri('/api/identity-provider/link')
+        .withParameter('identityProviderId', identityProviderId)
+        .withParameter('identityProviderUserId', identityProviderUserId)
+        .withParameter('userId', userId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IdentityProviderLinkResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieve all Identity Provider users (links) for the user. Specify the optional identityProviderId to retrieve links for a particular IdP.
+  ///
+  /// @param {String} identityProviderId (Optional) The unique Id of the identity provider. Specify this value to reduce the links returned to those for a particular IdP.
+  /// @param {String} userId The unique Id of the user.
+  /// @returns {Promise<ClientResponse<IdentityProviderLinkResponse>>}
+  Future<ClientResponse<IdentityProviderLinkResponse, Errors>>
+      retrieveUserLinksByUserId(String identityProviderId, String userId) {
+    return _start<IdentityProviderLinkResponse, Errors>()
+        .withUri('/api/identity-provider/link')
+        .withParameter('identityProviderId', identityProviderId)
+        .withParameter('userId', userId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IdentityProviderLinkResponse.fromJson(d)))
         .go();
   }
 

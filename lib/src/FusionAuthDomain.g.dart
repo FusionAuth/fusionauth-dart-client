@@ -347,6 +347,8 @@ AppleIdentityProvider _$AppleIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -369,6 +371,8 @@ Map<String, dynamic> _$AppleIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -379,17 +383,35 @@ Map<String, dynamic> _$AppleIdentityProviderToJson(
   return val;
 }
 
+const _$IdentityProviderLinkingStrategyEnumMap = {
+  IdentityProviderLinkingStrategy.CreatePendingLink: 'CreatePendingLink',
+  IdentityProviderLinkingStrategy.LinkAnonymously: 'LinkAnonymously',
+  IdentityProviderLinkingStrategy.LinkByEmail: 'LinkByEmail',
+  IdentityProviderLinkingStrategy.LinkByEmailForExistingUser:
+      'LinkByEmailForExistingUser',
+  IdentityProviderLinkingStrategy.LinkByUsername: 'LinkByUsername',
+  IdentityProviderLinkingStrategy.LinkByUsernameForExistingUser:
+      'LinkByUsernameForExistingUser',
+  IdentityProviderLinkingStrategy.Unsupported: 'Unsupported',
+};
+
 const _$IdentityProviderTypeEnumMap = {
+  IdentityProviderType.Apple: 'Apple',
+  IdentityProviderType.EpicGames: 'EpicGames',
   IdentityProviderType.ExternalJWT: 'ExternalJWT',
-  IdentityProviderType.OpenIDConnect: 'OpenIDConnect',
   IdentityProviderType.Facebook: 'Facebook',
   IdentityProviderType.Google: 'Google',
-  IdentityProviderType.Twitter: 'Twitter',
-  IdentityProviderType.SAMLv2: 'SAMLv2',
   IdentityProviderType.HYPR: 'HYPR',
-  IdentityProviderType.Apple: 'Apple',
   IdentityProviderType.LinkedIn: 'LinkedIn',
+  IdentityProviderType.Nintendo: 'Nintendo',
+  IdentityProviderType.OpenIDConnect: 'OpenIDConnect',
+  IdentityProviderType.SAMLv2: 'SAMLv2',
   IdentityProviderType.SAMLv2IdPInitiated: 'SAMLv2IdPInitiated',
+  IdentityProviderType.SonyPSN: 'SonyPSN',
+  IdentityProviderType.Steam: 'Steam',
+  IdentityProviderType.Twitch: 'Twitch',
+  IdentityProviderType.Twitter: 'Twitter',
+  IdentityProviderType.Xbox: 'Xbox',
 };
 
 Application _$ApplicationFromJson(Map<String, dynamic> json) {
@@ -1188,6 +1210,8 @@ Map<String, dynamic> _$BaseIdentityProviderToJson<
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   return val;
@@ -1725,6 +1749,13 @@ Map<String, dynamic> _$DailyActiveUserReportResponseToJson(
   writeNotNull('total', instance.total);
   return val;
 }
+
+DefaultTools _$DefaultToolsFromJson(Map<String, dynamic> json) {
+  return DefaultTools();
+}
+
+Map<String, dynamic> _$DefaultToolsToJson(DefaultTools instance) =>
+    <String, dynamic>{};
 
 DeleteConfiguration _$DeleteConfigurationFromJson(Map<String, dynamic> json) {
   return DeleteConfiguration(
@@ -2744,6 +2775,98 @@ Map<String, dynamic> _$EntityTypeSearchResponseToJson(
   return val;
 }
 
+EpicGamesApplicationConfiguration _$EpicGamesApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return EpicGamesApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$EpicGamesApplicationConfigurationToJson(
+    EpicGamesApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
+EpicGamesIdentityProvider _$EpicGamesIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return EpicGamesIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : EpicGamesApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$EpicGamesIdentityProviderToJson(
+    EpicGamesIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
 Error _$ErrorFromJson(Map<String, dynamic> json) {
   return Error(
     code: json['code'] as String,
@@ -3091,6 +3214,8 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
             json['passwordlessLoginGenerator'] as Map<String, dynamic>),
     passwordlessLoginTimeToLiveInSeconds:
         json['passwordlessLoginTimeToLiveInSeconds'] as num,
+    pendingAccountLinkTimeToLiveInSeconds:
+        json['pendingAccountLinkTimeToLiveInSeconds'] as num,
     registrationVerificationIdGenerator:
         json['registrationVerificationIdGenerator'] == null
             ? null
@@ -3159,6 +3284,8 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
       'passwordlessLoginGenerator', instance.passwordlessLoginGenerator);
   writeNotNull('passwordlessLoginTimeToLiveInSeconds',
       instance.passwordlessLoginTimeToLiveInSeconds);
+  writeNotNull('pendingAccountLinkTimeToLiveInSeconds',
+      instance.pendingAccountLinkTimeToLiveInSeconds);
   writeNotNull('registrationVerificationIdGenerator',
       instance.registrationVerificationIdGenerator);
   writeNotNull('registrationVerificationIdTimeToLiveInSeconds',
@@ -3236,6 +3363,8 @@ ExternalJWTIdentityProvider _$ExternalJWTIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -3258,6 +3387,8 @@ Map<String, dynamic> _$ExternalJWTIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('claimMap', instance.claimMap);
@@ -3276,6 +3407,8 @@ FacebookApplicationConfiguration _$FacebookApplicationConfigurationFromJson(
     buttonText: json['buttonText'] as String,
     client_secret: json['client_secret'] as String,
     fields: json['fields'] as String,
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     permissions: json['permissions'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3300,9 +3433,16 @@ Map<String, dynamic> _$FacebookApplicationConfigurationToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('fields', instance.fields);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('permissions', instance.permissions);
   return val;
 }
+
+const _$IdentityProviderLoginMethodEnumMap = {
+  IdentityProviderLoginMethod.UsePopup: 'UsePopup',
+  IdentityProviderLoginMethod.UseRedirect: 'UseRedirect',
+};
 
 FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     Map<String, dynamic> json) {
@@ -3311,6 +3451,8 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     buttonText: json['buttonText'] as String,
     client_secret: json['client_secret'] as String,
     fields: json['fields'] as String,
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     permissions: json['permissions'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -3329,6 +3471,8 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -3351,12 +3495,16 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('appId', instance.appId);
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('fields', instance.fields);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('permissions', instance.permissions);
   return val;
 }
@@ -4014,6 +4162,8 @@ GoogleApplicationConfiguration _$GoogleApplicationConfigurationFromJson(
     buttonText: json['buttonText'] as String,
     client_id: json['client_id'] as String,
     client_secret: json['client_secret'] as String,
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     scope: json['scope'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -4037,6 +4187,8 @@ Map<String, dynamic> _$GoogleApplicationConfigurationToJson(
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('scope', instance.scope);
   return val;
 }
@@ -4047,6 +4199,8 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     buttonText: json['buttonText'] as String,
     client_id: json['client_id'] as String,
     client_secret: json['client_secret'] as String,
+    loginMethod: _$enumDecodeNullable(
+        _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
     scope: json['scope'] as String,
   )
     ..enabled = json['enabled'] as bool
@@ -4065,6 +4219,8 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -4087,11 +4243,15 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('loginMethod',
+      _$IdentityProviderLoginMethodEnumMap[instance.loginMethod]);
   writeNotNull('scope', instance.scope);
   return val;
 }
@@ -4286,6 +4446,8 @@ HYPRIdentityProvider _$HYPRIdentityProviderFromJson(Map<String, dynamic> json) {
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -4308,6 +4470,8 @@ Map<String, dynamic> _$HYPRIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('relyingPartyApplicationId', instance.relyingPartyApplicationId);
@@ -4347,6 +4511,99 @@ Map<String, dynamic> _$IdentityProviderDetailsToJson(
   writeNotNull('name', instance.name);
   writeNotNull('oauth2', instance.oauth2);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  return val;
+}
+
+IdentityProviderLink _$IdentityProviderLinkFromJson(Map<String, dynamic> json) {
+  return IdentityProviderLink(
+    data: json['data'] as Map<String, dynamic>,
+    displayName: json['displayName'] as String,
+    identityProviderId: json['identityProviderId'] as String,
+    identityProviderUserId: json['identityProviderUserId'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastLoginInstant: json['lastLoginInstant'] as num,
+    tenantId: json['tenantId'] as String,
+    token: json['token'] as String,
+    userId: json['userId'] as String,
+  );
+}
+
+Map<String, dynamic> _$IdentityProviderLinkToJson(
+    IdentityProviderLink instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('displayName', instance.displayName);
+  writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('identityProviderUserId', instance.identityProviderUserId);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastLoginInstant', instance.lastLoginInstant);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('token', instance.token);
+  writeNotNull('userId', instance.userId);
+  return val;
+}
+
+IdentityProviderLinkRequest _$IdentityProviderLinkRequestFromJson(
+    Map<String, dynamic> json) {
+  return IdentityProviderLinkRequest(
+    identityProviderId: json['identityProviderId'] as String,
+    identityProviderUserId: json['identityProviderUserId'] as String,
+    pendingIdPLinkId: json['pendingIdPLinkId'] as String,
+    userId: json['userId'] as String,
+  );
+}
+
+Map<String, dynamic> _$IdentityProviderLinkRequestToJson(
+    IdentityProviderLinkRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('identityProviderUserId', instance.identityProviderUserId);
+  writeNotNull('pendingIdPLinkId', instance.pendingIdPLinkId);
+  writeNotNull('userId', instance.userId);
+  return val;
+}
+
+IdentityProviderLinkResponse _$IdentityProviderLinkResponseFromJson(
+    Map<String, dynamic> json) {
+  return IdentityProviderLinkResponse(
+    identityProviderLink: json['identityProviderLink'] == null
+        ? null
+        : IdentityProviderLink.fromJson(
+            json['identityProviderLink'] as Map<String, dynamic>),
+    identityProviderLinks: (json['identityProviderLinks'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IdentityProviderLink.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$IdentityProviderLinkResponseToJson(
+    IdentityProviderLinkResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('identityProviderLink', instance.identityProviderLink);
+  writeNotNull('identityProviderLinks', instance.identityProviderLinks);
   return val;
 }
 
@@ -4400,7 +4657,9 @@ IdentityProviderOauth2Configuration
     issuer: json['issuer'] as String,
     scope: json['scope'] as String,
     token_endpoint: json['token_endpoint'] as String,
+    uniqueIdClaim: json['uniqueIdClaim'] as String,
     userinfo_endpoint: json['userinfo_endpoint'] as String,
+    usernameClaim: json['usernameClaim'] as String,
   );
 }
 
@@ -4423,7 +4682,9 @@ Map<String, dynamic> _$IdentityProviderOauth2ConfigurationToJson(
   writeNotNull('issuer', instance.issuer);
   writeNotNull('scope', instance.scope);
   writeNotNull('token_endpoint', instance.token_endpoint);
+  writeNotNull('uniqueIdClaim', instance.uniqueIdClaim);
   writeNotNull('userinfo_endpoint', instance.userinfo_endpoint);
+  writeNotNull('usernameClaim', instance.usernameClaim);
   return val;
 }
 
@@ -5242,6 +5503,13 @@ const _$LambdaTypeEnumMap = {
   LambdaType.TwitterReconcile: 'TwitterReconcile',
   LambdaType.LDAPConnectorReconcile: 'LDAPConnectorReconcile',
   LambdaType.LinkedInReconcile: 'LinkedInReconcile',
+  LambdaType.EpicGamesReconcile: 'EpicGamesReconcile',
+  LambdaType.NintendoReconcile: 'NintendoReconcile',
+  LambdaType.SonyPSNReconcile: 'SonyPSNReconcile',
+  LambdaType.SteamReconcile: 'SteamReconcile',
+  LambdaType.TwitchReconcile: 'TwitchReconcile',
+  LambdaType.XboxReconcile: 'XboxReconcile',
+  LambdaType.ClientCredentialsJWTPopulate: 'ClientCredentialsJWTPopulate',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) {
@@ -5413,6 +5681,8 @@ LinkedInIdentityProvider _$LinkedInIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -5435,6 +5705,8 @@ Map<String, dynamic> _$LinkedInIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -5740,6 +6012,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
             ? null
             : TwoFactorMethod.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    pendingIdPLinkId: json['pendingIdPLinkId'] as String,
     refreshToken: json['refreshToken'] as String,
     registrationVerificationId: json['registrationVerificationId'] as String,
     state: json['state'] as Map<String, dynamic>,
@@ -5767,6 +6040,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) {
       _$ChangePasswordReasonEnumMap[instance.changePasswordReason]);
   writeNotNull('emailVerificationId', instance.emailVerificationId);
   writeNotNull('methods', instance.methods);
+  writeNotNull('pendingIdPLinkId', instance.pendingIdPLinkId);
   writeNotNull('refreshToken', instance.refreshToken);
   writeNotNull(
       'registrationVerificationId', instance.registrationVerificationId);
@@ -5806,6 +6080,13 @@ Map<String, dynamic> _$LookupResponseToJson(LookupResponse instance) {
   writeNotNull('identityProvider', instance.identityProvider);
   return val;
 }
+
+ManagedFields _$ManagedFieldsFromJson(Map<String, dynamic> json) {
+  return ManagedFields();
+}
+
+Map<String, dynamic> _$ManagedFieldsToJson(ManagedFields instance) =>
+    <String, dynamic>{};
 
 MaximumPasswordAge _$MaximumPasswordAgeFromJson(Map<String, dynamic> json) {
   return MaximumPasswordAge(
@@ -6047,6 +6328,13 @@ Map<String, dynamic> _$MessengerResponseToJson(MessengerResponse instance) {
   return val;
 }
 
+MessengerTransport _$MessengerTransportFromJson(Map<String, dynamic> json) {
+  return MessengerTransport();
+}
+
+Map<String, dynamic> _$MessengerTransportToJson(MessengerTransport instance) =>
+    <String, dynamic>{};
+
 MetaData _$MetaDataFromJson(Map<String, dynamic> json) {
   return MetaData(
     device: json['device'] == null
@@ -6229,6 +6517,98 @@ Map<String, dynamic> _$MultiFactorSMSTemplateToJson(
   return val;
 }
 
+NintendoApplicationConfiguration _$NintendoApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return NintendoApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$NintendoApplicationConfigurationToJson(
+    NintendoApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
+NintendoIdentityProvider _$NintendoIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return NintendoIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : NintendoApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$NintendoIdentityProviderToJson(
+    NintendoIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
 Normalizer _$NormalizerFromJson(Map<String, dynamic> json) {
   return Normalizer();
 }
@@ -6244,6 +6624,9 @@ OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) {
     authorizedRedirectURLs: (json['authorizedRedirectURLs'] as List)
         ?.map((e) => e as String)
         ?.toList(),
+    clientAuthenticationPolicy: _$enumDecodeNullable(
+        _$ClientAuthenticationPolicyEnumMap,
+        json['clientAuthenticationPolicy']),
     clientId: json['clientId'] as String,
     clientSecret: json['clientSecret'] as String,
     debug: json['debug'] as bool,
@@ -6255,7 +6638,11 @@ OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) {
     logoutBehavior:
         _$enumDecodeNullable(_$LogoutBehaviorEnumMap, json['logoutBehavior']),
     logoutURL: json['logoutURL'] as String,
+    proofKeyForCodeExchangePolicy: _$enumDecodeNullable(
+        _$ProofKeyForCodeExchangePolicyEnumMap,
+        json['proofKeyForCodeExchangePolicy']),
     requireClientAuthentication: json['requireClientAuthentication'] as bool,
+    requireRegistration: json['requireRegistration'] as bool,
   );
 }
 
@@ -6270,6 +6657,8 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(OAuth2Configuration instance) {
 
   writeNotNull('authorizedOriginURLs', instance.authorizedOriginURLs);
   writeNotNull('authorizedRedirectURLs', instance.authorizedRedirectURLs);
+  writeNotNull('clientAuthenticationPolicy',
+      _$ClientAuthenticationPolicyEnumMap[instance.clientAuthenticationPolicy]);
   writeNotNull('clientId', instance.clientId);
   writeNotNull('clientSecret', instance.clientSecret);
   writeNotNull('debug', instance.debug);
@@ -6281,9 +6670,21 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(OAuth2Configuration instance) {
       'logoutBehavior', _$LogoutBehaviorEnumMap[instance.logoutBehavior]);
   writeNotNull('logoutURL', instance.logoutURL);
   writeNotNull(
+      'proofKeyForCodeExchangePolicy',
+      _$ProofKeyForCodeExchangePolicyEnumMap[
+          instance.proofKeyForCodeExchangePolicy]);
+  writeNotNull(
       'requireClientAuthentication', instance.requireClientAuthentication);
+  writeNotNull('requireRegistration', instance.requireRegistration);
   return val;
 }
+
+const _$ClientAuthenticationPolicyEnumMap = {
+  ClientAuthenticationPolicy.Required: 'Required',
+  ClientAuthenticationPolicy.NotRequired: 'NotRequired',
+  ClientAuthenticationPolicy.NotRequiredWhenUsingPKCE:
+      'NotRequiredWhenUsingPKCE',
+};
 
 const _$GrantTypeEnumMap = {
   GrantType.authorization_code: 'authorization_code',
@@ -6298,6 +6699,13 @@ const _$GrantTypeEnumMap = {
 const _$LogoutBehaviorEnumMap = {
   LogoutBehavior.RedirectOnly: 'RedirectOnly',
   LogoutBehavior.AllApplications: 'AllApplications',
+};
+
+const _$ProofKeyForCodeExchangePolicyEnumMap = {
+  ProofKeyForCodeExchangePolicy.Required: 'Required',
+  ProofKeyForCodeExchangePolicy.NotRequired: 'NotRequired',
+  ProofKeyForCodeExchangePolicy.NotRequiredWhenUsingClientAuthentication:
+      'NotRequiredWhenUsingClientAuthentication',
 };
 
 OAuthConfigurationResponse _$OAuthConfigurationResponseFromJson(
@@ -6415,6 +6823,8 @@ const _$OAuthErrorReasonEnumMap = {
   OAuthErrorReason.missing_client_id: 'missing_client_id',
   OAuthErrorReason.missing_client_secret: 'missing_client_secret',
   OAuthErrorReason.missing_code: 'missing_code',
+  OAuthErrorReason.missing_code_challenge: 'missing_code_challenge',
+  OAuthErrorReason.missing_code_verifier: 'missing_code_verifier',
   OAuthErrorReason.missing_device_code: 'missing_device_code',
   OAuthErrorReason.missing_grant_type: 'missing_grant_type',
   OAuthErrorReason.missing_redirect_uri: 'missing_redirect_uri',
@@ -6593,6 +7003,8 @@ OpenIdConnectIdentityProvider _$OpenIdConnectIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -6615,6 +7027,8 @@ Map<String, dynamic> _$OpenIdConnectIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
@@ -6888,6 +7302,41 @@ Map<String, dynamic> _$PasswordValidationRulesResponseToJson(
   }
 
   writeNotNull('passwordValidationRules', instance.passwordValidationRules);
+  return val;
+}
+
+PendingIdPLink _$PendingIdPLinkFromJson(Map<String, dynamic> json) {
+  return PendingIdPLink(
+    displayName: json['displayName'] as String,
+    email: json['email'] as String,
+    identityProviderId: json['identityProviderId'] as String,
+    identityProviderName: json['identityProviderName'] as String,
+    identityProviderType: json['identityProviderType'] as String,
+    identityProviderUserId: json['identityProviderUserId'] as String,
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+    username: json['username'] as String,
+  );
+}
+
+Map<String, dynamic> _$PendingIdPLinkToJson(PendingIdPLink instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('displayName', instance.displayName);
+  writeNotNull('email', instance.email);
+  writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('identityProviderName', instance.identityProviderName);
+  writeNotNull('identityProviderType', instance.identityProviderType);
+  writeNotNull('identityProviderUserId', instance.identityProviderUserId);
+  writeNotNull('user', instance.user);
+  writeNotNull('username', instance.username);
   return val;
 }
 
@@ -7535,6 +7984,25 @@ Map<String, dynamic> _$RegistrationUnverifiedOptionsToJson(
   return val;
 }
 
+ReindexRequest _$ReindexRequestFromJson(Map<String, dynamic> json) {
+  return ReindexRequest(
+    index: json['index'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReindexRequestToJson(ReindexRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('index', instance.index);
+  return val;
+}
+
 ReloadRequest _$ReloadRequestFromJson(Map<String, dynamic> json) {
   return ReloadRequest(
     names: (json['names'] as List)?.map((e) => e as String)?.toList(),
@@ -7706,10 +8174,13 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     idpEndpoint: json['idpEndpoint'] as String,
     issuer: json['issuer'] as String,
     keyId: json['keyId'] as String,
+    nameIdFormat: json['nameIdFormat'] as String,
     postRequest: json['postRequest'] as bool,
     requestSigningKeyId: json['requestSigningKeyId'] as String,
     signRequest: json['signRequest'] as bool,
+    uniqueIdClaim: json['uniqueIdClaim'] as String,
     useNameIdForEmail: json['useNameIdForEmail'] as bool,
+    usernameClaim: json['usernameClaim'] as String,
     xmlSignatureC14nMethod: _$enumDecodeNullable(
         _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
   )
@@ -7729,6 +8200,8 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -7751,6 +8224,8 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonImageURL', instance.buttonImageURL);
@@ -7760,10 +8235,13 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   writeNotNull('idpEndpoint', instance.idpEndpoint);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('keyId', instance.keyId);
+  writeNotNull('nameIdFormat', instance.nameIdFormat);
   writeNotNull('postRequest', instance.postRequest);
   writeNotNull('requestSigningKeyId', instance.requestSigningKeyId);
   writeNotNull('signRequest', instance.signRequest);
+  writeNotNull('uniqueIdClaim', instance.uniqueIdClaim);
   writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
+  writeNotNull('usernameClaim', instance.usernameClaim);
   writeNotNull('xmlSignatureC14nMethod',
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod]);
   return val;
@@ -7800,7 +8278,9 @@ SAMLv2IdPInitiatedIdentityProvider _$SAMLv2IdPInitiatedIdentityProviderFromJson(
     emailClaim: json['emailClaim'] as String,
     issuer: json['issuer'] as String,
     keyId: json['keyId'] as String,
+    uniqueIdClaim: json['uniqueIdClaim'] as String,
     useNameIdForEmail: json['useNameIdForEmail'] as bool,
+    usernameClaim: json['usernameClaim'] as String,
   )
     ..enabled = json['enabled'] as bool
     ..applicationConfiguration =
@@ -7818,6 +8298,8 @@ SAMLv2IdPInitiatedIdentityProvider _$SAMLv2IdPInitiatedIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -7840,12 +8322,16 @@ Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('emailClaim', instance.emailClaim);
   writeNotNull('issuer', instance.issuer);
   writeNotNull('keyId', instance.keyId);
+  writeNotNull('uniqueIdClaim', instance.uniqueIdClaim);
   writeNotNull('useNameIdForEmail', instance.useNameIdForEmail);
+  writeNotNull('usernameClaim', instance.usernameClaim);
   return val;
 }
 
@@ -8084,11 +8570,18 @@ const _$ContentStatusEnumMap = {
 
 SendRequest _$SendRequestFromJson(Map<String, dynamic> json) {
   return SendRequest(
+    applicationId: json['applicationId'] as String,
     bccAddresses:
         (json['bccAddresses'] as List)?.map((e) => e as String)?.toList(),
     ccAddresses:
         (json['ccAddresses'] as List)?.map((e) => e as String)?.toList(),
+    preferredLanguages:
+        (json['preferredLanguages'] as List)?.map((e) => e as String)?.toList(),
     requestData: json['requestData'] as Map<String, dynamic>,
+    toAddresses: (json['toAddresses'] as List)
+        ?.map((e) =>
+            e == null ? null : EmailAddress.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     userIds: (json['userIds'] as List)?.map((e) => e as String)?.toList(),
   );
 }
@@ -8102,15 +8595,25 @@ Map<String, dynamic> _$SendRequestToJson(SendRequest instance) {
     }
   }
 
+  writeNotNull('applicationId', instance.applicationId);
   writeNotNull('bccAddresses', instance.bccAddresses);
   writeNotNull('ccAddresses', instance.ccAddresses);
+  writeNotNull('preferredLanguages', instance.preferredLanguages);
   writeNotNull('requestData', instance.requestData);
+  writeNotNull('toAddresses', instance.toAddresses);
   writeNotNull('userIds', instance.userIds);
   return val;
 }
 
 SendResponse _$SendResponseFromJson(Map<String, dynamic> json) {
   return SendResponse(
+    anonymousResults: (json['anonymousResults'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : EmailTemplateErrors.fromJson(e as Map<String, dynamic>)),
+    ),
     results: (json['results'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(
           k,
@@ -8130,6 +8633,7 @@ Map<String, dynamic> _$SendResponseToJson(SendResponse instance) {
     }
   }
 
+  writeNotNull('anonymousResults', instance.anonymousResults);
   writeNotNull('results', instance.results);
   return val;
 }
@@ -8191,6 +8695,98 @@ Map<String, dynamic> _$SMSMessageTemplateToJson(SMSMessageTemplate instance) {
   return val;
 }
 
+SonyPSNApplicationConfiguration _$SonyPSNApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return SonyPSNApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$SonyPSNApplicationConfigurationToJson(
+    SonyPSNApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
+SonyPSNIdentityProvider _$SonyPSNIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return SonyPSNIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : SonyPSNApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$SonyPSNIdentityProviderToJson(
+    SonyPSNIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
 SortField _$SortFieldFromJson(Map<String, dynamic> json) {
   return SortField(
     missing: json['missing'] as String,
@@ -8218,6 +8814,98 @@ const _$SortEnumMap = {
   Sort.asc: 'asc',
   Sort.desc: 'desc',
 };
+
+SteamApplicationConfiguration _$SteamApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return SteamApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    scope: json['scope'] as String,
+    webAPIKey: json['webAPIKey'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$SteamApplicationConfigurationToJson(
+    SteamApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('scope', instance.scope);
+  writeNotNull('webAPIKey', instance.webAPIKey);
+  return val;
+}
+
+SteamIdentityProvider _$SteamIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return SteamIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    scope: json['scope'] as String,
+    webAPIKey: json['webAPIKey'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : SteamApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$SteamIdentityProviderToJson(
+    SteamIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('scope', instance.scope);
+  writeNotNull('webAPIKey', instance.webAPIKey);
+  return val;
+}
 
 SupportsPostBindings _$SupportsPostBindingsFromJson(Map<String, dynamic> json) {
   return SupportsPostBindings();
@@ -8365,6 +9053,8 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     helpers: json['helpers'] as String,
     index: json['index'] as String,
     oauth2Authorize: json['oauth2Authorize'] as String,
+    oauth2AuthorizedNotRegistered:
+        json['oauth2AuthorizedNotRegistered'] as String,
     oauth2ChildRegistrationNotAllowed:
         json['oauth2ChildRegistrationNotAllowed'] as String,
     oauth2ChildRegistrationNotAllowedComplete:
@@ -8376,6 +9066,7 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
     oauth2Logout: json['oauth2Logout'] as String,
     oauth2Passwordless: json['oauth2Passwordless'] as String,
     oauth2Register: json['oauth2Register'] as String,
+    oauth2StartIdPLink: json['oauth2StartIdPLink'] as String,
     oauth2TwoFactor: json['oauth2TwoFactor'] as String,
     oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
     oauth2Wait: json['oauth2Wait'] as String,
@@ -8415,6 +9106,8 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('helpers', instance.helpers);
   writeNotNull('index', instance.index);
   writeNotNull('oauth2Authorize', instance.oauth2Authorize);
+  writeNotNull(
+      'oauth2AuthorizedNotRegistered', instance.oauth2AuthorizedNotRegistered);
   writeNotNull('oauth2ChildRegistrationNotAllowed',
       instance.oauth2ChildRegistrationNotAllowed);
   writeNotNull('oauth2ChildRegistrationNotAllowedComplete',
@@ -8427,6 +9120,7 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
   writeNotNull('oauth2Logout', instance.oauth2Logout);
   writeNotNull('oauth2Passwordless', instance.oauth2Passwordless);
   writeNotNull('oauth2Register', instance.oauth2Register);
+  writeNotNull('oauth2StartIdPLink', instance.oauth2StartIdPLink);
   writeNotNull('oauth2TwoFactor', instance.oauth2TwoFactor);
   writeNotNull('oauth2TwoFactorMethods', instance.oauth2TwoFactorMethods);
   writeNotNull('oauth2Wait', instance.oauth2Wait);
@@ -8508,6 +9202,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
         : TenantMultiFactorConfiguration.fromJson(
             json['multiFactorConfiguration'] as Map<String, dynamic>),
     name: json['name'] as String,
+    oauthConfiguration: json['oauthConfiguration'] == null
+        ? null
+        : TenantOAuth2Configuration.fromJson(
+            json['oauthConfiguration'] as Map<String, dynamic>),
     passwordEncryptionConfiguration: json['passwordEncryptionConfiguration'] ==
             null
         ? null
@@ -8563,6 +9261,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('minimumPasswordAge', instance.minimumPasswordAge);
   writeNotNull('multiFactorConfiguration', instance.multiFactorConfiguration);
   writeNotNull('name', instance.name);
+  writeNotNull('oauthConfiguration', instance.oauthConfiguration);
   writeNotNull('passwordEncryptionConfiguration',
       instance.passwordEncryptionConfiguration);
   writeNotNull('passwordValidationRules', instance.passwordValidationRules);
@@ -8652,6 +9351,29 @@ Map<String, dynamic> _$TenantMultiFactorConfigurationToJson(
   writeNotNull('authenticator', instance.authenticator);
   writeNotNull('email', instance.email);
   writeNotNull('sms', instance.sms);
+  return val;
+}
+
+TenantOAuth2Configuration _$TenantOAuth2ConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantOAuth2Configuration(
+    clientCredentialsAccessTokenPopulateLambdaId:
+        json['clientCredentialsAccessTokenPopulateLambdaId'] as String,
+  );
+}
+
+Map<String, dynamic> _$TenantOAuth2ConfigurationToJson(
+    TenantOAuth2Configuration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('clientCredentialsAccessTokenPopulateLambdaId',
+      instance.clientCredentialsAccessTokenPopulateLambdaId);
   return val;
 }
 
@@ -9008,6 +9730,98 @@ Map<String, dynamic> _$TwilioMessengerConfigurationToJson(
   return val;
 }
 
+TwitchApplicationConfiguration _$TwitchApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TwitchApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$TwitchApplicationConfigurationToJson(
+    TwitchApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
+TwitchIdentityProvider _$TwitchIdentityProviderFromJson(
+    Map<String, dynamic> json) {
+  return TwitchIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : TwitchApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$TwitchIdentityProviderToJson(
+    TwitchIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
 TwitterApplicationConfiguration _$TwitterApplicationConfigurationFromJson(
     Map<String, dynamic> json) {
   return TwitterApplicationConfiguration(
@@ -9062,6 +9876,8 @@ TwitterIdentityProvider _$TwitterIdentityProviderFromJson(
     ..insertInstant = json['insertInstant'] as num
     ..lambdaConfiguration = json['lambdaConfiguration']
     ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
     ..name = json['name'] as String
     ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
 }
@@ -9084,6 +9900,8 @@ Map<String, dynamic> _$TwitterIdentityProviderToJson(
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
   writeNotNull('name', instance.name);
   writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
   writeNotNull('buttonText', instance.buttonText);
@@ -10933,5 +11751,96 @@ Map<String, dynamic> _$WebhookResponseToJson(WebhookResponse instance) {
 
   writeNotNull('webhook', instance.webhook);
   writeNotNull('webhooks', instance.webhooks);
+  return val;
+}
+
+XboxApplicationConfiguration _$XboxApplicationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return XboxApplicationConfiguration(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..createRegistration = json['createRegistration'] as bool
+    ..data = json['data'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$XboxApplicationConfigurationToJson(
+    XboxApplicationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('createRegistration', instance.createRegistration);
+  writeNotNull('data', instance.data);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
+  return val;
+}
+
+XboxIdentityProvider _$XboxIdentityProviderFromJson(Map<String, dynamic> json) {
+  return XboxIdentityProvider(
+    buttonText: json['buttonText'] as String,
+    client_id: json['client_id'] as String,
+    client_secret: json['client_secret'] as String,
+    scope: json['scope'] as String,
+  )
+    ..enabled = json['enabled'] as bool
+    ..applicationConfiguration =
+        (json['applicationConfiguration'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(
+          k,
+          e == null
+              ? null
+              : XboxApplicationConfiguration.fromJson(
+                  e as Map<String, dynamic>)),
+    )
+    ..data = json['data'] as Map<String, dynamic>
+    ..debug = json['debug'] as bool
+    ..id = json['id'] as String
+    ..insertInstant = json['insertInstant'] as num
+    ..lambdaConfiguration = json['lambdaConfiguration']
+    ..lastUpdateInstant = json['lastUpdateInstant'] as num
+    ..linkingStrategy = _$enumDecodeNullable(
+        _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+    ..name = json['name'] as String
+    ..type = _$enumDecodeNullable(_$IdentityProviderTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$XboxIdentityProviderToJson(
+    XboxIdentityProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('applicationConfiguration', instance.applicationConfiguration);
+  writeNotNull('data', instance.data);
+  writeNotNull('debug', instance.debug);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('linkingStrategy',
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy]);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$IdentityProviderTypeEnumMap[instance.type]);
+  writeNotNull('buttonText', instance.buttonText);
+  writeNotNull('client_id', instance.client_id);
+  writeNotNull('client_secret', instance.client_secret);
+  writeNotNull('scope', instance.scope);
   return val;
 }
