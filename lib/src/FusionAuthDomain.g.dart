@@ -4553,6 +4553,7 @@ Map<String, dynamic> _$IdentityProviderLinkToJson(
 IdentityProviderLinkRequest _$IdentityProviderLinkRequestFromJson(
     Map<String, dynamic> json) {
   return IdentityProviderLinkRequest(
+    displayName: json['displayName'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderUserId: json['identityProviderUserId'] as String,
     pendingIdPLinkId: json['pendingIdPLinkId'] as String,
@@ -4570,6 +4571,7 @@ Map<String, dynamic> _$IdentityProviderLinkRequestToJson(
     }
   }
 
+  writeNotNull('displayName', instance.displayName);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderUserId', instance.identityProviderUserId);
   writeNotNull('pendingIdPLinkId', instance.pendingIdPLinkId);
@@ -7311,7 +7313,8 @@ PendingIdPLink _$PendingIdPLinkFromJson(Map<String, dynamic> json) {
     email: json['email'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderName: json['identityProviderName'] as String,
-    identityProviderType: json['identityProviderType'] as String,
+    identityProviderType: _$enumDecodeNullable(
+        _$IdentityProviderTypeEnumMap, json['identityProviderType']),
     identityProviderUserId: json['identityProviderUserId'] as String,
     user: json['user'] == null
         ? null
@@ -7333,7 +7336,8 @@ Map<String, dynamic> _$PendingIdPLinkToJson(PendingIdPLink instance) {
   writeNotNull('email', instance.email);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderName', instance.identityProviderName);
-  writeNotNull('identityProviderType', instance.identityProviderType);
+  writeNotNull('identityProviderType',
+      _$IdentityProviderTypeEnumMap[instance.identityProviderType]);
   writeNotNull('identityProviderUserId', instance.identityProviderUserId);
   writeNotNull('user', instance.user);
   writeNotNull('username', instance.username);

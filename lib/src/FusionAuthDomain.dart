@@ -2998,13 +2998,15 @@ enum IdentityProviderLinkingStrategy {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class IdentityProviderLinkRequest {
+  String displayName;
   String identityProviderId;
   String identityProviderUserId;
   String pendingIdPLinkId;
   String userId;
 
   IdentityProviderLinkRequest(
-      {this.identityProviderId,
+      {this.displayName,
+      this.identityProviderId,
       this.identityProviderUserId,
       this.pendingIdPLinkId,
       this.userId});
@@ -4876,7 +4878,7 @@ class PendingIdPLink {
   String email;
   String identityProviderId;
   String identityProviderName;
-  String identityProviderType;
+  IdentityProviderType identityProviderType;
   String identityProviderUserId;
   User user;
   String username;
