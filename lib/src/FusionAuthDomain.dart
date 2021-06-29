@@ -1271,9 +1271,10 @@ enum DeviceType {
 @JsonSerializable()
 class DisplayableRawLogin extends RawLogin {
   String applicationName;
+  Location location;
   String loginId;
 
-  DisplayableRawLogin({this.applicationName, this.loginId});
+  DisplayableRawLogin({this.applicationName, this.location, this.loginId});
 
   factory DisplayableRawLogin.fromJson(Map<String, dynamic> json) =>
       _$DisplayableRawLoginFromJson(json);
@@ -3044,9 +3045,13 @@ class IdentityProviderLoginRequest extends BaseLoginRequest {
   Map<String, String> data;
   String encodedJWT;
   String identityProviderId;
+  bool loginOnlyWhenLinked;
 
   IdentityProviderLoginRequest(
-      {this.data, this.encodedJWT, this.identityProviderId});
+      {this.data,
+      this.encodedJWT,
+      this.identityProviderId,
+      this.loginOnlyWhenLinked});
 
   factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLoginRequestFromJson(json);
@@ -3823,6 +3828,31 @@ class LinkedInIdentityProvider
   factory LinkedInIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$LinkedInIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$LinkedInIdentityProviderToJson(this);
+}
+
+/// Location information. Useful for IP addresses and other displayable data objects.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class Location {
+  String city;
+  String country;
+  num latitude;
+  num longitude;
+  String region;
+  String zipcode;
+
+  Location(
+      {this.city,
+      this.country,
+      this.latitude,
+      this.longitude,
+      this.region,
+      this.zipcode});
+
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
+  Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
 
 /// A historical state of a user log event. Since events can be modified, this stores the historical state.

@@ -1848,6 +1848,9 @@ Map<String, dynamic> _$DeviceResponseToJson(DeviceResponse instance) {
 DisplayableRawLogin _$DisplayableRawLoginFromJson(Map<String, dynamic> json) {
   return DisplayableRawLogin(
     applicationName: json['applicationName'] as String,
+    location: json['location'] == null
+        ? null
+        : Location.fromJson(json['location'] as Map<String, dynamic>),
     loginId: json['loginId'] as String,
   )
     ..applicationId = json['applicationId'] as String
@@ -1870,6 +1873,7 @@ Map<String, dynamic> _$DisplayableRawLoginToJson(DisplayableRawLogin instance) {
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('userId', instance.userId);
   writeNotNull('applicationName', instance.applicationName);
+  writeNotNull('location', instance.location);
   writeNotNull('loginId', instance.loginId);
   return val;
 }
@@ -4615,6 +4619,7 @@ IdentityProviderLoginRequest _$IdentityProviderLoginRequestFromJson(
     ),
     encodedJWT: json['encodedJWT'] as String,
     identityProviderId: json['identityProviderId'] as String,
+    loginOnlyWhenLinked: json['loginOnlyWhenLinked'] as bool,
   )
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
@@ -4641,6 +4646,7 @@ Map<String, dynamic> _$IdentityProviderLoginRequestToJson(
   writeNotNull('data', instance.data);
   writeNotNull('encodedJWT', instance.encodedJWT);
   writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('loginOnlyWhenLinked', instance.loginOnlyWhenLinked);
   return val;
 }
 
@@ -5713,6 +5719,35 @@ Map<String, dynamic> _$LinkedInIdentityProviderToJson(
   writeNotNull('client_id', instance.client_id);
   writeNotNull('client_secret', instance.client_secret);
   writeNotNull('scope', instance.scope);
+  return val;
+}
+
+Location _$LocationFromJson(Map<String, dynamic> json) {
+  return Location(
+    city: json['city'] as String,
+    country: json['country'] as String,
+    latitude: json['latitude'] as num,
+    longitude: json['longitude'] as num,
+    region: json['region'] as String,
+    zipcode: json['zipcode'] as String,
+  );
+}
+
+Map<String, dynamic> _$LocationToJson(Location instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('city', instance.city);
+  writeNotNull('country', instance.country);
+  writeNotNull('latitude', instance.latitude);
+  writeNotNull('longitude', instance.longitude);
+  writeNotNull('region', instance.region);
+  writeNotNull('zipcode', instance.zipcode);
   return val;
 }
 
