@@ -5094,6 +5094,7 @@ class ReactorStatus {
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
+  ReactorFeatureStatus ipLocation;
   bool licensed;
 
   ReactorStatus(
@@ -5104,6 +5105,7 @@ class ReactorStatus {
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
+      this.ipLocation,
       this.licensed});
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
