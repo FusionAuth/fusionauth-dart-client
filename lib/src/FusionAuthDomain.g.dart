@@ -4958,6 +4958,137 @@ Map<String, dynamic> _$IntervalUserToJson(IntervalUser instance) {
   return val;
 }
 
+IpAddressRange _$IpAddressRangeFromJson(Map<String, dynamic> json) {
+  return IpAddressRange(
+    endIpAddress: json['endIpAddress'] as String,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    mode: _$enumDecodeNullable(_$AddressRangeModeEnumMap, json['mode']),
+    startIpAddress: json['startIpAddress'] as String,
+  );
+}
+
+Map<String, dynamic> _$IpAddressRangeToJson(IpAddressRange instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('endIpAddress', instance.endIpAddress);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('mode', _$AddressRangeModeEnumMap[instance.mode]);
+  writeNotNull('startIpAddress', instance.startIpAddress);
+  return val;
+}
+
+const _$AddressRangeModeEnumMap = {
+  AddressRangeMode.ALLOW: 'ALLOW',
+  AddressRangeMode.BLOCK: 'BLOCK',
+};
+
+IPAddressRangeNode _$IPAddressRangeNodeFromJson(Map<String, dynamic> json) {
+  return IPAddressRangeNode(
+    endIpAddress: json['endIpAddress'] as num,
+    left: json['left'] == null
+        ? null
+        : IPAddressRangeNode.fromJson(json['left'] as Map<String, dynamic>),
+    right: json['right'] == null
+        ? null
+        : IPAddressRangeNode.fromJson(json['right'] as Map<String, dynamic>),
+    startIpAddress: json['startIpAddress'] as num,
+  );
+}
+
+Map<String, dynamic> _$IPAddressRangeNodeToJson(IPAddressRangeNode instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('endIpAddress', instance.endIpAddress);
+  writeNotNull('left', instance.left);
+  writeNotNull('right', instance.right);
+  writeNotNull('startIpAddress', instance.startIpAddress);
+  return val;
+}
+
+IPAddressRangeRequest _$IPAddressRangeRequestFromJson(
+    Map<String, dynamic> json) {
+  return IPAddressRangeRequest(
+    ipAddressRange: json['ipAddressRange'] == null
+        ? null
+        : IpAddressRange.fromJson(
+            json['ipAddressRange'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$IPAddressRangeRequestToJson(
+    IPAddressRangeRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ipAddressRange', instance.ipAddressRange);
+  return val;
+}
+
+IPAddressRangeResponse _$IPAddressRangeResponseFromJson(
+    Map<String, dynamic> json) {
+  return IPAddressRangeResponse(
+    ipAddressRange: json['ipAddressRange'] == null
+        ? null
+        : IpAddressRange.fromJson(
+            json['ipAddressRange'] as Map<String, dynamic>),
+    ipAddressRanges: (json['ipAddressRanges'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IpAddressRange.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$IPAddressRangeResponseToJson(
+    IPAddressRangeResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ipAddressRange', instance.ipAddressRange);
+  writeNotNull('ipAddressRanges', instance.ipAddressRanges);
+  return val;
+}
+
+IPAddressRangeRule _$IPAddressRangeRuleFromJson(Map<String, dynamic> json) {
+  return IPAddressRangeRule();
+}
+
+Map<String, dynamic> _$IPAddressRangeRuleToJson(IPAddressRangeRule instance) =>
+    <String, dynamic>{};
+
+IPAddressRangeTree _$IPAddressRangeTreeFromJson(Map<String, dynamic> json) {
+  return IPAddressRangeTree();
+}
+
+Map<String, dynamic> _$IPAddressRangeTreeToJson(IPAddressRangeTree instance) =>
+    <String, dynamic>{};
+
 IssueResponse _$IssueResponseFromJson(Map<String, dynamic> json) {
   return IssueResponse(
     refreshToken: json['refreshToken'] as String,
@@ -10572,44 +10703,10 @@ Map<String, dynamic> _$UserActionOptionToJson(UserActionOption instance) {
   return val;
 }
 
-UserActionReason _$UserActionReasonFromJson(Map<String, dynamic> json) {
-  return UserActionReason(
-    code: json['code'] as String,
-    id: json['id'] as String,
-    insertInstant: json['insertInstant'] as num,
-    lastUpdateInstant: json['lastUpdateInstant'] as num,
-    localizedTexts: (json['localizedTexts'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-    text: json['text'] as String,
-  );
-}
-
-Map<String, dynamic> _$UserActionReasonToJson(UserActionReason instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('code', instance.code);
-  writeNotNull('id', instance.id);
-  writeNotNull('insertInstant', instance.insertInstant);
-  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
-  writeNotNull('localizedTexts', instance.localizedTexts);
-  writeNotNull('text', instance.text);
-  return val;
-}
-
 UserActionReasonRequest _$UserActionReasonRequestFromJson(
     Map<String, dynamic> json) {
   return UserActionReasonRequest(
-    userActionReason: json['userActionReason'] == null
-        ? null
-        : UserActionReason.fromJson(
-            json['userActionReason'] as Map<String, dynamic>),
+    userActionReason: json['userActionReason'],
   );
 }
 
@@ -10630,15 +10727,8 @@ Map<String, dynamic> _$UserActionReasonRequestToJson(
 UserActionReasonResponse _$UserActionReasonResponseFromJson(
     Map<String, dynamic> json) {
   return UserActionReasonResponse(
-    userActionReason: json['userActionReason'] == null
-        ? null
-        : UserActionReason.fromJson(
-            json['userActionReason'] as Map<String, dynamic>),
-    userActionReasons: (json['userActionReasons'] as List)
-        ?.map((e) => e == null
-            ? null
-            : UserActionReason.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    userActionReason: json['userActionReason'],
+    userActionReasons: json['userActionReasons'] as List,
   );
 }
 
