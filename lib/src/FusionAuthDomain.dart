@@ -105,6 +105,14 @@ class ActionResponse {
   Map<String, dynamic> toJson() => _$ActionResponseToJson(this);
 }
 
+/// @author Brett Guy
+enum AddressRangeMode {
+  @JsonValue('ALLOW')
+  ALLOW,
+  @JsonValue('BLOCK')
+  BLOCK
+}
+
 /// Available JSON Web Algorithms (JWA) as described in RFC 7518 available for this JWT implementation.
 ///
 /// @author Daniel DeGroff
@@ -3284,6 +3292,92 @@ class IntervalUser {
   factory IntervalUser.fromJson(Map<String, dynamic> json) =>
       _$IntervalUserFromJson(json);
   Map<String, dynamic> toJson() => _$IntervalUserToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IpAddressRange {
+  String endIpAddress;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  AddressRangeMode mode;
+  String startIpAddress;
+
+  IpAddressRange(
+      {this.endIpAddress,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.mode,
+      this.startIpAddress});
+
+  factory IpAddressRange.fromJson(Map<String, dynamic> json) =>
+      _$IpAddressRangeFromJson(json);
+  Map<String, dynamic> toJson() => _$IpAddressRangeToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAddressRangeNode {
+  num endIpAddress;
+  IPAddressRangeNode left;
+  IPAddressRangeNode right;
+  num startIpAddress;
+
+  IPAddressRangeNode(
+      {this.endIpAddress, this.left, this.right, this.startIpAddress});
+
+  factory IPAddressRangeNode.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeNodeFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeNodeToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAddressRangeRequest {
+  IpAddressRange ipAddressRange;
+
+  IPAddressRangeRequest({this.ipAddressRange});
+
+  factory IPAddressRangeRequest.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeRequestToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAddressRangeResponse {
+  IpAddressRange ipAddressRange;
+  List<IpAddressRange> ipAddressRanges;
+
+  IPAddressRangeResponse({this.ipAddressRange, this.ipAddressRanges});
+
+  factory IPAddressRangeResponse.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeResponseToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAddressRangeRule {
+  IPAddressRangeRule();
+
+  factory IPAddressRangeRule.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeRuleFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeRuleToJson(this);
+}
+
+/// An implementation of an Interval Tree used to store IP address ranges.
+///
+/// https://en.wikipedia.org/wiki/Interval_tree
+@JsonSerializable()
+class IPAddressRangeTree {
+  IPAddressRangeTree();
+
+  factory IPAddressRangeTree.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeTreeFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeTreeToJson(this);
 }
 
 /// @author Daniel DeGroff
