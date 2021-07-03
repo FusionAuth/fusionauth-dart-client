@@ -3294,6 +3294,8 @@ class IntervalUser {
   Map<String, dynamic> toJson() => _$IntervalUserToJson(this);
 }
 
+/// TODO : ip-allow-block : Fix names so they are all the same. I prefer `IP`.
+///
 /// @author Brett Guy
 @JsonSerializable()
 class IpAddressRange {
@@ -5134,6 +5136,8 @@ enum ReactorFeatureStatus {
   DISCONNECTED,
   @JsonValue('PENDING')
   PENDING,
+  @JsonValue('DISABLED')
+  DISABLED,
   @JsonValue('UNKNOWN')
   UNKNOWN
 }

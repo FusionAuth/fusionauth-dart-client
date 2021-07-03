@@ -7808,6 +7808,7 @@ const _$ReactorFeatureStatusEnumMap = {
   ReactorFeatureStatus.ACTIVE: 'ACTIVE',
   ReactorFeatureStatus.DISCONNECTED: 'DISCONNECTED',
   ReactorFeatureStatus.PENDING: 'PENDING',
+  ReactorFeatureStatus.DISABLED: 'DISABLED',
   ReactorFeatureStatus.UNKNOWN: 'UNKNOWN',
 };
 
@@ -10703,10 +10704,44 @@ Map<String, dynamic> _$UserActionOptionToJson(UserActionOption instance) {
   return val;
 }
 
+UserActionReason _$UserActionReasonFromJson(Map<String, dynamic> json) {
+  return UserActionReason(
+    code: json['code'] as String,
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    localizedTexts: (json['localizedTexts'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, e as String),
+    ),
+    text: json['text'] as String,
+  );
+}
+
+Map<String, dynamic> _$UserActionReasonToJson(UserActionReason instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('code', instance.code);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('localizedTexts', instance.localizedTexts);
+  writeNotNull('text', instance.text);
+  return val;
+}
+
 UserActionReasonRequest _$UserActionReasonRequestFromJson(
     Map<String, dynamic> json) {
   return UserActionReasonRequest(
-    userActionReason: json['userActionReason'],
+    userActionReason: json['userActionReason'] == null
+        ? null
+        : UserActionReason.fromJson(
+            json['userActionReason'] as Map<String, dynamic>),
   );
 }
 
@@ -10727,8 +10762,15 @@ Map<String, dynamic> _$UserActionReasonRequestToJson(
 UserActionReasonResponse _$UserActionReasonResponseFromJson(
     Map<String, dynamic> json) {
   return UserActionReasonResponse(
-    userActionReason: json['userActionReason'],
-    userActionReasons: json['userActionReasons'] as List,
+    userActionReason: json['userActionReason'] == null
+        ? null
+        : UserActionReason.fromJson(
+            json['userActionReason'] as Map<String, dynamic>),
+    userActionReasons: (json['userActionReasons'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UserActionReason.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
