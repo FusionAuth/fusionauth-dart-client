@@ -1561,58 +1561,9 @@ Map<String, dynamic> _$ConnectorResponseToJson(ConnectorResponse instance) {
   return val;
 }
 
-Consent _$ConsentFromJson(Map<String, dynamic> json) {
-  return Consent(
-    consentEmailTemplateId: json['consentEmailTemplateId'] as String,
-    countryMinimumAgeForSelfConsent:
-        (json['countryMinimumAgeForSelfConsent'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, e as num),
-    ),
-    data: json['data'] as Map<String, dynamic>,
-    defaultMinimumAgeForSelfConsent:
-        json['defaultMinimumAgeForSelfConsent'] as num,
-    emailPlus: json['emailPlus'] == null
-        ? null
-        : EmailPlus.fromJson(json['emailPlus'] as Map<String, dynamic>),
-    id: json['id'] as String,
-    insertInstant: json['insertInstant'] as num,
-    lastUpdateInstant: json['lastUpdateInstant'] as num,
-    multipleValuesAllowed: json['multipleValuesAllowed'] as bool,
-    name: json['name'] as String,
-    values: (json['values'] as List)?.map((e) => e as String)?.toList(),
-  );
-}
-
-Map<String, dynamic> _$ConsentToJson(Consent instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('consentEmailTemplateId', instance.consentEmailTemplateId);
-  writeNotNull('countryMinimumAgeForSelfConsent',
-      instance.countryMinimumAgeForSelfConsent);
-  writeNotNull('data', instance.data);
-  writeNotNull('defaultMinimumAgeForSelfConsent',
-      instance.defaultMinimumAgeForSelfConsent);
-  writeNotNull('emailPlus', instance.emailPlus);
-  writeNotNull('id', instance.id);
-  writeNotNull('insertInstant', instance.insertInstant);
-  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
-  writeNotNull('multipleValuesAllowed', instance.multipleValuesAllowed);
-  writeNotNull('name', instance.name);
-  writeNotNull('values', instance.values);
-  return val;
-}
-
 ConsentRequest _$ConsentRequestFromJson(Map<String, dynamic> json) {
   return ConsentRequest(
-    consent: json['consent'] == null
-        ? null
-        : Consent.fromJson(json['consent'] as Map<String, dynamic>),
+    consent: json['consent'],
   );
 }
 
@@ -1631,13 +1582,8 @@ Map<String, dynamic> _$ConsentRequestToJson(ConsentRequest instance) {
 
 ConsentResponse _$ConsentResponseFromJson(Map<String, dynamic> json) {
   return ConsentResponse(
-    consent: json['consent'] == null
-        ? null
-        : Consent.fromJson(json['consent'] as Map<String, dynamic>),
-    consents: (json['consents'] as List)
-        ?.map((e) =>
-            e == null ? null : Consent.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    consent: json['consent'],
+    consents: json['consents'] as List,
   );
 }
 
@@ -2024,32 +1970,6 @@ const _$EmailSecurityTypeEnumMap = {
   EmailSecurityType.SSL: 'SSL',
   EmailSecurityType.TLS: 'TLS',
 };
-
-EmailPlus _$EmailPlusFromJson(Map<String, dynamic> json) {
-  return EmailPlus(
-    emailTemplateId: json['emailTemplateId'] as String,
-    maximumTimeToSendEmailInHours: json['maximumTimeToSendEmailInHours'] as num,
-    minimumTimeToSendEmailInHours: json['minimumTimeToSendEmailInHours'] as num,
-  )..enabled = json['enabled'] as bool;
-}
-
-Map<String, dynamic> _$EmailPlusToJson(EmailPlus instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('enabled', instance.enabled);
-  writeNotNull('emailTemplateId', instance.emailTemplateId);
-  writeNotNull(
-      'maximumTimeToSendEmailInHours', instance.maximumTimeToSendEmailInHours);
-  writeNotNull(
-      'minimumTimeToSendEmailInHours', instance.minimumTimeToSendEmailInHours);
-  return val;
-}
 
 EmailTemplate _$EmailTemplateFromJson(Map<String, dynamic> json) {
   return EmailTemplate(
@@ -4958,21 +4878,24 @@ Map<String, dynamic> _$IntervalUserToJson(IntervalUser instance) {
   return val;
 }
 
-IPAddressRange _$IPAddressRangeFromJson(Map<String, dynamic> json) {
-  return IPAddressRange(
+IPAccessControlList _$IPAccessControlListFromJson(Map<String, dynamic> json) {
+  return IPAccessControlList(
     data: json['data'] as Map<String, dynamic>,
+    defaultAction: _$enumDecodeNullable(
+        _$IPAccessControlListModeEnumMap, json['defaultAction']),
+    exceptions: (json['exceptions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlListException.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
-    ipAddressRangeConfiguration: json['ipAddressRangeConfiguration'] == null
-        ? null
-        : IPAddressRangeConfiguration.fromJson(
-            json['ipAddressRangeConfiguration'] as Map<String, dynamic>),
     lastUpdateInstant: json['lastUpdateInstant'] as num,
     name: json['name'] as String,
   );
 }
 
-Map<String, dynamic> _$IPAddressRangeToJson(IPAddressRange instance) {
+Map<String, dynamic> _$IPAccessControlListToJson(IPAccessControlList instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -4982,32 +4905,31 @@ Map<String, dynamic> _$IPAddressRangeToJson(IPAddressRange instance) {
   }
 
   writeNotNull('data', instance.data);
+  writeNotNull('defaultAction',
+      _$IPAccessControlListModeEnumMap[instance.defaultAction]);
+  writeNotNull('exceptions', instance.exceptions);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
-  writeNotNull(
-      'ipAddressRangeConfiguration', instance.ipAddressRangeConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('name', instance.name);
   return val;
 }
 
-IPAddressRangeConfiguration _$IPAddressRangeConfigurationFromJson(
+const _$IPAccessControlListModeEnumMap = {
+  IPAccessControlListMode.Allow: 'Allow',
+  IPAccessControlListMode.Block: 'Block',
+};
+
+IPAccessControlListException _$IPAccessControlListExceptionFromJson(
     Map<String, dynamic> json) {
-  return IPAddressRangeConfiguration(
-    defaultAction:
-        _$enumDecodeNullable(_$IPAddressModeEnumMap, json['defaultAction']),
-    exceptions: (json['exceptions'] as List)
-        ?.map((e) => e == null
-            ? null
-            : IPAddressRangeException.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    mode: _$enumDecodeNullable(_$IPAddressModeEnumMap, json['mode']),
-    name: json['name'] as String,
+  return IPAccessControlListException(
+    endIPAddress: json['endIPAddress'] as String,
+    startIPAddress: json['startIPAddress'] as String,
   );
 }
 
-Map<String, dynamic> _$IPAddressRangeConfigurationToJson(
-    IPAddressRangeConfiguration instance) {
+Map<String, dynamic> _$IPAccessControlListExceptionToJson(
+    IPAccessControlListException instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -5016,29 +4938,23 @@ Map<String, dynamic> _$IPAddressRangeConfigurationToJson(
     }
   }
 
-  writeNotNull('defaultAction', _$IPAddressModeEnumMap[instance.defaultAction]);
-  writeNotNull('exceptions', instance.exceptions);
-  writeNotNull('mode', _$IPAddressModeEnumMap[instance.mode]);
-  writeNotNull('name', instance.name);
+  writeNotNull('endIPAddress', instance.endIPAddress);
+  writeNotNull('startIPAddress', instance.startIPAddress);
   return val;
 }
 
-const _$IPAddressModeEnumMap = {
-  IPAddressMode.Allow: 'Allow',
-  IPAddressMode.Block: 'Block',
-};
-
-IPAddressRangeException _$IPAddressRangeExceptionFromJson(
+IPAccessControlListRequest _$IPAccessControlListRequestFromJson(
     Map<String, dynamic> json) {
-  return IPAddressRangeException(
-    action: _$enumDecodeNullable(_$IPAddressModeEnumMap, json['action']),
-    endIPAddress: json['endIPAddress'],
-    startIPAddress: json['startIPAddress'],
+  return IPAccessControlListRequest(
+    ipAccessControlList: json['ipAccessControlList'] == null
+        ? null
+        : IPAccessControlList.fromJson(
+            json['ipAccessControlList'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$IPAddressRangeExceptionToJson(
-    IPAddressRangeException instance) {
+Map<String, dynamic> _$IPAccessControlListRequestToJson(
+    IPAccessControlListRequest instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -5047,9 +4963,37 @@ Map<String, dynamic> _$IPAddressRangeExceptionToJson(
     }
   }
 
-  writeNotNull('action', _$IPAddressModeEnumMap[instance.action]);
-  writeNotNull('endIPAddress', instance.endIPAddress);
-  writeNotNull('startIPAddress', instance.startIPAddress);
+  writeNotNull('ipAccessControlList', instance.ipAccessControlList);
+  return val;
+}
+
+IPAccessControlListResponse _$IPAccessControlListResponseFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListResponse(
+    ipAccessControlList: json['ipAccessControlList'] == null
+        ? null
+        : IPAccessControlList.fromJson(
+            json['ipAccessControlList'] as Map<String, dynamic>),
+    ipAccessControlLists: (json['ipAccessControlLists'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlList.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListResponseToJson(
+    IPAccessControlListResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ipAccessControlList', instance.ipAccessControlList);
+  writeNotNull('ipAccessControlLists', instance.ipAccessControlLists);
   return val;
 }
 
@@ -5079,60 +5023,6 @@ Map<String, dynamic> _$IPAddressRangeNodeToJson(IPAddressRangeNode instance) {
   writeNotNull('left', instance.left);
   writeNotNull('right', instance.right);
   writeNotNull('startIpAddress', instance.startIpAddress);
-  return val;
-}
-
-IPAddressRangeRequest _$IPAddressRangeRequestFromJson(
-    Map<String, dynamic> json) {
-  return IPAddressRangeRequest(
-    ipAddressRange: json['ipAddressRange'] == null
-        ? null
-        : IPAddressRange.fromJson(
-            json['ipAddressRange'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$IPAddressRangeRequestToJson(
-    IPAddressRangeRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('ipAddressRange', instance.ipAddressRange);
-  return val;
-}
-
-IPAddressRangeResponse _$IPAddressRangeResponseFromJson(
-    Map<String, dynamic> json) {
-  return IPAddressRangeResponse(
-    ipAddressRange: json['ipAddressRange'] == null
-        ? null
-        : IPAddressRange.fromJson(
-            json['ipAddressRange'] as Map<String, dynamic>),
-    ipAddressRanges: (json['ipAddressRanges'] as List)
-        ?.map((e) => e == null
-            ? null
-            : IPAddressRange.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Map<String, dynamic> _$IPAddressRangeResponseToJson(
-    IPAddressRangeResponse instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('ipAddressRange', instance.ipAddressRange);
-  writeNotNull('ipAddressRanges', instance.ipAddressRanges);
   return val;
 }
 
@@ -11016,9 +10906,7 @@ Map<String, dynamic> _$UserCommentResponseToJson(UserCommentResponse instance) {
 
 UserConsent _$UserConsentFromJson(Map<String, dynamic> json) {
   return UserConsent(
-    consent: json['consent'] == null
-        ? null
-        : Consent.fromJson(json['consent'] as Map<String, dynamic>),
+    consent: json['consent'],
     consentId: json['consentId'] as String,
     data: json['data'] as Map<String, dynamic>,
     giverUserId: json['giverUserId'] as String,
