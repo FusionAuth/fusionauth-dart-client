@@ -635,6 +635,18 @@ class AuditLogSearchResponse {
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
 }
 
+/// @author Brett Pontarelli
+enum AuthenticationThreats {
+  @JsonValue('ImpossibleTravel')
+  ImpossibleTravel,
+  @JsonValue('UnusualTravel')
+  UnusualTravel,
+  @JsonValue('BadCaptcha')
+  BadCaptcha,
+  @JsonValue('NewDeviceLogin')
+  NewDeviceLogin
+}
+
 @JsonSerializable()
 class AuthenticationTokenConfiguration extends Enableable {
 
@@ -4359,6 +4371,7 @@ class LoginResponse {
   String refreshToken;
   String registrationVerificationId;
   Map<String, dynamic> state;
+  List<AuthenticationThreats> threatsDetected;
   String token;
   String twoFactorId;
   String twoFactorTrustId;
@@ -4374,6 +4387,7 @@ class LoginResponse {
       this.refreshToken,
       this.registrationVerificationId,
       this.state,
+      this.threatsDetected,
       this.token,
       this.twoFactorId,
       this.twoFactorTrustId,
@@ -5468,8 +5482,8 @@ class ReactorStatus {
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
-  ReactorFeatureStatus ipLocation;
   bool licensed;
+  ReactorFeatureStatus threatDetection;
 
   ReactorStatus({
       this.advancedIdentityProviders,
@@ -5479,8 +5493,8 @@ class ReactorStatus {
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
-      this.ipLocation,
-      this.licensed
+      this.licensed,
+      this.threatDetection
   });
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) => _$ReactorStatusFromJson(json);

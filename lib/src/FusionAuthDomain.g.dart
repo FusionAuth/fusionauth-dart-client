@@ -6243,6 +6243,9 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
     refreshToken: json['refreshToken'] as String,
     registrationVerificationId: json['registrationVerificationId'] as String,
     state: json['state'] as Map<String, dynamic>,
+    threatsDetected: (json['threatsDetected'] as List)
+        ?.map((e) => _$enumDecodeNullable(_$AuthenticationThreatsEnumMap, e))
+        ?.toList(),
     token: json['token'] as String,
     twoFactorId: json['twoFactorId'] as String,
     twoFactorTrustId: json['twoFactorTrustId'] as String,
@@ -6272,6 +6275,11 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) {
   writeNotNull(
       'registrationVerificationId', instance.registrationVerificationId);
   writeNotNull('state', instance.state);
+  writeNotNull(
+      'threatsDetected',
+      instance.threatsDetected
+          ?.map((e) => _$AuthenticationThreatsEnumMap[e])
+          ?.toList());
   writeNotNull('token', instance.token);
   writeNotNull('twoFactorId', instance.twoFactorId);
   writeNotNull('twoFactorTrustId', instance.twoFactorTrustId);
@@ -6284,6 +6292,13 @@ const _$ChangePasswordReasonEnumMap = {
   ChangePasswordReason.Breached: 'Breached',
   ChangePasswordReason.Expired: 'Expired',
   ChangePasswordReason.Validation: 'Validation',
+};
+
+const _$AuthenticationThreatsEnumMap = {
+  AuthenticationThreats.ImpossibleTravel: 'ImpossibleTravel',
+  AuthenticationThreats.UnusualTravel: 'UnusualTravel',
+  AuthenticationThreats.BadCaptcha: 'BadCaptcha',
+  AuthenticationThreats.NewDeviceLogin: 'NewDeviceLogin',
 };
 
 LookupResponse _$LookupResponseFromJson(Map<String, dynamic> json) {
@@ -7828,9 +7843,9 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
         _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['connectors']),
     entityManagement: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['entityManagement']),
-    ipLocation:
-        _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['ipLocation']),
     licensed: json['licensed'] as bool,
+    threatDetection: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['threatDetection']),
   );
 }
 
@@ -7859,9 +7874,9 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
       'connectors', _$ReactorFeatureStatusEnumMap[instance.connectors]);
   writeNotNull('entityManagement',
       _$ReactorFeatureStatusEnumMap[instance.entityManagement]);
-  writeNotNull(
-      'ipLocation', _$ReactorFeatureStatusEnumMap[instance.ipLocation]);
   writeNotNull('licensed', instance.licensed);
+  writeNotNull('threatDetection',
+      _$ReactorFeatureStatusEnumMap[instance.threatDetection]);
   return val;
 }
 
