@@ -3046,9 +3046,10 @@ class IdentityProviderLoginRequest extends BaseLoginRequest {
   Map<String, String> data;
   String encodedJWT;
   String identityProviderId;
+  bool noLink;
 
   IdentityProviderLoginRequest(
-      {this.data, this.encodedJWT, this.identityProviderId});
+      {this.data, this.encodedJWT, this.identityProviderId, this.noLink});
 
   factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLoginRequestFromJson(json);
@@ -6605,12 +6606,21 @@ class UIConfiguration {
 class UniqueUsernameConfiguration extends Enableable {
   num numberOfDigits;
   char separator;
+  UniqueUsernameStrategy strategy;
 
-  UniqueUsernameConfiguration({this.numberOfDigits, this.separator});
+  UniqueUsernameConfiguration(
+      {this.numberOfDigits, this.separator, this.strategy});
 
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
+}
+
+enum UniqueUsernameStrategy {
+  @JsonValue('Always')
+  Always,
+  @JsonValue('OnCollision')
+  OnCollision
 }
 
 /// @author Daniel DeGroff

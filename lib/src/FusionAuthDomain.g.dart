@@ -4617,6 +4617,7 @@ IdentityProviderLoginRequest _$IdentityProviderLoginRequestFromJson(
     ),
     encodedJWT: json['encodedJWT'] as String,
     identityProviderId: json['identityProviderId'] as String,
+    noLink: json['noLink'] as bool,
   )
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
@@ -4643,6 +4644,7 @@ Map<String, dynamic> _$IdentityProviderLoginRequestToJson(
   writeNotNull('data', instance.data);
   writeNotNull('encodedJWT', instance.encodedJWT);
   writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('noLink', instance.noLink);
   return val;
 }
 
@@ -10197,6 +10199,8 @@ UniqueUsernameConfiguration _$UniqueUsernameConfigurationFromJson(
   return UniqueUsernameConfiguration(
     numberOfDigits: json['numberOfDigits'] as num,
     separator: json['separator'],
+    strategy:
+        _$enumDecodeNullable(_$UniqueUsernameStrategyEnumMap, json['strategy']),
   )..enabled = json['enabled'] as bool;
 }
 
@@ -10213,8 +10217,14 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
   writeNotNull('enabled', instance.enabled);
   writeNotNull('numberOfDigits', instance.numberOfDigits);
   writeNotNull('separator', instance.separator);
+  writeNotNull('strategy', _$UniqueUsernameStrategyEnumMap[instance.strategy]);
   return val;
 }
+
+const _$UniqueUsernameStrategyEnumMap = {
+  UniqueUsernameStrategy.Always: 'Always',
+  UniqueUsernameStrategy.OnCollision: 'OnCollision',
+};
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
