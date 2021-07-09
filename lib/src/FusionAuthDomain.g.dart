@@ -7782,9 +7782,9 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
         _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['connectors']),
     entityManagement: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['entityManagement']),
-    ipLocation:
-        _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['ipLocation']),
     licensed: json['licensed'] as bool,
+    threatDetection: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['threatDetection']),
   );
 }
 
@@ -7813,9 +7813,9 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
       'connectors', _$ReactorFeatureStatusEnumMap[instance.connectors]);
   writeNotNull('entityManagement',
       _$ReactorFeatureStatusEnumMap[instance.entityManagement]);
-  writeNotNull(
-      'ipLocation', _$ReactorFeatureStatusEnumMap[instance.ipLocation]);
   writeNotNull('licensed', instance.licensed);
+  writeNotNull('threatDetection',
+      _$ReactorFeatureStatusEnumMap[instance.threatDetection]);
   return val;
 }
 
