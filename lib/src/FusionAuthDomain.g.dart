@@ -1561,9 +1561,58 @@ Map<String, dynamic> _$ConnectorResponseToJson(ConnectorResponse instance) {
   return val;
 }
 
+Consent _$ConsentFromJson(Map<String, dynamic> json) {
+  return Consent(
+    consentEmailTemplateId: json['consentEmailTemplateId'] as String,
+    countryMinimumAgeForSelfConsent:
+        (json['countryMinimumAgeForSelfConsent'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k, e as num),
+    ),
+    data: json['data'] as Map<String, dynamic>,
+    defaultMinimumAgeForSelfConsent:
+        json['defaultMinimumAgeForSelfConsent'] as num,
+    emailPlus: json['emailPlus'] == null
+        ? null
+        : EmailPlus.fromJson(json['emailPlus'] as Map<String, dynamic>),
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    multipleValuesAllowed: json['multipleValuesAllowed'] as bool,
+    name: json['name'] as String,
+    values: (json['values'] as List)?.map((e) => e as String)?.toList(),
+  );
+}
+
+Map<String, dynamic> _$ConsentToJson(Consent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('consentEmailTemplateId', instance.consentEmailTemplateId);
+  writeNotNull('countryMinimumAgeForSelfConsent',
+      instance.countryMinimumAgeForSelfConsent);
+  writeNotNull('data', instance.data);
+  writeNotNull('defaultMinimumAgeForSelfConsent',
+      instance.defaultMinimumAgeForSelfConsent);
+  writeNotNull('emailPlus', instance.emailPlus);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('multipleValuesAllowed', instance.multipleValuesAllowed);
+  writeNotNull('name', instance.name);
+  writeNotNull('values', instance.values);
+  return val;
+}
+
 ConsentRequest _$ConsentRequestFromJson(Map<String, dynamic> json) {
   return ConsentRequest(
-    consent: json['consent'],
+    consent: json['consent'] == null
+        ? null
+        : Consent.fromJson(json['consent'] as Map<String, dynamic>),
   );
 }
 
@@ -1582,8 +1631,13 @@ Map<String, dynamic> _$ConsentRequestToJson(ConsentRequest instance) {
 
 ConsentResponse _$ConsentResponseFromJson(Map<String, dynamic> json) {
   return ConsentResponse(
-    consent: json['consent'],
-    consents: json['consents'] as List,
+    consent: json['consent'] == null
+        ? null
+        : Consent.fromJson(json['consent'] as Map<String, dynamic>),
+    consents: (json['consents'] as List)
+        ?.map((e) =>
+            e == null ? null : Consent.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -1970,6 +2024,32 @@ const _$EmailSecurityTypeEnumMap = {
   EmailSecurityType.SSL: 'SSL',
   EmailSecurityType.TLS: 'TLS',
 };
+
+EmailPlus _$EmailPlusFromJson(Map<String, dynamic> json) {
+  return EmailPlus(
+    emailTemplateId: json['emailTemplateId'] as String,
+    maximumTimeToSendEmailInHours: json['maximumTimeToSendEmailInHours'] as num,
+    minimumTimeToSendEmailInHours: json['minimumTimeToSendEmailInHours'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$EmailPlusToJson(EmailPlus instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('emailTemplateId', instance.emailTemplateId);
+  writeNotNull(
+      'maximumTimeToSendEmailInHours', instance.maximumTimeToSendEmailInHours);
+  writeNotNull(
+      'minimumTimeToSendEmailInHours', instance.minimumTimeToSendEmailInHours);
+  return val;
+}
 
 EmailTemplate _$EmailTemplateFromJson(Map<String, dynamic> json) {
   return EmailTemplate(
@@ -10906,7 +10986,9 @@ Map<String, dynamic> _$UserCommentResponseToJson(UserCommentResponse instance) {
 
 UserConsent _$UserConsentFromJson(Map<String, dynamic> json) {
   return UserConsent(
-    consent: json['consent'],
+    consent: json['consent'] == null
+        ? null
+        : Consent.fromJson(json['consent'] as Map<String, dynamic>),
     consentId: json['consentId'] as String,
     data: json['data'] as Map<String, dynamic>,
     giverUserId: json['giverUserId'] as String,

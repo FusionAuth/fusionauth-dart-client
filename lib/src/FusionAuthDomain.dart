@@ -1113,6 +1113,41 @@ enum ConnectorType {
   LDAP
 }
 
+/// Models a consent.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class Consent {
+  String consentEmailTemplateId;
+  Map<String, num> countryMinimumAgeForSelfConsent;
+  Map<String, dynamic> data;
+  num defaultMinimumAgeForSelfConsent;
+  EmailPlus emailPlus;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  bool multipleValuesAllowed;
+  String name;
+  List<String> values;
+
+  Consent({
+      this.consentEmailTemplateId,
+      this.countryMinimumAgeForSelfConsent,
+      this.data,
+      this.defaultMinimumAgeForSelfConsent,
+      this.emailPlus,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.multipleValuesAllowed,
+      this.name,
+      this.values
+  });
+
+  factory Consent.fromJson(Map<String, dynamic> json) => _$ConsentFromJson(json);
+  Map<String, dynamic> toJson() => _$ConsentToJson(this);
+}
+
 /// API request for User consent types.
 ///
 /// @author Daniel DeGroff
@@ -1431,6 +1466,22 @@ class EmailConfiguration {
 
   factory EmailConfiguration.fromJson(Map<String, dynamic> json) => _$EmailConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$EmailConfigurationToJson(this);
+}
+
+@JsonSerializable()
+class EmailPlus extends Enableable {
+  String emailTemplateId;
+  num maximumTimeToSendEmailInHours;
+  num minimumTimeToSendEmailInHours;
+
+  EmailPlus({
+      this.emailTemplateId,
+      this.maximumTimeToSendEmailInHours,
+      this.minimumTimeToSendEmailInHours
+  });
+
+  factory EmailPlus.fromJson(Map<String, dynamic> json) => _$EmailPlusFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailPlusToJson(this);
 }
 
 enum EmailSecurityType {
