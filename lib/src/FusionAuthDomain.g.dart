@@ -4958,18 +4958,21 @@ Map<String, dynamic> _$IntervalUserToJson(IntervalUser instance) {
   return val;
 }
 
-IpAddressRange _$IpAddressRangeFromJson(Map<String, dynamic> json) {
-  return IpAddressRange(
-    endIpAddress: json['endIpAddress'] as String,
+IPAddressRange _$IPAddressRangeFromJson(Map<String, dynamic> json) {
+  return IPAddressRange(
+    data: json['data'] as Map<String, dynamic>,
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
+    ipAddressRangeConfiguration: json['ipAddressRangeConfiguration'] == null
+        ? null
+        : IPAddressRangeConfiguration.fromJson(
+            json['ipAddressRangeConfiguration'] as Map<String, dynamic>),
     lastUpdateInstant: json['lastUpdateInstant'] as num,
-    mode: _$enumDecodeNullable(_$AddressRangeModeEnumMap, json['mode']),
-    startIpAddress: json['startIpAddress'] as String,
+    name: json['name'] as String,
   );
 }
 
-Map<String, dynamic> _$IpAddressRangeToJson(IpAddressRange instance) {
+Map<String, dynamic> _$IPAddressRangeToJson(IPAddressRange instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -4978,19 +4981,77 @@ Map<String, dynamic> _$IpAddressRangeToJson(IpAddressRange instance) {
     }
   }
 
-  writeNotNull('endIpAddress', instance.endIpAddress);
+  writeNotNull('data', instance.data);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull(
+      'ipAddressRangeConfiguration', instance.ipAddressRangeConfiguration);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
-  writeNotNull('mode', _$AddressRangeModeEnumMap[instance.mode]);
-  writeNotNull('startIpAddress', instance.startIpAddress);
+  writeNotNull('name', instance.name);
   return val;
 }
 
-const _$AddressRangeModeEnumMap = {
-  AddressRangeMode.ALLOW: 'ALLOW',
-  AddressRangeMode.BLOCK: 'BLOCK',
+IPAddressRangeConfiguration _$IPAddressRangeConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return IPAddressRangeConfiguration(
+    defaultAction:
+        _$enumDecodeNullable(_$IPAddressModeEnumMap, json['defaultAction']),
+    exceptions: (json['exceptions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAddressRangeException.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    mode: _$enumDecodeNullable(_$IPAddressModeEnumMap, json['mode']),
+    name: json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$IPAddressRangeConfigurationToJson(
+    IPAddressRangeConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('defaultAction', _$IPAddressModeEnumMap[instance.defaultAction]);
+  writeNotNull('exceptions', instance.exceptions);
+  writeNotNull('mode', _$IPAddressModeEnumMap[instance.mode]);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+const _$IPAddressModeEnumMap = {
+  IPAddressMode.Allow: 'Allow',
+  IPAddressMode.Block: 'Block',
 };
+
+IPAddressRangeException _$IPAddressRangeExceptionFromJson(
+    Map<String, dynamic> json) {
+  return IPAddressRangeException(
+    action: _$enumDecodeNullable(_$IPAddressModeEnumMap, json['action']),
+    endIPAddress: json['endIPAddress'],
+    startIPAddress: json['startIPAddress'],
+  );
+}
+
+Map<String, dynamic> _$IPAddressRangeExceptionToJson(
+    IPAddressRangeException instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('action', _$IPAddressModeEnumMap[instance.action]);
+  writeNotNull('endIPAddress', instance.endIPAddress);
+  writeNotNull('startIPAddress', instance.startIPAddress);
+  return val;
+}
 
 IPAddressRangeNode _$IPAddressRangeNodeFromJson(Map<String, dynamic> json) {
   return IPAddressRangeNode(
@@ -5026,7 +5087,7 @@ IPAddressRangeRequest _$IPAddressRangeRequestFromJson(
   return IPAddressRangeRequest(
     ipAddressRange: json['ipAddressRange'] == null
         ? null
-        : IpAddressRange.fromJson(
+        : IPAddressRange.fromJson(
             json['ipAddressRange'] as Map<String, dynamic>),
   );
 }
@@ -5050,12 +5111,12 @@ IPAddressRangeResponse _$IPAddressRangeResponseFromJson(
   return IPAddressRangeResponse(
     ipAddressRange: json['ipAddressRange'] == null
         ? null
-        : IpAddressRange.fromJson(
+        : IPAddressRange.fromJson(
             json['ipAddressRange'] as Map<String, dynamic>),
     ipAddressRanges: (json['ipAddressRanges'] as List)
         ?.map((e) => e == null
             ? null
-            : IpAddressRange.fromJson(e as Map<String, dynamic>))
+            : IPAddressRange.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
