@@ -74,6 +74,32 @@ const _$TokenTypeEnumMap = {
   TokenType.MAC: 'MAC',
 };
 
+ACLConfiguration _$ACLConfigurationFromJson(Map<String, dynamic> json) {
+  return ACLConfiguration(
+    aclAction: _$enumDecodeNullable(
+        _$IPAccessControlListModeEnumMap, json['aclAction']),
+  );
+}
+
+Map<String, dynamic> _$ACLConfigurationToJson(ACLConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'aclAction', _$IPAccessControlListModeEnumMap[instance.aclAction]);
+  return val;
+}
+
+const _$IPAccessControlListModeEnumMap = {
+  IPAccessControlListMode.Allow: 'Allow',
+  IPAccessControlListMode.Block: 'Block',
+};
+
 ActionData _$ActionDataFromJson(Map<String, dynamic> json) {
   return ActionData(
     actioneeUserId: json['actioneeUserId'] as String,
@@ -4995,11 +5021,6 @@ Map<String, dynamic> _$IPAccessControlListToJson(IPAccessControlList instance) {
   return val;
 }
 
-const _$IPAccessControlListModeEnumMap = {
-  IPAccessControlListMode.Allow: 'Allow',
-  IPAccessControlListMode.Block: 'Block',
-};
-
 IPAccessControlListException _$IPAccessControlListExceptionFromJson(
     Map<String, dynamic> json) {
   return IPAccessControlListException(
@@ -5079,14 +5100,14 @@ Map<String, dynamic> _$IPAccessControlListResponseToJson(
 
 IPAddressRangeNode _$IPAddressRangeNodeFromJson(Map<String, dynamic> json) {
   return IPAddressRangeNode(
-    endIpAddress: json['endIpAddress'] as num,
+    endIPAddress: json['endIPAddress'] as num,
     left: json['left'] == null
         ? null
         : IPAddressRangeNode.fromJson(json['left'] as Map<String, dynamic>),
     right: json['right'] == null
         ? null
         : IPAddressRangeNode.fromJson(json['right'] as Map<String, dynamic>),
-    startIpAddress: json['startIpAddress'] as num,
+    startIPAddress: json['startIPAddress'] as num,
   );
 }
 
@@ -5099,19 +5120,12 @@ Map<String, dynamic> _$IPAddressRangeNodeToJson(IPAddressRangeNode instance) {
     }
   }
 
-  writeNotNull('endIpAddress', instance.endIpAddress);
+  writeNotNull('endIPAddress', instance.endIPAddress);
   writeNotNull('left', instance.left);
   writeNotNull('right', instance.right);
-  writeNotNull('startIpAddress', instance.startIpAddress);
+  writeNotNull('startIPAddress', instance.startIPAddress);
   return val;
 }
-
-IPAddressRangeRule _$IPAddressRangeRuleFromJson(Map<String, dynamic> json) {
-  return IPAddressRangeRule();
-}
-
-Map<String, dynamic> _$IPAddressRangeRuleToJson(IPAddressRangeRule instance) =>
-    <String, dynamic>{};
 
 IPAddressRangeTree _$IPAddressRangeTreeFromJson(Map<String, dynamic> json) {
   return IPAddressRangeTree();
