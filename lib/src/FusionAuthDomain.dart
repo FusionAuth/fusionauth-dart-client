@@ -3023,13 +3023,15 @@ enum IdentityProviderLinkingStrategy {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class IdentityProviderLinkRequest {
+  String displayName;
   String identityProviderId;
   String identityProviderUserId;
   String pendingIdPLinkId;
   String userId;
 
   IdentityProviderLinkRequest(
-      {this.identityProviderId,
+      {this.displayName,
+      this.identityProviderId,
       this.identityProviderUserId,
       this.pendingIdPLinkId,
       this.userId});
@@ -3069,13 +3071,10 @@ class IdentityProviderLoginRequest extends BaseLoginRequest {
   Map<String, String> data;
   String encodedJWT;
   String identityProviderId;
-  bool loginOnlyWhenLinked;
+  bool noLink;
 
   IdentityProviderLoginRequest(
-      {this.data,
-      this.encodedJWT,
-      this.identityProviderId,
-      this.loginOnlyWhenLinked});
+      {this.data, this.encodedJWT, this.identityProviderId, this.noLink});
 
   factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLoginRequestFromJson(json);
@@ -3335,7 +3334,7 @@ class IPAccessControlList {
   Map<String, dynamic> toJson() => _$IPAccessControlListToJson(this);
 }
 
-/// @author Brett Guy
+// I think we could omit "Exception" from the name. Really this is just an IP range I think.
 @JsonSerializable()
 class IPAccessControlListException {
   String endIPAddress;
@@ -5032,7 +5031,7 @@ class PendingIdPLink {
   String email;
   String identityProviderId;
   String identityProviderName;
-  String identityProviderType;
+  IdentityProviderType identityProviderType;
   String identityProviderUserId;
   User user;
   String username;
@@ -6763,12 +6762,21 @@ class UIConfiguration {
 class UniqueUsernameConfiguration extends Enableable {
   num numberOfDigits;
   char separator;
+  UniqueUsernameStrategy strategy;
 
-  UniqueUsernameConfiguration({this.numberOfDigits, this.separator});
+  UniqueUsernameConfiguration(
+      {this.numberOfDigits, this.separator, this.strategy});
 
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
+}
+
+enum UniqueUsernameStrategy {
+  @JsonValue('Always')
+  Always,
+  @JsonValue('OnCollision')
+  OnCollision
 }
 
 /// @author Daniel DeGroff

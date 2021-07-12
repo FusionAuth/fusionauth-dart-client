@@ -4583,6 +4583,7 @@ Map<String, dynamic> _$IdentityProviderLinkToJson(
 IdentityProviderLinkRequest _$IdentityProviderLinkRequestFromJson(
     Map<String, dynamic> json) {
   return IdentityProviderLinkRequest(
+    displayName: json['displayName'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderUserId: json['identityProviderUserId'] as String,
     pendingIdPLinkId: json['pendingIdPLinkId'] as String,
@@ -4600,6 +4601,7 @@ Map<String, dynamic> _$IdentityProviderLinkRequestToJson(
     }
   }
 
+  writeNotNull('displayName', instance.displayName);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderUserId', instance.identityProviderUserId);
   writeNotNull('pendingIdPLinkId', instance.pendingIdPLinkId);
@@ -4645,7 +4647,7 @@ IdentityProviderLoginRequest _$IdentityProviderLoginRequestFromJson(
     ),
     encodedJWT: json['encodedJWT'] as String,
     identityProviderId: json['identityProviderId'] as String,
-    loginOnlyWhenLinked: json['loginOnlyWhenLinked'] as bool,
+    noLink: json['noLink'] as bool,
   )
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
@@ -4672,7 +4674,7 @@ Map<String, dynamic> _$IdentityProviderLoginRequestToJson(
   writeNotNull('data', instance.data);
   writeNotNull('encodedJWT', instance.encodedJWT);
   writeNotNull('identityProviderId', instance.identityProviderId);
-  writeNotNull('loginOnlyWhenLinked', instance.loginOnlyWhenLinked);
+  writeNotNull('noLink', instance.noLink);
   return val;
 }
 
@@ -7537,7 +7539,8 @@ PendingIdPLink _$PendingIdPLinkFromJson(Map<String, dynamic> json) {
     email: json['email'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderName: json['identityProviderName'] as String,
-    identityProviderType: json['identityProviderType'] as String,
+    identityProviderType: _$enumDecodeNullable(
+        _$IdentityProviderTypeEnumMap, json['identityProviderType']),
     identityProviderUserId: json['identityProviderUserId'] as String,
     user: json['user'] == null
         ? null
@@ -7559,7 +7562,8 @@ Map<String, dynamic> _$PendingIdPLinkToJson(PendingIdPLink instance) {
   writeNotNull('email', instance.email);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderName', instance.identityProviderName);
-  writeNotNull('identityProviderType', instance.identityProviderType);
+  writeNotNull('identityProviderType',
+      _$IdentityProviderTypeEnumMap[instance.identityProviderType]);
   writeNotNull('identityProviderUserId', instance.identityProviderUserId);
   writeNotNull('user', instance.user);
   writeNotNull('username', instance.username);
@@ -10424,6 +10428,8 @@ UniqueUsernameConfiguration _$UniqueUsernameConfigurationFromJson(
   return UniqueUsernameConfiguration(
     numberOfDigits: json['numberOfDigits'] as num,
     separator: json['separator'],
+    strategy:
+        _$enumDecodeNullable(_$UniqueUsernameStrategyEnumMap, json['strategy']),
   )..enabled = json['enabled'] as bool;
 }
 
@@ -10440,8 +10446,14 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
   writeNotNull('enabled', instance.enabled);
   writeNotNull('numberOfDigits', instance.numberOfDigits);
   writeNotNull('separator', instance.separator);
+  writeNotNull('strategy', _$UniqueUsernameStrategyEnumMap[instance.strategy]);
   return val;
 }
+
+const _$UniqueUsernameStrategyEnumMap = {
+  UniqueUsernameStrategy.Always: 'Always',
+  UniqueUsernameStrategy.OnCollision: 'OnCollision',
+};
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
