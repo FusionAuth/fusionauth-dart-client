@@ -74,32 +74,6 @@ const _$TokenTypeEnumMap = {
   TokenType.MAC: 'MAC',
 };
 
-ACLConfiguration _$ACLConfigurationFromJson(Map<String, dynamic> json) {
-  return ACLConfiguration(
-    aclAction: _$enumDecodeNullable(
-        _$IPAccessControlListModeEnumMap, json['aclAction']),
-  );
-}
-
-Map<String, dynamic> _$ACLConfigurationToJson(ACLConfiguration instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'aclAction', _$IPAccessControlListModeEnumMap[instance.aclAction]);
-  return val;
-}
-
-const _$IPAccessControlListModeEnumMap = {
-  IPAccessControlListMode.Allow: 'Allow',
-  IPAccessControlListMode.Block: 'Block',
-};
-
 ActionData _$ActionDataFromJson(Map<String, dynamic> json) {
   return ActionData(
     actioneeUserId: json['actioneeUserId'] as String,
@@ -5023,6 +4997,11 @@ Map<String, dynamic> _$IPAccessControlListToJson(IPAccessControlList instance) {
   return val;
 }
 
+const _$IPAccessControlListModeEnumMap = {
+  IPAccessControlListMode.Allow: 'Allow',
+  IPAccessControlListMode.Block: 'Block',
+};
+
 IPAccessControlListException _$IPAccessControlListExceptionFromJson(
     Map<String, dynamic> json) {
   return IPAccessControlListException(
@@ -5099,42 +5078,6 @@ Map<String, dynamic> _$IPAccessControlListResponseToJson(
   writeNotNull('ipAccessControlLists', instance.ipAccessControlLists);
   return val;
 }
-
-IPAddressRangeNode _$IPAddressRangeNodeFromJson(Map<String, dynamic> json) {
-  return IPAddressRangeNode(
-    endIPAddress: json['endIPAddress'] as num,
-    left: json['left'] == null
-        ? null
-        : IPAddressRangeNode.fromJson(json['left'] as Map<String, dynamic>),
-    right: json['right'] == null
-        ? null
-        : IPAddressRangeNode.fromJson(json['right'] as Map<String, dynamic>),
-    startIPAddress: json['startIPAddress'] as num,
-  );
-}
-
-Map<String, dynamic> _$IPAddressRangeNodeToJson(IPAddressRangeNode instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('endIPAddress', instance.endIPAddress);
-  writeNotNull('left', instance.left);
-  writeNotNull('right', instance.right);
-  writeNotNull('startIPAddress', instance.startIPAddress);
-  return val;
-}
-
-IPAddressRangeTree _$IPAddressRangeTreeFromJson(Map<String, dynamic> json) {
-  return IPAddressRangeTree();
-}
-
-Map<String, dynamic> _$IPAddressRangeTreeToJson(IPAddressRangeTree instance) =>
-    <String, dynamic>{};
 
 IssueResponse _$IssueResponseFromJson(Map<String, dynamic> json) {
   return IssueResponse(
