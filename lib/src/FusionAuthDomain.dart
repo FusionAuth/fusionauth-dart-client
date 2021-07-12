@@ -884,6 +884,30 @@ enum CanonicalizationMethod {
 }
 
 @JsonSerializable()
+class CaptchaConfiguration extends Enableable {
+  CaptchaMethod captchaMethod;
+  String secretKey;
+  String siteKey;
+  num threshold;
+
+  CaptchaConfiguration(
+      {this.captchaMethod, this.secretKey, this.siteKey, this.threshold});
+
+  factory CaptchaConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$CaptchaConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$CaptchaConfigurationToJson(this);
+}
+
+enum CaptchaMethod {
+  @JsonValue('GoogleRecaptchaV3')
+  GoogleRecaptchaV3,
+  @JsonValue('HCaptcha')
+  HCaptcha,
+  @JsonValue('HCaptchaEnterprise')
+  HCaptchaEnterprise
+}
+
+@JsonSerializable()
 class CertificateInformation {
   String issuer;
   String md5Fingerprint;
@@ -6151,6 +6175,7 @@ class Tenant {
   PasswordValidationRules passwordValidationRules;
   ObjectState state;
   String themeId;
+  ThreatDetectionConfiguration threatDetectionConfiguration;
   TenantUserDeletePolicy userDeletePolicy;
   TenantUsernameConfiguration usernameConfiguration;
 
@@ -6181,6 +6206,7 @@ class Tenant {
       this.passwordValidationRules,
       this.state,
       this.themeId,
+      this.threatDetectionConfiguration,
       this.userDeletePolicy,
       this.usernameConfiguration});
 
@@ -6381,6 +6407,18 @@ class ThemeResponse {
   factory ThemeResponse.fromJson(Map<String, dynamic> json) =>
       _$ThemeResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ThemeResponseToJson(this);
+}
+
+/// @author Brett Pontarelli
+@JsonSerializable()
+class ThreatDetectionConfiguration {
+  CaptchaConfiguration captcha;
+
+  ThreatDetectionConfiguration({this.captcha});
+
+  factory ThreatDetectionConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$ThreatDetectionConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$ThreatDetectionConfigurationToJson(this);
 }
 
 /// A policy for deleting Users.
