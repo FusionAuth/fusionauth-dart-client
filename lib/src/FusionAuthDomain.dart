@@ -45,18 +45,6 @@ class AccessToken {
   Map<String, dynamic> toJson() => _$AccessTokenToJson(this);
 }
 
-/// @author Brett Guy
-@JsonSerializable()
-class ACLConfiguration {
-  IPAccessControlListMode aclAction;
-
-  ACLConfiguration({this.aclAction});
-
-  factory ACLConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$ACLConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$ACLConfigurationToJson(this);
-}
-
 @JsonSerializable()
 class ActionData {
   String actioneeUserId;
@@ -3379,34 +3367,6 @@ class IPAccessControlListResponse {
   factory IPAccessControlListResponse.fromJson(Map<String, dynamic> json) =>
       _$IPAccessControlListResponseFromJson(json);
   Map<String, dynamic> toJson() => _$IPAccessControlListResponseToJson(this);
-}
-
-/// @author Brett Guy
-@JsonSerializable()
-class IPAddressRangeNode {
-  num endIPAddress;
-  IPAddressRangeNode left;
-  IPAddressRangeNode right;
-  num startIPAddress;
-
-  IPAddressRangeNode(
-      {this.endIPAddress, this.left, this.right, this.startIPAddress});
-
-  factory IPAddressRangeNode.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeNodeFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeNodeToJson(this);
-}
-
-/// An implementation of an Interval Tree used to store IP address ranges.
-/// <p>
-/// https://en.wikipedia.org/wiki/Interval_tree
-@JsonSerializable()
-class IPAddressRangeTree {
-  IPAddressRangeTree();
-
-  factory IPAddressRangeTree.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeTreeFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeTreeToJson(this);
 }
 
 /// @author Daniel DeGroff
