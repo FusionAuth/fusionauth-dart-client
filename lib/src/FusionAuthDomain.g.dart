@@ -4966,9 +4966,8 @@ IPAccessControlList _$IPAccessControlListFromJson(Map<String, dynamic> json) {
     defaultAction: _$enumDecodeNullable(
         _$IPAccessControlListModeEnumMap, json['defaultAction']),
     exceptions: (json['exceptions'] as List)
-        ?.map((e) => e == null
-            ? null
-            : IPAccessControlListException.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : IPRange.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
@@ -5001,29 +5000,6 @@ const _$IPAccessControlListModeEnumMap = {
   IPAccessControlListMode.Allow: 'Allow',
   IPAccessControlListMode.Block: 'Block',
 };
-
-IPAccessControlListException _$IPAccessControlListExceptionFromJson(
-    Map<String, dynamic> json) {
-  return IPAccessControlListException(
-    endIPAddress: json['endIPAddress'] as String,
-    startIPAddress: json['startIPAddress'] as String,
-  );
-}
-
-Map<String, dynamic> _$IPAccessControlListExceptionToJson(
-    IPAccessControlListException instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('endIPAddress', instance.endIPAddress);
-  writeNotNull('startIPAddress', instance.startIPAddress);
-  return val;
-}
 
 IPAccessControlListRequest _$IPAccessControlListRequestFromJson(
     Map<String, dynamic> json) {
@@ -5076,6 +5052,105 @@ Map<String, dynamic> _$IPAccessControlListResponseToJson(
 
   writeNotNull('ipAccessControlList', instance.ipAccessControlList);
   writeNotNull('ipAccessControlLists', instance.ipAccessControlLists);
+  return val;
+}
+
+IPAccessControlListSearchCriteria _$IPAccessControlListSearchCriteriaFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchCriteria(
+    name: json['name'] as String,
+  )
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num;
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchCriteriaToJson(
+    IPAccessControlListSearchCriteria instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+IPAccessControlListSearchRequest _$IPAccessControlListSearchRequestFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchRequest(
+    search: json['search'] == null
+        ? null
+        : IPAccessControlListSearchCriteria.fromJson(
+            json['search'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchRequestToJson(
+    IPAccessControlListSearchRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  return val;
+}
+
+IPAccessControlListSearchResponse _$IPAccessControlListSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchResponse(
+    acls: (json['acls'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlList.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    total: json['total'] as num,
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchResponseToJson(
+    IPAccessControlListSearchResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('acls', instance.acls);
+  writeNotNull('total', instance.total);
+  return val;
+}
+
+IPRange _$IPRangeFromJson(Map<String, dynamic> json) {
+  return IPRange(
+    endIPAddress: json['endIPAddress'] as String,
+    startIPAddress: json['startIPAddress'] as String,
+  );
+}
+
+Map<String, dynamic> _$IPRangeToJson(IPRange instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('endIPAddress', instance.endIPAddress);
+  writeNotNull('startIPAddress', instance.startIPAddress);
   return val;
 }
 
