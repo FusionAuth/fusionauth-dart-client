@@ -903,6 +903,8 @@ class CaptchaConfiguration extends Enableable {
 }
 
 enum CaptchaMethod {
+  @JsonValue('GoogleRecaptchaV2')
+  GoogleRecaptchaV2,
   @JsonValue('GoogleRecaptchaV3')
   GoogleRecaptchaV3,
   @JsonValue('HCaptcha')

@@ -1394,6 +1394,7 @@ Map<String, dynamic> _$CaptchaConfigurationToJson(
 }
 
 const _$CaptchaMethodEnumMap = {
+  CaptchaMethod.GoogleRecaptchaV2: 'GoogleRecaptchaV2',
   CaptchaMethod.GoogleRecaptchaV3: 'GoogleRecaptchaV3',
   CaptchaMethod.HCaptcha: 'HCaptcha',
   CaptchaMethod.HCaptchaEnterprise: 'HCaptchaEnterprise',
