@@ -105,14 +105,6 @@ class ActionResponse {
   Map<String, dynamic> toJson() => _$ActionResponseToJson(this);
 }
 
-/// @author Brett Guy
-enum AddressRangeMode {
-  @JsonValue('ALLOW')
-  ALLOW,
-  @JsonValue('BLOCK')
-  BLOCK
-}
-
 /// Available JSON Web Algorithms (JWA) as described in RFC 7518 available for this JWT implementation.
 ///
 /// @author Daniel DeGroff
@@ -604,6 +596,18 @@ class AuditLogSearchResponse {
   factory AuditLogSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$AuditLogSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
+}
+
+/// @author Brett Pontarelli
+enum AuthenticationThreats {
+  @JsonValue('ImpossibleTravel')
+  ImpossibleTravel,
+  @JsonValue('UnusualTravel')
+  UnusualTravel,
+  @JsonValue('BadCaptcha')
+  BadCaptcha,
+  @JsonValue('NewDeviceLogin')
+  NewDeviceLogin
 }
 
 @JsonSerializable()
@@ -3031,13 +3035,15 @@ enum IdentityProviderLinkingStrategy {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class IdentityProviderLinkRequest {
+  String displayName;
   String identityProviderId;
   String identityProviderUserId;
   String pendingIdPLinkId;
   String userId;
 
   IdentityProviderLinkRequest(
-      {this.identityProviderId,
+      {this.displayName,
+      this.identityProviderId,
       this.identityProviderUserId,
       this.pendingIdPLinkId,
       this.userId});
@@ -3077,13 +3083,10 @@ class IdentityProviderLoginRequest extends BaseLoginRequest {
   Map<String, String> data;
   String encodedJWT;
   String identityProviderId;
-  bool loginOnlyWhenLinked;
+  bool noLink;
 
   IdentityProviderLoginRequest(
-      {this.data,
-      this.encodedJWT,
-      this.identityProviderId,
-      this.loginOnlyWhenLinked});
+      {this.data, this.encodedJWT, this.identityProviderId, this.noLink});
 
   factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLoginRequestFromJson(json);
@@ -3318,92 +3321,76 @@ class IntervalUser {
   Map<String, dynamic> toJson() => _$IntervalUserToJson(this);
 }
 
-/// TODO : ip-allow-block : Fix names so they are all the same. I prefer `IP`.
-///
 /// @author Brett Guy
 @JsonSerializable()
-class IpAddressRange {
-  String endIpAddress;
+class IPAccessControlList {
+  Map<String, dynamic> data;
+  IPAccessControlListMode defaultAction;
+  List<IPAccessControlListException> exceptions;
   String id;
   num insertInstant;
   num lastUpdateInstant;
-  AddressRangeMode mode;
-  String startIpAddress;
+  String name;
 
-  IpAddressRange(
-      {this.endIpAddress,
+  IPAccessControlList(
+      {this.data,
+      this.defaultAction,
+      this.exceptions,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
-      this.mode,
-      this.startIpAddress});
+      this.name});
 
-  factory IpAddressRange.fromJson(Map<String, dynamic> json) =>
-      _$IpAddressRangeFromJson(json);
-  Map<String, dynamic> toJson() => _$IpAddressRangeToJson(this);
+  factory IPAccessControlList.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListToJson(this);
+}
+
+// I think we could omit "Exception" from the name. Really this is just an IP range I think.
+@JsonSerializable()
+class IPAccessControlListException {
+  String endIPAddress;
+  String startIPAddress;
+
+  IPAccessControlListException({this.endIPAddress, this.startIPAddress});
+
+  factory IPAccessControlListException.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListExceptionFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListExceptionToJson(this);
+}
+
+/// @author Brett Guy
+enum IPAccessControlListMode {
+  @JsonValue('Allow')
+  Allow,
+  @JsonValue('Block')
+  Block
 }
 
 /// @author Brett Guy
 @JsonSerializable()
-class IPAddressRangeNode {
-  num endIpAddress;
-  IPAddressRangeNode left;
-  IPAddressRangeNode right;
-  num startIpAddress;
+class IPAccessControlListRequest {
+  IPAccessControlList ipAccessControlList;
 
-  IPAddressRangeNode(
-      {this.endIpAddress, this.left, this.right, this.startIpAddress});
+  IPAccessControlListRequest({this.ipAccessControlList});
 
-  factory IPAddressRangeNode.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeNodeFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeNodeToJson(this);
+  factory IPAccessControlListRequest.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListRequestToJson(this);
 }
 
 /// @author Brett Guy
 @JsonSerializable()
-class IPAddressRangeRequest {
-  IpAddressRange ipAddressRange;
+class IPAccessControlListResponse {
+  IPAccessControlList ipAccessControlList;
+  List<IPAccessControlList> ipAccessControlLists;
 
-  IPAddressRangeRequest({this.ipAddressRange});
+  IPAccessControlListResponse(
+      {this.ipAccessControlList, this.ipAccessControlLists});
 
-  factory IPAddressRangeRequest.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeRequestToJson(this);
-}
-
-/// @author Brett Guy
-@JsonSerializable()
-class IPAddressRangeResponse {
-  IpAddressRange ipAddressRange;
-  List<IpAddressRange> ipAddressRanges;
-
-  IPAddressRangeResponse({this.ipAddressRange, this.ipAddressRanges});
-
-  factory IPAddressRangeResponse.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeResponseToJson(this);
-}
-
-/// @author Brett Guy
-@JsonSerializable()
-class IPAddressRangeRule {
-  IPAddressRangeRule();
-
-  factory IPAddressRangeRule.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeRuleFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeRuleToJson(this);
-}
-
-/// An implementation of an Interval Tree used to store IP address ranges.
-///
-/// https://en.wikipedia.org/wiki/Interval_tree
-@JsonSerializable()
-class IPAddressRangeTree {
-  IPAddressRangeTree();
-
-  factory IPAddressRangeTree.fromJson(Map<String, dynamic> json) =>
-      _$IPAddressRangeTreeFromJson(json);
-  Map<String, dynamic> toJson() => _$IPAddressRangeTreeToJson(this);
+  factory IPAccessControlListResponse.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListResponseToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -4160,6 +4147,7 @@ class LoginResponse {
   String refreshToken;
   String registrationVerificationId;
   Map<String, dynamic> state;
+  List<AuthenticationThreats> threatsDetected;
   String token;
   String twoFactorId;
   String twoFactorTrustId;
@@ -4175,6 +4163,7 @@ class LoginResponse {
       this.refreshToken,
       this.registrationVerificationId,
       this.state,
+      this.threatsDetected,
       this.token,
       this.twoFactorId,
       this.twoFactorTrustId,
@@ -5026,7 +5015,7 @@ class PendingIdPLink {
   String email;
   String identityProviderId;
   String identityProviderName;
-  String identityProviderType;
+  IdentityProviderType identityProviderType;
   String identityProviderUserId;
   User user;
   String username;
@@ -5216,8 +5205,8 @@ class ReactorStatus {
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
-  ReactorFeatureStatus ipLocation;
   bool licensed;
+  ReactorFeatureStatus threatDetection;
 
   ReactorStatus(
       {this.advancedIdentityProviders,
@@ -5227,8 +5216,8 @@ class ReactorStatus {
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
-      this.ipLocation,
-      this.licensed});
+      this.licensed,
+      this.threatDetection});
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
       _$ReactorStatusFromJson(json);
@@ -6771,12 +6760,21 @@ class UIConfiguration {
 class UniqueUsernameConfiguration extends Enableable {
   num numberOfDigits;
   char separator;
+  UniqueUsernameStrategy strategy;
 
-  UniqueUsernameConfiguration({this.numberOfDigits, this.separator});
+  UniqueUsernameConfiguration(
+      {this.numberOfDigits, this.separator, this.strategy});
 
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
+}
+
+enum UniqueUsernameStrategy {
+  @JsonValue('Always')
+  Always,
+  @JsonValue('OnCollision')
+  OnCollision
 }
 
 /// @author Daniel DeGroff
