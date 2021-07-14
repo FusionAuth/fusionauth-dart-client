@@ -3775,6 +3775,19 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches the ACLs with the specified criteria and pagination.
+  ///
+  /// @param {IPAccessControlListSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<IPAccessControlListSearchResponse>>}
+  Future<ClientResponse<IPAccessControlListSearchResponse, void>> searchACLs(IPAccessControlListSearchRequest request) {
+    return _start<IPAccessControlListSearchResponse, void>()
+        .withUri('/api/ip-acl/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder((d) => IPAccessControlListSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the audit logs with the specified criteria and pagination.
   ///
   /// @param {AuditLogSearchRequest} request The search criteria and pagination information.
