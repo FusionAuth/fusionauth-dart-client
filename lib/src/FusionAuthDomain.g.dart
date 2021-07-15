@@ -1365,6 +1365,41 @@ Map<String, dynamic> _$BreachedPasswordTenantMetricToJson(
   return val;
 }
 
+CaptchaConfiguration _$CaptchaConfigurationFromJson(Map<String, dynamic> json) {
+  return CaptchaConfiguration(
+    captchaMethod:
+        _$enumDecodeNullable(_$CaptchaMethodEnumMap, json['captchaMethod']),
+    secretKey: json['secretKey'] as String,
+    siteKey: json['siteKey'] as String,
+    threshold: json['threshold'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$CaptchaConfigurationToJson(
+    CaptchaConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('captchaMethod', _$CaptchaMethodEnumMap[instance.captchaMethod]);
+  writeNotNull('secretKey', instance.secretKey);
+  writeNotNull('siteKey', instance.siteKey);
+  writeNotNull('threshold', instance.threshold);
+  return val;
+}
+
+const _$CaptchaMethodEnumMap = {
+  CaptchaMethod.GoogleRecaptchaV2: 'GoogleRecaptchaV2',
+  CaptchaMethod.GoogleRecaptchaV3: 'GoogleRecaptchaV3',
+  CaptchaMethod.HCaptcha: 'HCaptcha',
+  CaptchaMethod.HCaptchaEnterprise: 'HCaptchaEnterprise',
+};
+
 CertificateInformation _$CertificateInformationFromJson(
     Map<String, dynamic> json) {
   return CertificateInformation(
@@ -9470,6 +9505,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
             json['passwordValidationRules'] as Map<String, dynamic>),
     state: _$enumDecodeNullable(_$ObjectStateEnumMap, json['state']),
     themeId: json['themeId'] as String,
+    threatDetectionConfiguration: json['threatDetectionConfiguration'] == null
+        ? null
+        : ThreatDetectionConfiguration.fromJson(
+            json['threatDetectionConfiguration'] as Map<String, dynamic>),
     userDeletePolicy: json['userDeletePolicy'] == null
         ? null
         : TenantUserDeletePolicy.fromJson(
@@ -9520,6 +9559,8 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('passwordValidationRules', instance.passwordValidationRules);
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('themeId', instance.themeId);
+  writeNotNull(
+      'threatDetectionConfiguration', instance.threatDetectionConfiguration);
   writeNotNull('userDeletePolicy', instance.userDeletePolicy);
   writeNotNull('usernameConfiguration', instance.usernameConfiguration);
   return val;
@@ -9863,6 +9904,30 @@ Map<String, dynamic> _$ThemeResponseToJson(ThemeResponse instance) {
 
   writeNotNull('theme', instance.theme);
   writeNotNull('themes', instance.themes);
+  return val;
+}
+
+ThreatDetectionConfiguration _$ThreatDetectionConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return ThreatDetectionConfiguration(
+    captcha: json['captcha'] == null
+        ? null
+        : CaptchaConfiguration.fromJson(
+            json['captcha'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ThreatDetectionConfigurationToJson(
+    ThreatDetectionConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('captcha', instance.captcha);
   return val;
 }
 
