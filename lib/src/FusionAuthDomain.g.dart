@@ -1365,6 +1365,41 @@ Map<String, dynamic> _$BreachedPasswordTenantMetricToJson(
   return val;
 }
 
+CaptchaConfiguration _$CaptchaConfigurationFromJson(Map<String, dynamic> json) {
+  return CaptchaConfiguration(
+    captchaMethod:
+        _$enumDecodeNullable(_$CaptchaMethodEnumMap, json['captchaMethod']),
+    secretKey: json['secretKey'] as String,
+    siteKey: json['siteKey'] as String,
+    threshold: json['threshold'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$CaptchaConfigurationToJson(
+    CaptchaConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('captchaMethod', _$CaptchaMethodEnumMap[instance.captchaMethod]);
+  writeNotNull('secretKey', instance.secretKey);
+  writeNotNull('siteKey', instance.siteKey);
+  writeNotNull('threshold', instance.threshold);
+  return val;
+}
+
+const _$CaptchaMethodEnumMap = {
+  CaptchaMethod.GoogleRecaptchaV2: 'GoogleRecaptchaV2',
+  CaptchaMethod.GoogleRecaptchaV3: 'GoogleRecaptchaV3',
+  CaptchaMethod.HCaptcha: 'HCaptcha',
+  CaptchaMethod.HCaptchaEnterprise: 'HCaptchaEnterprise',
+};
+
 CertificateInformation _$CertificateInformationFromJson(
     Map<String, dynamic> json) {
   return CertificateInformation(
@@ -4557,6 +4592,7 @@ Map<String, dynamic> _$IdentityProviderLinkToJson(
 IdentityProviderLinkRequest _$IdentityProviderLinkRequestFromJson(
     Map<String, dynamic> json) {
   return IdentityProviderLinkRequest(
+    displayName: json['displayName'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderUserId: json['identityProviderUserId'] as String,
     pendingIdPLinkId: json['pendingIdPLinkId'] as String,
@@ -4574,6 +4610,7 @@ Map<String, dynamic> _$IdentityProviderLinkRequestToJson(
     }
   }
 
+  writeNotNull('displayName', instance.displayName);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderUserId', instance.identityProviderUserId);
   writeNotNull('pendingIdPLinkId', instance.pendingIdPLinkId);
@@ -4619,7 +4656,7 @@ IdentityProviderLoginRequest _$IdentityProviderLoginRequestFromJson(
     ),
     encodedJWT: json['encodedJWT'] as String,
     identityProviderId: json['identityProviderId'] as String,
-    loginOnlyWhenLinked: json['loginOnlyWhenLinked'] as bool,
+    noLink: json['noLink'] as bool,
   )
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
@@ -4646,7 +4683,7 @@ Map<String, dynamic> _$IdentityProviderLoginRequestToJson(
   writeNotNull('data', instance.data);
   writeNotNull('encodedJWT', instance.encodedJWT);
   writeNotNull('identityProviderId', instance.identityProviderId);
-  writeNotNull('loginOnlyWhenLinked', instance.loginOnlyWhenLinked);
+  writeNotNull('noLink', instance.noLink);
   return val;
 }
 
@@ -4958,18 +4995,23 @@ Map<String, dynamic> _$IntervalUserToJson(IntervalUser instance) {
   return val;
 }
 
-IpAddressRange _$IpAddressRangeFromJson(Map<String, dynamic> json) {
-  return IpAddressRange(
-    endIpAddress: json['endIpAddress'] as String,
+IPAccessControlList _$IPAccessControlListFromJson(Map<String, dynamic> json) {
+  return IPAccessControlList(
+    data: json['data'] as Map<String, dynamic>,
+    defaultAction: _$enumDecodeNullable(
+        _$IPAccessControlListModeEnumMap, json['defaultAction']),
+    exceptions: (json['exceptions'] as List)
+        ?.map((e) =>
+            e == null ? null : IPRange.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
     lastUpdateInstant: json['lastUpdateInstant'] as num,
-    mode: _$enumDecodeNullable(_$AddressRangeModeEnumMap, json['mode']),
-    startIpAddress: json['startIpAddress'] as String,
+    name: json['name'] as String,
   );
 }
 
-Map<String, dynamic> _$IpAddressRangeToJson(IpAddressRange instance) {
+Map<String, dynamic> _$IPAccessControlListToJson(IPAccessControlList instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -4978,34 +5020,34 @@ Map<String, dynamic> _$IpAddressRangeToJson(IpAddressRange instance) {
     }
   }
 
-  writeNotNull('endIpAddress', instance.endIpAddress);
+  writeNotNull('data', instance.data);
+  writeNotNull('defaultAction',
+      _$IPAccessControlListModeEnumMap[instance.defaultAction]);
+  writeNotNull('exceptions', instance.exceptions);
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
-  writeNotNull('mode', _$AddressRangeModeEnumMap[instance.mode]);
-  writeNotNull('startIpAddress', instance.startIpAddress);
+  writeNotNull('name', instance.name);
   return val;
 }
 
-const _$AddressRangeModeEnumMap = {
-  AddressRangeMode.ALLOW: 'ALLOW',
-  AddressRangeMode.BLOCK: 'BLOCK',
+const _$IPAccessControlListModeEnumMap = {
+  IPAccessControlListMode.Allow: 'Allow',
+  IPAccessControlListMode.Block: 'Block',
 };
 
-IPAddressRangeNode _$IPAddressRangeNodeFromJson(Map<String, dynamic> json) {
-  return IPAddressRangeNode(
-    endIpAddress: json['endIpAddress'] as num,
-    left: json['left'] == null
+IPAccessControlListRequest _$IPAccessControlListRequestFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListRequest(
+    ipAccessControlList: json['ipAccessControlList'] == null
         ? null
-        : IPAddressRangeNode.fromJson(json['left'] as Map<String, dynamic>),
-    right: json['right'] == null
-        ? null
-        : IPAddressRangeNode.fromJson(json['right'] as Map<String, dynamic>),
-    startIpAddress: json['startIpAddress'] as num,
+        : IPAccessControlList.fromJson(
+            json['ipAccessControlList'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$IPAddressRangeNodeToJson(IPAddressRangeNode instance) {
+Map<String, dynamic> _$IPAccessControlListRequestToJson(
+    IPAccessControlListRequest instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -5014,54 +5056,27 @@ Map<String, dynamic> _$IPAddressRangeNodeToJson(IPAddressRangeNode instance) {
     }
   }
 
-  writeNotNull('endIpAddress', instance.endIpAddress);
-  writeNotNull('left', instance.left);
-  writeNotNull('right', instance.right);
-  writeNotNull('startIpAddress', instance.startIpAddress);
+  writeNotNull('ipAccessControlList', instance.ipAccessControlList);
   return val;
 }
 
-IPAddressRangeRequest _$IPAddressRangeRequestFromJson(
+IPAccessControlListResponse _$IPAccessControlListResponseFromJson(
     Map<String, dynamic> json) {
-  return IPAddressRangeRequest(
-    ipAddressRange: json['ipAddressRange'] == null
+  return IPAccessControlListResponse(
+    ipAccessControlList: json['ipAccessControlList'] == null
         ? null
-        : IpAddressRange.fromJson(
-            json['ipAddressRange'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$IPAddressRangeRequestToJson(
-    IPAddressRangeRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('ipAddressRange', instance.ipAddressRange);
-  return val;
-}
-
-IPAddressRangeResponse _$IPAddressRangeResponseFromJson(
-    Map<String, dynamic> json) {
-  return IPAddressRangeResponse(
-    ipAddressRange: json['ipAddressRange'] == null
-        ? null
-        : IpAddressRange.fromJson(
-            json['ipAddressRange'] as Map<String, dynamic>),
-    ipAddressRanges: (json['ipAddressRanges'] as List)
+        : IPAccessControlList.fromJson(
+            json['ipAccessControlList'] as Map<String, dynamic>),
+    ipAccessControlLists: (json['ipAccessControlLists'] as List)
         ?.map((e) => e == null
             ? null
-            : IpAddressRange.fromJson(e as Map<String, dynamic>))
+            : IPAccessControlList.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
 
-Map<String, dynamic> _$IPAddressRangeResponseToJson(
-    IPAddressRangeResponse instance) {
+Map<String, dynamic> _$IPAccessControlListResponseToJson(
+    IPAccessControlListResponse instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -5070,24 +5085,109 @@ Map<String, dynamic> _$IPAddressRangeResponseToJson(
     }
   }
 
-  writeNotNull('ipAddressRange', instance.ipAddressRange);
-  writeNotNull('ipAddressRanges', instance.ipAddressRanges);
+  writeNotNull('ipAccessControlList', instance.ipAccessControlList);
+  writeNotNull('ipAccessControlLists', instance.ipAccessControlLists);
   return val;
 }
 
-IPAddressRangeRule _$IPAddressRangeRuleFromJson(Map<String, dynamic> json) {
-  return IPAddressRangeRule();
+IPAccessControlListSearchCriteria _$IPAccessControlListSearchCriteriaFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchCriteria(
+    name: json['name'] as String,
+  )
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num;
 }
 
-Map<String, dynamic> _$IPAddressRangeRuleToJson(IPAddressRangeRule instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$IPAccessControlListSearchCriteriaToJson(
+    IPAccessControlListSearchCriteria instance) {
+  final val = <String, dynamic>{};
 
-IPAddressRangeTree _$IPAddressRangeTreeFromJson(Map<String, dynamic> json) {
-  return IPAddressRangeTree();
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('name', instance.name);
+  return val;
 }
 
-Map<String, dynamic> _$IPAddressRangeTreeToJson(IPAddressRangeTree instance) =>
-    <String, dynamic>{};
+IPAccessControlListSearchRequest _$IPAccessControlListSearchRequestFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchRequest(
+    search: json['search'] == null
+        ? null
+        : IPAccessControlListSearchCriteria.fromJson(
+            json['search'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchRequestToJson(
+    IPAccessControlListSearchRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  return val;
+}
+
+IPAccessControlListSearchResponse _$IPAccessControlListSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchResponse(
+    acls: (json['acls'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlList.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    total: json['total'] as num,
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchResponseToJson(
+    IPAccessControlListSearchResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('acls', instance.acls);
+  writeNotNull('total', instance.total);
+  return val;
+}
+
+IPRange _$IPRangeFromJson(Map<String, dynamic> json) {
+  return IPRange(
+    endIPAddress: json['endIPAddress'] as String,
+    startIPAddress: json['startIPAddress'] as String,
+  );
+}
+
+Map<String, dynamic> _$IPRangeToJson(IPRange instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('endIPAddress', instance.endIPAddress);
+  writeNotNull('startIPAddress', instance.startIPAddress);
+  return val;
+}
 
 IssueResponse _$IssueResponseFromJson(Map<String, dynamic> json) {
   return IssueResponse(
@@ -7492,7 +7592,8 @@ PendingIdPLink _$PendingIdPLinkFromJson(Map<String, dynamic> json) {
     email: json['email'] as String,
     identityProviderId: json['identityProviderId'] as String,
     identityProviderName: json['identityProviderName'] as String,
-    identityProviderType: json['identityProviderType'] as String,
+    identityProviderType: _$enumDecodeNullable(
+        _$IdentityProviderTypeEnumMap, json['identityProviderType']),
     identityProviderUserId: json['identityProviderUserId'] as String,
     user: json['user'] == null
         ? null
@@ -7514,7 +7615,8 @@ Map<String, dynamic> _$PendingIdPLinkToJson(PendingIdPLink instance) {
   writeNotNull('email', instance.email);
   writeNotNull('identityProviderId', instance.identityProviderId);
   writeNotNull('identityProviderName', instance.identityProviderName);
-  writeNotNull('identityProviderType', instance.identityProviderType);
+  writeNotNull('identityProviderType',
+      _$IdentityProviderTypeEnumMap[instance.identityProviderType]);
   writeNotNull('identityProviderUserId', instance.identityProviderUserId);
   writeNotNull('user', instance.user);
   writeNotNull('username', instance.username);
@@ -7782,9 +7884,9 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
         _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['connectors']),
     entityManagement: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['entityManagement']),
-    ipLocation:
-        _$enumDecodeNullable(_$ReactorFeatureStatusEnumMap, json['ipLocation']),
     licensed: json['licensed'] as bool,
+    threatDetection: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['threatDetection']),
   );
 }
 
@@ -7813,9 +7915,9 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
       'connectors', _$ReactorFeatureStatusEnumMap[instance.connectors]);
   writeNotNull('entityManagement',
       _$ReactorFeatureStatusEnumMap[instance.entityManagement]);
-  writeNotNull(
-      'ipLocation', _$ReactorFeatureStatusEnumMap[instance.ipLocation]);
   writeNotNull('licensed', instance.licensed);
+  writeNotNull('threatDetection',
+      _$ReactorFeatureStatusEnumMap[instance.threatDetection]);
   return val;
 }
 
@@ -9403,6 +9505,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
             json['passwordValidationRules'] as Map<String, dynamic>),
     state: _$enumDecodeNullable(_$ObjectStateEnumMap, json['state']),
     themeId: json['themeId'] as String,
+    threatDetectionConfiguration: json['threatDetectionConfiguration'] == null
+        ? null
+        : ThreatDetectionConfiguration.fromJson(
+            json['threatDetectionConfiguration'] as Map<String, dynamic>),
     userDeletePolicy: json['userDeletePolicy'] == null
         ? null
         : TenantUserDeletePolicy.fromJson(
@@ -9453,6 +9559,8 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('passwordValidationRules', instance.passwordValidationRules);
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('themeId', instance.themeId);
+  writeNotNull(
+      'threatDetectionConfiguration', instance.threatDetectionConfiguration);
   writeNotNull('userDeletePolicy', instance.userDeletePolicy);
   writeNotNull('usernameConfiguration', instance.usernameConfiguration);
   return val;
@@ -9796,6 +9904,30 @@ Map<String, dynamic> _$ThemeResponseToJson(ThemeResponse instance) {
 
   writeNotNull('theme', instance.theme);
   writeNotNull('themes', instance.themes);
+  return val;
+}
+
+ThreatDetectionConfiguration _$ThreatDetectionConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return ThreatDetectionConfiguration(
+    captcha: json['captcha'] == null
+        ? null
+        : CaptchaConfiguration.fromJson(
+            json['captcha'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ThreatDetectionConfigurationToJson(
+    ThreatDetectionConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('captcha', instance.captcha);
   return val;
 }
 
@@ -10379,6 +10511,8 @@ UniqueUsernameConfiguration _$UniqueUsernameConfigurationFromJson(
   return UniqueUsernameConfiguration(
     numberOfDigits: json['numberOfDigits'] as num,
     separator: json['separator'],
+    strategy:
+        _$enumDecodeNullable(_$UniqueUsernameStrategyEnumMap, json['strategy']),
   )..enabled = json['enabled'] as bool;
 }
 
@@ -10395,8 +10529,14 @@ Map<String, dynamic> _$UniqueUsernameConfigurationToJson(
   writeNotNull('enabled', instance.enabled);
   writeNotNull('numberOfDigits', instance.numberOfDigits);
   writeNotNull('separator', instance.separator);
+  writeNotNull('strategy', _$UniqueUsernameStrategyEnumMap[instance.strategy]);
   return val;
 }
+
+const _$UniqueUsernameStrategyEnumMap = {
+  UniqueUsernameStrategy.Always: 'Always',
+  UniqueUsernameStrategy.OnCollision: 'OnCollision',
+};
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
