@@ -5171,6 +5171,28 @@ class PublicKeyResponse {
   Map<String, dynamic> toJson() => _$PublicKeyResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class RateLimitedRequestConfiguration extends Enableable {
+  num limit;
+  num timePeriodInSeconds;
+
+  RateLimitedRequestConfiguration({this.limit, this.timePeriodInSeconds});
+
+  factory RateLimitedRequestConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$RateLimitedRequestConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$RateLimitedRequestConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum RateLimitedRequestType {
+  @JsonValue('FailedLogin')
+  FailedLogin,
+  @JsonValue('ForgotPassword')
+  ForgotPassword
+}
+
 /// Raw login information for each time a user logs into an application.
 ///
 /// @author Brian Pontarelli
@@ -6209,6 +6231,7 @@ class Tenant {
   TenantOAuth2Configuration oauthConfiguration;
   PasswordEncryptionConfiguration passwordEncryptionConfiguration;
   PasswordValidationRules passwordValidationRules;
+  TenantRateLimitingConfiguration rateLimitingConfiguration;
   ObjectState state;
   String themeId;
   ThreatDetectionConfiguration threatDetectionConfiguration;
@@ -6240,6 +6263,7 @@ class Tenant {
       this.oauthConfiguration,
       this.passwordEncryptionConfiguration,
       this.passwordValidationRules,
+      this.rateLimitingConfiguration,
       this.state,
       this.themeId,
       this.threatDetectionConfiguration,
@@ -6308,6 +6332,19 @@ class TenantOAuth2Configuration {
   factory TenantOAuth2Configuration.fromJson(Map<String, dynamic> json) =>
       _$TenantOAuth2ConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantOAuth2ConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantRateLimitingConfiguration {
+  RateLimitedRequestConfiguration forgotPassword;
+
+  TenantRateLimitingConfiguration({this.forgotPassword});
+
+  factory TenantRateLimitingConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantRateLimitingConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$TenantRateLimitingConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff

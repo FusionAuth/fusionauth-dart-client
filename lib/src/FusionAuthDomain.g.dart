@@ -7769,6 +7769,30 @@ Map<String, dynamic> _$PublicKeyResponseToJson(PublicKeyResponse instance) {
   return val;
 }
 
+RateLimitedRequestConfiguration _$RateLimitedRequestConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return RateLimitedRequestConfiguration(
+    limit: json['limit'] as num,
+    timePeriodInSeconds: json['timePeriodInSeconds'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$RateLimitedRequestConfigurationToJson(
+    RateLimitedRequestConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('limit', instance.limit);
+  writeNotNull('timePeriodInSeconds', instance.timePeriodInSeconds);
+  return val;
+}
+
 RawLogin _$RawLoginFromJson(Map<String, dynamic> json) {
   return RawLogin(
     applicationId: json['applicationId'] as String,
@@ -9503,6 +9527,10 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
         ? null
         : PasswordValidationRules.fromJson(
             json['passwordValidationRules'] as Map<String, dynamic>),
+    rateLimitingConfiguration: json['rateLimitingConfiguration'] == null
+        ? null
+        : TenantRateLimitingConfiguration.fromJson(
+            json['rateLimitingConfiguration'] as Map<String, dynamic>),
     state: _$enumDecodeNullable(_$ObjectStateEnumMap, json['state']),
     themeId: json['themeId'] as String,
     threatDetectionConfiguration: json['threatDetectionConfiguration'] == null
@@ -9557,6 +9585,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('passwordEncryptionConfiguration',
       instance.passwordEncryptionConfiguration);
   writeNotNull('passwordValidationRules', instance.passwordValidationRules);
+  writeNotNull('rateLimitingConfiguration', instance.rateLimitingConfiguration);
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('themeId', instance.themeId);
   writeNotNull(
@@ -9668,6 +9697,30 @@ Map<String, dynamic> _$TenantOAuth2ConfigurationToJson(
 
   writeNotNull('clientCredentialsAccessTokenPopulateLambdaId',
       instance.clientCredentialsAccessTokenPopulateLambdaId);
+  return val;
+}
+
+TenantRateLimitingConfiguration _$TenantRateLimitingConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantRateLimitingConfiguration(
+    forgotPassword: json['forgotPassword'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['forgotPassword'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TenantRateLimitingConfigurationToJson(
+    TenantRateLimitingConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('forgotPassword', instance.forgotPassword);
   return val;
 }
 
