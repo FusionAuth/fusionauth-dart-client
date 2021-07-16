@@ -9703,10 +9703,35 @@ Map<String, dynamic> _$TenantOAuth2ConfigurationToJson(
 TenantRateLimitingConfiguration _$TenantRateLimitingConfigurationFromJson(
     Map<String, dynamic> json) {
   return TenantRateLimitingConfiguration(
+    failedLogin: json['failedLogin'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['failedLogin'] as Map<String, dynamic>),
     forgotPassword: json['forgotPassword'] == null
         ? null
         : RateLimitedRequestConfiguration.fromJson(
             json['forgotPassword'] as Map<String, dynamic>),
+    resendEmailVerification: json['resendEmailVerification'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['resendEmailVerification'] as Map<String, dynamic>),
+    resendRegistrationVerification:
+        json['resendRegistrationVerification'] == null
+            ? null
+            : RateLimitedRequestConfiguration.fromJson(
+                json['resendRegistrationVerification'] as Map<String, dynamic>),
+    sendPasswordlessEmail: json['sendPasswordlessEmail'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendPasswordlessEmail'] as Map<String, dynamic>),
+    sendTwoFactorEmail: json['sendTwoFactorEmail'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendTwoFactorEmail'] as Map<String, dynamic>),
+    sendTwoFactorSMS: json['sendTwoFactorSMS'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendTwoFactorSMS'] as Map<String, dynamic>),
   );
 }
 
@@ -9720,7 +9745,14 @@ Map<String, dynamic> _$TenantRateLimitingConfigurationToJson(
     }
   }
 
+  writeNotNull('failedLogin', instance.failedLogin);
   writeNotNull('forgotPassword', instance.forgotPassword);
+  writeNotNull('resendEmailVerification', instance.resendEmailVerification);
+  writeNotNull('resendRegistrationVerification',
+      instance.resendRegistrationVerification);
+  writeNotNull('sendPasswordlessEmail', instance.sendPasswordlessEmail);
+  writeNotNull('sendTwoFactorEmail', instance.sendTwoFactorEmail);
+  writeNotNull('sendTwoFactorSMS', instance.sendTwoFactorSMS);
   return val;
 }
 

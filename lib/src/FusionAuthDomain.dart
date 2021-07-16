@@ -5190,7 +5190,17 @@ enum RateLimitedRequestType {
   @JsonValue('FailedLogin')
   FailedLogin,
   @JsonValue('ForgotPassword')
-  ForgotPassword
+  ForgotPassword,
+  @JsonValue('ResendEmailVerification')
+  ResendEmailVerification,
+  @JsonValue('ResendRegistrationVerification')
+  ResendRegistrationVerification,
+  @JsonValue('SendPasswordlessEmail')
+  SendPasswordlessEmail,
+  @JsonValue('SendTwoFactorEmail')
+  SendTwoFactorEmail,
+  @JsonValue('SendTwoFactorSMS')
+  SendTwoFactorSMS
 }
 
 /// Raw login information for each time a user logs into an application.
@@ -6337,9 +6347,22 @@ class TenantOAuth2Configuration {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class TenantRateLimitingConfiguration {
+  RateLimitedRequestConfiguration failedLogin;
   RateLimitedRequestConfiguration forgotPassword;
+  RateLimitedRequestConfiguration resendEmailVerification;
+  RateLimitedRequestConfiguration resendRegistrationVerification;
+  RateLimitedRequestConfiguration sendPasswordlessEmail;
+  RateLimitedRequestConfiguration sendTwoFactorEmail;
+  RateLimitedRequestConfiguration sendTwoFactorSMS;
 
-  TenantRateLimitingConfiguration({this.forgotPassword});
+  TenantRateLimitingConfiguration(
+      {this.failedLogin,
+      this.forgotPassword,
+      this.resendEmailVerification,
+      this.resendRegistrationVerification,
+      this.sendPasswordlessEmail,
+      this.sendTwoFactorEmail,
+      this.sendTwoFactorSMS});
 
   factory TenantRateLimitingConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantRateLimitingConfigurationFromJson(json);
