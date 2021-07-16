@@ -3365,7 +3365,7 @@ class IntervalUser {
 class IPAccessControlList {
   Map<String, dynamic> data;
   IPAccessControlListMode defaultAction;
-  List<IPRange> exceptions;
+  List<IPAddressRange> exceptions;
   String id;
   num insertInstant;
   num lastUpdateInstant;
@@ -3466,15 +3466,15 @@ class IPAccessControlListSearchResponse {
 
 /// @author Brett Guy
 @JsonSerializable()
-class IPRange {
+class IPAddressRange {
   String endIPAddress;
   String startIPAddress;
 
-  IPRange({this.endIPAddress, this.startIPAddress});
+  IPAddressRange({this.endIPAddress, this.startIPAddress});
 
-  factory IPRange.fromJson(Map<String, dynamic> json) =>
-      _$IPRangeFromJson(json);
-  Map<String, dynamic> toJson() => _$IPRangeToJson(this);
+  factory IPAddressRange.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeToJson(this);
 }
 
 /// @author Daniel DeGroff

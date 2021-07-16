@@ -5058,8 +5058,9 @@ IPAccessControlList _$IPAccessControlListFromJson(Map<String, dynamic> json) {
     defaultAction: _$enumDecodeNullable(
         _$IPAccessControlListModeEnumMap, json['defaultAction']),
     exceptions: (json['exceptions'] as List)
-        ?.map((e) =>
-            e == null ? null : IPRange.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : IPAddressRange.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
@@ -5225,14 +5226,14 @@ Map<String, dynamic> _$IPAccessControlListSearchResponseToJson(
   return val;
 }
 
-IPRange _$IPRangeFromJson(Map<String, dynamic> json) {
-  return IPRange(
+IPAddressRange _$IPAddressRangeFromJson(Map<String, dynamic> json) {
+  return IPAddressRange(
     endIPAddress: json['endIPAddress'] as String,
     startIPAddress: json['startIPAddress'] as String,
   );
 }
 
-Map<String, dynamic> _$IPRangeToJson(IPRange instance) {
+Map<String, dynamic> _$IPAddressRangeToJson(IPAddressRange instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
