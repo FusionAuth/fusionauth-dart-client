@@ -1147,6 +1147,9 @@ Map<String, dynamic> _$BaseElasticSearchCriteriaToJson(
 BaseEvent _$BaseEventFromJson(Map<String, dynamic> json) {
   return BaseEvent(
     createInstant: json['createInstant'] as num,
+    eventInfo: json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>),
     id: json['id'] as String,
     tenantId: json['tenantId'] as String,
   );
@@ -1162,6 +1165,7 @@ Map<String, dynamic> _$BaseEventToJson(BaseEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   return val;
@@ -1245,6 +1249,10 @@ Map<String, dynamic> _$BaseIdentityProviderApplicationConfigurationToJson(
 BaseLoginRequest _$BaseLoginRequestFromJson(Map<String, dynamic> json) {
   return BaseLoginRequest(
     applicationId: json['applicationId'] as String,
+    deviceTrustId: json['deviceTrustId'] as String,
+    eventInfo: json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>),
     ipAddress: json['ipAddress'] as String,
     metaData: json['metaData'] == null
         ? null
@@ -1263,6 +1271,8 @@ Map<String, dynamic> _$BaseLoginRequestToJson(BaseLoginRequest instance) {
   }
 
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('deviceTrustId', instance.deviceTrustId);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
@@ -3038,6 +3048,41 @@ const _$TransactionTypeEnumMap = {
   TransactionType.AbsoluteMajority: 'AbsoluteMajority',
 };
 
+EventInfo _$EventInfoFromJson(Map<String, dynamic> json) {
+  return EventInfo(
+    deviceDescription: json['deviceDescription'] as String,
+    deviceName: json['deviceName'] as String,
+    deviceType: json['deviceType'] as String,
+    instant: json['instant'] as num,
+    ipAddress: json['ipAddress'] as String,
+    location: json['location'] == null
+        ? null
+        : Location.fromJson(json['location'] as Map<String, dynamic>),
+    os: json['os'] as String,
+    userAgent: json['userAgent'] as String,
+  );
+}
+
+Map<String, dynamic> _$EventInfoToJson(EventInfo instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('deviceDescription', instance.deviceDescription);
+  writeNotNull('deviceName', instance.deviceName);
+  writeNotNull('deviceType', instance.deviceType);
+  writeNotNull('instant', instance.instant);
+  writeNotNull('ipAddress', instance.ipAddress);
+  writeNotNull('location', instance.location);
+  writeNotNull('os', instance.os);
+  writeNotNull('userAgent', instance.userAgent);
+  return val;
+}
+
 EventLog _$EventLogFromJson(Map<String, dynamic> json) {
   return EventLog(
     id: json['id'] as num,
@@ -4659,6 +4704,10 @@ IdentityProviderLoginRequest _$IdentityProviderLoginRequestFromJson(
     noLink: json['noLink'] as bool,
   )
     ..applicationId = json['applicationId'] as String
+    ..deviceTrustId = json['deviceTrustId'] as String
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
@@ -4677,6 +4726,8 @@ Map<String, dynamic> _$IdentityProviderLoginRequestToJson(
   }
 
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('deviceTrustId', instance.deviceTrustId);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
@@ -4802,6 +4853,10 @@ IdentityProviderStartLoginRequest _$IdentityProviderStartLoginRequestFromJson(
     state: json['state'] as Map<String, dynamic>,
   )
     ..applicationId = json['applicationId'] as String
+    ..deviceTrustId = json['deviceTrustId'] as String
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
@@ -4820,6 +4875,8 @@ Map<String, dynamic> _$IdentityProviderStartLoginRequestToJson(
   }
 
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('deviceTrustId', instance.deviceTrustId);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
@@ -5001,8 +5058,9 @@ IPAccessControlList _$IPAccessControlListFromJson(Map<String, dynamic> json) {
     defaultAction: _$enumDecodeNullable(
         _$IPAccessControlListModeEnumMap, json['defaultAction']),
     exceptions: (json['exceptions'] as List)
-        ?.map((e) =>
-            e == null ? null : IPRange.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : IPAddressRange.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
@@ -5168,14 +5226,14 @@ Map<String, dynamic> _$IPAccessControlListSearchResponseToJson(
   return val;
 }
 
-IPRange _$IPRangeFromJson(Map<String, dynamic> json) {
-  return IPRange(
+IPAddressRange _$IPAddressRangeFromJson(Map<String, dynamic> json) {
+  return IPAddressRange(
     endIPAddress: json['endIPAddress'] as String,
     startIPAddress: json['startIPAddress'] as String,
   );
 }
 
-Map<String, dynamic> _$IPRangeToJson(IPRange instance) {
+Map<String, dynamic> _$IPAddressRangeToJson(IPAddressRange instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -5406,6 +5464,9 @@ JWTPublicKeyUpdateEvent _$JWTPublicKeyUpdateEventFromJson(
         (json['applicationIds'] as List)?.map((e) => e as String)?.toSet(),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -5421,6 +5482,7 @@ Map<String, dynamic> _$JWTPublicKeyUpdateEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationIds', instance.applicationIds?.toList());
@@ -5436,6 +5498,9 @@ JWTRefreshEvent _$JWTRefreshEventFromJson(Map<String, dynamic> json) {
     userId: json['userId'] as String,
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -5450,6 +5515,7 @@ Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -5495,6 +5561,9 @@ JWTRefreshTokenRevokeEvent _$JWTRefreshTokenRevokeEventFromJson(
     userId: json['userId'] as String,
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -5510,6 +5579,7 @@ Map<String, dynamic> _$JWTRefreshTokenRevokeEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -6235,6 +6305,10 @@ LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) {
     twoFactorTrustId: json['twoFactorTrustId'] as String,
   )
     ..applicationId = json['applicationId'] as String
+    ..deviceTrustId = json['deviceTrustId'] as String
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
@@ -6252,6 +6326,8 @@ Map<String, dynamic> _$LoginRequestToJson(LoginRequest instance) {
   }
 
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('deviceTrustId', instance.deviceTrustId);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
@@ -7422,6 +7498,10 @@ PasswordlessLoginRequest _$PasswordlessLoginRequestFromJson(
     twoFactorTrustId: json['twoFactorTrustId'] as String,
   )
     ..applicationId = json['applicationId'] as String
+    ..deviceTrustId = json['deviceTrustId'] as String
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
@@ -7440,6 +7520,8 @@ Map<String, dynamic> _$PasswordlessLoginRequestToJson(
   }
 
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('deviceTrustId', instance.deviceTrustId);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
@@ -9884,6 +9966,9 @@ TestEvent _$TestEventFromJson(Map<String, dynamic> json) {
     message: json['message'] as String,
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -9898,6 +9983,7 @@ Map<String, dynamic> _$TestEventToJson(TestEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('message', instance.message);
@@ -10349,6 +10435,10 @@ TwoFactorLoginRequest _$TwoFactorLoginRequestFromJson(
     userId: json['userId'] as String,
   )
     ..applicationId = json['applicationId'] as String
+    ..deviceTrustId = json['deviceTrustId'] as String
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
@@ -10367,6 +10457,8 @@ Map<String, dynamic> _$TwoFactorLoginRequestToJson(
   }
 
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('deviceTrustId', instance.deviceTrustId);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('noJWT', instance.noJWT);
@@ -10438,6 +10530,9 @@ TwoFactorRequest _$TwoFactorRequestFromJson(Map<String, dynamic> json) {
     authenticatorId: json['authenticatorId'] as String,
     code: json['code'] as String,
     email: json['email'] as String,
+    eventInfo: json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>),
     method: json['method'] as String,
     mobilePhone: json['mobilePhone'] as String,
     secret: json['secret'] as String,
@@ -10457,6 +10552,7 @@ Map<String, dynamic> _$TwoFactorRequestToJson(TwoFactorRequest instance) {
   writeNotNull('authenticatorId', instance.authenticatorId);
   writeNotNull('code', instance.code);
   writeNotNull('email', instance.email);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('method', instance.method);
   writeNotNull('mobilePhone', instance.mobilePhone);
   writeNotNull('secret', instance.secret);
@@ -10819,6 +10915,9 @@ UserActionEvent _$UserActionEventFromJson(Map<String, dynamic> json) {
     reasonCode: json['reasonCode'] as String,
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -10833,6 +10932,7 @@ Map<String, dynamic> _$UserActionEventToJson(UserActionEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('action', instance.action);
@@ -11084,6 +11184,9 @@ UserBulkCreateEvent _$UserBulkCreateEventFromJson(Map<String, dynamic> json) {
         ?.toList(),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11098,6 +11201,7 @@ Map<String, dynamic> _$UserBulkCreateEventToJson(UserBulkCreateEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('users', instance.users);
@@ -11276,6 +11380,9 @@ UserCreateEvent _$UserCreateEventFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11290,6 +11397,7 @@ Map<String, dynamic> _$UserCreateEventToJson(UserCreateEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('user', instance.user);
@@ -11303,6 +11411,9 @@ UserDeactivateEvent _$UserDeactivateEventFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11317,6 +11428,7 @@ Map<String, dynamic> _$UserDeactivateEventToJson(UserDeactivateEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('user', instance.user);
@@ -11330,6 +11442,9 @@ UserDeleteEvent _$UserDeleteEventFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11344,6 +11459,7 @@ Map<String, dynamic> _$UserDeleteEventToJson(UserDeleteEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('user', instance.user);
@@ -11410,6 +11526,9 @@ UserEmailVerifiedEvent _$UserEmailVerifiedEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11425,6 +11544,7 @@ Map<String, dynamic> _$UserEmailVerifiedEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('user', instance.user);
@@ -11441,6 +11561,9 @@ UserLoginFailedEvent _$UserLoginFailedEventFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11456,6 +11579,7 @@ Map<String, dynamic> _$UserLoginFailedEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -11479,6 +11603,9 @@ UserLoginSuccessEvent _$UserLoginSuccessEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11494,6 +11621,7 @@ Map<String, dynamic> _$UserLoginSuccessEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -11534,6 +11662,9 @@ UserPasswordBreachEvent _$UserPasswordBreachEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11549,6 +11680,7 @@ Map<String, dynamic> _$UserPasswordBreachEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('user', instance.user);
@@ -11562,6 +11694,9 @@ UserReactivateEvent _$UserReactivateEventFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11576,6 +11711,7 @@ Map<String, dynamic> _$UserReactivateEventToJson(UserReactivateEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('user', instance.user);
@@ -11647,6 +11783,9 @@ UserRegistrationCreateEvent _$UserRegistrationCreateEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11662,6 +11801,7 @@ Map<String, dynamic> _$UserRegistrationCreateEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -11683,6 +11823,9 @@ UserRegistrationDeleteEvent _$UserRegistrationDeleteEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11698,6 +11841,7 @@ Map<String, dynamic> _$UserRegistrationDeleteEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -11722,6 +11866,9 @@ UserRegistrationUpdateEvent _$UserRegistrationUpdateEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11737,6 +11884,7 @@ Map<String, dynamic> _$UserRegistrationUpdateEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -11759,6 +11907,9 @@ UserRegistrationVerifiedEvent _$UserRegistrationVerifiedEventFromJson(
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11774,6 +11925,7 @@ Map<String, dynamic> _$UserRegistrationVerifiedEventToJson(
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('applicationId', instance.applicationId);
@@ -11911,6 +12063,9 @@ UserUpdateEvent _$UserUpdateEventFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['user'] as Map<String, dynamic>),
   )
     ..createInstant = json['createInstant'] as num
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..id = json['id'] as String
     ..tenantId = json['tenantId'] as String;
 }
@@ -11925,6 +12080,7 @@ Map<String, dynamic> _$UserUpdateEventToJson(UserUpdateEvent instance) {
   }
 
   writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('id', instance.id);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('original', instance.original);

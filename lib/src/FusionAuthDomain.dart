@@ -687,10 +687,11 @@ class BaseElasticSearchCriteria extends BaseSearchCriteria {
 @JsonSerializable()
 class BaseEvent {
   num createInstant;
+  EventInfo eventInfo;
   String id;
   String tenantId;
 
-  BaseEvent({this.createInstant, this.id, this.tenantId});
+  BaseEvent({this.createInstant, this.eventInfo, this.id, this.tenantId});
 
   factory BaseEvent.fromJson(Map<String, dynamic> json) =>
       _$BaseEventFromJson(json);
@@ -763,12 +764,19 @@ class BaseIdentityProviderApplicationConfiguration extends Enableable {
 @JsonSerializable()
 class BaseLoginRequest {
   String applicationId;
+  String deviceTrustId;
+  EventInfo eventInfo;
   String ipAddress;
   MetaData metaData;
   bool noJWT;
 
   BaseLoginRequest(
-      {this.applicationId, this.ipAddress, this.metaData, this.noJWT});
+      {this.applicationId,
+      this.deviceTrustId,
+      this.eventInfo,
+      this.ipAddress,
+      this.metaData,
+      this.noJWT});
 
   factory BaseLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$BaseLoginRequestFromJson(json);
@@ -1981,6 +1989,35 @@ class EventConfigurationData extends Enableable {
   factory EventConfigurationData.fromJson(Map<String, dynamic> json) =>
       _$EventConfigurationDataFromJson(json);
   Map<String, dynamic> toJson() => _$EventConfigurationDataToJson(this);
+}
+
+/// Information about a user event (login, register, etc) that helps identify the source of the event (location, device type, OS, etc).
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EventInfo {
+  String deviceDescription;
+  String deviceName;
+  String deviceType;
+  num instant;
+  String ipAddress;
+  Location location;
+  String os;
+  String userAgent;
+
+  EventInfo(
+      {this.deviceDescription,
+      this.deviceName,
+      this.deviceType,
+      this.instant,
+      this.ipAddress,
+      this.location,
+      this.os,
+      this.userAgent});
+
+  factory EventInfo.fromJson(Map<String, dynamic> json) =>
+      _$EventInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$EventInfoToJson(this);
 }
 
 /// Event log used internally by FusionAuth to help developers debug hooks, Webhooks, email templates, etc.
@@ -3328,7 +3365,7 @@ class IntervalUser {
 class IPAccessControlList {
   Map<String, dynamic> data;
   IPAccessControlListMode defaultAction;
-  List<IPRange> exceptions;
+  List<IPAddressRange> exceptions;
   String id;
   num insertInstant;
   num lastUpdateInstant;
@@ -3429,15 +3466,15 @@ class IPAccessControlListSearchResponse {
 
 /// @author Brett Guy
 @JsonSerializable()
-class IPRange {
+class IPAddressRange {
   String endIPAddress;
   String startIPAddress;
 
-  IPRange({this.endIPAddress, this.startIPAddress});
+  IPAddressRange({this.endIPAddress, this.startIPAddress});
 
-  factory IPRange.fromJson(Map<String, dynamic> json) =>
-      _$IPRangeFromJson(json);
-  Map<String, dynamic> toJson() => _$IPRangeToJson(this);
+  factory IPAddressRange.fromJson(Map<String, dynamic> json) =>
+      _$IPAddressRangeFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAddressRangeToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -6772,6 +6809,7 @@ class TwoFactorRequest {
   String authenticatorId;
   String code;
   String email;
+  EventInfo eventInfo;
   String method;
   String mobilePhone;
   String secret;
@@ -6781,6 +6819,7 @@ class TwoFactorRequest {
       {this.authenticatorId,
       this.code,
       this.email,
+      this.eventInfo,
       this.method,
       this.mobilePhone,
       this.secret,

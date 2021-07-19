@@ -170,23 +170,6 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Creates an ACL. You can optionally specify an Id for the ACL. If not provided one will be generated.
-  ///
-  /// @param {String} accessControlListId (Optional) The Id for the ACL. If not provided a secure random UUID will be generated.
-  /// @param {IPAccessControlListRequest} request The request object that contains all of the information used to create the IP ACL.
-  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
-  Future<ClientResponse<IPAccessControlListResponse, Errors>> createACL(
-      String accessControlListId, IPAccessControlListRequest request) {
-    return _start<IPAccessControlListResponse, Errors>()
-        .withUri('/api/ip-acl')
-        .withUriSegment(accessControlListId)
-        .withJSONBody(request)
-        .withMethod('POST')
-        .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => IPAccessControlListResponse.fromJson(d)))
-        .go();
-  }
-
   /// Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
   /// an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted
   /// to that API key.
@@ -450,6 +433,24 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => MemberResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates an IP Access Control List. You can optionally specify an Id on this create request, if one is not provided one will be generated.
+  ///
+  /// @param {String} accessControlListId (Optional) The Id for the IP Access Control List. If not provided a secure random UUID will be generated.
+  /// @param {IPAccessControlListRequest} request The request object that contains all of the information used to create the IP Access Control List.
+  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
+  Future<ClientResponse<IPAccessControlListResponse, Errors>>
+      createIPAccessControlList(
+          String accessControlListId, IPAccessControlListRequest request) {
+    return _start<IPAccessControlListResponse, Errors>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(accessControlListId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListResponse.fromJson(d)))
         .go();
   }
 
@@ -743,18 +744,6 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Deletes the ACL for the given Id.
-  ///
-  /// @param {String} ipAccessControlListId The Id of the ACL to delete.
-  /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> deleteACL(String ipAccessControlListId) {
-    return _start<void, Errors>()
-        .withUri('/api/ip-acl')
-        .withUriSegment(ipAccessControlListId)
-        .withMethod('DELETE')
-        .go();
-  }
-
   /// Deletes the API key for the given Id.
   ///
   /// @param {String} keyId The Id of the authentication API key to delete.
@@ -941,6 +930,19 @@ class FusionAuthClient {
     return _start<void, Errors>()
         .withUri('/api/group/member')
         .withJSONBody(request)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the IP Access Control List for the given Id.
+  ///
+  /// @param {String} ipAccessControlListId The Id of the IP Access Control List to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteIPAccessControlList(
+      String ipAccessControlListId) {
+    return _start<void, Errors>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(ipAccessControlListId)
         .withMethod('DELETE')
         .go();
   }
@@ -2233,33 +2235,6 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves the ACL with the given Id.
-  ///
-  /// @param {String} formId The Id of the ACL.
-  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
-  Future<ClientResponse<IPAccessControlListResponse, void>> retrieveACL(
-      String formId) {
-    return _start<IPAccessControlListResponse, void>()
-        .withUri('/api/ip-acl')
-        .withUriSegment(formId)
-        .withMethod('GET')
-        .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => IPAccessControlListResponse.fromJson(d)))
-        .go();
-  }
-
-  /// Retrieves all ACLs.
-  ///
-  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
-  Future<ClientResponse<IPAccessControlListResponse, void>> retrieveACLs() {
-    return _start<IPAccessControlListResponse, void>()
-        .withUri('/api/ip-acl')
-        .withMethod('GET')
-        .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => IPAccessControlListResponse.fromJson(d)))
-        .go();
-  }
-
   /// Retrieves an authentication API key for the given id
   ///
   /// @param {String} keyId The Id of the API key to retrieve.
@@ -2680,6 +2655,21 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => GroupResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the IP Access Control List with the given Id.
+  ///
+  /// @param {String} ipAccessControlListId The Id of the IP Access Control List.
+  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
+  Future<ClientResponse<IPAccessControlListResponse, void>>
+      retrieveIPAccessControlList(String ipAccessControlListId) {
+    return _start<IPAccessControlListResponse, void>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(ipAccessControlListId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListResponse.fromJson(d)))
         .go();
   }
 
@@ -3775,21 +3765,6 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Searches the ACLs with the specified criteria and pagination.
-  ///
-  /// @param {IPAccessControlListSearchRequest} request The search criteria and pagination information.
-  /// @returns {Promise<ClientResponse<IPAccessControlListSearchResponse>>}
-  Future<ClientResponse<IPAccessControlListSearchResponse, void>> searchACLs(
-      IPAccessControlListSearchRequest request) {
-    return _start<IPAccessControlListSearchResponse, void>()
-        .withUri('/api/ip-acl/search')
-        .withJSONBody(request)
-        .withMethod('POST')
-        .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => IPAccessControlListSearchResponse.fromJson(d)))
-        .go();
-  }
-
   /// Searches the audit logs with the specified criteria and pagination.
   ///
   /// @param {AuditLogSearchRequest} request The search criteria and pagination information.
@@ -3877,6 +3852,21 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => EventLogSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches the IP Access Control Lists with the specified criteria and pagination.
+  ///
+  /// @param {IPAccessControlListSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<IPAccessControlListSearchResponse>>}
+  Future<ClientResponse<IPAccessControlListSearchResponse, void>>
+      searchIPAccessControlLists(IPAccessControlListSearchRequest request) {
+    return _start<IPAccessControlListSearchResponse, void>()
+        .withUri('/api/ip-acl/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListSearchResponse.fromJson(d)))
         .go();
   }
 
@@ -4130,23 +4120,6 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Updates the ACL with the given Id.
-  ///
-  /// @param {String} accessControlListId The Id of the ACL to update.
-  /// @param {IPAccessControlListRequest} request The request that contains all of the new ACL information.
-  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
-  Future<ClientResponse<IPAccessControlListResponse, Errors>> updateACL(
-      String accessControlListId, IPAccessControlListRequest request) {
-    return _start<IPAccessControlListResponse, Errors>()
-        .withUri('/api/ip-acl')
-        .withUriSegment(accessControlListId)
-        .withJSONBody(request)
-        .withMethod('PUT')
-        .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => IPAccessControlListResponse.fromJson(d)))
-        .go();
-  }
-
   /// Updates an API key by given id
   ///
   /// @param {String} apiKeyId The Id of the API key to update.
@@ -4354,6 +4327,24 @@ class FusionAuthClient {
         .withMethod('PUT')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => GroupResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Updates the IP Access Control List with the given Id.
+  ///
+  /// @param {String} accessControlListId The Id of the IP Access Control List to update.
+  /// @param {IPAccessControlListRequest} request The request that contains all of the new IP Access Control List information.
+  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
+  Future<ClientResponse<IPAccessControlListResponse, Errors>>
+      updateIPAccessControlList(
+          String accessControlListId, IPAccessControlListRequest request) {
+    return _start<IPAccessControlListResponse, Errors>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(accessControlListId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListResponse.fromJson(d)))
         .go();
   }
 
