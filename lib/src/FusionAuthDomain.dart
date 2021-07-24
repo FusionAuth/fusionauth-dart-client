@@ -5132,6 +5132,7 @@ class RefreshToken {
   num insertInstant;
   MetaData metaData;
   num startInstant;
+  String tenantId;
   String token;
   String userId;
 
@@ -5142,6 +5143,7 @@ class RefreshToken {
       this.insertInstant,
       this.metaData,
       this.startInstant,
+      this.tenantId,
       this.token,
       this.userId});
 

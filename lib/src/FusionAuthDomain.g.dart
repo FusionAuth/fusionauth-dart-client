@@ -7708,6 +7708,7 @@ RefreshToken _$RefreshTokenFromJson(Map<String, dynamic> json) {
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>),
     startInstant: json['startInstant'] as num,
+    tenantId: json['tenantId'] as String,
     token: json['token'] as String,
     userId: json['userId'] as String,
   );
@@ -7728,6 +7729,7 @@ Map<String, dynamic> _$RefreshTokenToJson(RefreshToken instance) {
   writeNotNull('insertInstant', instance.insertInstant);
   writeNotNull('metaData', instance.metaData);
   writeNotNull('startInstant', instance.startInstant);
+  writeNotNull('tenantId', instance.tenantId);
   writeNotNull('token', instance.token);
   writeNotNull('userId', instance.userId);
   return val;
