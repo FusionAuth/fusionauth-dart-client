@@ -118,7 +118,9 @@ ActionRequest _$ActionRequestFromJson(Map<String, dynamic> json) {
         ? null
         : ActionData.fromJson(json['action'] as Map<String, dynamic>),
     broadcast: json['broadcast'] as bool,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ActionRequestToJson(ActionRequest instance) {
@@ -130,6 +132,7 @@ Map<String, dynamic> _$ActionRequestToJson(ActionRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('action', instance.action);
   writeNotNull('broadcast', instance.broadcast);
   return val;
@@ -166,6 +169,7 @@ APIKey _$APIKeyFromJson(Map<String, dynamic> json) {
   return APIKey(
     id: json['id'] as String,
     insertInstant: json['insertInstant'] as num,
+    ipAccessControlListId: json['ipAccessControlListId'] as String,
     key: json['key'] as String,
     keyManager: json['keyManager'] as bool,
     lastUpdateInstant: json['lastUpdateInstant'] as num,
@@ -191,6 +195,7 @@ Map<String, dynamic> _$APIKeyToJson(APIKey instance) {
 
   writeNotNull('id', instance.id);
   writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('ipAccessControlListId', instance.ipAccessControlListId);
   writeNotNull('key', instance.key);
   writeNotNull('keyManager', instance.keyManager);
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
@@ -416,6 +421,10 @@ const _$IdentityProviderTypeEnumMap = {
 
 Application _$ApplicationFromJson(Map<String, dynamic> json) {
   return Application(
+    accessControlConfiguration: json['accessControlConfiguration'] == null
+        ? null
+        : ApplicationAccessControlConfiguration.fromJson(
+            json['accessControlConfiguration'] as Map<String, dynamic>),
     active: json['active'] as bool,
     authenticationTokenConfiguration:
         json['authenticationTokenConfiguration'] == null
@@ -501,6 +510,8 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
     }
   }
 
+  writeNotNull(
+      'accessControlConfiguration', instance.accessControlConfiguration);
   writeNotNull('active', instance.active);
   writeNotNull('authenticationTokenConfiguration',
       instance.authenticationTokenConfiguration);
@@ -545,14 +556,44 @@ const _$VerificationStrategyEnumMap = {
   VerificationStrategy.FormField: 'FormField',
 };
 
+ApplicationAccessControlConfiguration
+    _$ApplicationAccessControlConfigurationFromJson(Map<String, dynamic> json) {
+  return ApplicationAccessControlConfiguration(
+    uiIPAccessControlListId: json['uiIPAccessControlListId'] as String,
+  );
+}
+
+Map<String, dynamic> _$ApplicationAccessControlConfigurationToJson(
+    ApplicationAccessControlConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('uiIPAccessControlListId', instance.uiIPAccessControlListId);
+  return val;
+}
+
 ApplicationEmailConfiguration _$ApplicationEmailConfigurationFromJson(
     Map<String, dynamic> json) {
   return ApplicationEmailConfiguration(
+    emailUpdateEmailTemplateId: json['emailUpdateEmailTemplateId'] as String,
     emailVerificationEmailTemplateId:
         json['emailVerificationEmailTemplateId'] as String,
+    emailVerifiedEmailTemplateId:
+        json['emailVerifiedEmailTemplateId'] as String,
     forgotPasswordEmailTemplateId:
         json['forgotPasswordEmailTemplateId'] as String,
+    loginNewDeviceEmailTemplateId:
+        json['loginNewDeviceEmailTemplateId'] as String,
+    loginSuspiciousEmailTemplateId:
+        json['loginSuspiciousEmailTemplateId'] as String,
     passwordlessEmailTemplateId: json['passwordlessEmailTemplateId'] as String,
+    passwordResetSuccessEmailTemplateId:
+        json['passwordResetSuccessEmailTemplateId'] as String,
     setPasswordEmailTemplateId: json['setPasswordEmailTemplateId'] as String,
   );
 }
@@ -567,12 +608,22 @@ Map<String, dynamic> _$ApplicationEmailConfigurationToJson(
     }
   }
 
+  writeNotNull(
+      'emailUpdateEmailTemplateId', instance.emailUpdateEmailTemplateId);
   writeNotNull('emailVerificationEmailTemplateId',
       instance.emailVerificationEmailTemplateId);
   writeNotNull(
+      'emailVerifiedEmailTemplateId', instance.emailVerifiedEmailTemplateId);
+  writeNotNull(
       'forgotPasswordEmailTemplateId', instance.forgotPasswordEmailTemplateId);
   writeNotNull(
+      'loginNewDeviceEmailTemplateId', instance.loginNewDeviceEmailTemplateId);
+  writeNotNull('loginSuspiciousEmailTemplateId',
+      instance.loginSuspiciousEmailTemplateId);
+  writeNotNull(
       'passwordlessEmailTemplateId', instance.passwordlessEmailTemplateId);
+  writeNotNull('passwordResetSuccessEmailTemplateId',
+      instance.passwordResetSuccessEmailTemplateId);
   writeNotNull(
       'setPasswordEmailTemplateId', instance.setPasswordEmailTemplateId);
   return val;
@@ -669,7 +720,9 @@ ApplicationRequest _$ApplicationRequestFromJson(Map<String, dynamic> json) {
         ? null
         : ApplicationRole.fromJson(json['role'] as Map<String, dynamic>),
     webhookIds: (json['webhookIds'] as List)?.map((e) => e as String)?.toList(),
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ApplicationRequestToJson(ApplicationRequest instance) {
@@ -681,6 +734,7 @@ Map<String, dynamic> _$ApplicationRequestToJson(ApplicationRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('application', instance.application);
   writeNotNull('role', instance.role);
   writeNotNull('webhookIds', instance.webhookIds);
@@ -864,6 +918,81 @@ Map<String, dynamic> _$AuditLogConfigurationToJson(
   return val;
 }
 
+AuditLogCreateEvent _$AuditLogCreateEventFromJson(Map<String, dynamic> json) {
+  return AuditLogCreateEvent(
+    auditLog: json['auditLog'] == null
+        ? null
+        : AuditLog.fromJson(json['auditLog'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$AuditLogCreateEventToJson(AuditLogCreateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('auditLog', instance.auditLog);
+  return val;
+}
+
+const _$EventTypeEnumMap = {
+  EventType.JWTPublicKeyUpdate: 'JWTPublicKeyUpdate',
+  EventType.JWTRefreshTokenRevoke: 'JWTRefreshTokenRevoke',
+  EventType.JWTRefresh: 'JWTRefresh',
+  EventType.AuditLogCreate: 'AuditLogCreate',
+  EventType.EventLogCreate: 'EventLogCreate',
+  EventType.KickstartSuccess: 'KickstartSuccess',
+  EventType.UserAction: 'UserAction',
+  EventType.UserBulkCreate: 'UserBulkCreate',
+  EventType.UserCreate: 'UserCreate',
+  EventType.UserCreateComplete: 'UserCreateComplete',
+  EventType.UserDeactivate: 'UserDeactivate',
+  EventType.UserDelete: 'UserDelete',
+  EventType.UserDeleteComplete: 'UserDeleteComplete',
+  EventType.UserLoginIdDuplicateOnCreate: 'UserLoginIdDuplicateOnCreate',
+  EventType.UserLoginIdDuplicateOnUpdate: 'UserLoginIdDuplicateOnUpdate',
+  EventType.UserEmailUpdate: 'UserEmailUpdate',
+  EventType.UserEmailVerified: 'UserEmailVerified',
+  EventType.UserLoginFailed: 'UserLoginFailed',
+  EventType.UserLoginNewDevice: 'UserLoginNewDevice',
+  EventType.UserLoginSuccess: 'UserLoginSuccess',
+  EventType.UserLoginSuspicious: 'UserLoginSuspicious',
+  EventType.UserPasswordBreach: 'UserPasswordBreach',
+  EventType.UserPasswordResetSend: 'UserPasswordResetSend',
+  EventType.UserPasswordResetStart: 'UserPasswordResetStart',
+  EventType.UserPasswordResetSuccess: 'UserPasswordResetSuccess',
+  EventType.UserPasswordUpdate: 'UserPasswordUpdate',
+  EventType.UserReactivate: 'UserReactivate',
+  EventType.UserRegistrationCreate: 'UserRegistrationCreate',
+  EventType.UserRegistrationCreateComplete: 'UserRegistrationCreateComplete',
+  EventType.UserRegistrationDelete: 'UserRegistrationDelete',
+  EventType.UserRegistrationDeleteComplete: 'UserRegistrationDeleteComplete',
+  EventType.UserRegistrationUpdate: 'UserRegistrationUpdate',
+  EventType.UserRegistrationUpdateComplete: 'UserRegistrationUpdateComplete',
+  EventType.UserRegistrationVerified: 'UserRegistrationVerified',
+  EventType.UserTwoFactorMethodAdd: 'UserTwoFactorMethodAdd',
+  EventType.UserTwoFactorMethodRemove: 'UserTwoFactorMethodRemove',
+  EventType.UserUpdate: 'UserUpdate',
+  EventType.UserUpdateComplete: 'UserUpdateComplete',
+  EventType.Test: 'Test',
+};
+
 AuditLogExportRequest _$AuditLogExportRequestFromJson(
     Map<String, dynamic> json) {
   return AuditLogExportRequest(
@@ -897,7 +1026,9 @@ AuditLogRequest _$AuditLogRequestFromJson(Map<String, dynamic> json) {
     auditLog: json['auditLog'] == null
         ? null
         : AuditLog.fromJson(json['auditLog'] as Map<String, dynamic>),
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$AuditLogRequestToJson(AuditLogRequest instance) {
@@ -909,6 +1040,7 @@ Map<String, dynamic> _$AuditLogRequestToJson(AuditLogRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('auditLog', instance.auditLog);
   return val;
 }
@@ -939,6 +1071,9 @@ AuditLogSearchCriteria _$AuditLogSearchCriteriaFromJson(
   return AuditLogSearchCriteria(
     end: json['end'] as num,
     message: json['message'] as String,
+    newValue: json['newValue'] as String,
+    oldValue: json['oldValue'] as String,
+    reason: json['reason'] as String,
     start: json['start'] as num,
     user: json['user'] as String,
   )
@@ -962,6 +1097,9 @@ Map<String, dynamic> _$AuditLogSearchCriteriaToJson(
   writeNotNull('startRow', instance.startRow);
   writeNotNull('end', instance.end);
   writeNotNull('message', instance.message);
+  writeNotNull('newValue', instance.newValue);
+  writeNotNull('oldValue', instance.oldValue);
+  writeNotNull('reason', instance.reason);
   writeNotNull('start', instance.start);
   writeNotNull('user', instance.user);
   return val;
@@ -1148,7 +1286,11 @@ BaseEvent _$BaseEventFromJson(Map<String, dynamic> json) {
   return BaseEvent(
     createInstant: json['createInstant'] as num,
     id: json['id'] as String,
+    info: json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>),
     tenantId: json['tenantId'] as String,
+    type: _$enumDecodeNullable(_$EventTypeEnumMap, json['type']),
   );
 }
 
@@ -1163,7 +1305,30 @@ Map<String, dynamic> _$BaseEventToJson(BaseEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  return val;
+}
+
+BaseEventRequest _$BaseEventRequestFromJson(Map<String, dynamic> json) {
+  return BaseEventRequest(
+    eventInfo: json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$BaseEventRequestToJson(BaseEventRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
   return val;
 }
 
@@ -1249,8 +1414,11 @@ BaseLoginRequest _$BaseLoginRequestFromJson(Map<String, dynamic> json) {
     metaData: json['metaData'] == null
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>),
+    newDevice: json['newDevice'] as bool,
     noJWT: json['noJWT'] as bool,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$BaseLoginRequestToJson(BaseLoginRequest instance) {
@@ -1262,9 +1430,11 @@ Map<String, dynamic> _$BaseLoginRequestToJson(BaseLoginRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
+  writeNotNull('newDevice', instance.newDevice);
   writeNotNull('noJWT', instance.noJWT);
   return val;
 }
@@ -1407,11 +1577,14 @@ Map<String, dynamic> _$CertificateInformationToJson(
 ChangePasswordRequest _$ChangePasswordRequestFromJson(
     Map<String, dynamic> json) {
   return ChangePasswordRequest(
+    applicationId: json['applicationId'] as String,
     currentPassword: json['currentPassword'] as String,
     loginId: json['loginId'] as String,
     password: json['password'] as String,
     refreshToken: json['refreshToken'] as String,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ChangePasswordRequestToJson(
@@ -1424,6 +1597,8 @@ Map<String, dynamic> _$ChangePasswordRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('applicationId', instance.applicationId);
   writeNotNull('currentPassword', instance.currentPassword);
   writeNotNull('loginId', instance.loginId);
   writeNotNull('password', instance.password);
@@ -1750,13 +1925,6 @@ Map<String, dynamic> _$DailyActiveUserReportResponseToJson(
   return val;
 }
 
-DefaultTools _$DefaultToolsFromJson(Map<String, dynamic> json) {
-  return DefaultTools();
-}
-
-Map<String, dynamic> _$DefaultToolsToJson(DefaultTools instance) =>
-    <String, dynamic>{};
-
 DeleteConfiguration _$DeleteConfigurationFromJson(Map<String, dynamic> json) {
   return DeleteConfiguration(
     numberOfDaysToRetain: json['numberOfDaysToRetain'] as num,
@@ -1848,6 +2016,9 @@ Map<String, dynamic> _$DeviceResponseToJson(DeviceResponse instance) {
 DisplayableRawLogin _$DisplayableRawLoginFromJson(Map<String, dynamic> json) {
   return DisplayableRawLogin(
     applicationName: json['applicationName'] as String,
+    location: json['location'] == null
+        ? null
+        : Location.fromJson(json['location'] as Map<String, dynamic>),
     loginId: json['loginId'] as String,
   )
     ..applicationId = json['applicationId'] as String
@@ -1870,6 +2041,7 @@ Map<String, dynamic> _$DisplayableRawLoginToJson(DisplayableRawLogin instance) {
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('userId', instance.userId);
   writeNotNull('applicationName', instance.applicationName);
+  writeNotNull('location', instance.location);
   writeNotNull('loginId', instance.loginId);
   return val;
 }
@@ -1959,16 +2131,35 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) {
   return EmailConfiguration(
     defaultFromEmail: json['defaultFromEmail'] as String,
     defaultFromName: json['defaultFromName'] as String,
+    emailUpdateEmailTemplateId: json['emailUpdateEmailTemplateId'] as String,
+    emailVerifiedEmailTemplateId:
+        json['emailVerifiedEmailTemplateId'] as String,
     forgotPasswordEmailTemplateId:
         json['forgotPasswordEmailTemplateId'] as String,
     host: json['host'] as String,
+    loginIdInUseOnCreateEmailTemplateId:
+        json['loginIdInUseOnCreateEmailTemplateId'] as String,
+    loginIdInUseOnUpdateEmailTemplateId:
+        json['loginIdInUseOnUpdateEmailTemplateId'] as String,
+    loginNewDeviceEmailTemplateId:
+        json['loginNewDeviceEmailTemplateId'] as String,
+    loginSuspiciousEmailTemplateId:
+        json['loginSuspiciousEmailTemplateId'] as String,
     password: json['password'] as String,
     passwordlessEmailTemplateId: json['passwordlessEmailTemplateId'] as String,
+    passwordResetSuccessEmailTemplateId:
+        json['passwordResetSuccessEmailTemplateId'] as String,
+    passwordUpdateEmailTemplateId:
+        json['passwordUpdateEmailTemplateId'] as String,
     port: json['port'] as num,
     properties: json['properties'] as String,
     security:
         _$enumDecodeNullable(_$EmailSecurityTypeEnumMap, json['security']),
     setPasswordEmailTemplateId: json['setPasswordEmailTemplateId'] as String,
+    twoFactorMethodAddEmailTemplateId:
+        json['twoFactorMethodAddEmailTemplateId'] as String,
+    twoFactorMethodRemoveEmailTemplateId:
+        json['twoFactorMethodRemoveEmailTemplateId'] as String,
     unverified: json['unverified'] == null
         ? null
         : EmailUnverifiedOptions.fromJson(
@@ -1994,16 +2185,36 @@ Map<String, dynamic> _$EmailConfigurationToJson(EmailConfiguration instance) {
   writeNotNull('defaultFromEmail', instance.defaultFromEmail);
   writeNotNull('defaultFromName', instance.defaultFromName);
   writeNotNull(
+      'emailUpdateEmailTemplateId', instance.emailUpdateEmailTemplateId);
+  writeNotNull(
+      'emailVerifiedEmailTemplateId', instance.emailVerifiedEmailTemplateId);
+  writeNotNull(
       'forgotPasswordEmailTemplateId', instance.forgotPasswordEmailTemplateId);
   writeNotNull('host', instance.host);
+  writeNotNull('loginIdInUseOnCreateEmailTemplateId',
+      instance.loginIdInUseOnCreateEmailTemplateId);
+  writeNotNull('loginIdInUseOnUpdateEmailTemplateId',
+      instance.loginIdInUseOnUpdateEmailTemplateId);
+  writeNotNull(
+      'loginNewDeviceEmailTemplateId', instance.loginNewDeviceEmailTemplateId);
+  writeNotNull('loginSuspiciousEmailTemplateId',
+      instance.loginSuspiciousEmailTemplateId);
   writeNotNull('password', instance.password);
   writeNotNull(
       'passwordlessEmailTemplateId', instance.passwordlessEmailTemplateId);
+  writeNotNull('passwordResetSuccessEmailTemplateId',
+      instance.passwordResetSuccessEmailTemplateId);
+  writeNotNull(
+      'passwordUpdateEmailTemplateId', instance.passwordUpdateEmailTemplateId);
   writeNotNull('port', instance.port);
   writeNotNull('properties', instance.properties);
   writeNotNull('security', _$EmailSecurityTypeEnumMap[instance.security]);
   writeNotNull(
       'setPasswordEmailTemplateId', instance.setPasswordEmailTemplateId);
+  writeNotNull('twoFactorMethodAddEmailTemplateId',
+      instance.twoFactorMethodAddEmailTemplateId);
+  writeNotNull('twoFactorMethodRemoveEmailTemplateId',
+      instance.twoFactorMethodRemoveEmailTemplateId);
   writeNotNull('unverified', instance.unverified);
   writeNotNull('username', instance.username);
   writeNotNull(
@@ -2945,28 +3156,6 @@ Map<String, dynamic> _$EventConfigurationToJson(EventConfiguration instance) {
   return val;
 }
 
-const _$EventTypeEnumMap = {
-  EventType.UserDelete: 'UserDelete',
-  EventType.UserCreate: 'UserCreate',
-  EventType.UserUpdate: 'UserUpdate',
-  EventType.UserDeactivate: 'UserDeactivate',
-  EventType.UserBulkCreate: 'UserBulkCreate',
-  EventType.UserReactivate: 'UserReactivate',
-  EventType.UserAction: 'UserAction',
-  EventType.JWTRefreshTokenRevoke: 'JWTRefreshTokenRevoke',
-  EventType.JWTRefresh: 'JWTRefresh',
-  EventType.JWTPublicKeyUpdate: 'JWTPublicKeyUpdate',
-  EventType.UserLoginSuccess: 'UserLoginSuccess',
-  EventType.UserLoginFailed: 'UserLoginFailed',
-  EventType.UserRegistrationCreate: 'UserRegistrationCreate',
-  EventType.UserRegistrationUpdate: 'UserRegistrationUpdate',
-  EventType.UserRegistrationDelete: 'UserRegistrationDelete',
-  EventType.UserRegistrationVerified: 'UserRegistrationVerified',
-  EventType.UserEmailVerified: 'UserEmailVerified',
-  EventType.UserPasswordBreach: 'UserPasswordBreach',
-  EventType.Test: 'Test',
-};
-
 EventConfigurationData _$EventConfigurationDataFromJson(
     Map<String, dynamic> json) {
   return EventConfigurationData(
@@ -2998,6 +3187,41 @@ const _$TransactionTypeEnumMap = {
   TransactionType.SuperMajority: 'SuperMajority',
   TransactionType.AbsoluteMajority: 'AbsoluteMajority',
 };
+
+EventInfo _$EventInfoFromJson(Map<String, dynamic> json) {
+  return EventInfo(
+    data: json['data'] as Map<String, dynamic>,
+    deviceDescription: json['deviceDescription'] as String,
+    deviceName: json['deviceName'] as String,
+    deviceType: json['deviceType'] as String,
+    ipAddress: json['ipAddress'] as String,
+    location: json['location'] == null
+        ? null
+        : Location.fromJson(json['location'] as Map<String, dynamic>),
+    os: json['os'] as String,
+    userAgent: json['userAgent'] as String,
+  );
+}
+
+Map<String, dynamic> _$EventInfoToJson(EventInfo instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('deviceDescription', instance.deviceDescription);
+  writeNotNull('deviceName', instance.deviceName);
+  writeNotNull('deviceType', instance.deviceType);
+  writeNotNull('ipAddress', instance.ipAddress);
+  writeNotNull('location', instance.location);
+  writeNotNull('os', instance.os);
+  writeNotNull('userAgent', instance.userAgent);
+  return val;
+}
 
 EventLog _$EventLogFromJson(Map<String, dynamic> json) {
   return EventLog(
@@ -3048,6 +3272,39 @@ Map<String, dynamic> _$EventLogConfigurationToJson(
   }
 
   writeNotNull('numberToRetain', instance.numberToRetain);
+  return val;
+}
+
+EventLogCreateEvent _$EventLogCreateEventFromJson(Map<String, dynamic> json) {
+  return EventLogCreateEvent(
+    eventLog: json['eventLog'] == null
+        ? null
+        : EventLog.fromJson(json['eventLog'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$EventLogCreateEventToJson(EventLogCreateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('eventLog', instance.eventLog);
   return val;
 }
 
@@ -3730,7 +3987,9 @@ ForgotPasswordRequest _$ForgotPasswordRequestFromJson(
     sendForgotPasswordEmail: json['sendForgotPasswordEmail'] as bool,
     state: json['state'] as Map<String, dynamic>,
     username: json['username'] as String,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ForgotPasswordRequestToJson(
@@ -3743,6 +4002,7 @@ Map<String, dynamic> _$ForgotPasswordRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('changePasswordId', instance.changePasswordId);
   writeNotNull('email', instance.email);
@@ -4619,11 +4879,15 @@ IdentityProviderLoginRequest _$IdentityProviderLoginRequestFromJson(
     identityProviderId: json['identityProviderId'] as String,
     noLink: json['noLink'] as bool,
   )
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+    ..newDevice = json['newDevice'] as bool
     ..noJWT = json['noJWT'] as bool;
 }
 
@@ -4637,9 +4901,11 @@ Map<String, dynamic> _$IdentityProviderLoginRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
+  writeNotNull('newDevice', instance.newDevice);
   writeNotNull('noJWT', instance.noJWT);
   writeNotNull('data', instance.data);
   writeNotNull('encodedJWT', instance.encodedJWT);
@@ -4762,11 +5028,15 @@ IdentityProviderStartLoginRequest _$IdentityProviderStartLoginRequestFromJson(
     loginId: json['loginId'] as String,
     state: json['state'] as Map<String, dynamic>,
   )
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+    ..newDevice = json['newDevice'] as bool
     ..noJWT = json['noJWT'] as bool;
 }
 
@@ -4780,9 +5050,11 @@ Map<String, dynamic> _$IdentityProviderStartLoginRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
+  writeNotNull('newDevice', instance.newDevice);
   writeNotNull('noJWT', instance.noJWT);
   writeNotNull('data', instance.data);
   writeNotNull('identityProviderId', instance.identityProviderId);
@@ -4821,7 +5093,9 @@ ImportRequest _$ImportRequestFromJson(Map<String, dynamic> json) {
             (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     validateDbConstraints: json['validateDbConstraints'] as bool,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ImportRequestToJson(ImportRequest instance) {
@@ -4833,12 +5107,20 @@ Map<String, dynamic> _$ImportRequestToJson(ImportRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('encryptionScheme', instance.encryptionScheme);
   writeNotNull('factor', instance.factor);
   writeNotNull('users', instance.users);
   writeNotNull('validateDbConstraints', instance.validateDbConstraints);
   return val;
 }
+
+InstanceEvent _$InstanceEventFromJson(Map<String, dynamic> json) {
+  return InstanceEvent();
+}
+
+Map<String, dynamic> _$InstanceEventToJson(InstanceEvent instance) =>
+    <String, dynamic>{};
 
 IntegrationRequest _$IntegrationRequestFromJson(Map<String, dynamic> json) {
   return IntegrationRequest(
@@ -4953,6 +5235,201 @@ Map<String, dynamic> _$IntervalUserToJson(IntervalUser instance) {
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('period', instance.period);
   writeNotNull('userId', instance.userId);
+  return val;
+}
+
+IPAccessControlEntry _$IPAccessControlEntryFromJson(Map<String, dynamic> json) {
+  return IPAccessControlEntry(
+    action: _$enumDecodeNullable(
+        _$IPAccessControlEntryActionEnumMap, json['action']),
+    endIPAddress: json['endIPAddress'] as String,
+    startIPAddress: json['startIPAddress'] as String,
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlEntryToJson(
+    IPAccessControlEntry instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('action', _$IPAccessControlEntryActionEnumMap[instance.action]);
+  writeNotNull('endIPAddress', instance.endIPAddress);
+  writeNotNull('startIPAddress', instance.startIPAddress);
+  return val;
+}
+
+const _$IPAccessControlEntryActionEnumMap = {
+  IPAccessControlEntryAction.Allow: 'Allow',
+  IPAccessControlEntryAction.Block: 'Block',
+};
+
+IPAccessControlList _$IPAccessControlListFromJson(Map<String, dynamic> json) {
+  return IPAccessControlList(
+    data: json['data'] as Map<String, dynamic>,
+    entries: (json['entries'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlEntry.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    id: json['id'] as String,
+    insertInstant: json['insertInstant'] as num,
+    lastUpdateInstant: json['lastUpdateInstant'] as num,
+    name: json['name'] as String,
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListToJson(IPAccessControlList instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('entries', instance.entries);
+  writeNotNull('id', instance.id);
+  writeNotNull('insertInstant', instance.insertInstant);
+  writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+IPAccessControlListRequest _$IPAccessControlListRequestFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListRequest(
+    ipAccessControlList: json['ipAccessControlList'] == null
+        ? null
+        : IPAccessControlList.fromJson(
+            json['ipAccessControlList'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListRequestToJson(
+    IPAccessControlListRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ipAccessControlList', instance.ipAccessControlList);
+  return val;
+}
+
+IPAccessControlListResponse _$IPAccessControlListResponseFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListResponse(
+    ipAccessControlList: json['ipAccessControlList'] == null
+        ? null
+        : IPAccessControlList.fromJson(
+            json['ipAccessControlList'] as Map<String, dynamic>),
+    ipAccessControlLists: (json['ipAccessControlLists'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlList.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListResponseToJson(
+    IPAccessControlListResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ipAccessControlList', instance.ipAccessControlList);
+  writeNotNull('ipAccessControlLists', instance.ipAccessControlLists);
+  return val;
+}
+
+IPAccessControlListSearchCriteria _$IPAccessControlListSearchCriteriaFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchCriteria(
+    name: json['name'] as String,
+  )
+    ..numberOfResults = json['numberOfResults'] as num
+    ..orderBy = json['orderBy'] as String
+    ..startRow = json['startRow'] as num;
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchCriteriaToJson(
+    IPAccessControlListSearchCriteria instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('numberOfResults', instance.numberOfResults);
+  writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('startRow', instance.startRow);
+  writeNotNull('name', instance.name);
+  return val;
+}
+
+IPAccessControlListSearchRequest _$IPAccessControlListSearchRequestFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchRequest(
+    search: json['search'] == null
+        ? null
+        : IPAccessControlListSearchCriteria.fromJson(
+            json['search'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchRequestToJson(
+    IPAccessControlListSearchRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('search', instance.search);
+  return val;
+}
+
+IPAccessControlListSearchResponse _$IPAccessControlListSearchResponseFromJson(
+    Map<String, dynamic> json) {
+  return IPAccessControlListSearchResponse(
+    ipAccessControlLists: (json['ipAccessControlLists'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IPAccessControlList.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    total: json['total'] as num,
+  );
+}
+
+Map<String, dynamic> _$IPAccessControlListSearchResponseToJson(
+    IPAccessControlListSearchResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ipAccessControlLists', instance.ipAccessControlLists);
+  writeNotNull('total', instance.total);
   return val;
 }
 
@@ -5174,7 +5651,11 @@ JWTPublicKeyUpdateEvent _$JWTPublicKeyUpdateEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$JWTPublicKeyUpdateEventToJson(
@@ -5189,7 +5670,9 @@ Map<String, dynamic> _$JWTPublicKeyUpdateEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationIds', instance.applicationIds?.toList());
   return val;
 }
@@ -5204,7 +5687,11 @@ JWTRefreshEvent _$JWTRefreshEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) {
@@ -5218,7 +5705,9 @@ Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('original', instance.original);
   writeNotNull('refreshToken', instance.refreshToken);
@@ -5263,7 +5752,11 @@ JWTRefreshTokenRevokeEvent _$JWTRefreshTokenRevokeEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$JWTRefreshTokenRevokeEventToJson(
@@ -5278,12 +5771,56 @@ Map<String, dynamic> _$JWTRefreshTokenRevokeEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('applicationTimeToLiveInSeconds',
       instance.applicationTimeToLiveInSeconds);
   writeNotNull('user', instance.user);
   writeNotNull('userId', instance.userId);
+  return val;
+}
+
+JWTVendRequest _$JWTVendRequestFromJson(Map<String, dynamic> json) {
+  return JWTVendRequest(
+    claims: json['claims'] as Map<String, dynamic>,
+    keyId: json['keyId'] as String,
+    timeToLiveInSeconds: json['timeToLiveInSeconds'] as num,
+  );
+}
+
+Map<String, dynamic> _$JWTVendRequestToJson(JWTVendRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('claims', instance.claims);
+  writeNotNull('keyId', instance.keyId);
+  writeNotNull('timeToLiveInSeconds', instance.timeToLiveInSeconds);
+  return val;
+}
+
+JWTVendResponse _$JWTVendResponseFromJson(Map<String, dynamic> json) {
+  return JWTVendResponse(
+    token: json['token'] as String,
+  );
+}
+
+Map<String, dynamic> _$JWTVendResponseToJson(JWTVendResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('token', instance.token);
   return val;
 }
 
@@ -5459,6 +5996,39 @@ Map<String, dynamic> _$KeyResponseToJson(KeyResponse instance) {
 
   writeNotNull('key', instance.key);
   writeNotNull('keys', instance.keys);
+  return val;
+}
+
+KickstartSuccessEvent _$KickstartSuccessEventFromJson(
+    Map<String, dynamic> json) {
+  return KickstartSuccessEvent(
+    instanceId: json['instanceId'] as String,
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$KickstartSuccessEventToJson(
+    KickstartSuccessEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('instanceId', instance.instanceId);
   return val;
 }
 
@@ -5720,6 +6290,37 @@ Map<String, dynamic> _$LinkedInIdentityProviderToJson(
   return val;
 }
 
+Location _$LocationFromJson(Map<String, dynamic> json) {
+  return Location(
+    city: json['city'] as String,
+    country: json['country'] as String,
+    displayString: json['displayString'] as String,
+    latitude: json['latitude'] as num,
+    longitude: json['longitude'] as num,
+    region: json['region'] as String,
+    zipcode: json['zipcode'] as String,
+  );
+}
+
+Map<String, dynamic> _$LocationToJson(Location instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('city', instance.city);
+  writeNotNull('country', instance.country);
+  writeNotNull('displayString', instance.displayString);
+  writeNotNull('latitude', instance.latitude);
+  writeNotNull('longitude', instance.longitude);
+  writeNotNull('region', instance.region);
+  writeNotNull('zipcode', instance.zipcode);
+  return val;
+}
+
 LogHistory _$LogHistoryFromJson(Map<String, dynamic> json) {
   return LogHistory(
     historyItems: (json['historyItems'] as List)
@@ -5972,11 +6573,15 @@ LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) {
     password: json['password'] as String,
     twoFactorTrustId: json['twoFactorTrustId'] as String,
   )
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+    ..newDevice = json['newDevice'] as bool
     ..noJWT = json['noJWT'] as bool;
 }
 
@@ -5989,9 +6594,11 @@ Map<String, dynamic> _$LoginRequestToJson(LoginRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
+  writeNotNull('newDevice', instance.newDevice);
   writeNotNull('noJWT', instance.noJWT);
   writeNotNull('loginId', instance.loginId);
   writeNotNull('oneTimePassword', instance.oneTimePassword);
@@ -6020,6 +6627,9 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
     refreshToken: json['refreshToken'] as String,
     registrationVerificationId: json['registrationVerificationId'] as String,
     state: json['state'] as Map<String, dynamic>,
+    threatsDetected: (json['threatsDetected'] as List)
+        ?.map((e) => _$enumDecodeNullable(_$AuthenticationThreatsEnumMap, e))
+        ?.toSet(),
     token: json['token'] as String,
     twoFactorId: json['twoFactorId'] as String,
     twoFactorTrustId: json['twoFactorTrustId'] as String,
@@ -6049,6 +6659,11 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) {
   writeNotNull(
       'registrationVerificationId', instance.registrationVerificationId);
   writeNotNull('state', instance.state);
+  writeNotNull(
+      'threatsDetected',
+      instance.threatsDetected
+          ?.map((e) => _$AuthenticationThreatsEnumMap[e])
+          ?.toList());
   writeNotNull('token', instance.token);
   writeNotNull('twoFactorId', instance.twoFactorId);
   writeNotNull('twoFactorTrustId', instance.twoFactorTrustId);
@@ -6062,6 +6677,34 @@ const _$ChangePasswordReasonEnumMap = {
   ChangePasswordReason.Expired: 'Expired',
   ChangePasswordReason.Validation: 'Validation',
 };
+
+const _$AuthenticationThreatsEnumMap = {
+  AuthenticationThreats.ImpossibleTravel: 'ImpossibleTravel',
+};
+
+LogoutRequest _$LogoutRequestFromJson(Map<String, dynamic> json) {
+  return LogoutRequest(
+    global: json['global'] as bool,
+    refreshToken: json['refreshToken'] as String,
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LogoutRequestToJson(LogoutRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('global', instance.global);
+  writeNotNull('refreshToken', instance.refreshToken);
+  return val;
+}
 
 LookupResponse _$LookupResponseFromJson(Map<String, dynamic> json) {
   return LookupResponse(
@@ -6613,11 +7256,13 @@ Map<String, dynamic> _$NintendoIdentityProviderToJson(
   return val;
 }
 
-Normalizer _$NormalizerFromJson(Map<String, dynamic> json) {
-  return Normalizer();
+NonTransactionalEvent _$NonTransactionalEventFromJson(
+    Map<String, dynamic> json) {
+  return NonTransactionalEvent();
 }
 
-Map<String, dynamic> _$NormalizerToJson(Normalizer instance) =>
+Map<String, dynamic> _$NonTransactionalEventToJson(
+        NonTransactionalEvent instance) =>
     <String, dynamic>{};
 
 OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) {
@@ -7144,11 +7789,15 @@ PasswordlessLoginRequest _$PasswordlessLoginRequestFromJson(
     code: json['code'] as String,
     twoFactorTrustId: json['twoFactorTrustId'] as String,
   )
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+    ..newDevice = json['newDevice'] as bool
     ..noJWT = json['noJWT'] as bool;
 }
 
@@ -7162,9 +7811,11 @@ Map<String, dynamic> _$PasswordlessLoginRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
+  writeNotNull('newDevice', instance.newDevice);
   writeNotNull('noJWT', instance.noJWT);
   writeNotNull('code', instance.code);
   writeNotNull('twoFactorTrustId', instance.twoFactorTrustId);
@@ -7492,6 +8143,30 @@ Map<String, dynamic> _$PublicKeyResponseToJson(PublicKeyResponse instance) {
   return val;
 }
 
+RateLimitedRequestConfiguration _$RateLimitedRequestConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return RateLimitedRequestConfiguration(
+    limit: json['limit'] as num,
+    timePeriodInSeconds: json['timePeriodInSeconds'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$RateLimitedRequestConfigurationToJson(
+    RateLimitedRequestConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('limit', instance.limit);
+  writeNotNull('timePeriodInSeconds', instance.timePeriodInSeconds);
+  return val;
+}
+
 RawLogin _$RawLoginFromJson(Map<String, dynamic> json) {
   return RawLogin(
     applicationId: json['applicationId'] as String,
@@ -7608,6 +8283,8 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) {
     entityManagement: _$enumDecodeNullable(
         _$ReactorFeatureStatusEnumMap, json['entityManagement']),
     licensed: json['licensed'] as bool,
+    threatDetection: _$enumDecodeNullable(
+        _$ReactorFeatureStatusEnumMap, json['threatDetection']),
   );
 }
 
@@ -7637,6 +8314,8 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) {
   writeNotNull('entityManagement',
       _$ReactorFeatureStatusEnumMap[instance.entityManagement]);
   writeNotNull('licensed', instance.licensed);
+  writeNotNull('threatDetection',
+      _$ReactorFeatureStatusEnumMap[instance.threatDetection]);
   return val;
 }
 
@@ -7644,6 +8323,7 @@ const _$ReactorFeatureStatusEnumMap = {
   ReactorFeatureStatus.ACTIVE: 'ACTIVE',
   ReactorFeatureStatus.DISCONNECTED: 'DISCONNECTED',
   ReactorFeatureStatus.PENDING: 'PENDING',
+  ReactorFeatureStatus.DISABLED: 'DISABLED',
   ReactorFeatureStatus.UNKNOWN: 'UNKNOWN',
 };
 
@@ -7674,7 +8354,9 @@ RefreshRequest _$RefreshRequestFromJson(Map<String, dynamic> json) {
   return RefreshRequest(
     refreshToken: json['refreshToken'] as String,
     token: json['token'] as String,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$RefreshRequestToJson(RefreshRequest instance) {
@@ -7686,6 +8368,7 @@ Map<String, dynamic> _$RefreshRequestToJson(RefreshRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('refreshToken', instance.refreshToken);
   writeNotNull('token', instance.token);
   return val;
@@ -7811,6 +8494,34 @@ Map<String, dynamic> _$RefreshTokenRevocationPolicyToJson(
   return val;
 }
 
+RefreshTokenRevokeRequest _$RefreshTokenRevokeRequestFromJson(
+    Map<String, dynamic> json) {
+  return RefreshTokenRevokeRequest(
+    applicationId: json['applicationId'] as String,
+    token: json['token'] as String,
+    userId: json['userId'] as String,
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$RefreshTokenRevokeRequestToJson(
+    RefreshTokenRevokeRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('token', instance.token);
+  writeNotNull('userId', instance.userId);
+  return val;
+}
+
 RegistrationConfiguration _$RegistrationConfigurationFromJson(
     Map<String, dynamic> json) {
   return RegistrationConfiguration(
@@ -7874,6 +8585,28 @@ const _$RegistrationTypeEnumMap = {
   RegistrationType.advanced: 'advanced',
 };
 
+RegistrationDeleteRequest _$RegistrationDeleteRequestFromJson(
+    Map<String, dynamic> json) {
+  return RegistrationDeleteRequest()
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$RegistrationDeleteRequestToJson(
+    RegistrationDeleteRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
+  return val;
+}
+
 RegistrationReportResponse _$RegistrationReportResponseFromJson(
     Map<String, dynamic> json) {
   return RegistrationReportResponse(
@@ -7902,6 +8635,7 @@ Map<String, dynamic> _$RegistrationReportResponseToJson(
 
 RegistrationRequest _$RegistrationRequestFromJson(Map<String, dynamic> json) {
   return RegistrationRequest(
+    disableDomainBlock: json['disableDomainBlock'] as bool,
     generateAuthenticationToken: json['generateAuthenticationToken'] as bool,
     registration: json['registration'] == null
         ? null
@@ -7913,7 +8647,9 @@ RegistrationRequest _$RegistrationRequestFromJson(Map<String, dynamic> json) {
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$RegistrationRequestToJson(RegistrationRequest instance) {
@@ -7925,6 +8661,8 @@ Map<String, dynamic> _$RegistrationRequestToJson(RegistrationRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('disableDomainBlock', instance.disableDomainBlock);
   writeNotNull(
       'generateAuthenticationToken', instance.generateAuthenticationToken);
   writeNotNull('registration', instance.registration);
@@ -8945,6 +9683,10 @@ SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) {
         : LoginRecordConfiguration.fromJson(
             json['loginRecordConfiguration'] as Map<String, dynamic>),
     reportTimezone: json['reportTimezone'] as String,
+    ssoConfiguration: json['ssoConfiguration'] == null
+        ? null
+        : SystemSSOConfiguration.fromJson(
+            json['ssoConfiguration'] as Map<String, dynamic>),
     uiConfiguration: json['uiConfiguration'] == null
         ? null
         : UIConfiguration.fromJson(
@@ -8969,6 +9711,7 @@ Map<String, dynamic> _$SystemConfigurationToJson(SystemConfiguration instance) {
   writeNotNull('lastUpdateInstant', instance.lastUpdateInstant);
   writeNotNull('loginRecordConfiguration', instance.loginRecordConfiguration);
   writeNotNull('reportTimezone', instance.reportTimezone);
+  writeNotNull('ssoConfiguration', instance.ssoConfiguration);
   writeNotNull('uiConfiguration', instance.uiConfiguration);
   return val;
 }
@@ -9046,6 +9789,29 @@ Map<String, dynamic> _$SystemLogsExportRequestToJson(
   return val;
 }
 
+SystemSSOConfiguration _$SystemSSOConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return SystemSSOConfiguration(
+    deviceTrustTimeToLiveInSeconds:
+        json['deviceTrustTimeToLiveInSeconds'] as num,
+  );
+}
+
+Map<String, dynamic> _$SystemSSOConfigurationToJson(
+    SystemSSOConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('deviceTrustTimeToLiveInSeconds',
+      instance.deviceTrustTimeToLiveInSeconds);
+  return val;
+}
+
 Templates _$TemplatesFromJson(Map<String, dynamic> json) {
   return Templates(
     accountEdit: json['accountEdit'] as String,
@@ -9089,6 +9855,7 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) {
         json['registrationVerificationRequired'] as String,
     registrationVerify: json['registrationVerify'] as String,
     samlv2Logout: json['samlv2Logout'] as String,
+    unauthorized: json['unauthorized'] as String,
   );
 }
 
@@ -9143,11 +9910,20 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) {
       instance.registrationVerificationRequired);
   writeNotNull('registrationVerify', instance.registrationVerify);
   writeNotNull('samlv2Logout', instance.samlv2Logout);
+  writeNotNull('unauthorized', instance.unauthorized);
   return val;
 }
 
 Tenant _$TenantFromJson(Map<String, dynamic> json) {
   return Tenant(
+    accessControlConfiguration: json['accessControlConfiguration'] == null
+        ? null
+        : TenantAccessControlConfiguration.fromJson(
+            json['accessControlConfiguration'] as Map<String, dynamic>),
+    captchaConfiguration: json['captchaConfiguration'] == null
+        ? null
+        : TenantCaptchaConfiguration.fromJson(
+            json['captchaConfiguration'] as Map<String, dynamic>),
     configured: json['configured'] as bool,
     connectorPolicies: (json['connectorPolicies'] as List)
         ?.map((e) => e == null
@@ -9223,6 +9999,14 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) {
         ? null
         : PasswordValidationRules.fromJson(
             json['passwordValidationRules'] as Map<String, dynamic>),
+    rateLimitConfiguration: json['rateLimitConfiguration'] == null
+        ? null
+        : TenantRateLimitConfiguration.fromJson(
+            json['rateLimitConfiguration'] as Map<String, dynamic>),
+    registrationConfiguration: json['registrationConfiguration'] == null
+        ? null
+        : TenantRegistrationConfiguration.fromJson(
+            json['registrationConfiguration'] as Map<String, dynamic>),
     state: _$enumDecodeNullable(_$ObjectStateEnumMap, json['state']),
     themeId: json['themeId'] as String,
     userDeletePolicy: json['userDeletePolicy'] == null
@@ -9245,6 +10029,9 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
     }
   }
 
+  writeNotNull(
+      'accessControlConfiguration', instance.accessControlConfiguration);
+  writeNotNull('captchaConfiguration', instance.captchaConfiguration);
   writeNotNull('configured', instance.configured);
   writeNotNull('connectorPolicies', instance.connectorPolicies);
   writeNotNull('data', instance.data);
@@ -9273,6 +10060,8 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) {
   writeNotNull('passwordEncryptionConfiguration',
       instance.passwordEncryptionConfiguration);
   writeNotNull('passwordValidationRules', instance.passwordValidationRules);
+  writeNotNull('rateLimitConfiguration', instance.rateLimitConfiguration);
+  writeNotNull('registrationConfiguration', instance.registrationConfiguration);
   writeNotNull('state', _$ObjectStateEnumMap[instance.state]);
   writeNotNull('themeId', instance.themeId);
   writeNotNull('userDeletePolicy', instance.userDeletePolicy);
@@ -9286,6 +10075,85 @@ Tenantable _$TenantableFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TenantableToJson(Tenantable instance) =>
     <String, dynamic>{};
+
+TenantAccessControlConfiguration _$TenantAccessControlConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantAccessControlConfiguration(
+    uiIPAccessControlListId: json['uiIPAccessControlListId'] as String,
+  );
+}
+
+Map<String, dynamic> _$TenantAccessControlConfigurationToJson(
+    TenantAccessControlConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('uiIPAccessControlListId', instance.uiIPAccessControlListId);
+  return val;
+}
+
+TenantCaptchaConfiguration _$TenantCaptchaConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantCaptchaConfiguration(
+    captchaMethod:
+        _$enumDecodeNullable(_$CaptchaMethodEnumMap, json['captchaMethod']),
+    secretKey: json['secretKey'] as String,
+    siteKey: json['siteKey'] as String,
+    threshold: json['threshold'] as num,
+  )..enabled = json['enabled'] as bool;
+}
+
+Map<String, dynamic> _$TenantCaptchaConfigurationToJson(
+    TenantCaptchaConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('enabled', instance.enabled);
+  writeNotNull('captchaMethod', _$CaptchaMethodEnumMap[instance.captchaMethod]);
+  writeNotNull('secretKey', instance.secretKey);
+  writeNotNull('siteKey', instance.siteKey);
+  writeNotNull('threshold', instance.threshold);
+  return val;
+}
+
+const _$CaptchaMethodEnumMap = {
+  CaptchaMethod.GoogleRecaptchaV2: 'GoogleRecaptchaV2',
+  CaptchaMethod.GoogleRecaptchaV3: 'GoogleRecaptchaV3',
+  CaptchaMethod.HCaptcha: 'HCaptcha',
+  CaptchaMethod.HCaptchaEnterprise: 'HCaptchaEnterprise',
+};
+
+TenantDeleteRequest _$TenantDeleteRequestFromJson(Map<String, dynamic> json) {
+  return TenantDeleteRequest(
+    async: json['async'] as bool,
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$TenantDeleteRequestToJson(TenantDeleteRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('async', instance.async);
+  return val;
+}
 
 TenantFormConfiguration _$TenantFormConfigurationFromJson(
     Map<String, dynamic> json) {
@@ -9385,13 +10253,87 @@ Map<String, dynamic> _$TenantOAuth2ConfigurationToJson(
   return val;
 }
 
+TenantRateLimitConfiguration _$TenantRateLimitConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantRateLimitConfiguration(
+    failedLogin: json['failedLogin'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['failedLogin'] as Map<String, dynamic>),
+    forgotPassword: json['forgotPassword'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['forgotPassword'] as Map<String, dynamic>),
+    sendEmailVerification: json['sendEmailVerification'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendEmailVerification'] as Map<String, dynamic>),
+    sendPasswordless: json['sendPasswordless'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendPasswordless'] as Map<String, dynamic>),
+    sendRegistrationVerification: json['sendRegistrationVerification'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendRegistrationVerification'] as Map<String, dynamic>),
+    sendTwoFactor: json['sendTwoFactor'] == null
+        ? null
+        : RateLimitedRequestConfiguration.fromJson(
+            json['sendTwoFactor'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TenantRateLimitConfigurationToJson(
+    TenantRateLimitConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('failedLogin', instance.failedLogin);
+  writeNotNull('forgotPassword', instance.forgotPassword);
+  writeNotNull('sendEmailVerification', instance.sendEmailVerification);
+  writeNotNull('sendPasswordless', instance.sendPasswordless);
+  writeNotNull(
+      'sendRegistrationVerification', instance.sendRegistrationVerification);
+  writeNotNull('sendTwoFactor', instance.sendTwoFactor);
+  return val;
+}
+
+TenantRegistrationConfiguration _$TenantRegistrationConfigurationFromJson(
+    Map<String, dynamic> json) {
+  return TenantRegistrationConfiguration(
+    blockedDomains:
+        (json['blockedDomains'] as List)?.map((e) => e as String)?.toSet(),
+  );
+}
+
+Map<String, dynamic> _$TenantRegistrationConfigurationToJson(
+    TenantRegistrationConfiguration instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('blockedDomains', instance.blockedDomains?.toList());
+  return val;
+}
+
 TenantRequest _$TenantRequestFromJson(Map<String, dynamic> json) {
   return TenantRequest(
     sourceTenantId: json['sourceTenantId'] as String,
     tenant: json['tenant'] == null
         ? null
         : Tenant.fromJson(json['tenant'] as Map<String, dynamic>),
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$TenantRequestToJson(TenantRequest instance) {
@@ -9403,6 +10345,7 @@ Map<String, dynamic> _$TenantRequestToJson(TenantRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('sourceTenantId', instance.sourceTenantId);
   writeNotNull('tenant', instance.tenant);
   return val;
@@ -9514,7 +10457,11 @@ TestEvent _$TestEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$TestEventToJson(TestEvent instance) {
@@ -9528,7 +10475,9 @@ Map<String, dynamic> _$TestEventToJson(TestEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('message', instance.message);
   return val;
 }
@@ -9918,6 +10867,32 @@ Map<String, dynamic> _$TwitterIdentityProviderToJson(
   return val;
 }
 
+TwoFactorDisableRequest _$TwoFactorDisableRequestFromJson(
+    Map<String, dynamic> json) {
+  return TwoFactorDisableRequest(
+    code: json['code'] as String,
+    methodId: json['methodId'] as String,
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$TwoFactorDisableRequestToJson(
+    TwoFactorDisableRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('code', instance.code);
+  writeNotNull('methodId', instance.methodId);
+  return val;
+}
+
 TwoFactorEnableDisableSendRequest _$TwoFactorEnableDisableSendRequestFromJson(
     Map<String, dynamic> json) {
   return TwoFactorEnableDisableSendRequest(
@@ -9953,11 +10928,15 @@ TwoFactorLoginRequest _$TwoFactorLoginRequestFromJson(
     twoFactorId: json['twoFactorId'] as String,
     userId: json['userId'] as String,
   )
+    ..eventInfo = json['eventInfo'] == null
+        ? null
+        : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
     ..applicationId = json['applicationId'] as String
     ..ipAddress = json['ipAddress'] as String
     ..metaData = json['metaData'] == null
         ? null
         : MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+    ..newDevice = json['newDevice'] as bool
     ..noJWT = json['noJWT'] as bool;
 }
 
@@ -9971,9 +10950,11 @@ Map<String, dynamic> _$TwoFactorLoginRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('metaData', instance.metaData);
+  writeNotNull('newDevice', instance.newDevice);
   writeNotNull('noJWT', instance.noJWT);
   writeNotNull('code', instance.code);
   writeNotNull('trustComputer', instance.trustComputer);
@@ -10047,7 +11028,9 @@ TwoFactorRequest _$TwoFactorRequestFromJson(Map<String, dynamic> json) {
     mobilePhone: json['mobilePhone'] as String,
     secret: json['secret'] as String,
     secretBase32Encoded: json['secretBase32Encoded'] as String,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$TwoFactorRequestToJson(TwoFactorRequest instance) {
@@ -10059,6 +11042,7 @@ Map<String, dynamic> _$TwoFactorRequestToJson(TwoFactorRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('authenticatorId', instance.authenticatorId);
   writeNotNull('code', instance.code);
   writeNotNull('email', instance.email);
@@ -10425,7 +11409,11 @@ UserActionEvent _$UserActionEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserActionEventToJson(UserActionEvent instance) {
@@ -10439,7 +11427,9 @@ Map<String, dynamic> _$UserActionEventToJson(UserActionEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('action', instance.action);
   writeNotNull('actioneeUserId', instance.actioneeUserId);
   writeNotNull('actionerUserId', instance.actionerUserId);
@@ -10690,7 +11680,11 @@ UserBulkCreateEvent _$UserBulkCreateEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserBulkCreateEventToJson(UserBulkCreateEvent instance) {
@@ -10704,7 +11698,9 @@ Map<String, dynamic> _$UserBulkCreateEventToJson(UserBulkCreateEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('users', instance.users);
   return val;
 }
@@ -10874,6 +11870,41 @@ Map<String, dynamic> _$UserConsentResponseToJson(UserConsentResponse instance) {
   return val;
 }
 
+UserCreateCompleteEvent _$UserCreateCompleteEventFromJson(
+    Map<String, dynamic> json) {
+  return UserCreateCompleteEvent(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserCreateCompleteEventToJson(
+    UserCreateCompleteEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
 UserCreateEvent _$UserCreateEventFromJson(Map<String, dynamic> json) {
   return UserCreateEvent(
     user: json['user'] == null
@@ -10882,7 +11913,11 @@ UserCreateEvent _$UserCreateEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserCreateEventToJson(UserCreateEvent instance) {
@@ -10896,7 +11931,9 @@ Map<String, dynamic> _$UserCreateEventToJson(UserCreateEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -10909,7 +11946,11 @@ UserDeactivateEvent _$UserDeactivateEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserDeactivateEventToJson(UserDeactivateEvent instance) {
@@ -10923,7 +11964,44 @@ Map<String, dynamic> _$UserDeactivateEventToJson(UserDeactivateEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserDeleteCompleteEvent _$UserDeleteCompleteEventFromJson(
+    Map<String, dynamic> json) {
+  return UserDeleteCompleteEvent(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserDeleteCompleteEventToJson(
+    UserDeleteCompleteEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -10936,7 +12014,11 @@ UserDeleteEvent _$UserDeleteEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserDeleteEventToJson(UserDeleteEvent instance) {
@@ -10950,7 +12032,9 @@ Map<String, dynamic> _$UserDeleteEventToJson(UserDeleteEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -10962,7 +12046,9 @@ UserDeleteRequest _$UserDeleteRequestFromJson(Map<String, dynamic> json) {
     query: json['query'] as String,
     queryString: json['queryString'] as String,
     userIds: (json['userIds'] as List)?.map((e) => e as String)?.toList(),
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$UserDeleteRequestToJson(UserDeleteRequest instance) {
@@ -10974,6 +12060,7 @@ Map<String, dynamic> _$UserDeleteRequestToJson(UserDeleteRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('dryRun', instance.dryRun);
   writeNotNull('hardDelete', instance.hardDelete);
   writeNotNull('query', instance.query);
@@ -11007,6 +12094,66 @@ Map<String, dynamic> _$UserDeleteResponseToJson(UserDeleteResponse instance) {
   return val;
 }
 
+UserDeleteSingleRequest _$UserDeleteSingleRequestFromJson(
+    Map<String, dynamic> json) {
+  return UserDeleteSingleRequest(
+    hardDelete: json['hardDelete'] as bool,
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UserDeleteSingleRequestToJson(
+    UserDeleteSingleRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('hardDelete', instance.hardDelete);
+  return val;
+}
+
+UserEmailUpdateEvent _$UserEmailUpdateEventFromJson(Map<String, dynamic> json) {
+  return UserEmailUpdateEvent(
+    previousEmail: json['previousEmail'] as String,
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserEmailUpdateEventToJson(
+    UserEmailUpdateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('previousEmail', instance.previousEmail);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
 UserEmailVerifiedEvent _$UserEmailVerifiedEventFromJson(
     Map<String, dynamic> json) {
   return UserEmailVerifiedEvent(
@@ -11016,7 +12163,11 @@ UserEmailVerifiedEvent _$UserEmailVerifiedEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserEmailVerifiedEventToJson(
@@ -11031,7 +12182,9 @@ Map<String, dynamic> _$UserEmailVerifiedEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -11047,7 +12200,11 @@ UserLoginFailedEvent _$UserLoginFailedEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserLoginFailedEventToJson(
@@ -11062,9 +12219,146 @@ Map<String, dynamic> _$UserLoginFailedEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('authenticationType', instance.authenticationType);
+  writeNotNull('ipAddress', instance.ipAddress);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserLoginIdDuplicateOnCreateEvent _$UserLoginIdDuplicateOnCreateEventFromJson(
+    Map<String, dynamic> json) {
+  return UserLoginIdDuplicateOnCreateEvent(
+    applicationId: json['applicationId'] as String,
+    duplicateEmail: json['duplicateEmail'] as String,
+    duplicateUsername: json['duplicateUsername'] as String,
+    existing: json['existing'] == null
+        ? null
+        : User.fromJson(json['existing'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserLoginIdDuplicateOnCreateEventToJson(
+    UserLoginIdDuplicateOnCreateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('duplicateEmail', instance.duplicateEmail);
+  writeNotNull('duplicateUsername', instance.duplicateUsername);
+  writeNotNull('existing', instance.existing);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserLoginIdDuplicateOnUpdateEvent _$UserLoginIdDuplicateOnUpdateEventFromJson(
+    Map<String, dynamic> json) {
+  return UserLoginIdDuplicateOnUpdateEvent()
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type'])
+    ..applicationId = json['applicationId'] as String
+    ..duplicateEmail = json['duplicateEmail'] as String
+    ..duplicateUsername = json['duplicateUsername'] as String
+    ..existing = json['existing'] == null
+        ? null
+        : User.fromJson(json['existing'] as Map<String, dynamic>)
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UserLoginIdDuplicateOnUpdateEventToJson(
+    UserLoginIdDuplicateOnUpdateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('duplicateEmail', instance.duplicateEmail);
+  writeNotNull('duplicateUsername', instance.duplicateUsername);
+  writeNotNull('existing', instance.existing);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserLoginNewDeviceEvent _$UserLoginNewDeviceEventFromJson(
+    Map<String, dynamic> json) {
+  return UserLoginNewDeviceEvent()
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type'])
+    ..applicationId = json['applicationId'] as String
+    ..authenticationType = json['authenticationType'] as String
+    ..connectorId = json['connectorId'] as String
+    ..identityProviderId = json['identityProviderId'] as String
+    ..identityProviderName = json['identityProviderName'] as String
+    ..ipAddress = json['ipAddress'] as String
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UserLoginNewDeviceEventToJson(
+    UserLoginNewDeviceEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('authenticationType', instance.authenticationType);
+  writeNotNull('connectorId', instance.connectorId);
+  writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('identityProviderName', instance.identityProviderName);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('user', instance.user);
   return val;
@@ -11085,7 +12379,11 @@ UserLoginSuccessEvent _$UserLoginSuccessEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserLoginSuccessEventToJson(
@@ -11100,7 +12398,55 @@ Map<String, dynamic> _$UserLoginSuccessEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('authenticationType', instance.authenticationType);
+  writeNotNull('connectorId', instance.connectorId);
+  writeNotNull('identityProviderId', instance.identityProviderId);
+  writeNotNull('identityProviderName', instance.identityProviderName);
+  writeNotNull('ipAddress', instance.ipAddress);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserLoginSuspiciousEvent _$UserLoginSuspiciousEventFromJson(
+    Map<String, dynamic> json) {
+  return UserLoginSuspiciousEvent()
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type'])
+    ..applicationId = json['applicationId'] as String
+    ..authenticationType = json['authenticationType'] as String
+    ..connectorId = json['connectorId'] as String
+    ..identityProviderId = json['identityProviderId'] as String
+    ..identityProviderName = json['identityProviderName'] as String
+    ..ipAddress = json['ipAddress'] as String
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UserLoginSuspiciousEventToJson(
+    UserLoginSuspiciousEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('authenticationType', instance.authenticationType);
   writeNotNull('connectorId', instance.connectorId);
@@ -11140,7 +12486,11 @@ UserPasswordBreachEvent _$UserPasswordBreachEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserPasswordBreachEventToJson(
@@ -11155,7 +12505,149 @@ Map<String, dynamic> _$UserPasswordBreachEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserPasswordResetSendEvent _$UserPasswordResetSendEventFromJson(
+    Map<String, dynamic> json) {
+  return UserPasswordResetSendEvent(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserPasswordResetSendEventToJson(
+    UserPasswordResetSendEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserPasswordResetStartEvent _$UserPasswordResetStartEventFromJson(
+    Map<String, dynamic> json) {
+  return UserPasswordResetStartEvent(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserPasswordResetStartEventToJson(
+    UserPasswordResetStartEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserPasswordResetSuccessEvent _$UserPasswordResetSuccessEventFromJson(
+    Map<String, dynamic> json) {
+  return UserPasswordResetSuccessEvent(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserPasswordResetSuccessEventToJson(
+    UserPasswordResetSuccessEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserPasswordUpdateEvent _$UserPasswordUpdateEventFromJson(
+    Map<String, dynamic> json) {
+  return UserPasswordUpdateEvent(
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserPasswordUpdateEventToJson(
+    UserPasswordUpdateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -11168,7 +12660,11 @@ UserReactivateEvent _$UserReactivateEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserReactivateEventToJson(UserReactivateEvent instance) {
@@ -11182,7 +12678,9 @@ Map<String, dynamic> _$UserReactivateEventToJson(UserReactivateEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -11239,6 +12737,48 @@ Map<String, dynamic> _$UserRegistrationToJson(UserRegistration instance) {
   return val;
 }
 
+UserRegistrationCreateCompleteEvent
+    _$UserRegistrationCreateCompleteEventFromJson(Map<String, dynamic> json) {
+  return UserRegistrationCreateCompleteEvent(
+    applicationId: json['applicationId'] as String,
+    registration: json['registration'] == null
+        ? null
+        : UserRegistration.fromJson(
+            json['registration'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserRegistrationCreateCompleteEventToJson(
+    UserRegistrationCreateCompleteEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('registration', instance.registration);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
 UserRegistrationCreateEvent _$UserRegistrationCreateEventFromJson(
     Map<String, dynamic> json) {
   return UserRegistrationCreateEvent(
@@ -11253,7 +12793,11 @@ UserRegistrationCreateEvent _$UserRegistrationCreateEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserRegistrationCreateEventToJson(
@@ -11268,7 +12812,51 @@ Map<String, dynamic> _$UserRegistrationCreateEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('registration', instance.registration);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserRegistrationDeleteCompleteEvent
+    _$UserRegistrationDeleteCompleteEventFromJson(Map<String, dynamic> json) {
+  return UserRegistrationDeleteCompleteEvent(
+    applicationId: json['applicationId'] as String,
+    registration: json['registration'] == null
+        ? null
+        : UserRegistration.fromJson(
+            json['registration'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserRegistrationDeleteCompleteEventToJson(
+    UserRegistrationDeleteCompleteEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('registration', instance.registration);
   writeNotNull('user', instance.user);
@@ -11289,7 +12877,11 @@ UserRegistrationDeleteEvent _$UserRegistrationDeleteEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserRegistrationDeleteEventToJson(
@@ -11304,8 +12896,56 @@ Map<String, dynamic> _$UserRegistrationDeleteEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('registration', instance.registration);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserRegistrationUpdateCompleteEvent
+    _$UserRegistrationUpdateCompleteEventFromJson(Map<String, dynamic> json) {
+  return UserRegistrationUpdateCompleteEvent(
+    applicationId: json['applicationId'] as String,
+    original: json['original'] == null
+        ? null
+        : UserRegistration.fromJson(json['original'] as Map<String, dynamic>),
+    registration: json['registration'] == null
+        ? null
+        : UserRegistration.fromJson(
+            json['registration'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserRegistrationUpdateCompleteEventToJson(
+    UserRegistrationUpdateCompleteEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('original', instance.original);
   writeNotNull('registration', instance.registration);
   writeNotNull('user', instance.user);
   return val;
@@ -11328,7 +12968,11 @@ UserRegistrationUpdateEvent _$UserRegistrationUpdateEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserRegistrationUpdateEventToJson(
@@ -11343,7 +12987,9 @@ Map<String, dynamic> _$UserRegistrationUpdateEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('original', instance.original);
   writeNotNull('registration', instance.registration);
@@ -11365,7 +13011,11 @@ UserRegistrationVerifiedEvent _$UserRegistrationVerifiedEventFromJson(
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserRegistrationVerifiedEventToJson(
@@ -11380,7 +13030,9 @@ Map<String, dynamic> _$UserRegistrationVerifiedEventToJson(
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('applicationId', instance.applicationId);
   writeNotNull('registration', instance.registration);
   writeNotNull('user', instance.user);
@@ -11389,12 +13041,16 @@ Map<String, dynamic> _$UserRegistrationVerifiedEventToJson(
 
 UserRequest _$UserRequestFromJson(Map<String, dynamic> json) {
   return UserRequest(
+    applicationId: json['applicationId'] as String,
+    disableDomainBlock: json['disableDomainBlock'] as bool,
     sendSetPasswordEmail: json['sendSetPasswordEmail'] as bool,
     skipVerification: json['skipVerification'] as bool,
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$UserRequestToJson(UserRequest instance) {
@@ -11406,6 +13062,9 @@ Map<String, dynamic> _$UserRequestToJson(UserRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('applicationId', instance.applicationId);
+  writeNotNull('disableDomainBlock', instance.disableDomainBlock);
   writeNotNull('sendSetPasswordEmail', instance.sendSetPasswordEmail);
   writeNotNull('skipVerification', instance.skipVerification);
   writeNotNull('user', instance.user);
@@ -11506,6 +13165,123 @@ Map<String, dynamic> _$UserTwoFactorConfigurationToJson(
   return val;
 }
 
+UserTwoFactorMethodAddEvent _$UserTwoFactorMethodAddEventFromJson(
+    Map<String, dynamic> json) {
+  return UserTwoFactorMethodAddEvent(
+    method: json['method'] == null
+        ? null
+        : TwoFactorMethod.fromJson(json['method'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserTwoFactorMethodAddEventToJson(
+    UserTwoFactorMethodAddEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('method', instance.method);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserTwoFactorMethodRemoveEvent _$UserTwoFactorMethodRemoveEventFromJson(
+    Map<String, dynamic> json) {
+  return UserTwoFactorMethodRemoveEvent(
+    method: json['method'] == null
+        ? null
+        : TwoFactorMethod.fromJson(json['method'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserTwoFactorMethodRemoveEventToJson(
+    UserTwoFactorMethodRemoveEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('method', instance.method);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+UserUpdateCompleteEvent _$UserUpdateCompleteEventFromJson(
+    Map<String, dynamic> json) {
+  return UserUpdateCompleteEvent(
+    original: json['original'] == null
+        ? null
+        : User.fromJson(json['original'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
+  )
+    ..createInstant = json['createInstant'] as num
+    ..id = json['id'] as String
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
+}
+
+Map<String, dynamic> _$UserUpdateCompleteEventToJson(
+    UserUpdateCompleteEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createInstant', instance.createInstant);
+  writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
+  writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
+  writeNotNull('original', instance.original);
+  writeNotNull('user', instance.user);
+  return val;
+}
+
 UserUpdateEvent _$UserUpdateEventFromJson(Map<String, dynamic> json) {
   return UserUpdateEvent(
     original: json['original'] == null
@@ -11517,7 +13293,11 @@ UserUpdateEvent _$UserUpdateEventFromJson(Map<String, dynamic> json) {
   )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
-    ..tenantId = json['tenantId'] as String;
+    ..info = json['info'] == null
+        ? null
+        : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+    ..tenantId = json['tenantId'] as String
+    ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type']);
 }
 
 Map<String, dynamic> _$UserUpdateEventToJson(UserUpdateEvent instance) {
@@ -11531,7 +13311,9 @@ Map<String, dynamic> _$UserUpdateEventToJson(UserUpdateEvent instance) {
 
   writeNotNull('createInstant', instance.createInstant);
   writeNotNull('id', instance.id);
+  writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
+  writeNotNull('type', _$EventTypeEnumMap[instance.type]);
   writeNotNull('original', instance.original);
   writeNotNull('user', instance.user);
   return val;
@@ -11562,7 +13344,9 @@ VerifyEmailRequest _$VerifyEmailRequestFromJson(Map<String, dynamic> json) {
   return VerifyEmailRequest(
     oneTimeCode: json['oneTimeCode'] as String,
     verificationId: json['verificationId'] as String,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$VerifyEmailRequestToJson(VerifyEmailRequest instance) {
@@ -11574,6 +13358,7 @@ Map<String, dynamic> _$VerifyEmailRequestToJson(VerifyEmailRequest instance) {
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('oneTimeCode', instance.oneTimeCode);
   writeNotNull('verificationId', instance.verificationId);
   return val;
@@ -11605,7 +13390,9 @@ VerifyRegistrationRequest _$VerifyRegistrationRequestFromJson(
   return VerifyRegistrationRequest(
     oneTimeCode: json['oneTimeCode'] as String,
     verificationId: json['verificationId'] as String,
-  );
+  )..eventInfo = json['eventInfo'] == null
+      ? null
+      : EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$VerifyRegistrationRequestToJson(
@@ -11618,6 +13405,7 @@ Map<String, dynamic> _$VerifyRegistrationRequestToJson(
     }
   }
 
+  writeNotNull('eventInfo', instance.eventInfo);
   writeNotNull('oneTimeCode', instance.oneTimeCode);
   writeNotNull('verificationId', instance.verificationId);
   return val;

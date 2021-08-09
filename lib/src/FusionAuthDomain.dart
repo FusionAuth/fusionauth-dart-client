@@ -79,7 +79,7 @@ class ActionData {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class ActionRequest {
+class ActionRequest extends BaseEventRequest {
   ActionData action;
   bool broadcast;
 
@@ -138,6 +138,7 @@ enum Algorithm {
 class APIKey {
   String id;
   num insertInstant;
+  String ipAccessControlListId;
   String key;
   bool keyManager;
   num lastUpdateInstant;
@@ -148,6 +149,7 @@ class APIKey {
   APIKey(
       {this.id,
       this.insertInstant,
+      this.ipAccessControlListId,
       this.key,
       this.keyManager,
       this.lastUpdateInstant,
@@ -249,6 +251,7 @@ class AppleIdentityProvider
 /// @author Seth Musselman
 @JsonSerializable()
 class Application {
+  ApplicationAccessControlConfiguration accessControlConfiguration;
   bool active;
   AuthenticationTokenConfiguration authenticationTokenConfiguration;
   CleanSpeakConfiguration cleanSpeakConfiguration;
@@ -278,7 +281,8 @@ class Application {
   bool verifyRegistration;
 
   Application(
-      {this.active,
+      {this.accessControlConfiguration,
+      this.active,
       this.authenticationTokenConfiguration,
       this.cleanSpeakConfiguration,
       this.data,
@@ -311,17 +315,41 @@ class Application {
   Map<String, dynamic> toJson() => _$ApplicationToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ApplicationAccessControlConfiguration {
+  String uiIPAccessControlListId;
+
+  ApplicationAccessControlConfiguration({this.uiIPAccessControlListId});
+
+  factory ApplicationAccessControlConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationAccessControlConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationAccessControlConfigurationToJson(this);
+}
+
 @JsonSerializable()
 class ApplicationEmailConfiguration {
+  String emailUpdateEmailTemplateId;
   String emailVerificationEmailTemplateId;
+  String emailVerifiedEmailTemplateId;
   String forgotPasswordEmailTemplateId;
+  String loginNewDeviceEmailTemplateId;
+  String loginSuspiciousEmailTemplateId;
   String passwordlessEmailTemplateId;
+  String passwordResetSuccessEmailTemplateId;
   String setPasswordEmailTemplateId;
 
   ApplicationEmailConfiguration(
-      {this.emailVerificationEmailTemplateId,
+      {this.emailUpdateEmailTemplateId,
+      this.emailVerificationEmailTemplateId,
+      this.emailVerifiedEmailTemplateId,
       this.forgotPasswordEmailTemplateId,
+      this.loginNewDeviceEmailTemplateId,
+      this.loginSuspiciousEmailTemplateId,
       this.passwordlessEmailTemplateId,
+      this.passwordResetSuccessEmailTemplateId,
       this.setPasswordEmailTemplateId});
 
   factory ApplicationEmailConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -390,7 +418,7 @@ class ApplicationRegistrationDeletePolicy {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class ApplicationRequest {
+class ApplicationRequest extends BaseEventRequest {
   Application application;
   ApplicationRole role;
   List<String> webhookIds;
@@ -518,6 +546,20 @@ class AuditLogConfiguration {
   Map<String, dynamic> toJson() => _$AuditLogConfigurationToJson(this);
 }
 
+/// Event event to an audit log was created.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class AuditLogCreateEvent extends BaseEvent {
+  AuditLog auditLog;
+
+  AuditLogCreateEvent({this.auditLog});
+
+  factory AuditLogCreateEvent.fromJson(Map<String, dynamic> json) =>
+      _$AuditLogCreateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$AuditLogCreateEventToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class AuditLogExportRequest extends BaseExportRequest {
@@ -532,7 +574,7 @@ class AuditLogExportRequest extends BaseExportRequest {
 
 /// @author Brian Pontarelli
 @JsonSerializable()
-class AuditLogRequest {
+class AuditLogRequest extends BaseEventRequest {
   AuditLog auditLog;
 
   AuditLogRequest({this.auditLog});
@@ -561,10 +603,20 @@ class AuditLogResponse {
 class AuditLogSearchCriteria extends BaseSearchCriteria {
   num end;
   String message;
+  String newValue;
+  String oldValue;
+  String reason;
   num start;
   String user;
 
-  AuditLogSearchCriteria({this.end, this.message, this.start, this.user});
+  AuditLogSearchCriteria(
+      {this.end,
+      this.message,
+      this.newValue,
+      this.oldValue,
+      this.reason,
+      this.start,
+      this.user});
 
   factory AuditLogSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$AuditLogSearchCriteriaFromJson(json);
@@ -596,6 +648,12 @@ class AuditLogSearchResponse {
   factory AuditLogSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$AuditLogSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
+}
+
+/// @author Brett Pontarelli
+enum AuthenticationThreats {
+  @JsonValue('ImpossibleTravel')
+  ImpossibleTravel
 }
 
 @JsonSerializable()
@@ -676,13 +734,30 @@ class BaseElasticSearchCriteria extends BaseSearchCriteria {
 class BaseEvent {
   num createInstant;
   String id;
+  EventInfo info;
   String tenantId;
+  EventType type;
 
-  BaseEvent({this.createInstant, this.id, this.tenantId});
+  BaseEvent({this.createInstant, this.id, this.info, this.tenantId, this.type});
 
   factory BaseEvent.fromJson(Map<String, dynamic> json) =>
       _$BaseEventFromJson(json);
   Map<String, dynamic> toJson() => _$BaseEventToJson(this);
+}
+
+/// Base class for requests that can contain event information. This event information is used when sending Webhooks or emails
+/// during the transaction. The caller is responsible for ensuring that the event information is correct.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class BaseEventRequest {
+  EventInfo eventInfo;
+
+  BaseEventRequest({this.eventInfo});
+
+  factory BaseEventRequest.fromJson(Map<String, dynamic> json) =>
+      _$BaseEventRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseEventRequestToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -749,14 +824,19 @@ class BaseIdentityProviderApplicationConfiguration extends Enableable {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class BaseLoginRequest {
+class BaseLoginRequest extends BaseEventRequest {
   String applicationId;
   String ipAddress;
   MetaData metaData;
+  bool newDevice;
   bool noJWT;
 
   BaseLoginRequest(
-      {this.applicationId, this.ipAddress, this.metaData, this.noJWT});
+      {this.applicationId,
+      this.ipAddress,
+      this.metaData,
+      this.newDevice,
+      this.noJWT});
 
   factory BaseLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$BaseLoginRequestFromJson(json);
@@ -875,6 +955,18 @@ enum CanonicalizationMethod {
   inclusive_with_comments
 }
 
+/// @author Brett Pontarelli
+enum CaptchaMethod {
+  @JsonValue('GoogleRecaptchaV2')
+  GoogleRecaptchaV2,
+  @JsonValue('GoogleRecaptchaV3')
+  GoogleRecaptchaV3,
+  @JsonValue('HCaptcha')
+  HCaptcha,
+  @JsonValue('HCaptchaEnterprise')
+  HCaptchaEnterprise
+}
+
 @JsonSerializable()
 class CertificateInformation {
   String issuer;
@@ -921,14 +1013,19 @@ enum ChangePasswordReason {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class ChangePasswordRequest {
+class ChangePasswordRequest extends BaseEventRequest {
+  String applicationId;
   String currentPassword;
   String loginId;
   String password;
   String refreshToken;
 
   ChangePasswordRequest(
-      {this.currentPassword, this.loginId, this.password, this.refreshToken});
+      {this.applicationId,
+      this.currentPassword,
+      this.loginId,
+      this.password,
+      this.refreshToken});
 
   factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordRequestFromJson(json);
@@ -1177,18 +1274,6 @@ class DailyActiveUserReportResponse {
   Map<String, dynamic> toJson() => _$DailyActiveUserReportResponseToJson(this);
 }
 
-/// Helper for dealing with default values.
-///
-/// @author Brian Pontarelli
-@JsonSerializable()
-class DefaultTools {
-  DefaultTools();
-
-  factory DefaultTools.fromJson(Map<String, dynamic> json) =>
-      _$DefaultToolsFromJson(json);
-  Map<String, dynamic> toJson() => _$DefaultToolsToJson(this);
-}
-
 @JsonSerializable()
 class DeleteConfiguration extends Enableable {
   num numberOfDaysToRetain;
@@ -1271,9 +1356,10 @@ enum DeviceType {
 @JsonSerializable()
 class DisplayableRawLogin extends RawLogin {
   String applicationName;
+  Location location;
   String loginId;
 
-  DisplayableRawLogin({this.applicationName, this.loginId});
+  DisplayableRawLogin({this.applicationName, this.location, this.loginId});
 
   factory DisplayableRawLogin.fromJson(Map<String, dynamic> json) =>
       _$DisplayableRawLoginFromJson(json);
@@ -1340,14 +1426,24 @@ class EmailAddress {
 class EmailConfiguration {
   String defaultFromEmail;
   String defaultFromName;
+  String emailUpdateEmailTemplateId;
+  String emailVerifiedEmailTemplateId;
   String forgotPasswordEmailTemplateId;
   String host;
+  String loginIdInUseOnCreateEmailTemplateId;
+  String loginIdInUseOnUpdateEmailTemplateId;
+  String loginNewDeviceEmailTemplateId;
+  String loginSuspiciousEmailTemplateId;
   String password;
   String passwordlessEmailTemplateId;
+  String passwordResetSuccessEmailTemplateId;
+  String passwordUpdateEmailTemplateId;
   num port;
   String properties;
   EmailSecurityType security;
   String setPasswordEmailTemplateId;
+  String twoFactorMethodAddEmailTemplateId;
+  String twoFactorMethodRemoveEmailTemplateId;
   EmailUnverifiedOptions unverified;
   String username;
   String verificationEmailTemplateId;
@@ -1358,14 +1454,24 @@ class EmailConfiguration {
   EmailConfiguration(
       {this.defaultFromEmail,
       this.defaultFromName,
+      this.emailUpdateEmailTemplateId,
+      this.emailVerifiedEmailTemplateId,
       this.forgotPasswordEmailTemplateId,
       this.host,
+      this.loginIdInUseOnCreateEmailTemplateId,
+      this.loginIdInUseOnUpdateEmailTemplateId,
+      this.loginNewDeviceEmailTemplateId,
+      this.loginSuspiciousEmailTemplateId,
       this.password,
       this.passwordlessEmailTemplateId,
+      this.passwordResetSuccessEmailTemplateId,
+      this.passwordUpdateEmailTemplateId,
       this.port,
       this.properties,
       this.security,
       this.setPasswordEmailTemplateId,
+      this.twoFactorMethodAddEmailTemplateId,
+      this.twoFactorMethodRemoveEmailTemplateId,
       this.unverified,
       this.username,
       this.verificationEmailTemplateId,
@@ -1944,6 +2050,35 @@ class EventConfigurationData extends Enableable {
   Map<String, dynamic> toJson() => _$EventConfigurationDataToJson(this);
 }
 
+/// Information about a user event (login, register, etc) that helps identify the source of the event (location, device type, OS, etc).
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class EventInfo {
+  Map<String, dynamic> data;
+  String deviceDescription;
+  String deviceName;
+  String deviceType;
+  String ipAddress;
+  Location location;
+  String os;
+  String userAgent;
+
+  EventInfo(
+      {this.data,
+      this.deviceDescription,
+      this.deviceName,
+      this.deviceType,
+      this.ipAddress,
+      this.location,
+      this.os,
+      this.userAgent});
+
+  factory EventInfo.fromJson(Map<String, dynamic> json) =>
+      _$EventInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$EventInfoToJson(this);
+}
+
 /// Event log used internally by FusionAuth to help developers debug hooks, Webhooks, email templates, etc.
 ///
 /// @author Brian Pontarelli
@@ -1970,6 +2105,20 @@ class EventLogConfiguration {
   factory EventLogConfiguration.fromJson(Map<String, dynamic> json) =>
       _$EventLogConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$EventLogConfigurationToJson(this);
+}
+
+/// Event event to an event log was created.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class EventLogCreateEvent extends BaseEvent {
+  EventLog eventLog;
+
+  EventLogCreateEvent({this.eventLog});
+
+  factory EventLogCreateEvent.fromJson(Map<String, dynamic> json) =>
+      _$EventLogCreateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$EventLogCreateEventToJson(this);
 }
 
 /// Event log response.
@@ -2060,42 +2209,82 @@ class EventRequest {
 ///
 /// @author Brian Pontarelli
 enum EventType {
-  @JsonValue('UserDelete')
-  UserDelete,
-  @JsonValue('UserCreate')
-  UserCreate,
-  @JsonValue('UserUpdate')
-  UserUpdate,
-  @JsonValue('UserDeactivate')
-  UserDeactivate,
-  @JsonValue('UserBulkCreate')
-  UserBulkCreate,
-  @JsonValue('UserReactivate')
-  UserReactivate,
-  @JsonValue('UserAction')
-  UserAction,
+  @JsonValue('JWTPublicKeyUpdate')
+  JWTPublicKeyUpdate,
   @JsonValue('JWTRefreshTokenRevoke')
   JWTRefreshTokenRevoke,
   @JsonValue('JWTRefresh')
   JWTRefresh,
-  @JsonValue('JWTPublicKeyUpdate')
-  JWTPublicKeyUpdate,
-  @JsonValue('UserLoginSuccess')
-  UserLoginSuccess,
-  @JsonValue('UserLoginFailed')
-  UserLoginFailed,
-  @JsonValue('UserRegistrationCreate')
-  UserRegistrationCreate,
-  @JsonValue('UserRegistrationUpdate')
-  UserRegistrationUpdate,
-  @JsonValue('UserRegistrationDelete')
-  UserRegistrationDelete,
-  @JsonValue('UserRegistrationVerified')
-  UserRegistrationVerified,
+  @JsonValue('AuditLogCreate')
+  AuditLogCreate,
+  @JsonValue('EventLogCreate')
+  EventLogCreate,
+  @JsonValue('KickstartSuccess')
+  KickstartSuccess,
+  @JsonValue('UserAction')
+  UserAction,
+  @JsonValue('UserBulkCreate')
+  UserBulkCreate,
+  @JsonValue('UserCreate')
+  UserCreate,
+  @JsonValue('UserCreateComplete')
+  UserCreateComplete,
+  @JsonValue('UserDeactivate')
+  UserDeactivate,
+  @JsonValue('UserDelete')
+  UserDelete,
+  @JsonValue('UserDeleteComplete')
+  UserDeleteComplete,
+  @JsonValue('UserLoginIdDuplicateOnCreate')
+  UserLoginIdDuplicateOnCreate,
+  @JsonValue('UserLoginIdDuplicateOnUpdate')
+  UserLoginIdDuplicateOnUpdate,
+  @JsonValue('UserEmailUpdate')
+  UserEmailUpdate,
   @JsonValue('UserEmailVerified')
   UserEmailVerified,
+  @JsonValue('UserLoginFailed')
+  UserLoginFailed,
+  @JsonValue('UserLoginNewDevice')
+  UserLoginNewDevice,
+  @JsonValue('UserLoginSuccess')
+  UserLoginSuccess,
+  @JsonValue('UserLoginSuspicious')
+  UserLoginSuspicious,
   @JsonValue('UserPasswordBreach')
   UserPasswordBreach,
+  @JsonValue('UserPasswordResetSend')
+  UserPasswordResetSend,
+  @JsonValue('UserPasswordResetStart')
+  UserPasswordResetStart,
+  @JsonValue('UserPasswordResetSuccess')
+  UserPasswordResetSuccess,
+  @JsonValue('UserPasswordUpdate')
+  UserPasswordUpdate,
+  @JsonValue('UserReactivate')
+  UserReactivate,
+  @JsonValue('UserRegistrationCreate')
+  UserRegistrationCreate,
+  @JsonValue('UserRegistrationCreateComplete')
+  UserRegistrationCreateComplete,
+  @JsonValue('UserRegistrationDelete')
+  UserRegistrationDelete,
+  @JsonValue('UserRegistrationDeleteComplete')
+  UserRegistrationDeleteComplete,
+  @JsonValue('UserRegistrationUpdate')
+  UserRegistrationUpdate,
+  @JsonValue('UserRegistrationUpdateComplete')
+  UserRegistrationUpdateComplete,
+  @JsonValue('UserRegistrationVerified')
+  UserRegistrationVerified,
+  @JsonValue('UserTwoFactorMethodAdd')
+  UserTwoFactorMethodAdd,
+  @JsonValue('UserTwoFactorMethodRemove')
+  UserTwoFactorMethodRemove,
+  @JsonValue('UserUpdate')
+  UserUpdate,
+  @JsonValue('UserUpdateComplete')
+  UserUpdateComplete,
   @JsonValue('Test')
   Test
 }
@@ -2416,7 +2605,7 @@ enum FamilyRole {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class ForgotPasswordRequest {
+class ForgotPasswordRequest extends BaseEventRequest {
   String applicationId;
   String changePasswordId;
   String email;
@@ -3190,7 +3379,7 @@ enum IdentityProviderType {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class ImportRequest {
+class ImportRequest extends BaseEventRequest {
   String encryptionScheme;
   num factor;
   List<User> users;
@@ -3205,6 +3394,18 @@ class ImportRequest {
   factory ImportRequest.fromJson(Map<String, dynamic> json) =>
       _$ImportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ImportRequestToJson(this);
+}
+
+/// A marker interface indicating this event is not scoped to a tenant and will be sent to all webhooks.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class InstanceEvent extends NonTransactionalEvent {
+  InstanceEvent();
+
+  factory InstanceEvent.fromJson(Map<String, dynamic> json) =>
+      _$InstanceEventFromJson(json);
+  Map<String, dynamic> toJson() => _$InstanceEventToJson(this);
 }
 
 /// The Integration Request
@@ -3282,6 +3483,122 @@ class IntervalUser {
   factory IntervalUser.fromJson(Map<String, dynamic> json) =>
       _$IntervalUserFromJson(json);
   Map<String, dynamic> toJson() => _$IntervalUserToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlEntry {
+  IPAccessControlEntryAction action;
+  String endIPAddress;
+  String startIPAddress;
+
+  IPAccessControlEntry({this.action, this.endIPAddress, this.startIPAddress});
+
+  factory IPAccessControlEntry.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlEntryFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlEntryToJson(this);
+}
+
+/// @author Brett Guy
+enum IPAccessControlEntryAction {
+  @JsonValue('Allow')
+  Allow,
+  @JsonValue('Block')
+  Block
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlList {
+  Map<String, dynamic> data;
+  List<IPAccessControlEntry> entries;
+  String id;
+  num insertInstant;
+  num lastUpdateInstant;
+  String name;
+
+  IPAccessControlList(
+      {this.data,
+      this.entries,
+      this.id,
+      this.insertInstant,
+      this.lastUpdateInstant,
+      this.name});
+
+  factory IPAccessControlList.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlListRequest {
+  IPAccessControlList ipAccessControlList;
+
+  IPAccessControlListRequest({this.ipAccessControlList});
+
+  factory IPAccessControlListRequest.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListRequestToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlListResponse {
+  IPAccessControlList ipAccessControlList;
+  List<IPAccessControlList> ipAccessControlLists;
+
+  IPAccessControlListResponse(
+      {this.ipAccessControlList, this.ipAccessControlLists});
+
+  factory IPAccessControlListResponse.fromJson(Map<String, dynamic> json) =>
+      _$IPAccessControlListResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$IPAccessControlListResponseToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlListSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  IPAccessControlListSearchCriteria({this.name});
+
+  factory IPAccessControlListSearchCriteria.fromJson(
+          Map<String, dynamic> json) =>
+      _$IPAccessControlListSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IPAccessControlListSearchCriteriaToJson(this);
+}
+
+/// Search request for IP ACLs .
+///
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlListSearchRequest {
+  IPAccessControlListSearchCriteria search;
+
+  IPAccessControlListSearchRequest({this.search});
+
+  factory IPAccessControlListSearchRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$IPAccessControlListSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IPAccessControlListSearchRequestToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class IPAccessControlListSearchResponse {
+  List<IPAccessControlList> ipAccessControlLists;
+  num total;
+
+  IPAccessControlListSearchResponse({this.ipAccessControlLists, this.total});
+
+  factory IPAccessControlListSearchResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$IPAccessControlListSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IPAccessControlListSearchResponseToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -3510,6 +3827,32 @@ class JWTRefreshTokenRevokeEvent extends BaseEvent {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class JWTVendRequest {
+  Map<String, dynamic> claims;
+  String keyId;
+  num timeToLiveInSeconds;
+
+  JWTVendRequest({this.claims, this.keyId, this.timeToLiveInSeconds});
+
+  factory JWTVendRequest.fromJson(Map<String, dynamic> json) =>
+      _$JWTVendRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$JWTVendRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class JWTVendResponse {
+  String token;
+
+  JWTVendResponse({this.token});
+
+  factory JWTVendResponse.fromJson(Map<String, dynamic> json) =>
+      _$JWTVendResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$JWTVendResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class KafkaConfiguration extends Enableable {
   String defaultTopic;
   Map<String, String> producer;
@@ -3649,9 +3992,21 @@ enum KeyUse {
   VerifyOnly
 }
 
-/// A JavaScript lambda function that is executed during certain events inside FusionAuth.
+/// Event event to indicate kickstart has been successfully completed.
 ///
-/// @author Brian Pontarelli
+/// @author Daniel DeGroff
+@JsonSerializable()
+class KickstartSuccessEvent extends BaseEvent {
+  String instanceId;
+
+  KickstartSuccessEvent({this.instanceId});
+
+  factory KickstartSuccessEvent.fromJson(Map<String, dynamic> json) =>
+      _$KickstartSuccessEventFromJson(json);
+  Map<String, dynamic> toJson() => _$KickstartSuccessEventToJson(this);
+}
+
+// TODO : Future : This shouldn't be enableable
 @JsonSerializable()
 class Lambda extends Enableable {
   String body;
@@ -3826,6 +4181,33 @@ class LinkedInIdentityProvider
   factory LinkedInIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$LinkedInIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$LinkedInIdentityProviderToJson(this);
+}
+
+/// Location information. Useful for IP addresses and other displayable data objects.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class Location {
+  String city;
+  String country;
+  String displayString;
+  num latitude;
+  num longitude;
+  String region;
+  String zipcode;
+
+  Location(
+      {this.city,
+      this.country,
+      this.displayString,
+      this.latitude,
+      this.longitude,
+      this.region,
+      this.zipcode});
+
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
+  Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
 
 /// A historical state of a user log event. Since events can be modified, this stores the historical state.
@@ -4013,6 +4395,7 @@ class LoginResponse {
   String refreshToken;
   String registrationVerificationId;
   Map<String, dynamic> state;
+  Set<AuthenticationThreats> threatsDetected;
   String token;
   String twoFactorId;
   String twoFactorTrustId;
@@ -4028,6 +4411,7 @@ class LoginResponse {
       this.refreshToken,
       this.registrationVerificationId,
       this.state,
+      this.threatsDetected,
       this.token,
       this.twoFactorId,
       this.twoFactorTrustId,
@@ -4044,6 +4428,21 @@ enum LogoutBehavior {
   RedirectOnly,
   @JsonValue('AllApplications')
   AllApplications
+}
+
+/// Request for the Logout API that can be used as an alternative to URL parameters.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class LogoutRequest extends BaseEventRequest {
+  bool global;
+  String refreshToken;
+
+  LogoutRequest({this.global, this.refreshToken});
+
+  factory LogoutRequest.fromJson(Map<String, dynamic> json) =>
+      _$LogoutRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$LogoutRequestToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -4378,16 +4777,16 @@ class NintendoIdentityProvider
   Map<String, dynamic> toJson() => _$NintendoIdentityProviderToJson(this);
 }
 
-/// Helper methods for normalizing values.
+/// A marker interface indicating this event cannot be made transactional.
 ///
-/// @author Brian Pontarelli
+/// @author Daniel DeGroff
 @JsonSerializable()
-class Normalizer {
-  Normalizer();
+class NonTransactionalEvent {
+  NonTransactionalEvent();
 
-  factory Normalizer.fromJson(Map<String, dynamic> json) =>
-      _$NormalizerFromJson(json);
-  Map<String, dynamic> toJson() => _$NormalizerToJson(this);
+  factory NonTransactionalEvent.fromJson(Map<String, dynamic> json) =>
+      _$NonTransactionalEventFromJson(json);
+  Map<String, dynamic> toJson() => _$NonTransactionalEventToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -4988,6 +5387,36 @@ class PublicKeyResponse {
   Map<String, dynamic> toJson() => _$PublicKeyResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class RateLimitedRequestConfiguration extends Enableable {
+  num limit;
+  num timePeriodInSeconds;
+
+  RateLimitedRequestConfiguration({this.limit, this.timePeriodInSeconds});
+
+  factory RateLimitedRequestConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$RateLimitedRequestConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$RateLimitedRequestConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum RateLimitedRequestType {
+  @JsonValue('FailedLogin')
+  FailedLogin,
+  @JsonValue('ForgotPassword')
+  ForgotPassword,
+  @JsonValue('SendEmailVerification')
+  SendEmailVerification,
+  @JsonValue('SendPasswordless')
+  SendPasswordless,
+  @JsonValue('SendRegistrationVerification')
+  SendRegistrationVerification,
+  @JsonValue('SendTwoFactor')
+  SendTwoFactor
+}
+
 /// Raw login information for each time a user logs into an application.
 ///
 /// @author Brian Pontarelli
@@ -5013,6 +5442,8 @@ enum ReactorFeatureStatus {
   DISCONNECTED,
   @JsonValue('PENDING')
   PENDING,
+  @JsonValue('DISABLED')
+  DISABLED,
   @JsonValue('UNKNOWN')
   UNKNOWN
 }
@@ -5068,6 +5499,7 @@ class ReactorStatus {
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
   bool licensed;
+  ReactorFeatureStatus threatDetection;
 
   ReactorStatus(
       {this.advancedIdentityProviders,
@@ -5077,7 +5509,8 @@ class ReactorStatus {
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
-      this.licensed});
+      this.licensed,
+      this.threatDetection});
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
       _$ReactorStatusFromJson(json);
@@ -5100,7 +5533,7 @@ class RecentLoginResponse {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class RefreshRequest {
+class RefreshRequest extends BaseEventRequest {
   String refreshToken;
   String token;
 
@@ -5203,6 +5636,22 @@ class RefreshTokenRevocationPolicy {
   Map<String, dynamic> toJson() => _$RefreshTokenRevocationPolicyToJson(this);
 }
 
+/// Request for the Refresh Token API to revoke a refresh token rather than using the URL parameters.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class RefreshTokenRevokeRequest extends BaseEventRequest {
+  String applicationId;
+  String token;
+  String userId;
+
+  RefreshTokenRevokeRequest({this.applicationId, this.token, this.userId});
+
+  factory RefreshTokenRevokeRequest.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenRevokeRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$RefreshTokenRevokeRequestToJson(this);
+}
+
 /// @author Daniel DeGroff
 enum RefreshTokenUsagePolicy {
   @JsonValue('Reusable')
@@ -5241,6 +5690,18 @@ class RegistrationConfiguration extends Enableable {
   Map<String, dynamic> toJson() => _$RegistrationConfigurationToJson(this);
 }
 
+/// Registration delete API request object.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class RegistrationDeleteRequest extends BaseEventRequest {
+  RegistrationDeleteRequest();
+
+  factory RegistrationDeleteRequest.fromJson(Map<String, dynamic> json) =>
+      _$RegistrationDeleteRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$RegistrationDeleteRequestToJson(this);
+}
+
 /// Response for the registration report.
 ///
 /// @author Brian Pontarelli
@@ -5260,7 +5721,8 @@ class RegistrationReportResponse {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class RegistrationRequest {
+class RegistrationRequest extends BaseEventRequest {
+  bool disableDomainBlock;
   bool generateAuthenticationToken;
   UserRegistration registration;
   bool sendSetPasswordEmail;
@@ -5269,7 +5731,8 @@ class RegistrationRequest {
   User user;
 
   RegistrationRequest(
-      {this.generateAuthenticationToken,
+      {this.disableDomainBlock,
+      this.generateAuthenticationToken,
       this.registration,
       this.sendSetPasswordEmail,
       this.skipRegistrationVerification,
@@ -5855,6 +6318,7 @@ class SystemConfiguration {
   num lastUpdateInstant;
   LoginRecordConfiguration loginRecordConfiguration;
   String reportTimezone;
+  SystemSSOConfiguration ssoConfiguration;
   UIConfiguration uiConfiguration;
 
   SystemConfiguration(
@@ -5866,6 +6330,7 @@ class SystemConfiguration {
       this.lastUpdateInstant,
       this.loginRecordConfiguration,
       this.reportTimezone,
+      this.ssoConfiguration,
       this.uiConfiguration});
 
   factory SystemConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -5913,6 +6378,18 @@ class SystemLogsExportRequest extends BaseExportRequest {
   Map<String, dynamic> toJson() => _$SystemLogsExportRequestToJson(this);
 }
 
+/// @author Brett Pontarelli
+@JsonSerializable()
+class SystemSSOConfiguration {
+  num deviceTrustTimeToLiveInSeconds;
+
+  SystemSSOConfiguration({this.deviceTrustTimeToLiveInSeconds});
+
+  factory SystemSSOConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SystemSSOConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$SystemSSOConfigurationToJson(this);
+}
+
 @JsonSerializable()
 class Templates {
   String accountEdit;
@@ -5952,6 +6429,7 @@ class Templates {
   String registrationVerificationRequired;
   String registrationVerify;
   String samlv2Logout;
+  String unauthorized;
 
   Templates(
       {this.accountEdit,
@@ -5990,7 +6468,8 @@ class Templates {
       this.registrationSent,
       this.registrationVerificationRequired,
       this.registrationVerify,
-      this.samlv2Logout});
+      this.samlv2Logout,
+      this.unauthorized});
 
   factory Templates.fromJson(Map<String, dynamic> json) =>
       _$TemplatesFromJson(json);
@@ -6000,6 +6479,8 @@ class Templates {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class Tenant {
+  TenantAccessControlConfiguration accessControlConfiguration;
+  TenantCaptchaConfiguration captchaConfiguration;
   bool configured;
   List<ConnectorPolicy> connectorPolicies;
   Map<String, dynamic> data;
@@ -6024,13 +6505,17 @@ class Tenant {
   TenantOAuth2Configuration oauthConfiguration;
   PasswordEncryptionConfiguration passwordEncryptionConfiguration;
   PasswordValidationRules passwordValidationRules;
+  TenantRateLimitConfiguration rateLimitConfiguration;
+  TenantRegistrationConfiguration registrationConfiguration;
   ObjectState state;
   String themeId;
   TenantUserDeletePolicy userDeletePolicy;
   TenantUsernameConfiguration usernameConfiguration;
 
   Tenant(
-      {this.configured,
+      {this.accessControlConfiguration,
+      this.captchaConfiguration,
+      this.configured,
       this.connectorPolicies,
       this.data,
       this.emailConfiguration,
@@ -6054,6 +6539,8 @@ class Tenant {
       this.oauthConfiguration,
       this.passwordEncryptionConfiguration,
       this.passwordValidationRules,
+      this.rateLimitConfiguration,
+      this.registrationConfiguration,
       this.state,
       this.themeId,
       this.userDeletePolicy,
@@ -6071,6 +6558,50 @@ class Tenantable {
   factory Tenantable.fromJson(Map<String, dynamic> json) =>
       _$TenantableFromJson(json);
   Map<String, dynamic> toJson() => _$TenantableToJson(this);
+}
+
+/// @author Brett Guy
+@JsonSerializable()
+class TenantAccessControlConfiguration {
+  String uiIPAccessControlListId;
+
+  TenantAccessControlConfiguration({this.uiIPAccessControlListId});
+
+  factory TenantAccessControlConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$TenantAccessControlConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$TenantAccessControlConfigurationToJson(this);
+}
+
+/// @author Brett Pontarelli
+@JsonSerializable()
+class TenantCaptchaConfiguration extends Enableable {
+  CaptchaMethod captchaMethod;
+  String secretKey;
+  String siteKey;
+  num threshold;
+
+  TenantCaptchaConfiguration(
+      {this.captchaMethod, this.secretKey, this.siteKey, this.threshold});
+
+  factory TenantCaptchaConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantCaptchaConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantCaptchaConfigurationToJson(this);
+}
+
+/// Request for the Tenant API to delete a tenant rather than using the URL parameters.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class TenantDeleteRequest extends BaseEventRequest {
+  bool async;
+
+  TenantDeleteRequest({this.async});
+
+  factory TenantDeleteRequest.fromJson(Map<String, dynamic> json) =>
+      _$TenantDeleteRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantDeleteRequestToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -6125,7 +6656,43 @@ class TenantOAuth2Configuration {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class TenantRequest {
+class TenantRateLimitConfiguration {
+  RateLimitedRequestConfiguration failedLogin;
+  RateLimitedRequestConfiguration forgotPassword;
+  RateLimitedRequestConfiguration sendEmailVerification;
+  RateLimitedRequestConfiguration sendPasswordless;
+  RateLimitedRequestConfiguration sendRegistrationVerification;
+  RateLimitedRequestConfiguration sendTwoFactor;
+
+  TenantRateLimitConfiguration(
+      {this.failedLogin,
+      this.forgotPassword,
+      this.sendEmailVerification,
+      this.sendPasswordless,
+      this.sendRegistrationVerification,
+      this.sendTwoFactor});
+
+  factory TenantRateLimitConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantRateLimitConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantRateLimitConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantRegistrationConfiguration {
+  Set<String> blockedDomains;
+
+  TenantRegistrationConfiguration({this.blockedDomains});
+
+  factory TenantRegistrationConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantRegistrationConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$TenantRegistrationConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TenantRequest extends BaseEventRequest {
   String sourceTenantId;
   Tenant tenant;
 
@@ -6436,6 +7003,19 @@ class TwitterIdentityProvider
   Map<String, dynamic> toJson() => _$TwitterIdentityProviderToJson(this);
 }
 
+/// @author Brian Pontarelli
+@JsonSerializable()
+class TwoFactorDisableRequest extends BaseEventRequest {
+  String code;
+  String methodId;
+
+  TwoFactorDisableRequest({this.code, this.methodId});
+
+  factory TwoFactorDisableRequest.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorDisableRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorDisableRequestToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class TwoFactorEnableDisableSendRequest {
@@ -6509,7 +7089,7 @@ class TwoFactorRecoveryCodeResponse {
 
 /// @author Brian Pontarelli
 @JsonSerializable()
-class TwoFactorRequest {
+class TwoFactorRequest extends BaseEventRequest {
   String authenticatorId;
   String code;
   String email;
@@ -7075,6 +7655,22 @@ class UserConsentResponse {
   Map<String, dynamic> toJson() => _$UserConsentResponseToJson(this);
 }
 
+/// Models the User Created Event (and can be converted to JSON).
+/// <p>
+/// This is different than the user.create event in that it will be sent after the user has been created. This event cannot be made transactional.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserCreateCompleteEvent extends BaseEvent {
+  User user;
+
+  UserCreateCompleteEvent({this.user});
+
+  factory UserCreateCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserCreateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserCreateCompleteEventToJson(this);
+}
+
 /// Models the User Create Event (and can be converted to JSON).
 ///
 /// @author Brian Pontarelli
@@ -7105,6 +7701,23 @@ class UserDeactivateEvent extends BaseEvent {
 
 /// Models the User Event (and can be converted to JSON) that is used for all user modifications (create, update,
 /// delete).
+/// <p>
+/// This is different than user.delete because it is sent after the tx is committed, this cannot be transactional.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserDeleteCompleteEvent extends BaseEvent {
+  User user;
+
+  UserDeleteCompleteEvent({this.user});
+
+  factory UserDeleteCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserDeleteCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserDeleteCompleteEventToJson(this);
+}
+
+/// Models the User Event (and can be converted to JSON) that is used for all user modifications (create, update,
+/// delete).
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -7122,7 +7735,7 @@ class UserDeleteEvent extends BaseEvent {
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
-class UserDeleteRequest {
+class UserDeleteRequest extends BaseEventRequest {
   bool dryRun;
   bool hardDelete;
   String query;
@@ -7158,6 +7771,35 @@ class UserDeleteResponse {
   Map<String, dynamic> toJson() => _$UserDeleteResponseToJson(this);
 }
 
+/// User API delete request object for a single user.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class UserDeleteSingleRequest extends BaseEventRequest {
+  bool hardDelete;
+
+  UserDeleteSingleRequest({this.hardDelete});
+
+  factory UserDeleteSingleRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserDeleteSingleRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$UserDeleteSingleRequestToJson(this);
+}
+
+/// Models an event where a user's email is updated outside of a forgot / change password workflow.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserEmailUpdateEvent extends BaseEvent {
+  String previousEmail;
+  User user;
+
+  UserEmailUpdateEvent({this.previousEmail, this.user});
+
+  factory UserEmailUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserEmailUpdateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserEmailUpdateEventToJson(this);
+}
+
 /// Models the User Email Verify Event (and can be converted to JSON).
 ///
 /// @author Trevor Smith
@@ -7190,6 +7832,58 @@ class UserLoginFailedEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserLoginFailedEventToJson(this);
 }
 
+/// Models an event where a user is being created with an "in-use" login Id (email or username).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserLoginIdDuplicateOnCreateEvent extends BaseEvent {
+  String applicationId;
+  String duplicateEmail;
+  String duplicateUsername;
+  User existing;
+  User user;
+
+  UserLoginIdDuplicateOnCreateEvent(
+      {this.applicationId,
+      this.duplicateEmail,
+      this.duplicateUsername,
+      this.existing,
+      this.user});
+
+  factory UserLoginIdDuplicateOnCreateEvent.fromJson(
+          Map<String, dynamic> json) =>
+      _$UserLoginIdDuplicateOnCreateEventFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$UserLoginIdDuplicateOnCreateEventToJson(this);
+}
+
+/// Models an event where a user is being updated and tries to use an "in-use" login Id (email or username).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserLoginIdDuplicateOnUpdateEvent
+    extends UserLoginIdDuplicateOnCreateEvent {
+  UserLoginIdDuplicateOnUpdateEvent();
+
+  factory UserLoginIdDuplicateOnUpdateEvent.fromJson(
+          Map<String, dynamic> json) =>
+      _$UserLoginIdDuplicateOnUpdateEventFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$UserLoginIdDuplicateOnUpdateEventToJson(this);
+}
+
+/// Models the User Login event for a new device (un-recognized)
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserLoginNewDeviceEvent extends UserLoginSuccessEvent {
+  UserLoginNewDeviceEvent();
+
+  factory UserLoginNewDeviceEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserLoginNewDeviceEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserLoginNewDeviceEventToJson(this);
+}
+
 /// Models the User Login Success Event.
 ///
 /// @author Daniel DeGroff
@@ -7217,6 +7911,18 @@ class UserLoginSuccessEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserLoginSuccessEventToJson(this);
 }
 
+/// Models the User Login event that is suspicious.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserLoginSuspiciousEvent extends UserLoginSuccessEvent {
+  UserLoginSuspiciousEvent();
+
+  factory UserLoginSuspiciousEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserLoginSuspiciousEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserLoginSuspiciousEventToJson(this);
+}
+
 @JsonSerializable()
 class UsernameModeration extends Enableable {
   String applicationId;
@@ -7240,6 +7946,62 @@ class UserPasswordBreachEvent extends BaseEvent {
   factory UserPasswordBreachEvent.fromJson(Map<String, dynamic> json) =>
       _$UserPasswordBreachEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserPasswordBreachEventToJson(this);
+}
+
+/// Models the User Password Reset Send Event.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserPasswordResetSendEvent extends BaseEvent {
+  User user;
+
+  UserPasswordResetSendEvent({this.user});
+
+  factory UserPasswordResetSendEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserPasswordResetSendEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserPasswordResetSendEventToJson(this);
+}
+
+/// Models the User Password Reset Start Event.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserPasswordResetStartEvent extends BaseEvent {
+  User user;
+
+  UserPasswordResetStartEvent({this.user});
+
+  factory UserPasswordResetStartEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserPasswordResetStartEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserPasswordResetStartEventToJson(this);
+}
+
+/// Models the User Password Reset Success Event.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserPasswordResetSuccessEvent extends BaseEvent {
+  User user;
+
+  UserPasswordResetSuccessEvent({this.user});
+
+  factory UserPasswordResetSuccessEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserPasswordResetSuccessEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserPasswordResetSuccessEventToJson(this);
+}
+
+/// Models the User Password Update Event.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserPasswordUpdateEvent extends BaseEvent {
+  User user;
+
+  UserPasswordUpdateEvent({this.user});
+
+  factory UserPasswordUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserPasswordUpdateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserPasswordUpdateEventToJson(this);
 }
 
 /// Models the User Reactivate Event (and can be converted to JSON).
@@ -7299,6 +8061,27 @@ class UserRegistration {
   Map<String, dynamic> toJson() => _$UserRegistrationToJson(this);
 }
 
+/// Models the User Created Registration Event (and can be converted to JSON).
+/// <p>
+/// This is different than the user.registration.create event in that it will be sent after the user has been created. This event cannot be made transactional.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserRegistrationCreateCompleteEvent extends BaseEvent {
+  String applicationId;
+  UserRegistration registration;
+  User user;
+
+  UserRegistrationCreateCompleteEvent(
+      {this.applicationId, this.registration, this.user});
+
+  factory UserRegistrationCreateCompleteEvent.fromJson(
+          Map<String, dynamic> json) =>
+      _$UserRegistrationCreateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$UserRegistrationCreateCompleteEventToJson(this);
+}
+
 /// Models the User Create Registration Event (and can be converted to JSON).
 ///
 /// @author Daniel DeGroff
@@ -7316,6 +8099,27 @@ class UserRegistrationCreateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserRegistrationCreateEventToJson(this);
 }
 
+/// Models the User Deleted Registration Event (and can be converted to JSON).
+/// <p>
+/// This is different than user.registration.delete in that it is sent after the TX has been committed. This event cannot be transactional.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserRegistrationDeleteCompleteEvent extends BaseEvent {
+  String applicationId;
+  UserRegistration registration;
+  User user;
+
+  UserRegistrationDeleteCompleteEvent(
+      {this.applicationId, this.registration, this.user});
+
+  factory UserRegistrationDeleteCompleteEvent.fromJson(
+          Map<String, dynamic> json) =>
+      _$UserRegistrationDeleteCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$UserRegistrationDeleteCompleteEventToJson(this);
+}
+
 /// Models the User Delete Registration Event (and can be converted to JSON).
 ///
 /// @author Daniel DeGroff
@@ -7331,6 +8135,28 @@ class UserRegistrationDeleteEvent extends BaseEvent {
   factory UserRegistrationDeleteEvent.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationDeleteEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserRegistrationDeleteEventToJson(this);
+}
+
+/// Models the User Update Registration Event (and can be converted to JSON).
+/// <p>
+/// This is different than user.registration.update in that it is sent after this event completes, this cannot be transactional.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserRegistrationUpdateCompleteEvent extends BaseEvent {
+  String applicationId;
+  UserRegistration original;
+  UserRegistration registration;
+  User user;
+
+  UserRegistrationUpdateCompleteEvent(
+      {this.applicationId, this.original, this.registration, this.user});
+
+  factory UserRegistrationUpdateCompleteEvent.fromJson(
+          Map<String, dynamic> json) =>
+      _$UserRegistrationUpdateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$UserRegistrationUpdateCompleteEventToJson(this);
 }
 
 /// Models the User Update Registration Event (and can be converted to JSON).
@@ -7372,12 +8198,19 @@ class UserRegistrationVerifiedEvent extends BaseEvent {
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
-class UserRequest {
+class UserRequest extends BaseEventRequest {
+  String applicationId;
+  bool disableDomainBlock;
   bool sendSetPasswordEmail;
   bool skipVerification;
   User user;
 
-  UserRequest({this.sendSetPasswordEmail, this.skipVerification, this.user});
+  UserRequest(
+      {this.applicationId,
+      this.disableDomainBlock,
+      this.sendSetPasswordEmail,
+      this.skipVerification,
+      this.user});
 
   factory UserRequest.fromJson(Map<String, dynamic> json) =>
       _$UserRequestFromJson(json);
@@ -7442,6 +8275,51 @@ class UserTwoFactorConfiguration {
   Map<String, dynamic> toJson() => _$UserTwoFactorConfigurationToJson(this);
 }
 
+/// Model a user event when a two-factor method has been removed.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserTwoFactorMethodAddEvent extends BaseEvent {
+  TwoFactorMethod method;
+  User user;
+
+  UserTwoFactorMethodAddEvent({this.method, this.user});
+
+  factory UserTwoFactorMethodAddEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserTwoFactorMethodAddEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserTwoFactorMethodAddEventToJson(this);
+}
+
+/// Model a user event when a two-factor method has been added.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserTwoFactorMethodRemoveEvent extends BaseEvent {
+  TwoFactorMethod method;
+  User user;
+
+  UserTwoFactorMethodRemoveEvent({this.method, this.user});
+
+  factory UserTwoFactorMethodRemoveEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserTwoFactorMethodRemoveEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserTwoFactorMethodRemoveEventToJson(this);
+}
+
+/// Models the User Update Event once it is completed. This cannot be transactional.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class UserUpdateCompleteEvent extends BaseEvent {
+  User original;
+  User user;
+
+  UserUpdateCompleteEvent({this.original, this.user});
+
+  factory UserUpdateCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserUpdateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserUpdateCompleteEventToJson(this);
+}
+
 /// Models the User Update Event (and can be converted to JSON).
 ///
 /// @author Brian Pontarelli
@@ -7479,7 +8357,7 @@ enum VerificationStrategy {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class VerifyEmailRequest {
+class VerifyEmailRequest extends BaseEventRequest {
   String oneTimeCode;
   String verificationId;
 
@@ -7505,7 +8383,7 @@ class VerifyEmailResponse {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class VerifyRegistrationRequest {
+class VerifyRegistrationRequest extends BaseEventRequest {
   String oneTimeCode;
   String verificationId;
 

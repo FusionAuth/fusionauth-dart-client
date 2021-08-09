@@ -436,6 +436,24 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Creates an IP Access Control List. You can optionally specify an Id on this create request, if one is not provided one will be generated.
+  ///
+  /// @param {String} accessControlListId (Optional) The Id for the IP Access Control List. If not provided a secure random UUID will be generated.
+  /// @param {IPAccessControlListRequest} request The request object that contains all of the information used to create the IP Access Control List.
+  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
+  Future<ClientResponse<IPAccessControlListResponse, Errors>>
+      createIPAccessControlList(
+          String accessControlListId, IPAccessControlListRequest request) {
+    return _start<IPAccessControlListResponse, Errors>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(accessControlListId)
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListResponse.fromJson(d)))
+        .go();
+  }
+
   /// Creates an identity provider. You can optionally specify an Id for the identity provider, if not provided one will be generated.
   ///
   /// @param {String} identityProviderId (Optional) The Id of the identity provider. If not provided a secure random UUID will be generated.
@@ -916,6 +934,19 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deletes the IP Access Control List for the given Id.
+  ///
+  /// @param {String} ipAccessControlListId The Id of the IP Access Control List to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteIPAccessControlList(
+      String ipAccessControlListId) {
+    return _start<void, Errors>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(ipAccessControlListId)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Deletes the identity provider for the given Id.
   ///
   /// @param {String} identityProviderId The Id of the identity provider to delete.
@@ -993,7 +1024,25 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Deletes the tenant for the given Id.
+  /// Deletes the user registration for the given user and application along with the given JSON body that contains the event information.
+  ///
+  /// @param {String} userId The Id of the user whose registration is being deleted.
+  /// @param {String} applicationId The Id of the application to remove the registration for.
+  /// @param {RegistrationDeleteRequest} request The request body that contains the event information.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteRegistrationWithRequest(
+      String userId, String applicationId, RegistrationDeleteRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/user/registration')
+        .withUriSegment(userId)
+        .withUriSegment(applicationId)
+        .withJSONBody(request)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the tenant based on the given Id on the URL. This permanently deletes all information, metrics, reports and data associated
+  /// with the tenant and everything under the tenant (applications, users, etc).
   ///
   /// @param {String} tenantId The Id of the tenant to delete.
   /// @returns {Promise<ClientResponse<void>>}
@@ -1015,6 +1064,22 @@ class FusionAuthClient {
         .withUri('/api/tenant')
         .withUriSegment(tenantId)
         .withParameter('async', true)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Deletes the tenant based on the given request (sent to the API as JSON). This permanently deletes all information, metrics, reports and data associated
+  /// with the tenant and everything under the tenant (applications, users, etc).
+  ///
+  /// @param {String} tenantId The Id of the tenant to delete.
+  /// @param {TenantDeleteRequest} request The request object that contains all of the information used to delete the user.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteTenantWithRequest(
+      String tenantId, TenantDeleteRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/tenant')
+        .withUriSegment(tenantId)
+        .withJSONBody(request)
         .withMethod('DELETE')
         .go();
   }
@@ -1091,6 +1156,22 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deletes the user based on the given request (sent to the API as JSON). This permanently deletes all information, metrics, reports and data associated
+  /// with the user.
+  ///
+  /// @param {String} userId The Id of the user to delete (required).
+  /// @param {UserDeleteSingleRequest} request The request object that contains all of the information used to delete the user.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteUserWithRequest(
+      String userId, UserDeleteSingleRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/user')
+        .withUriSegment(userId)
+        .withJSONBody(request)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Deletes the users with the given ids, or users matching the provided JSON query or queryString.
   /// The order of preference is ids, query and then queryString, it is recommended to only provide one of the three for the request.
   ///
@@ -1153,9 +1234,24 @@ class FusionAuthClient {
       String userId, String methodId, String code) {
     return _start<void, Errors>()
         .withUri('/api/user/two-factor')
-        .withParameter('userId', userId)
+        .withUriSegment(userId)
         .withParameter('methodId', methodId)
         .withParameter('code', code)
+        .withMethod('DELETE')
+        .go();
+  }
+
+  /// Disable Two Factor authentication for a user using a JSON body rather than URL parameters.
+  ///
+  /// @param {String} userId The Id of the User for which you're disabling Two Factor authentication.
+  /// @param {TwoFactorDisableRequest} request The request information that contains the code and methodId along with any event information.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> disableTwoFactorWithRequest(
+      String userId, TwoFactorDisableRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/user/two-factor')
+        .withUriSegment(userId)
+        .withJSONBody(request)
         .withMethod('DELETE')
         .go();
   }
@@ -1595,6 +1691,19 @@ class FusionAuthClient {
         .withUri('/api/logout')
         .withParameter('global', global)
         .withParameter('refreshToken', refreshToken)
+        .withMethod('POST')
+        .go();
+  }
+
+  /// The Logout API is intended to be used to remove the refresh token and access token cookies if they exist on the
+  /// client and revoke the refresh token stored. This API takes the refresh token in the JSON body.
+  ///
+  /// @param {LogoutRequest} request The request object that contains all of the information used to logout the user.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, void>> logoutWithRequest(LogoutRequest request) {
+    return _startAnonymous<void, void>()
+        .withUri('/api/logout')
+        .withJSONBody(request)
         .withMethod('POST')
         .go();
   }
@@ -2624,6 +2733,21 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => GroupResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves the IP Access Control List with the given Id.
+  ///
+  /// @param {String} ipAccessControlListId The Id of the IP Access Control List.
+  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
+  Future<ClientResponse<IPAccessControlListResponse, void>>
+      retrieveIPAccessControlList(String ipAccessControlListId) {
+    return _start<IPAccessControlListResponse, void>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(ipAccessControlListId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListResponse.fromJson(d)))
         .go();
   }
 
@@ -3707,6 +3831,20 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Revokes refresh tokens using the information in the JSON body. The handling for this method is the same as the revokeRefreshToken method
+  /// and is based on the information you provide in the RefreshDeleteRequest object. See that method for additional information.
+  ///
+  /// @param {RefreshTokenRevokeRequest} request The request information used to revoke the refresh tokens.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> revokeRefreshTokensWithRequest(
+      RefreshTokenRevokeRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/jwt/refresh')
+        .withJSONBody(request)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Revokes a single User consent by Id.
   ///
   /// @param {String} userConsentId The User Consent Id
@@ -3806,6 +3944,21 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => EventLogSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches the IP Access Control Lists with the specified criteria and pagination.
+  ///
+  /// @param {IPAccessControlListSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<IPAccessControlListSearchResponse>>}
+  Future<ClientResponse<IPAccessControlListSearchResponse, void>>
+      searchIPAccessControlLists(IPAccessControlListSearchRequest request) {
+    return _start<IPAccessControlListSearchResponse, void>()
+        .withUri('/api/ip-acl/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListSearchResponse.fromJson(d)))
         .go();
   }
 
@@ -4269,6 +4422,24 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Updates the IP Access Control List with the given Id.
+  ///
+  /// @param {String} accessControlListId The Id of the IP Access Control List to update.
+  /// @param {IPAccessControlListRequest} request The request that contains all of the new IP Access Control List information.
+  /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
+  Future<ClientResponse<IPAccessControlListResponse, Errors>>
+      updateIPAccessControlList(
+          String accessControlListId, IPAccessControlListRequest request) {
+    return _start<IPAccessControlListResponse, Errors>()
+        .withUri('/api/ip-acl')
+        .withUriSegment(accessControlListId)
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IPAccessControlListResponse.fromJson(d)))
+        .go();
+  }
+
   /// Updates the identity provider with the given Id.
   ///
   /// @param {String} identityProviderId The Id of the identity provider to update.
@@ -4569,6 +4740,29 @@ class FusionAuthClient {
         .withMethod('GET')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => ValidateResponse.fromJson(d)))
+        .go();
+  }
+
+  /// It's a JWT vending machine!
+  ///
+  /// Issue a new access token (JWT) with the provided claims in the request. This JWT is not scoped to a tenant or user, it is a free form
+  /// token that will contain what claims you provide.
+  /// <p>
+  /// The iat, exp and jti claims will be added by FusionAuth, all other claims must be provided by the caller.
+  ///
+  /// If a TTL is not provided in the request, the TTL will be retrieved from the default Tenant or the Tenant specified on the request either
+  /// by way of the X-FusionAuth-TenantId request header, or a tenant scoped API key.
+  ///
+  /// @param {JWTVendRequest} request The request that contains all of the claims for this JWT.
+  /// @returns {Promise<ClientResponse<JWTVendResponse>>}
+  Future<ClientResponse<JWTVendResponse, Errors>> vendJWT(
+      JWTVendRequest request) {
+    return _start<JWTVendResponse, Errors>()
+        .withUri('/api/jwt/vend')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => JWTVendResponse.fromJson(d)))
         .go();
   }
 
