@@ -335,22 +335,32 @@ class ApplicationEmailConfiguration {
   String emailVerificationEmailTemplateId;
   String emailVerifiedEmailTemplateId;
   String forgotPasswordEmailTemplateId;
+  String loginIdInUseOnCreateEmailTemplateId;
+  String loginIdInUseOnUpdateEmailTemplateId;
   String loginNewDeviceEmailTemplateId;
   String loginSuspiciousEmailTemplateId;
   String passwordlessEmailTemplateId;
   String passwordResetSuccessEmailTemplateId;
+  String passwordUpdateEmailTemplateId;
   String setPasswordEmailTemplateId;
+  String twoFactorMethodAddEmailTemplateId;
+  String twoFactorMethodRemoveEmailTemplateId;
 
   ApplicationEmailConfiguration(
       {this.emailUpdateEmailTemplateId,
       this.emailVerificationEmailTemplateId,
       this.emailVerifiedEmailTemplateId,
       this.forgotPasswordEmailTemplateId,
+      this.loginIdInUseOnCreateEmailTemplateId,
+      this.loginIdInUseOnUpdateEmailTemplateId,
       this.loginNewDeviceEmailTemplateId,
       this.loginSuspiciousEmailTemplateId,
       this.passwordlessEmailTemplateId,
       this.passwordResetSuccessEmailTemplateId,
-      this.setPasswordEmailTemplateId});
+      this.passwordUpdateEmailTemplateId,
+      this.setPasswordEmailTemplateId,
+      this.twoFactorMethodAddEmailTemplateId,
+      this.twoFactorMethodRemoveEmailTemplateId});
 
   factory ApplicationEmailConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ApplicationEmailConfigurationFromJson(json);
@@ -7006,10 +7016,11 @@ class TwitterIdentityProvider
 /// @author Brian Pontarelli
 @JsonSerializable()
 class TwoFactorDisableRequest extends BaseEventRequest {
+  String applicationId;
   String code;
   String methodId;
 
-  TwoFactorDisableRequest({this.code, this.methodId});
+  TwoFactorDisableRequest({this.applicationId, this.code, this.methodId});
 
   factory TwoFactorDisableRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorDisableRequestFromJson(json);
@@ -7090,6 +7101,7 @@ class TwoFactorRecoveryCodeResponse {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class TwoFactorRequest extends BaseEventRequest {
+  String applicationId;
   String authenticatorId;
   String code;
   String email;
@@ -7099,7 +7111,8 @@ class TwoFactorRequest extends BaseEventRequest {
   String secretBase32Encoded;
 
   TwoFactorRequest(
-      {this.authenticatorId,
+      {this.applicationId,
+      this.authenticatorId,
       this.code,
       this.email,
       this.method,
@@ -7837,18 +7850,13 @@ class UserLoginFailedEvent extends BaseEvent {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class UserLoginIdDuplicateOnCreateEvent extends BaseEvent {
-  String applicationId;
   String duplicateEmail;
   String duplicateUsername;
   User existing;
   User user;
 
   UserLoginIdDuplicateOnCreateEvent(
-      {this.applicationId,
-      this.duplicateEmail,
-      this.duplicateUsername,
-      this.existing,
-      this.user});
+      {this.duplicateEmail, this.duplicateUsername, this.existing, this.user});
 
   factory UserLoginIdDuplicateOnCreateEvent.fromJson(
           Map<String, dynamic> json) =>

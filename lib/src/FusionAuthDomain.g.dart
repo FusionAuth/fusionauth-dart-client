@@ -587,6 +587,10 @@ ApplicationEmailConfiguration _$ApplicationEmailConfigurationFromJson(
         json['emailVerifiedEmailTemplateId'] as String,
     forgotPasswordEmailTemplateId:
         json['forgotPasswordEmailTemplateId'] as String,
+    loginIdInUseOnCreateEmailTemplateId:
+        json['loginIdInUseOnCreateEmailTemplateId'] as String,
+    loginIdInUseOnUpdateEmailTemplateId:
+        json['loginIdInUseOnUpdateEmailTemplateId'] as String,
     loginNewDeviceEmailTemplateId:
         json['loginNewDeviceEmailTemplateId'] as String,
     loginSuspiciousEmailTemplateId:
@@ -594,7 +598,13 @@ ApplicationEmailConfiguration _$ApplicationEmailConfigurationFromJson(
     passwordlessEmailTemplateId: json['passwordlessEmailTemplateId'] as String,
     passwordResetSuccessEmailTemplateId:
         json['passwordResetSuccessEmailTemplateId'] as String,
+    passwordUpdateEmailTemplateId:
+        json['passwordUpdateEmailTemplateId'] as String,
     setPasswordEmailTemplateId: json['setPasswordEmailTemplateId'] as String,
+    twoFactorMethodAddEmailTemplateId:
+        json['twoFactorMethodAddEmailTemplateId'] as String,
+    twoFactorMethodRemoveEmailTemplateId:
+        json['twoFactorMethodRemoveEmailTemplateId'] as String,
   );
 }
 
@@ -616,6 +626,10 @@ Map<String, dynamic> _$ApplicationEmailConfigurationToJson(
       'emailVerifiedEmailTemplateId', instance.emailVerifiedEmailTemplateId);
   writeNotNull(
       'forgotPasswordEmailTemplateId', instance.forgotPasswordEmailTemplateId);
+  writeNotNull('loginIdInUseOnCreateEmailTemplateId',
+      instance.loginIdInUseOnCreateEmailTemplateId);
+  writeNotNull('loginIdInUseOnUpdateEmailTemplateId',
+      instance.loginIdInUseOnUpdateEmailTemplateId);
   writeNotNull(
       'loginNewDeviceEmailTemplateId', instance.loginNewDeviceEmailTemplateId);
   writeNotNull('loginSuspiciousEmailTemplateId',
@@ -625,7 +639,13 @@ Map<String, dynamic> _$ApplicationEmailConfigurationToJson(
   writeNotNull('passwordResetSuccessEmailTemplateId',
       instance.passwordResetSuccessEmailTemplateId);
   writeNotNull(
+      'passwordUpdateEmailTemplateId', instance.passwordUpdateEmailTemplateId);
+  writeNotNull(
       'setPasswordEmailTemplateId', instance.setPasswordEmailTemplateId);
+  writeNotNull('twoFactorMethodAddEmailTemplateId',
+      instance.twoFactorMethodAddEmailTemplateId);
+  writeNotNull('twoFactorMethodRemoveEmailTemplateId',
+      instance.twoFactorMethodRemoveEmailTemplateId);
   return val;
 }
 
@@ -10870,6 +10890,7 @@ Map<String, dynamic> _$TwitterIdentityProviderToJson(
 TwoFactorDisableRequest _$TwoFactorDisableRequestFromJson(
     Map<String, dynamic> json) {
   return TwoFactorDisableRequest(
+    applicationId: json['applicationId'] as String,
     code: json['code'] as String,
     methodId: json['methodId'] as String,
   )..eventInfo = json['eventInfo'] == null
@@ -10888,6 +10909,7 @@ Map<String, dynamic> _$TwoFactorDisableRequestToJson(
   }
 
   writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('applicationId', instance.applicationId);
   writeNotNull('code', instance.code);
   writeNotNull('methodId', instance.methodId);
   return val;
@@ -11021,6 +11043,7 @@ Map<String, dynamic> _$TwoFactorRecoveryCodeResponseToJson(
 
 TwoFactorRequest _$TwoFactorRequestFromJson(Map<String, dynamic> json) {
   return TwoFactorRequest(
+    applicationId: json['applicationId'] as String,
     authenticatorId: json['authenticatorId'] as String,
     code: json['code'] as String,
     email: json['email'] as String,
@@ -11043,6 +11066,7 @@ Map<String, dynamic> _$TwoFactorRequestToJson(TwoFactorRequest instance) {
   }
 
   writeNotNull('eventInfo', instance.eventInfo);
+  writeNotNull('applicationId', instance.applicationId);
   writeNotNull('authenticatorId', instance.authenticatorId);
   writeNotNull('code', instance.code);
   writeNotNull('email', instance.email);
@@ -12232,7 +12256,6 @@ Map<String, dynamic> _$UserLoginFailedEventToJson(
 UserLoginIdDuplicateOnCreateEvent _$UserLoginIdDuplicateOnCreateEventFromJson(
     Map<String, dynamic> json) {
   return UserLoginIdDuplicateOnCreateEvent(
-    applicationId: json['applicationId'] as String,
     duplicateEmail: json['duplicateEmail'] as String,
     duplicateUsername: json['duplicateUsername'] as String,
     existing: json['existing'] == null
@@ -12266,7 +12289,6 @@ Map<String, dynamic> _$UserLoginIdDuplicateOnCreateEventToJson(
   writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('type', _$EventTypeEnumMap[instance.type]);
-  writeNotNull('applicationId', instance.applicationId);
   writeNotNull('duplicateEmail', instance.duplicateEmail);
   writeNotNull('duplicateUsername', instance.duplicateUsername);
   writeNotNull('existing', instance.existing);
@@ -12284,7 +12306,6 @@ UserLoginIdDuplicateOnUpdateEvent _$UserLoginIdDuplicateOnUpdateEventFromJson(
         : EventInfo.fromJson(json['info'] as Map<String, dynamic>)
     ..tenantId = json['tenantId'] as String
     ..type = _$enumDecodeNullable(_$EventTypeEnumMap, json['type'])
-    ..applicationId = json['applicationId'] as String
     ..duplicateEmail = json['duplicateEmail'] as String
     ..duplicateUsername = json['duplicateUsername'] as String
     ..existing = json['existing'] == null
@@ -12310,7 +12331,6 @@ Map<String, dynamic> _$UserLoginIdDuplicateOnUpdateEventToJson(
   writeNotNull('info', instance.info);
   writeNotNull('tenantId', instance.tenantId);
   writeNotNull('type', _$EventTypeEnumMap[instance.type]);
-  writeNotNull('applicationId', instance.applicationId);
   writeNotNull('duplicateEmail', instance.duplicateEmail);
   writeNotNull('duplicateUsername', instance.duplicateUsername);
   writeNotNull('existing', instance.existing);
