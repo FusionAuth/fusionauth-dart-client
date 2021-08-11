@@ -12433,7 +12433,11 @@ Map<String, dynamic> _$UserLoginSuccessEventToJson(
 
 UserLoginSuspiciousEvent _$UserLoginSuspiciousEventFromJson(
     Map<String, dynamic> json) {
-  return UserLoginSuspiciousEvent()
+  return UserLoginSuspiciousEvent(
+    threatsDetected: (json['threatsDetected'] as List)
+        ?.map((e) => _$enumDecodeNullable(_$AuthenticationThreatsEnumMap, e))
+        ?.toSet(),
+  )
     ..createInstant = json['createInstant'] as num
     ..id = json['id'] as String
     ..info = json['info'] == null
@@ -12474,6 +12478,11 @@ Map<String, dynamic> _$UserLoginSuspiciousEventToJson(
   writeNotNull('identityProviderName', instance.identityProviderName);
   writeNotNull('ipAddress', instance.ipAddress);
   writeNotNull('user', instance.user);
+  writeNotNull(
+      'threatsDetected',
+      instance.threatsDetected
+          ?.map((e) => _$AuthenticationThreatsEnumMap[e])
+          ?.toList());
   return val;
 }
 
