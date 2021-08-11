@@ -7924,7 +7924,9 @@ class UserLoginSuccessEvent extends BaseEvent {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class UserLoginSuspiciousEvent extends UserLoginSuccessEvent {
-  UserLoginSuspiciousEvent();
+  Set<AuthenticationThreats> threatsDetected;
+
+  UserLoginSuspiciousEvent({this.threatsDetected});
 
   factory UserLoginSuspiciousEvent.fromJson(Map<String, dynamic> json) =>
       _$UserLoginSuspiciousEventFromJson(json);
