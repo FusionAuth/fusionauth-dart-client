@@ -63,7 +63,7 @@ target(name: "build", description: "Builds the generated file", dependsOn: ["for
   }
 }
 
-target(name: "int", description: "Releases a local integration build of the project", dependsOn: ["build"]) {
+target(name: "int", description: "Releases a local integration build of the project") {
   file.delete {
     fileSet(dir: '.', includePatterns: [~/fusionauth-dart-client.+\.zip/])
   }
