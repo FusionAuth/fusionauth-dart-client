@@ -5470,6 +5470,18 @@ class ReactorMetrics {
   Map<String, dynamic> toJson() => _$ReactorMetricsToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ReactorMetricsResponse {
+  ReactorMetrics metrics;
+
+  ReactorMetricsResponse({this.metrics});
+
+  factory ReactorMetricsResponse.fromJson(Map<String, dynamic> json) =>
+      _$ReactorMetricsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ReactorMetricsResponseToJson(this);
+}
+
 /// Request for managing FusionAuth Reactor and licenses.
 ///
 /// @author Brian Pontarelli
@@ -5488,10 +5500,9 @@ class ReactorRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class ReactorResponse {
-  ReactorMetrics metrics;
   ReactorStatus status;
 
-  ReactorResponse({this.metrics, this.status});
+  ReactorResponse({this.status});
 
   factory ReactorResponse.fromJson(Map<String, dynamic> json) =>
       _$ReactorResponseFromJson(json);

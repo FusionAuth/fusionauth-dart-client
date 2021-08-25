@@ -3162,6 +3162,19 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves the FusionAuth Reactor metrics.
+  ///
+  /// @returns {Promise<ClientResponse<ReactorMetricsResponse>>}
+  Future<ClientResponse<ReactorMetricsResponse, void>>
+      retrieveReactorMetrics() {
+    return _start<ReactorMetricsResponse, void>()
+        .withUri('/api/reactor/metrics')
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => ReactorMetricsResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves the FusionAuth Reactor status.
   ///
   /// @returns {Promise<ClientResponse<ReactorResponse>>}

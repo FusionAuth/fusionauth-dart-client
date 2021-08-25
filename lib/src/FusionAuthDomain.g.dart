@@ -8239,6 +8239,29 @@ Map<String, dynamic> _$ReactorMetricsToJson(ReactorMetrics instance) {
   return val;
 }
 
+ReactorMetricsResponse _$ReactorMetricsResponseFromJson(
+    Map<String, dynamic> json) {
+  return ReactorMetricsResponse(
+    metrics: json['metrics'] == null
+        ? null
+        : ReactorMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ReactorMetricsResponseToJson(
+    ReactorMetricsResponse instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metrics', instance.metrics);
+  return val;
+}
+
 ReactorRequest _$ReactorRequestFromJson(Map<String, dynamic> json) {
   return ReactorRequest(
     license: json['license'] as String,
@@ -8262,9 +8285,6 @@ Map<String, dynamic> _$ReactorRequestToJson(ReactorRequest instance) {
 
 ReactorResponse _$ReactorResponseFromJson(Map<String, dynamic> json) {
   return ReactorResponse(
-    metrics: json['metrics'] == null
-        ? null
-        : ReactorMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
     status: json['status'] == null
         ? null
         : ReactorStatus.fromJson(json['status'] as Map<String, dynamic>),
@@ -8280,7 +8300,6 @@ Map<String, dynamic> _$ReactorResponseToJson(ReactorResponse instance) {
     }
   }
 
-  writeNotNull('metrics', instance.metrics);
   writeNotNull('status', instance.status);
   return val;
 }
