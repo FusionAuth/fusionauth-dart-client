@@ -3565,35 +3565,6 @@ Map<String, dynamic> _$IntegrationsToJson(Integrations instance) =>
       'kafka': instance.kafka,
     };
 
-IntervalCount _$IntervalCountFromJson(Map<String, dynamic> json) =>
-    IntervalCount(
-      applicationId: json['applicationId'] as String,
-      count: json['count'] as num,
-      decrementedCount: json['decrementedCount'] as num,
-      period: json['period'] as num,
-    );
-
-Map<String, dynamic> _$IntervalCountToJson(IntervalCount instance) =>
-    <String, dynamic>{
-      'applicationId': instance.applicationId,
-      'count': instance.count,
-      'decrementedCount': instance.decrementedCount,
-      'period': instance.period,
-    };
-
-IntervalUser _$IntervalUserFromJson(Map<String, dynamic> json) => IntervalUser(
-      applicationId: json['applicationId'] as String,
-      period: json['period'] as num,
-      userId: json['userId'] as String,
-    );
-
-Map<String, dynamic> _$IntervalUserToJson(IntervalUser instance) =>
-    <String, dynamic>{
-      'applicationId': instance.applicationId,
-      'period': instance.period,
-      'userId': instance.userId,
-    };
-
 IPAccessControlEntry _$IPAccessControlEntryFromJson(
         Map<String, dynamic> json) =>
     IPAccessControlEntry(
