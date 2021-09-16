@@ -3461,40 +3461,6 @@ class Integrations {
   Map<String, dynamic> toJson() => _$IntegrationsToJson(this);
 }
 
-/// Counts for a period.
-///
-/// @author Brian Pontarelli
-@JsonSerializable()
-class IntervalCount {
-  String applicationId;
-  num count;
-  num decrementedCount;
-  num period;
-
-  IntervalCount(
-      {this.applicationId, this.count, this.decrementedCount, this.period});
-
-  factory IntervalCount.fromJson(Map<String, dynamic> json) =>
-      _$IntervalCountFromJson(json);
-  Map<String, dynamic> toJson() => _$IntervalCountToJson(this);
-}
-
-/// A user over an period (for daily and monthly active user calculations).
-///
-/// @author Brian Pontarelli
-@JsonSerializable()
-class IntervalUser {
-  String applicationId;
-  num period;
-  String userId;
-
-  IntervalUser({this.applicationId, this.period, this.userId});
-
-  factory IntervalUser.fromJson(Map<String, dynamic> json) =>
-      _$IntervalUserFromJson(json);
-  Map<String, dynamic> toJson() => _$IntervalUserToJson(this);
-}
-
 /// @author Brett Guy
 @JsonSerializable()
 class IPAccessControlEntry {
