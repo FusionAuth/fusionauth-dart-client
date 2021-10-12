@@ -6305,7 +6305,6 @@ class SystemConfiguration {
   num lastUpdateInstant;
   LoginRecordConfiguration loginRecordConfiguration;
   String reportTimezone;
-  SystemSSOConfiguration ssoConfiguration;
   UIConfiguration uiConfiguration;
 
   SystemConfiguration(
@@ -6317,7 +6316,6 @@ class SystemConfiguration {
       this.lastUpdateInstant,
       this.loginRecordConfiguration,
       this.reportTimezone,
-      this.ssoConfiguration,
       this.uiConfiguration});
 
   factory SystemConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -6363,18 +6361,6 @@ class SystemLogsExportRequest extends BaseExportRequest {
   factory SystemLogsExportRequest.fromJson(Map<String, dynamic> json) =>
       _$SystemLogsExportRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SystemLogsExportRequestToJson(this);
-}
-
-/// @author Brett Pontarelli
-@JsonSerializable()
-class SystemSSOConfiguration {
-  num deviceTrustTimeToLiveInSeconds;
-
-  SystemSSOConfiguration({this.deviceTrustTimeToLiveInSeconds});
-
-  factory SystemSSOConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$SystemSSOConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$SystemSSOConfigurationToJson(this);
 }
 
 @JsonSerializable()
@@ -6494,6 +6480,7 @@ class Tenant {
   PasswordValidationRules passwordValidationRules;
   TenantRateLimitConfiguration rateLimitConfiguration;
   TenantRegistrationConfiguration registrationConfiguration;
+  TenantSSOConfiguration ssoConfiguration;
   ObjectState state;
   String themeId;
   TenantUserDeletePolicy userDeletePolicy;
@@ -6528,6 +6515,7 @@ class Tenant {
       this.passwordValidationRules,
       this.rateLimitConfiguration,
       this.registrationConfiguration,
+      this.ssoConfiguration,
       this.state,
       this.themeId,
       this.userDeletePolicy,
@@ -6701,6 +6689,18 @@ class TenantResponse {
   factory TenantResponse.fromJson(Map<String, dynamic> json) =>
       _$TenantResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TenantResponseToJson(this);
+}
+
+/// @author Brett Pontarelli
+@JsonSerializable()
+class TenantSSOConfiguration {
+  num deviceTrustTimeToLiveInSeconds;
+
+  TenantSSOConfiguration({this.deviceTrustTimeToLiveInSeconds});
+
+  factory TenantSSOConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantSSOConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantSSOConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
