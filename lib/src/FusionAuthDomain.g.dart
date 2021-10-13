@@ -6712,8 +6712,6 @@ SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) =>
       loginRecordConfiguration: LoginRecordConfiguration.fromJson(
           json['loginRecordConfiguration'] as Map<String, dynamic>),
       reportTimezone: json['reportTimezone'] as String,
-      ssoConfiguration: SystemSSOConfiguration.fromJson(
-          json['ssoConfiguration'] as Map<String, dynamic>),
       uiConfiguration: UIConfiguration.fromJson(
           json['uiConfiguration'] as Map<String, dynamic>),
     );
@@ -6729,7 +6727,6 @@ Map<String, dynamic> _$SystemConfigurationToJson(
       'lastUpdateInstant': instance.lastUpdateInstant,
       'loginRecordConfiguration': instance.loginRecordConfiguration,
       'reportTimezone': instance.reportTimezone,
-      'ssoConfiguration': instance.ssoConfiguration,
       'uiConfiguration': instance.uiConfiguration,
     };
 
@@ -6773,19 +6770,6 @@ Map<String, dynamic> _$SystemLogsExportRequestToJson(
       'dateTimeSecondsFormat': instance.dateTimeSecondsFormat,
       'zoneId': instance.zoneId,
       'lastNBytes': instance.lastNBytes,
-    };
-
-SystemSSOConfiguration _$SystemSSOConfigurationFromJson(
-        Map<String, dynamic> json) =>
-    SystemSSOConfiguration(
-      deviceTrustTimeToLiveInSeconds:
-          json['deviceTrustTimeToLiveInSeconds'] as num,
-    );
-
-Map<String, dynamic> _$SystemSSOConfigurationToJson(
-        SystemSSOConfiguration instance) =>
-    <String, dynamic>{
-      'deviceTrustTimeToLiveInSeconds': instance.deviceTrustTimeToLiveInSeconds,
     };
 
 Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
@@ -6929,6 +6913,8 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) => Tenant(
           json['rateLimitConfiguration'] as Map<String, dynamic>),
       registrationConfiguration: TenantRegistrationConfiguration.fromJson(
           json['registrationConfiguration'] as Map<String, dynamic>),
+      ssoConfiguration: TenantSSOConfiguration.fromJson(
+          json['ssoConfiguration'] as Map<String, dynamic>),
       state: _$enumDecode(_$ObjectStateEnumMap, json['state']),
       themeId: json['themeId'] as String,
       userDeletePolicy: TenantUserDeletePolicy.fromJson(
@@ -6969,6 +6955,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) => <String, dynamic>{
       'passwordValidationRules': instance.passwordValidationRules,
       'rateLimitConfiguration': instance.rateLimitConfiguration,
       'registrationConfiguration': instance.registrationConfiguration,
+      'ssoConfiguration': instance.ssoConfiguration,
       'state': _$ObjectStateEnumMap[instance.state],
       'themeId': instance.themeId,
       'userDeletePolicy': instance.userDeletePolicy,
@@ -7156,6 +7143,19 @@ Map<String, dynamic> _$TenantResponseToJson(TenantResponse instance) =>
     <String, dynamic>{
       'tenant': instance.tenant,
       'tenants': instance.tenants,
+    };
+
+TenantSSOConfiguration _$TenantSSOConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    TenantSSOConfiguration(
+      deviceTrustTimeToLiveInSeconds:
+          json['deviceTrustTimeToLiveInSeconds'] as num,
+    );
+
+Map<String, dynamic> _$TenantSSOConfigurationToJson(
+        TenantSSOConfiguration instance) =>
+    <String, dynamic>{
+      'deviceTrustTimeToLiveInSeconds': instance.deviceTrustTimeToLiveInSeconds,
     };
 
 TenantUnverifiedConfiguration _$TenantUnverifiedConfigurationFromJson(
