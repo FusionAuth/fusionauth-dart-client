@@ -3434,7 +3434,7 @@ const _$ClientAuthenticationMethodEnumMap = {
 IdentityProviderRequest _$IdentityProviderRequestFromJson(
         Map<String, dynamic> json) =>
     IdentityProviderRequest(
-      identityProvider: BaseIdentityProvider.fromJson(
+      identityProvider: BaseIdentityProvider<dynamic>.fromJson(
           json['identityProvider'] as Map<String, dynamic>),
     );
 
@@ -3447,10 +3447,11 @@ Map<String, dynamic> _$IdentityProviderRequestToJson(
 IdentityProviderResponse _$IdentityProviderResponseFromJson(
         Map<String, dynamic> json) =>
     IdentityProviderResponse(
-      identityProvider: BaseIdentityProvider.fromJson(
+      identityProvider: BaseIdentityProvider<dynamic>.fromJson(
           json['identityProvider'] as Map<String, dynamic>),
       identityProviders: (json['identityProviders'] as List<dynamic>)
-          .map((e) => BaseIdentityProvider.fromJson(e as Map<String, dynamic>))
+          .map((e) =>
+              BaseIdentityProvider<dynamic>.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
