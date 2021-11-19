@@ -43,6 +43,10 @@ target(name: "clean", description: "Cleans build directory") {
 }
 
 target(name: "format", description: "Formats the source code") {
+  format()
+}
+
+private void format() {
   ProcessBuilder pb = new ProcessBuilder(
       "dart", "format", "lib", "test")
       .inheritIO()
@@ -52,8 +56,7 @@ target(name: "format", description: "Formats the source code") {
   process.consumeProcessOutput(System.out, System.err)
   process.waitFor()
 }
-
-target(name: "build", description: "Builds the generated file", dependsOn: ["format"]) {
+target(name: "build", description: "Builds the generated file") {
   if (new ProcessBuilder('pub', 'get').inheritIO().start().waitFor() != 0) {
     fail('Failed to build the generated files')
   }
@@ -61,6 +64,8 @@ target(name: "build", description: "Builds the generated file", dependsOn: ["for
   if (new ProcessBuilder('pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs').inheritIO().start().waitFor() != 0) {
     fail('Failed to build the generated files')
   }
+
+  format()
 }
 
 target(name: "int", description: "Releases a local integration build of the project", dependsOn: ["build"]) {
