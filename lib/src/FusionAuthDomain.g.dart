@@ -8010,47 +8010,55 @@ Map<String, dynamic> _$UserActionOptionToJson(UserActionOption instance) =>
       'name': instance.name,
     };
 
+UserActionReason _$UserActionReasonFromJson(Map<String, dynamic> json) =>
+    UserActionReason(
+      code: json['code'] as String,
+      id: json['id'] as String,
+      insertInstant: json['insertInstant'] as num,
+      lastUpdateInstant: json['lastUpdateInstant'] as num,
+      localizedTexts: Map<String, String>.from(json['localizedTexts'] as Map),
+      text: json['text'] as String,
+    );
+
+Map<String, dynamic> _$UserActionReasonToJson(UserActionReason instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'id': instance.id,
+      'insertInstant': instance.insertInstant,
+      'lastUpdateInstant': instance.lastUpdateInstant,
+      'localizedTexts': instance.localizedTexts,
+      'text': instance.text,
+    };
+
 UserActionReasonRequest _$UserActionReasonRequestFromJson(
         Map<String, dynamic> json) =>
     UserActionReasonRequest(
-      userActionReason: json['userActionReason'],
+      userActionReason: UserActionReason.fromJson(
+          json['userActionReason'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserActionReasonRequestToJson(
-    UserActionReasonRequest instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('userActionReason', instance.userActionReason);
-  return val;
-}
+        UserActionReasonRequest instance) =>
+    <String, dynamic>{
+      'userActionReason': instance.userActionReason,
+    };
 
 UserActionReasonResponse _$UserActionReasonResponseFromJson(
         Map<String, dynamic> json) =>
     UserActionReasonResponse(
-      userActionReason: json['userActionReason'],
-      userActionReasons: json['userActionReasons'] as List<dynamic>,
+      userActionReason: UserActionReason.fromJson(
+          json['userActionReason'] as Map<String, dynamic>),
+      userActionReasons: (json['userActionReasons'] as List<dynamic>)
+          .map((e) => UserActionReason.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserActionReasonResponseToJson(
-    UserActionReasonResponse instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('userActionReason', instance.userActionReason);
-  val['userActionReasons'] = instance.userActionReasons;
-  return val;
-}
+        UserActionReasonResponse instance) =>
+    <String, dynamic>{
+      'userActionReason': instance.userActionReason,
+      'userActionReasons': instance.userActionReasons,
+    };
 
 UserActionRequest _$UserActionRequestFromJson(Map<String, dynamic> json) =>
     UserActionRequest(
