@@ -797,6 +797,7 @@ class BaseIdentityProvider<
   num lastUpdateInstant;
   IdentityProviderLinkingStrategy linkingStrategy;
   String name;
+  Map<String, IdentityProviderTenantConfiguration> tenantConfiguration;
   IdentityProviderType type;
 
   BaseIdentityProvider(
@@ -809,6 +810,7 @@ class BaseIdentityProvider<
       this.lastUpdateInstant,
       this.linkingStrategy,
       this.name,
+      this.tenantConfiguration,
       this.type});
 
   factory BaseIdentityProvider.fromJson(Map<String, dynamic> json) =>
@@ -1434,12 +1436,14 @@ class EmailAddress {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class EmailConfiguration {
+  List<EmailHeader> additionalHeaders;
   String defaultFromEmail;
   String defaultFromName;
   String emailUpdateEmailTemplateId;
   String emailVerifiedEmailTemplateId;
   String forgotPasswordEmailTemplateId;
   String host;
+  bool implicitEmailVerificationAllowed;
   String loginIdInUseOnCreateEmailTemplateId;
   String loginIdInUseOnUpdateEmailTemplateId;
   String loginNewDeviceEmailTemplateId;
@@ -1462,12 +1466,14 @@ class EmailConfiguration {
   bool verifyEmailWhenChanged;
 
   EmailConfiguration(
-      {this.defaultFromEmail,
+      {this.additionalHeaders,
+      this.defaultFromEmail,
       this.defaultFromName,
       this.emailUpdateEmailTemplateId,
       this.emailVerifiedEmailTemplateId,
       this.forgotPasswordEmailTemplateId,
       this.host,
+      this.implicitEmailVerificationAllowed,
       this.loginIdInUseOnCreateEmailTemplateId,
       this.loginIdInUseOnUpdateEmailTemplateId,
       this.loginNewDeviceEmailTemplateId,
@@ -1492,6 +1498,19 @@ class EmailConfiguration {
   factory EmailConfiguration.fromJson(Map<String, dynamic> json) =>
       _$EmailConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$EmailConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class EmailHeader {
+  String name;
+  String value;
+
+  EmailHeader({this.name, this.value});
+
+  factory EmailHeader.fromJson(Map<String, dynamic> json) =>
+      _$EmailHeaderFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailHeaderToJson(this);
 }
 
 @JsonSerializable()
@@ -2015,9 +2034,10 @@ class EpicGamesIdentityProvider
 @JsonSerializable()
 class Error {
   String code;
+  Map<String, dynamic> data;
   String message;
 
-  Error({this.code, this.message});
+  Error({this.code, this.data, this.message});
 
   factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
   Map<String, dynamic> toJson() => _$ErrorToJson(this);
@@ -3147,6 +3167,20 @@ class IdentityProviderDetails {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
+class IdentityProviderLimitUserLinkingPolicy extends Enableable {
+  num maximumLinks;
+
+  IdentityProviderLimitUserLinkingPolicy({this.maximumLinks});
+
+  factory IdentityProviderLimitUserLinkingPolicy.fromJson(
+          Map<String, dynamic> json) =>
+      _$IdentityProviderLimitUserLinkingPolicyFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IdentityProviderLimitUserLinkingPolicyToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
 class IdentityProviderLink {
   Map<String, dynamic> data;
   String displayName;
@@ -3347,6 +3381,21 @@ class IdentityProviderStartLoginResponse {
       _$IdentityProviderStartLoginResponseFromJson(json);
   Map<String, dynamic> toJson() =>
       _$IdentityProviderStartLoginResponseToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class IdentityProviderTenantConfiguration {
+  Map<String, dynamic> data;
+  IdentityProviderLimitUserLinkingPolicy limitUserLinkCount;
+
+  IdentityProviderTenantConfiguration({this.data, this.limitUserLinkCount});
+
+  factory IdentityProviderTenantConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$IdentityProviderTenantConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IdentityProviderTenantConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -5253,7 +5302,9 @@ class PendingIdPLink {
   String displayName;
   String email;
   String identityProviderId;
+  List<IdentityProviderLink> identityProviderLinks;
   String identityProviderName;
+  IdentityProviderTenantConfiguration identityProviderTenantConfiguration;
   IdentityProviderType identityProviderType;
   String identityProviderUserId;
   User user;
@@ -5263,7 +5314,9 @@ class PendingIdPLink {
       {this.displayName,
       this.email,
       this.identityProviderId,
+      this.identityProviderLinks,
       this.identityProviderName,
+      this.identityProviderTenantConfiguration,
       this.identityProviderType,
       this.identityProviderUserId,
       this.user,

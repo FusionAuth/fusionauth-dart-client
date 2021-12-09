@@ -236,6 +236,13 @@ AppleIdentityProvider _$AppleIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$AppleIdentityProviderToJson(
@@ -260,6 +267,7 @@ Map<String, dynamic> _$AppleIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['keyId'] = instance.keyId;
@@ -980,6 +988,7 @@ Map<String, dynamic> _$BaseIdentityProviderToJson<
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   return val;
 }
@@ -1482,6 +1491,9 @@ Map<String, dynamic> _$EmailAddressToJson(EmailAddress instance) =>
 
 EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
     EmailConfiguration(
+      additionalHeaders: (json['additionalHeaders'] as List<dynamic>)
+          .map((e) => EmailHeader.fromJson(e as Map<String, dynamic>))
+          .toList(),
       defaultFromEmail: json['defaultFromEmail'] as String,
       defaultFromName: json['defaultFromName'] as String,
       emailUpdateEmailTemplateId: json['emailUpdateEmailTemplateId'] as String,
@@ -1490,6 +1502,8 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
       forgotPasswordEmailTemplateId:
           json['forgotPasswordEmailTemplateId'] as String,
       host: json['host'] as String,
+      implicitEmailVerificationAllowed:
+          json['implicitEmailVerificationAllowed'] as bool,
       loginIdInUseOnCreateEmailTemplateId:
           json['loginIdInUseOnCreateEmailTemplateId'] as String,
       loginIdInUseOnUpdateEmailTemplateId:
@@ -1526,12 +1540,15 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$EmailConfigurationToJson(EmailConfiguration instance) =>
     <String, dynamic>{
+      'additionalHeaders': instance.additionalHeaders,
       'defaultFromEmail': instance.defaultFromEmail,
       'defaultFromName': instance.defaultFromName,
       'emailUpdateEmailTemplateId': instance.emailUpdateEmailTemplateId,
       'emailVerifiedEmailTemplateId': instance.emailVerifiedEmailTemplateId,
       'forgotPasswordEmailTemplateId': instance.forgotPasswordEmailTemplateId,
       'host': instance.host,
+      'implicitEmailVerificationAllowed':
+          instance.implicitEmailVerificationAllowed,
       'loginIdInUseOnCreateEmailTemplateId':
           instance.loginIdInUseOnCreateEmailTemplateId,
       'loginIdInUseOnUpdateEmailTemplateId':
@@ -1565,6 +1582,17 @@ const _$EmailSecurityTypeEnumMap = {
   EmailSecurityType.SSL: 'SSL',
   EmailSecurityType.TLS: 'TLS',
 };
+
+EmailHeader _$EmailHeaderFromJson(Map<String, dynamic> json) => EmailHeader(
+      name: json['name'] as String,
+      value: json['value'] as String,
+    );
+
+Map<String, dynamic> _$EmailHeaderToJson(EmailHeader instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'value': instance.value,
+    };
 
 EmailPlus _$EmailPlusFromJson(Map<String, dynamic> json) => EmailPlus(
       emailTemplateId: json['emailTemplateId'] as String,
@@ -2078,6 +2106,13 @@ EpicGamesIdentityProvider _$EpicGamesIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$EpicGamesIdentityProviderToJson(
@@ -2102,6 +2137,7 @@ Map<String, dynamic> _$EpicGamesIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -2112,11 +2148,13 @@ Map<String, dynamic> _$EpicGamesIdentityProviderToJson(
 
 Error _$ErrorFromJson(Map<String, dynamic> json) => Error(
       code: json['code'] as String,
+      data: json['data'] as Map<String, dynamic>,
       message: json['message'] as String,
     );
 
 Map<String, dynamic> _$ErrorToJson(Error instance) => <String, dynamic>{
       'code': instance.code,
+      'data': instance.data,
       'message': instance.message,
     };
 
@@ -2466,6 +2504,13 @@ ExternalJWTIdentityProvider _$ExternalJWTIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$ExternalJWTIdentityProviderToJson(
@@ -2490,6 +2535,7 @@ Map<String, dynamic> _$ExternalJWTIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['claimMap'] = instance.claimMap;
   val['defaultKeyId'] = instance.defaultKeyId;
@@ -2562,6 +2608,13 @@ FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$FacebookIdentityProviderToJson(
@@ -2586,6 +2639,7 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['appId'] = instance.appId;
   val['buttonText'] = instance.buttonText;
@@ -3080,6 +3134,13 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$GoogleIdentityProviderToJson(
@@ -3104,6 +3165,7 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -3239,6 +3301,13 @@ HYPRIdentityProvider _$HYPRIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$HYPRIdentityProviderToJson(
@@ -3263,6 +3332,7 @@ Map<String, dynamic> _$HYPRIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['relyingPartyApplicationId'] = instance.relyingPartyApplicationId;
   val['relyingPartyURL'] = instance.relyingPartyURL;
@@ -3292,6 +3362,20 @@ Map<String, dynamic> _$IdentityProviderDetailsToJson(
       'name': instance.name,
       'oauth2': instance.oauth2,
       'type': _$IdentityProviderTypeEnumMap[instance.type],
+    };
+
+IdentityProviderLimitUserLinkingPolicy
+    _$IdentityProviderLimitUserLinkingPolicyFromJson(
+            Map<String, dynamic> json) =>
+        IdentityProviderLimitUserLinkingPolicy(
+          maximumLinks: json['maximumLinks'] as num,
+        )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$IdentityProviderLimitUserLinkingPolicyToJson(
+        IdentityProviderLimitUserLinkingPolicy instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'maximumLinks': instance.maximumLinks,
     };
 
 IdentityProviderLink _$IdentityProviderLinkFromJson(
@@ -3503,6 +3587,21 @@ Map<String, dynamic> _$IdentityProviderStartLoginResponseToJson(
         IdentityProviderStartLoginResponse instance) =>
     <String, dynamic>{
       'code': instance.code,
+    };
+
+IdentityProviderTenantConfiguration
+    _$IdentityProviderTenantConfigurationFromJson(Map<String, dynamic> json) =>
+        IdentityProviderTenantConfiguration(
+          data: json['data'] as Map<String, dynamic>,
+          limitUserLinkCount: IdentityProviderLimitUserLinkingPolicy.fromJson(
+              json['limitUserLinkCount'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$IdentityProviderTenantConfigurationToJson(
+        IdentityProviderTenantConfiguration instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'limitUserLinkCount': instance.limitUserLinkCount,
     };
 
 ImportRequest _$ImportRequestFromJson(Map<String, dynamic> json) =>
@@ -4285,6 +4384,13 @@ LinkedInIdentityProvider _$LinkedInIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$LinkedInIdentityProviderToJson(
@@ -4309,6 +4415,7 @@ Map<String, dynamic> _$LinkedInIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -4915,6 +5022,13 @@ NintendoIdentityProvider _$NintendoIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$NintendoIdentityProviderToJson(
@@ -4939,6 +5053,7 @@ Map<String, dynamic> _$NintendoIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -5291,6 +5406,13 @@ OpenIdConnectIdentityProvider _$OpenIdConnectIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$OpenIdConnectIdentityProviderToJson(
@@ -5315,6 +5437,7 @@ Map<String, dynamic> _$OpenIdConnectIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonImageURL'] = instance.buttonImageURL;
   val['buttonText'] = instance.buttonText;
@@ -5508,7 +5631,14 @@ PendingIdPLink _$PendingIdPLinkFromJson(Map<String, dynamic> json) =>
       displayName: json['displayName'] as String,
       email: json['email'] as String,
       identityProviderId: json['identityProviderId'] as String,
+      identityProviderLinks: (json['identityProviderLinks'] as List<dynamic>)
+          .map((e) => IdentityProviderLink.fromJson(e as Map<String, dynamic>))
+          .toList(),
       identityProviderName: json['identityProviderName'] as String,
+      identityProviderTenantConfiguration:
+          IdentityProviderTenantConfiguration.fromJson(
+              json['identityProviderTenantConfiguration']
+                  as Map<String, dynamic>),
       identityProviderType: _$enumDecode(
           _$IdentityProviderTypeEnumMap, json['identityProviderType']),
       identityProviderUserId: json['identityProviderUserId'] as String,
@@ -5521,7 +5651,10 @@ Map<String, dynamic> _$PendingIdPLinkToJson(PendingIdPLink instance) =>
       'displayName': instance.displayName,
       'email': instance.email,
       'identityProviderId': instance.identityProviderId,
+      'identityProviderLinks': instance.identityProviderLinks,
       'identityProviderName': instance.identityProviderName,
+      'identityProviderTenantConfiguration':
+          instance.identityProviderTenantConfiguration,
       'identityProviderType':
           _$IdentityProviderTypeEnumMap[instance.identityProviderType],
       'identityProviderUserId': instance.identityProviderUserId,
@@ -6147,6 +6280,13 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
@@ -6171,6 +6311,7 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonImageURL'] = instance.buttonImageURL;
   val['buttonText'] = instance.buttonText;
@@ -6234,6 +6375,13 @@ SAMLv2IdPInitiatedIdentityProvider _$SAMLv2IdPInitiatedIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
@@ -6258,6 +6406,7 @@ Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['emailClaim'] = instance.emailClaim;
   val['issuer'] = instance.issuer;
@@ -6563,6 +6712,13 @@ SonyPSNIdentityProvider _$SonyPSNIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$SonyPSNIdentityProviderToJson(
@@ -6587,6 +6743,7 @@ Map<String, dynamic> _$SonyPSNIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -6659,6 +6816,13 @@ SteamIdentityProvider _$SteamIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$SteamIdentityProviderToJson(
@@ -6683,6 +6847,7 @@ Map<String, dynamic> _$SteamIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -7395,6 +7560,13 @@ TwitchIdentityProvider _$TwitchIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$TwitchIdentityProviderToJson(
@@ -7419,6 +7591,7 @@ Map<String, dynamic> _$TwitchIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
@@ -7473,6 +7646,13 @@ TwitterIdentityProvider _$TwitterIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$TwitterIdentityProviderToJson(
@@ -7497,6 +7677,7 @@ Map<String, dynamic> _$TwitterIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['consumerKey'] = instance.consumerKey;
@@ -9345,6 +9526,13 @@ XboxIdentityProvider _$XboxIdentityProviderFromJson(
       ..linkingStrategy = _$enumDecode(
           _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
       ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
       ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$XboxIdentityProviderToJson(
@@ -9369,6 +9557,7 @@ Map<String, dynamic> _$XboxIdentityProviderToJson(
   val['linkingStrategy'] =
       _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
   val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;

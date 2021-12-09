@@ -93,7 +93,7 @@ class FusionAuthClient {
   /// Adds a user to an existing family. The family id must be specified.
   ///
   /// @param {String} familyId The id of the family.
-  /// @param {FamilyRequest} request The request object that contains all of the information used to determine which user to add to the family.
+  /// @param {FamilyRequest} request The request object that contains all the information used to determine which user to add to the family.
   /// @returns {Promise<ClientResponse<FamilyResponse>>}
   Future<ClientResponse<FamilyResponse, Errors>> addUserToFamily(
       String familyId, FamilyRequest request) {
@@ -159,7 +159,7 @@ class FusionAuthClient {
 
   /// Adds a comment to the user's account.
   ///
-  /// @param {UserCommentRequest} request The request object that contains all of the information used to create the user comment.
+  /// @param {UserCommentRequest} request The request object that contains all the information used to create the user comment.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> commentOnUser(
       UserCommentRequest request) {
@@ -194,7 +194,7 @@ class FusionAuthClient {
   /// Creates an application. You can optionally specify an Id for the application, if not provided one will be generated.
   ///
   /// @param {String} applicationId (Optional) The Id to use for the application. If not provided a secure random UUID will be generated.
-  /// @param {ApplicationRequest} request The request object that contains all of the information used to create the application.
+  /// @param {ApplicationRequest} request The request object that contains all the information used to create the application.
   /// @returns {Promise<ClientResponse<ApplicationResponse>>}
   Future<ClientResponse<ApplicationResponse, Errors>> createApplication(
       String applicationId, ApplicationRequest request) {
@@ -213,7 +213,7 @@ class FusionAuthClient {
   ///
   /// @param {String} applicationId The Id of the application to create the role on.
   /// @param {String} roleId (Optional) The Id of the role. If not provided a secure random UUID will be generated.
-  /// @param {ApplicationRequest} request The request object that contains all of the information used to create the application role.
+  /// @param {ApplicationRequest} request The request object that contains all the information used to create the application role.
   /// @returns {Promise<ClientResponse<ApplicationResponse>>}
   Future<ClientResponse<ApplicationResponse, Errors>> createApplicationRole(
       String applicationId, String roleId, ApplicationRequest request) {
@@ -233,7 +233,7 @@ class FusionAuthClient {
   /// make changes to the FusionAuth database. When using the FusionAuth App web interface, any changes are automatically
   /// written to the audit log. However, if you are accessing the API, you must write the audit logs yourself.
   ///
-  /// @param {AuditLogRequest} request The request object that contains all of the information used to create the audit log entry.
+  /// @param {AuditLogRequest} request The request object that contains all the information used to create the audit log entry.
   /// @returns {Promise<ClientResponse<AuditLogResponse>>}
   Future<ClientResponse<AuditLogResponse, Errors>> createAuditLog(
       AuditLogRequest request) {
@@ -249,7 +249,7 @@ class FusionAuthClient {
   /// Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
   ///
   /// @param {String} connectorId (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
-  /// @param {ConnectorRequest} request The request object that contains all of the information used to create the connector.
+  /// @param {ConnectorRequest} request The request object that contains all the information used to create the connector.
   /// @returns {Promise<ClientResponse<ConnectorResponse>>}
   Future<ClientResponse<ConnectorResponse, Errors>> createConnector(
       String connectorId, ConnectorRequest request) {
@@ -266,7 +266,7 @@ class FusionAuthClient {
   /// Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
   ///
   /// @param {String} consentId (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
-  /// @param {ConsentRequest} request The request object that contains all of the information used to create the consent.
+  /// @param {ConsentRequest} request The request object that contains all the information used to create the consent.
   /// @returns {Promise<ClientResponse<ConsentResponse>>}
   Future<ClientResponse<ConsentResponse, Errors>> createConsent(
       String consentId, ConsentRequest request) {
@@ -283,7 +283,7 @@ class FusionAuthClient {
   /// Creates an email template. You can optionally specify an Id for the template, if not provided one will be generated.
   ///
   /// @param {String} emailTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
-  /// @param {EmailTemplateRequest} request The request object that contains all of the information used to create the email template.
+  /// @param {EmailTemplateRequest} request The request object that contains all the information used to create the email template.
   /// @returns {Promise<ClientResponse<EmailTemplateResponse>>}
   Future<ClientResponse<EmailTemplateResponse, Errors>> createEmailTemplate(
       String emailTemplateId, EmailTemplateRequest request) {
@@ -300,7 +300,7 @@ class FusionAuthClient {
   /// Creates an Entity. You can optionally specify an Id for the Entity. If not provided one will be generated.
   ///
   /// @param {String} entityId (Optional) The Id for the Entity. If not provided a secure random UUID will be generated.
-  /// @param {EntityRequest} request The request object that contains all of the information used to create the Entity.
+  /// @param {EntityRequest} request The request object that contains all the information used to create the Entity.
   /// @returns {Promise<ClientResponse<EntityResponse>>}
   Future<ClientResponse<EntityResponse, Errors>> createEntity(
       String entityId, EntityRequest request) {
@@ -317,7 +317,7 @@ class FusionAuthClient {
   /// Creates a Entity Type. You can optionally specify an Id for the Entity Type, if not provided one will be generated.
   ///
   /// @param {String} entityTypeId (Optional) The Id for the Entity Type. If not provided a secure random UUID will be generated.
-  /// @param {EntityTypeRequest} request The request object that contains all of the information used to create the Entity Type.
+  /// @param {EntityTypeRequest} request The request object that contains all the information used to create the Entity Type.
   /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
   Future<ClientResponse<EntityTypeResponse, Errors>> createEntityType(
       String entityTypeId, EntityTypeRequest request) {
@@ -336,7 +336,7 @@ class FusionAuthClient {
   ///
   /// @param {String} entityTypeId The Id of the entity type to create the permission on.
   /// @param {String} permissionId (Optional) The Id of the permission. If not provided a secure random UUID will be generated.
-  /// @param {EntityTypeRequest} request The request object that contains all of the information used to create the permission.
+  /// @param {EntityTypeRequest} request The request object that contains all the information used to create the permission.
   /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
   Future<ClientResponse<EntityTypeResponse, Errors>> createEntityTypePermission(
       String entityTypeId, String permissionId, EntityTypeRequest request) {
@@ -356,7 +356,7 @@ class FusionAuthClient {
   /// family, if not provided one will be generated.
   ///
   /// @param {String} familyId (Optional) The id for the family. If not provided a secure random UUID will be generated.
-  /// @param {FamilyRequest} request The request object that contains all of the information used to create the family.
+  /// @param {FamilyRequest} request The request object that contains all the information used to create the family.
   /// @returns {Promise<ClientResponse<FamilyResponse>>}
   Future<ClientResponse<FamilyResponse, Errors>> createFamily(
       String familyId, FamilyRequest request) {
@@ -373,7 +373,7 @@ class FusionAuthClient {
   /// Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
   ///
   /// @param {String} formId (Optional) The Id for the form. If not provided a secure random UUID will be generated.
-  /// @param {FormRequest} request The request object that contains all of the information used to create the form.
+  /// @param {FormRequest} request The request object that contains all the information used to create the form.
   /// @returns {Promise<ClientResponse<FormResponse>>}
   Future<ClientResponse<FormResponse, Errors>> createForm(
       String formId, FormRequest request) {
@@ -390,7 +390,7 @@ class FusionAuthClient {
   /// Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
   ///
   /// @param {String} fieldId (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
-  /// @param {FormFieldRequest} request The request object that contains all of the information used to create the form field.
+  /// @param {FormFieldRequest} request The request object that contains all the information used to create the form field.
   /// @returns {Promise<ClientResponse<FormFieldResponse>>}
   Future<ClientResponse<FormFieldResponse, Errors>> createFormField(
       String fieldId, FormFieldRequest request) {
@@ -407,7 +407,7 @@ class FusionAuthClient {
   /// Creates a group. You can optionally specify an Id for the group, if not provided one will be generated.
   ///
   /// @param {String} groupId (Optional) The Id for the group. If not provided a secure random UUID will be generated.
-  /// @param {GroupRequest} request The request object that contains all of the information used to create the group.
+  /// @param {GroupRequest} request The request object that contains all the information used to create the group.
   /// @returns {Promise<ClientResponse<GroupResponse>>}
   Future<ClientResponse<GroupResponse, Errors>> createGroup(
       String groupId, GroupRequest request) {
@@ -423,7 +423,7 @@ class FusionAuthClient {
 
   /// Creates a member in a group.
   ///
-  /// @param {MemberRequest} request The request object that contains all of the information used to create the group member(s).
+  /// @param {MemberRequest} request The request object that contains all the information used to create the group member(s).
   /// @returns {Promise<ClientResponse<MemberResponse>>}
   Future<ClientResponse<MemberResponse, Errors>> createGroupMembers(
       MemberRequest request) {
@@ -439,7 +439,7 @@ class FusionAuthClient {
   /// Creates an IP Access Control List. You can optionally specify an Id on this create request, if one is not provided one will be generated.
   ///
   /// @param {String} accessControlListId (Optional) The Id for the IP Access Control List. If not provided a secure random UUID will be generated.
-  /// @param {IPAccessControlListRequest} request The request object that contains all of the information used to create the IP Access Control List.
+  /// @param {IPAccessControlListRequest} request The request object that contains all the information used to create the IP Access Control List.
   /// @returns {Promise<ClientResponse<IPAccessControlListResponse>>}
   Future<ClientResponse<IPAccessControlListResponse, Errors>>
       createIPAccessControlList(
@@ -457,7 +457,7 @@ class FusionAuthClient {
   /// Creates an identity provider. You can optionally specify an Id for the identity provider, if not provided one will be generated.
   ///
   /// @param {String} identityProviderId (Optional) The Id of the identity provider. If not provided a secure random UUID will be generated.
-  /// @param {IdentityProviderRequest} request The request object that contains all of the information used to create the identity provider.
+  /// @param {IdentityProviderRequest} request The request object that contains all the information used to create the identity provider.
   /// @returns {Promise<ClientResponse<IdentityProviderResponse>>}
   Future<ClientResponse<IdentityProviderResponse, Errors>>
       createIdentityProvider(
@@ -475,7 +475,7 @@ class FusionAuthClient {
   /// Creates a Lambda. You can optionally specify an Id for the lambda, if not provided one will be generated.
   ///
   /// @param {String} lambdaId (Optional) The Id for the lambda. If not provided a secure random UUID will be generated.
-  /// @param {LambdaRequest} request The request object that contains all of the information used to create the lambda.
+  /// @param {LambdaRequest} request The request object that contains all the information used to create the lambda.
   /// @returns {Promise<ClientResponse<LambdaResponse>>}
   Future<ClientResponse<LambdaResponse, Errors>> createLambda(
       String lambdaId, LambdaRequest request) {
@@ -492,7 +492,7 @@ class FusionAuthClient {
   /// Creates an message template. You can optionally specify an Id for the template, if not provided one will be generated.
   ///
   /// @param {String} messageTemplateId (Optional) The Id for the template. If not provided a secure random UUID will be generated.
-  /// @param {MessageTemplateRequest} request The request object that contains all of the information used to create the message template.
+  /// @param {MessageTemplateRequest} request The request object that contains all the information used to create the message template.
   /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
   Future<ClientResponse<MessageTemplateResponse, Errors>> createMessageTemplate(
       String messageTemplateId, MessageTemplateRequest request) {
@@ -509,7 +509,7 @@ class FusionAuthClient {
   /// Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
   ///
   /// @param {String} messengerId (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
-  /// @param {MessengerRequest} request The request object that contains all of the information used to create the messenger.
+  /// @param {MessengerRequest} request The request object that contains all the information used to create the messenger.
   /// @returns {Promise<ClientResponse<MessengerResponse>>}
   Future<ClientResponse<MessengerResponse, Errors>> createMessenger(
       String messengerId, MessengerRequest request) {
@@ -526,7 +526,7 @@ class FusionAuthClient {
   /// Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
   ///
   /// @param {String} tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
-  /// @param {TenantRequest} request The request object that contains all of the information used to create the tenant.
+  /// @param {TenantRequest} request The request object that contains all the information used to create the tenant.
   /// @returns {Promise<ClientResponse<TenantResponse>>}
   Future<ClientResponse<TenantResponse, Errors>> createTenant(
       String tenantId, TenantRequest request) {
@@ -543,7 +543,7 @@ class FusionAuthClient {
   /// Creates a Theme. You can optionally specify an Id for the theme, if not provided one will be generated.
   ///
   /// @param {String} themeId (Optional) The Id for the theme. If not provided a secure random UUID will be generated.
-  /// @param {ThemeRequest} request The request object that contains all of the information used to create the theme.
+  /// @param {ThemeRequest} request The request object that contains all the information used to create the theme.
   /// @returns {Promise<ClientResponse<ThemeResponse>>}
   Future<ClientResponse<ThemeResponse, Errors>> createTheme(
       String themeId, ThemeRequest request) {
@@ -560,7 +560,7 @@ class FusionAuthClient {
   /// Creates a user. You can optionally specify an Id for the user, if not provided one will be generated.
   ///
   /// @param {String} userId (Optional) The Id for the user. If not provided a secure random UUID will be generated.
-  /// @param {UserRequest} request The request object that contains all of the information used to create the user.
+  /// @param {UserRequest} request The request object that contains all the information used to create the user.
   /// @returns {Promise<ClientResponse<UserResponse>>}
   Future<ClientResponse<UserResponse, Errors>> createUser(
       String userId, UserRequest request) {
@@ -578,7 +578,7 @@ class FusionAuthClient {
   /// that the user action can be applied to any user.
   ///
   /// @param {String} userActionId (Optional) The Id for the user action. If not provided a secure random UUID will be generated.
-  /// @param {UserActionRequest} request The request object that contains all of the information used to create the user action.
+  /// @param {UserActionRequest} request The request object that contains all the information used to create the user action.
   /// @returns {Promise<ClientResponse<UserActionResponse>>}
   Future<ClientResponse<UserActionResponse, Errors>> createUserAction(
       String userActionId, UserActionRequest request) {
@@ -596,7 +596,7 @@ class FusionAuthClient {
   /// successfully. Anytime after that the user action reason can be used.
   ///
   /// @param {String} userActionReasonId (Optional) The Id for the user action reason. If not provided a secure random UUID will be generated.
-  /// @param {UserActionReasonRequest} request The request object that contains all of the information used to create the user action reason.
+  /// @param {UserActionReasonRequest} request The request object that contains all the information used to create the user action reason.
   /// @returns {Promise<ClientResponse<UserActionReasonResponse>>}
   Future<ClientResponse<UserActionReasonResponse, Errors>>
       createUserActionReason(
@@ -630,7 +630,7 @@ class FusionAuthClient {
 
   /// Link an external user from a 3rd party identity provider to a FusionAuth user.
   ///
-  /// @param {IdentityProviderLinkRequest} request The request object that contains all of the information used to link the FusionAuth user.
+  /// @param {IdentityProviderLinkRequest} request The request object that contains all the information used to link the FusionAuth user.
   /// @returns {Promise<ClientResponse<IdentityProviderLinkResponse>>}
   Future<ClientResponse<IdentityProviderLinkResponse, Errors>> createUserLink(
       IdentityProviderLinkRequest request) {
@@ -646,7 +646,7 @@ class FusionAuthClient {
   /// Creates a webhook. You can optionally specify an Id for the webhook, if not provided one will be generated.
   ///
   /// @param {String} webhookId (Optional) The Id for the webhook. If not provided a secure random UUID will be generated.
-  /// @param {WebhookRequest} request The request object that contains all of the information used to create the webhook.
+  /// @param {WebhookRequest} request The request object that contains all the information used to create the webhook.
   /// @returns {Promise<ClientResponse<WebhookResponse>>}
   Future<ClientResponse<WebhookResponse, Errors>> createWebhook(
       String webhookId, WebhookRequest request) {
@@ -1072,7 +1072,7 @@ class FusionAuthClient {
   /// with the tenant and everything under the tenant (applications, users, etc).
   ///
   /// @param {String} tenantId The Id of the tenant to delete.
-  /// @param {TenantDeleteRequest} request The request object that contains all of the information used to delete the user.
+  /// @param {TenantDeleteRequest} request The request object that contains all the information used to delete the user.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> deleteTenantWithRequest(
       String tenantId, TenantDeleteRequest request) {
@@ -1160,7 +1160,7 @@ class FusionAuthClient {
   /// with the user.
   ///
   /// @param {String} userId The Id of the user to delete (required).
-  /// @param {UserDeleteSingleRequest} request The request object that contains all of the information used to delete the user.
+  /// @param {UserDeleteSingleRequest} request The request object that contains all the information used to delete the user.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> deleteUserWithRequest(
       String userId, UserDeleteSingleRequest request) {
@@ -1440,7 +1440,7 @@ class FusionAuthClient {
   /// Generate a new RSA or EC key pair or an HMAC secret.
   ///
   /// @param {String} keyId (Optional) The Id for the key. If not provided a secure random UUID will be generated.
-  /// @param {KeyRequest} request The request object that contains all of the information used to create the key.
+  /// @param {KeyRequest} request The request object that contains all the information used to create the key.
   /// @returns {Promise<ClientResponse<KeyResponse>>}
   Future<ClientResponse<KeyResponse, Errors>> generateKey(
       String keyId, KeyRequest request) {
@@ -1540,7 +1540,7 @@ class FusionAuthClient {
   /// Import an existing RSA or EC key pair or an HMAC secret.
   ///
   /// @param {String} keyId (Optional) The Id for the key. If not provided a secure random UUID will be generated.
-  /// @param {KeyRequest} request The request object that contains all of the information used to create the key.
+  /// @param {KeyRequest} request The request object that contains all the information used to create the key.
   /// @returns {Promise<ClientResponse<KeyResponse>>}
   Future<ClientResponse<KeyResponse, Errors>> importKey(
       String keyId, KeyRequest request) {
@@ -1698,7 +1698,7 @@ class FusionAuthClient {
   /// The Logout API is intended to be used to remove the refresh token and access token cookies if they exist on the
   /// client and revoke the refresh token stored. This API takes the refresh token in the JSON body.
   ///
-  /// @param {LogoutRequest} request The request object that contains all of the information used to logout the user.
+  /// @param {LogoutRequest} request The request object that contains all the information used to logout the user.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, void>> logoutWithRequest(LogoutRequest request) {
     return _startAnonymous<void, void>()
@@ -4101,7 +4101,7 @@ class FusionAuthClient {
 
   /// Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
   ///
-  /// @param {TwoFactorSendRequest} request The request object that contains all of the information used to send the code.
+  /// @param {TwoFactorSendRequest} request The request object that contains all the information used to send the code.
   /// @returns {Promise<ClientResponse<void>>}
   ///
   /// @deprecated This method has been renamed to sendTwoFactorCodeForEnableDisable, use that method instead.
@@ -4116,7 +4116,7 @@ class FusionAuthClient {
 
   /// Send a Two Factor authentication code to assist in setting up Two Factor authentication or disabling.
   ///
-  /// @param {TwoFactorSendRequest} request The request object that contains all of the information used to send the code.
+  /// @param {TwoFactorSendRequest} request The request object that contains all the information used to send the code.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> sendTwoFactorCodeForEnableDisable(
       TwoFactorSendRequest request) {
@@ -4228,7 +4228,7 @@ class FusionAuthClient {
   /// Updates an API key by given id
   ///
   /// @param {String} apiKeyId The Id of the API key to update.
-  /// @param {APIKeyRequest} request The request object that contains all of the information used to create the API Key.
+  /// @param {APIKeyRequest} request The request object that contains all the information used to create the API Key.
   /// @returns {Promise<ClientResponse<APIKeyResponse>>}
   Future<ClientResponse<APIKeyResponse, Errors>> updateAPIKey(
       String apiKeyId, APIKeyRequest request) {
@@ -4709,7 +4709,7 @@ class FusionAuthClient {
   /// Creates or updates an Entity Grant. This is when a User/Entity is granted permissions to an Entity.
   ///
   /// @param {String} entityId The Id of the Entity that the User/Entity is being granted access to.
-  /// @param {EntityGrantRequest} request The request object that contains all of the information used to create the Entity Grant.
+  /// @param {EntityGrantRequest} request The request object that contains all the information used to create the Entity Grant.
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> upsertEntityGrant(
       String entityId, EntityGrantRequest request) {
