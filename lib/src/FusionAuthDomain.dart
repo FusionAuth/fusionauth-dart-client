@@ -4422,6 +4422,7 @@ class LoginResponse {
   Map<String, dynamic> state;
   Set<AuthenticationThreats> threatsDetected;
   String token;
+  num tokenExpirationInstant;
   String twoFactorId;
   String twoFactorTrustId;
   User user;
@@ -4438,6 +4439,7 @@ class LoginResponse {
       this.state,
       this.threatsDetected,
       this.token,
+      this.tokenExpirationInstant,
       this.twoFactorId,
       this.twoFactorTrustId,
       this.user});
@@ -5793,6 +5795,7 @@ class RegistrationResponse {
   UserRegistration registration;
   String registrationVerificationId;
   String token;
+  num tokenExpirationInstant;
   User user;
 
   RegistrationResponse(
@@ -5800,6 +5803,7 @@ class RegistrationResponse {
       this.registration,
       this.registrationVerificationId,
       this.token,
+      this.tokenExpirationInstant,
       this.user});
 
   factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
@@ -8265,12 +8269,14 @@ class UserResponse {
   String emailVerificationId;
   Map<String, String> registrationVerificationIds;
   String token;
+  num tokenExpirationInstant;
   User user;
 
   UserResponse(
       {this.emailVerificationId,
       this.registrationVerificationIds,
       this.token,
+      this.tokenExpirationInstant,
       this.user});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>

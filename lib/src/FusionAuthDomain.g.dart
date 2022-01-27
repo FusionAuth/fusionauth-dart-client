@@ -4648,6 +4648,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
           .map((e) => _$enumDecode(_$AuthenticationThreatsEnumMap, e))
           .toSet(),
       token: json['token'] as String,
+      tokenExpirationInstant: json['tokenExpirationInstant'] as num,
       twoFactorId: json['twoFactorId'] as String,
       twoFactorTrustId: json['twoFactorTrustId'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
@@ -4669,6 +4670,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
           .map((e) => _$AuthenticationThreatsEnumMap[e])
           .toList(),
       'token': instance.token,
+      'tokenExpirationInstant': instance.tokenExpirationInstant,
       'twoFactorId': instance.twoFactorId,
       'twoFactorTrustId': instance.twoFactorTrustId,
       'user': instance.user,
@@ -6096,6 +6098,7 @@ RegistrationResponse _$RegistrationResponseFromJson(
           json['registration'] as Map<String, dynamic>),
       registrationVerificationId: json['registrationVerificationId'] as String,
       token: json['token'] as String,
+      tokenExpirationInstant: json['tokenExpirationInstant'] as num,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
@@ -6106,6 +6109,7 @@ Map<String, dynamic> _$RegistrationResponseToJson(
       'registration': instance.registration,
       'registrationVerificationId': instance.registrationVerificationId,
       'token': instance.token,
+      'tokenExpirationInstant': instance.tokenExpirationInstant,
       'user': instance.user,
     };
 
@@ -7854,6 +7858,7 @@ TwoFactorStartRequest _$TwoFactorStartRequestFromJson(
       code: json['code'] as String,
       loginId: json['loginId'] as String,
       state: json['state'] as Map<String, dynamic>,
+      userId: json['userId'] as String,
     );
 
 Map<String, dynamic> _$TwoFactorStartRequestToJson(
@@ -7863,6 +7868,7 @@ Map<String, dynamic> _$TwoFactorStartRequestToJson(
       'code': instance.code,
       'loginId': instance.loginId,
       'state': instance.state,
+      'userId': instance.userId,
     };
 
 TwoFactorStartResponse _$TwoFactorStartResponseFromJson(
@@ -9189,6 +9195,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       registrationVerificationIds:
           Map<String, String>.from(json['registrationVerificationIds'] as Map),
       token: json['token'] as String,
+      tokenExpirationInstant: json['tokenExpirationInstant'] as num,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
@@ -9197,6 +9204,7 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'emailVerificationId': instance.emailVerificationId,
       'registrationVerificationIds': instance.registrationVerificationIds,
       'token': instance.token,
+      'tokenExpirationInstant': instance.tokenExpirationInstant,
       'user': instance.user,
     };
 
