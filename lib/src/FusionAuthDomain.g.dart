@@ -1131,6 +1131,7 @@ ChangePasswordRequest _$ChangePasswordRequestFromJson(
         Map<String, dynamic> json) =>
     ChangePasswordRequest(
       applicationId: json['applicationId'] as String,
+      changePasswordId: json['changePasswordId'] as String,
       currentPassword: json['currentPassword'] as String,
       loginId: json['loginId'] as String,
       password: json['password'] as String,
@@ -1143,6 +1144,7 @@ Map<String, dynamic> _$ChangePasswordRequestToJson(
     <String, dynamic>{
       'eventInfo': instance.eventInfo,
       'applicationId': instance.applicationId,
+      'changePasswordId': instance.changePasswordId,
       'currentPassword': instance.currentPassword,
       'loginId': instance.loginId,
       'password': instance.password,

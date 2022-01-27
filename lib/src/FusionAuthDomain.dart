@@ -1027,6 +1027,7 @@ enum ChangePasswordReason {
 @JsonSerializable()
 class ChangePasswordRequest extends BaseEventRequest {
   String applicationId;
+  String changePasswordId;
   String currentPassword;
   String loginId;
   String password;
@@ -1034,6 +1035,7 @@ class ChangePasswordRequest extends BaseEventRequest {
 
   ChangePasswordRequest(
       {this.applicationId,
+      this.changePasswordId,
       this.currentPassword,
       this.loginId,
       this.password,
@@ -7195,9 +7197,10 @@ class TwoFactorStartRequest {
   String code;
   String loginId;
   Map<String, dynamic> state;
+  String userId;
 
   TwoFactorStartRequest(
-      {this.applicationId, this.code, this.loginId, this.state});
+      {this.applicationId, this.code, this.loginId, this.state, this.userId});
 
   factory TwoFactorStartRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorStartRequestFromJson(json);
