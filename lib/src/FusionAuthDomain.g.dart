@@ -1136,6 +1136,8 @@ ChangePasswordRequest _$ChangePasswordRequestFromJson(
       loginId: json['loginId'] as String,
       password: json['password'] as String,
       refreshToken: json['refreshToken'] as String,
+      trustChallenge: json['trustChallenge'] as String,
+      trustToken: json['trustToken'] as String,
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
@@ -1149,6 +1151,8 @@ Map<String, dynamic> _$ChangePasswordRequestToJson(
       'loginId': instance.loginId,
       'password': instance.password,
       'refreshToken': instance.refreshToken,
+      'trustChallenge': instance.trustChallenge,
+      'trustToken': instance.trustToken,
     };
 
 ChangePasswordResponse _$ChangePasswordResponseFromJson(
@@ -2408,6 +2412,8 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
           json['setupPasswordIdGenerator'] as Map<String, dynamic>),
       setupPasswordIdTimeToLiveInSeconds:
           json['setupPasswordIdTimeToLiveInSeconds'] as num,
+      trustTokenTimeToLiveInSeconds:
+          json['trustTokenTimeToLiveInSeconds'] as num,
       twoFactorIdTimeToLiveInSeconds:
           json['twoFactorIdTimeToLiveInSeconds'] as num,
       twoFactorOneTimeCodeIdGenerator: SecureGeneratorConfiguration.fromJson(
@@ -2453,6 +2459,7 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
       'setupPasswordIdGenerator': instance.setupPasswordIdGenerator,
       'setupPasswordIdTimeToLiveInSeconds':
           instance.setupPasswordIdTimeToLiveInSeconds,
+      'trustTokenTimeToLiveInSeconds': instance.trustTokenTimeToLiveInSeconds,
       'twoFactorIdTimeToLiveInSeconds': instance.twoFactorIdTimeToLiveInSeconds,
       'twoFactorOneTimeCodeIdGenerator':
           instance.twoFactorOneTimeCodeIdGenerator,
@@ -4651,6 +4658,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
           .toSet(),
       token: json['token'] as String,
       tokenExpirationInstant: json['tokenExpirationInstant'] as num,
+      trustToken: json['trustToken'] as String,
       twoFactorId: json['twoFactorId'] as String,
       twoFactorTrustId: json['twoFactorTrustId'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
@@ -4673,6 +4681,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
           .toList(),
       'token': instance.token,
       'tokenExpirationInstant': instance.tokenExpirationInstant,
+      'trustToken': instance.trustToken,
       'twoFactorId': instance.twoFactorId,
       'twoFactorTrustId': instance.twoFactorTrustId,
       'user': instance.user,
@@ -7860,6 +7869,7 @@ TwoFactorStartRequest _$TwoFactorStartRequestFromJson(
       code: json['code'] as String,
       loginId: json['loginId'] as String,
       state: json['state'] as Map<String, dynamic>,
+      trustChallenge: json['trustChallenge'] as String,
       userId: json['userId'] as String,
     );
 
@@ -7870,6 +7880,7 @@ Map<String, dynamic> _$TwoFactorStartRequestToJson(
       'code': instance.code,
       'loginId': instance.loginId,
       'state': instance.state,
+      'trustChallenge': instance.trustChallenge,
       'userId': instance.userId,
     };
 
