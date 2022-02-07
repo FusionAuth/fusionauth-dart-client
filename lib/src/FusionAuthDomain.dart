@@ -1032,6 +1032,8 @@ class ChangePasswordRequest extends BaseEventRequest {
   String loginId;
   String password;
   String refreshToken;
+  String trustChallenge;
+  String trustToken;
 
   ChangePasswordRequest(
       {this.applicationId,
@@ -1039,7 +1041,9 @@ class ChangePasswordRequest extends BaseEventRequest {
       this.currentPassword,
       this.loginId,
       this.password,
-      this.refreshToken});
+      this.refreshToken,
+      this.trustChallenge,
+      this.trustToken});
 
   factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordRequestFromJson(json);
@@ -2359,6 +2363,7 @@ class ExternalIdentifierConfiguration {
   num samlv2AuthNRequestIdTimeToLiveInSeconds;
   SecureGeneratorConfiguration setupPasswordIdGenerator;
   num setupPasswordIdTimeToLiveInSeconds;
+  num trustTokenTimeToLiveInSeconds;
   num twoFactorIdTimeToLiveInSeconds;
   SecureGeneratorConfiguration twoFactorOneTimeCodeIdGenerator;
   num twoFactorOneTimeCodeIdTimeToLiveInSeconds;
@@ -2384,6 +2389,7 @@ class ExternalIdentifierConfiguration {
       this.samlv2AuthNRequestIdTimeToLiveInSeconds,
       this.setupPasswordIdGenerator,
       this.setupPasswordIdTimeToLiveInSeconds,
+      this.trustTokenTimeToLiveInSeconds,
       this.twoFactorIdTimeToLiveInSeconds,
       this.twoFactorOneTimeCodeIdGenerator,
       this.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
@@ -4425,6 +4431,7 @@ class LoginResponse {
   Set<AuthenticationThreats> threatsDetected;
   String token;
   num tokenExpirationInstant;
+  String trustToken;
   String twoFactorId;
   String twoFactorTrustId;
   User user;
@@ -4442,6 +4449,7 @@ class LoginResponse {
       this.threatsDetected,
       this.token,
       this.tokenExpirationInstant,
+      this.trustToken,
       this.twoFactorId,
       this.twoFactorTrustId,
       this.user});
@@ -7197,10 +7205,16 @@ class TwoFactorStartRequest {
   String code;
   String loginId;
   Map<String, dynamic> state;
+  String trustChallenge;
   String userId;
 
   TwoFactorStartRequest(
-      {this.applicationId, this.code, this.loginId, this.state, this.userId});
+      {this.applicationId,
+      this.code,
+      this.loginId,
+      this.state,
+      this.trustChallenge,
+      this.userId});
 
   factory TwoFactorStartRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorStartRequestFromJson(json);
