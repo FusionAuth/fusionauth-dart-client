@@ -4039,11 +4039,14 @@ class KickstartSuccessEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$KickstartSuccessEventToJson(this);
 }
 
-// TODO : Future : This shouldn't be enableable
+/// A JavaScript lambda function that is executed during certain events inside FusionAuth.
+///
+/// @author Brian Pontarelli
 @JsonSerializable()
-class Lambda extends Enableable {
+class Lambda {
   String body;
   bool debug;
+  LambdaEngineType engineType;
   String id;
   num insertInstant;
   num lastUpdateInstant;
@@ -4053,6 +4056,7 @@ class Lambda extends Enableable {
   Lambda(
       {this.body,
       this.debug,
+      this.engineType,
       this.id,
       this.insertInstant,
       this.lastUpdateInstant,
@@ -4061,6 +4065,14 @@ class Lambda extends Enableable {
 
   factory Lambda.fromJson(Map<String, dynamic> json) => _$LambdaFromJson(json);
   Map<String, dynamic> toJson() => _$LambdaToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum LambdaEngineType {
+  @JsonValue('GraalJS')
+  GraalJS,
+  @JsonValue('Nashorn')
+  Nashorn
 }
 
 /// Lambda API request object.
@@ -5544,6 +5556,7 @@ class ReactorResponse {
 @JsonSerializable()
 class ReactorStatus {
   ReactorFeatureStatus advancedIdentityProviders;
+  ReactorFeatureStatus advancedLambdas;
   ReactorFeatureStatus advancedMultiFactorAuthentication;
   ReactorFeatureStatus advancedRegistration;
   ReactorFeatureStatus applicationThemes;
@@ -5555,6 +5568,7 @@ class ReactorStatus {
 
   ReactorStatus(
       {this.advancedIdentityProviders,
+      this.advancedLambdas,
       this.advancedMultiFactorAuthentication,
       this.advancedRegistration,
       this.applicationThemes,

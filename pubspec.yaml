@@ -1,6 +1,6 @@
 name: fusionauth_dart_client
 description: A starting point for Dart libraries or applications.
-version: 1.34.2
+version: 1.99.9
 homepage: https://github.com/FusionAuth/fusionauth-dart-client
 
 environment:

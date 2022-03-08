@@ -4216,23 +4216,29 @@ Map<String, dynamic> _$KickstartSuccessEventToJson(
 Lambda _$LambdaFromJson(Map<String, dynamic> json) => Lambda(
       body: json['body'] as String,
       debug: json['debug'] as bool,
+      engineType: _$enumDecode(_$LambdaEngineTypeEnumMap, json['engineType']),
       id: json['id'] as String,
       insertInstant: json['insertInstant'] as num,
       lastUpdateInstant: json['lastUpdateInstant'] as num,
       name: json['name'] as String,
       type: _$enumDecode(_$LambdaTypeEnumMap, json['type']),
-    )..enabled = json['enabled'] as bool;
+    );
 
 Map<String, dynamic> _$LambdaToJson(Lambda instance) => <String, dynamic>{
-      'enabled': instance.enabled,
       'body': instance.body,
       'debug': instance.debug,
+      'engineType': _$LambdaEngineTypeEnumMap[instance.engineType],
       'id': instance.id,
       'insertInstant': instance.insertInstant,
       'lastUpdateInstant': instance.lastUpdateInstant,
       'name': instance.name,
       'type': _$LambdaTypeEnumMap[instance.type],
     };
+
+const _$LambdaEngineTypeEnumMap = {
+  LambdaEngineType.GraalJS: 'GraalJS',
+  LambdaEngineType.Nashorn: 'Nashorn',
+};
 
 const _$LambdaTypeEnumMap = {
   LambdaType.JWTPopulate: 'JWTPopulate',
@@ -5834,6 +5840,8 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
     ReactorStatus(
       advancedIdentityProviders: _$enumDecode(
           _$ReactorFeatureStatusEnumMap, json['advancedIdentityProviders']),
+      advancedLambdas:
+          _$enumDecode(_$ReactorFeatureStatusEnumMap, json['advancedLambdas']),
       advancedMultiFactorAuthentication: _$enumDecode(
           _$ReactorFeatureStatusEnumMap,
           json['advancedMultiFactorAuthentication']),
@@ -5856,6 +5864,8 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
     <String, dynamic>{
       'advancedIdentityProviders':
           _$ReactorFeatureStatusEnumMap[instance.advancedIdentityProviders],
+      'advancedLambdas':
+          _$ReactorFeatureStatusEnumMap[instance.advancedLambdas],
       'advancedMultiFactorAuthentication': _$ReactorFeatureStatusEnumMap[
           instance.advancedMultiFactorAuthentication],
       'advancedRegistration':
