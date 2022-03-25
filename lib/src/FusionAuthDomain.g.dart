@@ -4998,6 +4998,8 @@ NintendoApplicationConfiguration _$NintendoApplicationConfigurationFromJson(
       buttonText: json['buttonText'] as String,
       client_id: json['client_id'] as String,
       client_secret: json['client_secret'] as String,
+      oauth2: IdentityProviderOauth2Configuration.fromJson(
+          json['oauth2'] as Map<String, dynamic>),
       scope: json['scope'] as String,
     )
       ..enabled = json['enabled'] as bool
@@ -5013,6 +5015,7 @@ Map<String, dynamic> _$NintendoApplicationConfigurationToJson(
       'buttonText': instance.buttonText,
       'client_id': instance.client_id,
       'client_secret': instance.client_secret,
+      'oauth2': instance.oauth2,
       'scope': instance.scope,
     };
 
@@ -5022,6 +5025,8 @@ NintendoIdentityProvider _$NintendoIdentityProviderFromJson(
       buttonText: json['buttonText'] as String,
       client_id: json['client_id'] as String,
       client_secret: json['client_secret'] as String,
+      oauth2: IdentityProviderOauth2Configuration.fromJson(
+          json['oauth2'] as Map<String, dynamic>),
       scope: json['scope'] as String,
     )
       ..enabled = json['enabled'] as bool
@@ -5077,6 +5082,7 @@ Map<String, dynamic> _$NintendoIdentityProviderToJson(
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
   val['client_secret'] = instance.client_secret;
+  val['oauth2'] = instance.oauth2;
   val['scope'] = instance.scope;
   return val;
 }
