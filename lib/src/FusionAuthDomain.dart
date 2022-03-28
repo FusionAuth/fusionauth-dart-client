@@ -4795,15 +4795,19 @@ class NintendoApplicationConfiguration
   String buttonText;
   String client_id;
   String client_secret;
-  IdentityProviderOauth2Configuration oauth2;
+  String emailClaim;
   String scope;
+  String uniqueIdClaim;
+  String usernameClaim;
 
   NintendoApplicationConfiguration(
       {this.buttonText,
       this.client_id,
       this.client_secret,
-      this.oauth2,
-      this.scope});
+      this.emailClaim,
+      this.scope,
+      this.uniqueIdClaim,
+      this.usernameClaim});
 
   factory NintendoApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
@@ -4821,15 +4825,19 @@ class NintendoIdentityProvider
   String buttonText;
   String client_id;
   String client_secret;
-  IdentityProviderOauth2Configuration oauth2;
+  String emailClaim;
   String scope;
+  String uniqueIdClaim;
+  String usernameClaim;
 
   NintendoIdentityProvider(
       {this.buttonText,
       this.client_id,
       this.client_secret,
-      this.oauth2,
-      this.scope});
+      this.emailClaim,
+      this.scope,
+      this.uniqueIdClaim,
+      this.usernameClaim});
 
   factory NintendoIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$NintendoIdentityProviderFromJson(json);
