@@ -2396,7 +2396,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the actions for the user with the given Id. This will return all time based actions that are active,
+  /// Retrieves all the actions for the user with the given Id. This will return all time based actions that are active,
   /// and inactive as well as non-time based actions.
   ///
   /// @param {String} userId The Id of the user to fetch the actions for.
@@ -2412,7 +2412,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the actions for the user with the given Id that are currently preventing the User from logging in.
+  /// Retrieves all the actions for the user with the given Id that are currently preventing the User from logging in.
   ///
   /// @param {String} userId The Id of the user to fetch the actions for.
   /// @returns {Promise<ClientResponse<ActionResponse>>}
@@ -2428,7 +2428,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the actions for the user with the given Id that are currently active.
+  /// Retrieves all the actions for the user with the given Id that are currently active.
   /// An active action means one that is time based and has not been canceled, and has not ended.
   ///
   /// @param {String} userId The Id of the user to fetch the actions for.
@@ -2460,7 +2460,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the applications.
+  /// Retrieves all the applications.
   ///
   /// @returns {Promise<ClientResponse<ApplicationResponse>>}
   Future<ClientResponse<ApplicationResponse, void>> retrieveApplications() {
@@ -2502,7 +2502,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the connectors.
+  /// Retrieves all the connectors.
   ///
   /// @returns {Promise<ClientResponse<ConnectorResponse>>}
   Future<ClientResponse<ConnectorResponse, void>> retrieveConnectors() {
@@ -2529,7 +2529,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the consent.
+  /// Retrieves all the consent.
   ///
   /// @returns {Promise<ClientResponse<ConsentResponse>>}
   Future<ClientResponse<ConsentResponse, void>> retrieveConsents() {
@@ -2593,7 +2593,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the email templates.
+  /// Retrieves all the email templates.
   ///
   /// @returns {Promise<ClientResponse<EmailTemplateResponse>>}
   Future<ClientResponse<EmailTemplateResponse, void>> retrieveEmailTemplates() {
@@ -2655,7 +2655,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the Entity Types.
+  /// Retrieves all the Entity Types.
   ///
   /// @returns {Promise<ClientResponse<EntityTypeResponse>>}
   Future<ClientResponse<EntityTypeResponse, Errors>> retrieveEntityTypes() {
@@ -2682,7 +2682,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the families that a user belongs to.
+  /// Retrieves all the families that a user belongs to.
   ///
   /// @param {String} userId The User's id
   /// @returns {Promise<ClientResponse<FamilyResponse>>}
@@ -2696,7 +2696,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the members of a family by the unique Family Id.
+  /// Retrieves all the members of a family by the unique Family Id.
   ///
   /// @param {String} familyId The unique Id of the Family.
   /// @returns {Promise<ClientResponse<FamilyResponse>>}
@@ -2740,7 +2740,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the forms fields
+  /// Retrieves all the forms fields
   ///
   /// @returns {Promise<ClientResponse<FormFieldResponse>>}
   Future<ClientResponse<FormFieldResponse, void>> retrieveFormFields() {
@@ -2752,7 +2752,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the forms.
+  /// Retrieves all the forms.
   ///
   /// @returns {Promise<ClientResponse<FormResponse>>}
   Future<ClientResponse<FormResponse, void>> retrieveForms() {
@@ -2778,7 +2778,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the groups.
+  /// Retrieves all the groups.
   ///
   /// @returns {Promise<ClientResponse<GroupResponse>>}
   Future<ClientResponse<GroupResponse, void>> retrieveGroups() {
@@ -2837,7 +2837,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the identity providers.
+  /// Retrieves all the identity providers.
   ///
   /// @returns {Promise<ClientResponse<IdentityProviderResponse>>}
   Future<ClientResponse<IdentityProviderResponse, void>>
@@ -2850,7 +2850,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the actions for the user with the given Id that are currently inactive.
+  /// Retrieves all the actions for the user with the given Id that are currently inactive.
   /// An inactive action means one that is time based and has been canceled or has expired, or is not time based.
   ///
   /// @param {String} userId The Id of the user to fetch the actions for.
@@ -2867,7 +2867,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the applications that are currently inactive.
+  /// Retrieves all the applications that are currently inactive.
   ///
   /// @returns {Promise<ClientResponse<ApplicationResponse>>}
   Future<ClientResponse<ApplicationResponse, void>>
@@ -2881,7 +2881,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the user actions that are currently inactive.
+  /// Retrieves all the user actions that are currently inactive.
   ///
   /// @returns {Promise<ClientResponse<UserActionResponse>>}
   Future<ClientResponse<UserActionResponse, void>>
@@ -2975,7 +2975,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the keys.
+  /// Retrieves all the keys.
   ///
   /// @returns {Promise<ClientResponse<KeyResponse>>}
   Future<ClientResponse<KeyResponse, void>> retrieveKeys() {
@@ -3002,7 +3002,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the lambdas.
+  /// Retrieves all the lambdas.
   ///
   /// @returns {Promise<ClientResponse<LambdaResponse>>}
   Future<ClientResponse<LambdaResponse, void>> retrieveLambdas() {
@@ -3014,7 +3014,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the lambdas for the provided type.
+  /// Retrieves all the lambdas for the provided type.
   ///
   /// @param {LambdaType} type The type of the lambda to return.
   /// @returns {Promise<ClientResponse<LambdaResponse>>}
@@ -3079,7 +3079,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the message templates.
+  /// Retrieves all the message templates.
   ///
   /// @returns {Promise<ClientResponse<MessageTemplateResponse>>}
   Future<ClientResponse<MessageTemplateResponse, void>>
@@ -3107,7 +3107,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the messengers.
+  /// Retrieves all the messengers.
   ///
   /// @returns {Promise<ClientResponse<MessengerResponse>>}
   Future<ClientResponse<MessengerResponse, void>> retrieveMessengers() {
@@ -3201,7 +3201,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the children for the given parent email address.
+  /// Retrieves all the children for the given parent email address.
   ///
   /// @param {String} parentEmail The email of the parent.
   /// @returns {Promise<ClientResponse<PendingResponse>>}
@@ -3364,7 +3364,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the tenants.
+  /// Retrieves all the tenants.
   ///
   /// @returns {Promise<ClientResponse<TenantResponse>>}
   Future<ClientResponse<TenantResponse, void>> retrieveTenants() {
@@ -3390,7 +3390,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the themes.
+  /// Retrieves all the themes.
   ///
   /// @returns {Promise<ClientResponse<ThemeResponse>>}
   Future<ClientResponse<ThemeResponse, void>> retrieveThemes() {
@@ -3489,7 +3489,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the user actions.
+  /// Retrieves all the user actions.
   ///
   /// @returns {Promise<ClientResponse<UserActionResponse>>}
   Future<ClientResponse<UserActionResponse, void>> retrieveUserActions() {
@@ -3578,7 +3578,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the comments for the user with the given Id.
+  /// Retrieves all the comments for the user with the given Id.
   ///
   /// @param {String} userId The Id of the user.
   /// @returns {Promise<ClientResponse<UserCommentResponse>>}
@@ -3608,7 +3608,7 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves all of the consents for a User.
+  /// Retrieves all the consents for a User.
   ///
   /// @param {String} userId The User's Id
   /// @returns {Promise<ClientResponse<UserConsentResponse>>}
@@ -3928,9 +3928,9 @@ class FusionAuthClient {
   ///
   /// @param {AuditLogSearchRequest} request The search criteria and pagination information.
   /// @returns {Promise<ClientResponse<AuditLogSearchResponse>>}
-  Future<ClientResponse<AuditLogSearchResponse, void>> searchAuditLogs(
+  Future<ClientResponse<AuditLogSearchResponse, Errors>> searchAuditLogs(
       AuditLogSearchRequest request) {
-    return _start<AuditLogSearchResponse, void>()
+    return _start<AuditLogSearchResponse, Errors>()
         .withUri('/api/system/audit-log/search')
         .withJSONBody(request)
         .withMethod('POST')
@@ -3988,9 +3988,9 @@ class FusionAuthClient {
   ///
   /// @param {EntityTypeSearchRequest} request The search criteria and pagination information.
   /// @returns {Promise<ClientResponse<EntityTypeSearchResponse>>}
-  Future<ClientResponse<EntityTypeSearchResponse, void>> searchEntityTypes(
+  Future<ClientResponse<EntityTypeSearchResponse, Errors>> searchEntityTypes(
       EntityTypeSearchRequest request) {
-    return _start<EntityTypeSearchResponse, void>()
+    return _start<EntityTypeSearchResponse, Errors>()
         .withUri('/api/entity/type/search')
         .withJSONBody(request)
         .withMethod('POST')
@@ -4003,9 +4003,9 @@ class FusionAuthClient {
   ///
   /// @param {EventLogSearchRequest} request The search criteria and pagination information.
   /// @returns {Promise<ClientResponse<EventLogSearchResponse>>}
-  Future<ClientResponse<EventLogSearchResponse, void>> searchEventLogs(
+  Future<ClientResponse<EventLogSearchResponse, Errors>> searchEventLogs(
       EventLogSearchRequest request) {
-    return _start<EventLogSearchResponse, void>()
+    return _start<EventLogSearchResponse, Errors>()
         .withUri('/api/system/event-log/search')
         .withJSONBody(request)
         .withMethod('POST')
@@ -4014,13 +4014,28 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches group members with the specified criteria and pagination.
+  ///
+  /// @param {GroupMemberSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<GroupMemberSearchResponse>>}
+  Future<ClientResponse<GroupMemberSearchResponse, Errors>> searchGroupMembers(
+      GroupMemberSearchRequest request) {
+    return _start<GroupMemberSearchResponse, Errors>()
+        .withUri('/api/group/member/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => GroupMemberSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the IP Access Control Lists with the specified criteria and pagination.
   ///
   /// @param {IPAccessControlListSearchRequest} request The search criteria and pagination information.
   /// @returns {Promise<ClientResponse<IPAccessControlListSearchResponse>>}
-  Future<ClientResponse<IPAccessControlListSearchResponse, void>>
+  Future<ClientResponse<IPAccessControlListSearchResponse, Errors>>
       searchIPAccessControlLists(IPAccessControlListSearchRequest request) {
-    return _start<IPAccessControlListSearchResponse, void>()
+    return _start<IPAccessControlListSearchResponse, Errors>()
         .withUri('/api/ip-acl/search')
         .withJSONBody(request)
         .withMethod('POST')
@@ -4033,9 +4048,9 @@ class FusionAuthClient {
   ///
   /// @param {LoginRecordSearchRequest} request The search criteria and pagination information.
   /// @returns {Promise<ClientResponse<LoginRecordSearchResponse>>}
-  Future<ClientResponse<LoginRecordSearchResponse, void>> searchLoginRecords(
+  Future<ClientResponse<LoginRecordSearchResponse, Errors>> searchLoginRecords(
       LoginRecordSearchRequest request) {
-    return _start<LoginRecordSearchResponse, void>()
+    return _start<LoginRecordSearchResponse, Errors>()
         .withUri('/api/system/login-record/search')
         .withJSONBody(request)
         .withMethod('POST')
@@ -4486,6 +4501,21 @@ class FusionAuthClient {
         .withMethod('PUT')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => GroupResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Creates a member in a group.
+  ///
+  /// @param {MemberRequest} request The request object that contains all the information used to create the group member(s).
+  /// @returns {Promise<ClientResponse<MemberResponse>>}
+  Future<ClientResponse<MemberResponse, Errors>> updateGroupMembers(
+      MemberRequest request) {
+    return _start<MemberResponse, Errors>()
+        .withUri('/api/group/member')
+        .withJSONBody(request)
+        .withMethod('PUT')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => MemberResponse.fromJson(d)))
         .go();
   }
 

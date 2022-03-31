@@ -3216,6 +3216,7 @@ GroupMember _$GroupMemberFromJson(Map<String, dynamic> json) => GroupMember(
       groupId: json['groupId'] as String,
       id: json['id'] as String,
       insertInstant: json['insertInstant'] as num,
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
       userId: json['userId'] as String,
     );
 
@@ -3225,7 +3226,57 @@ Map<String, dynamic> _$GroupMemberToJson(GroupMember instance) =>
       'groupId': instance.groupId,
       'id': instance.id,
       'insertInstant': instance.insertInstant,
+      'user': instance.user,
       'userId': instance.userId,
+    };
+
+GroupMemberSearchCriteria _$GroupMemberSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    GroupMemberSearchCriteria(
+      groupId: json['groupId'] as String,
+      userId: json['userId'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$GroupMemberSearchCriteriaToJson(
+        GroupMemberSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'groupId': instance.groupId,
+      'userId': instance.userId,
+    };
+
+GroupMemberSearchRequest _$GroupMemberSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    GroupMemberSearchRequest(
+      search: GroupMemberSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GroupMemberSearchRequestToJson(
+        GroupMemberSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+GroupMemberSearchResponse _$GroupMemberSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    GroupMemberSearchResponse(
+      members: (json['members'] as List<dynamic>)
+          .map((e) => GroupMember.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$GroupMemberSearchResponseToJson(
+        GroupMemberSearchResponse instance) =>
+    <String, dynamic>{
+      'members': instance.members,
+      'total': instance.total,
     };
 
 GroupRequest _$GroupRequestFromJson(Map<String, dynamic> json) => GroupRequest(
@@ -4260,6 +4311,11 @@ const _$LambdaTypeEnumMap = {
   LambdaType.TwitchReconcile: 'TwitchReconcile',
   LambdaType.XboxReconcile: 'XboxReconcile',
   LambdaType.ClientCredentialsJWTPopulate: 'ClientCredentialsJWTPopulate',
+  LambdaType.SCIMServerGroupRequestConverter: 'SCIMServerGroupRequestConverter',
+  LambdaType.SCIMServerGroupResponseConverter:
+      'SCIMServerGroupResponseConverter',
+  LambdaType.SCIMServerUserRequestConverter: 'SCIMServerUserRequestConverter',
+  LambdaType.SCIMServerUserResponseConverter: 'SCIMServerUserResponseConverter',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) =>
@@ -5856,6 +5912,8 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
       entityManagement:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['entityManagement']),
       licensed: json['licensed'] as bool,
+      scimServer:
+          _$enumDecode(_$ReactorFeatureStatusEnumMap, json['scimServer']),
       threatDetection:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['threatDetection']),
     );
@@ -5878,6 +5936,7 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
       'entityManagement':
           _$ReactorFeatureStatusEnumMap[instance.entityManagement],
       'licensed': instance.licensed,
+      'scimServer': _$ReactorFeatureStatusEnumMap[instance.scimServer],
       'threatDetection':
           _$ReactorFeatureStatusEnumMap[instance.threatDetection],
     };
@@ -6903,6 +6962,7 @@ SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) =>
       loginRecordConfiguration: LoginRecordConfiguration.fromJson(
           json['loginRecordConfiguration'] as Map<String, dynamic>),
       reportTimezone: json['reportTimezone'] as String,
+      state: Map<String, String>.from(json['state'] as Map),
       uiConfiguration: UIConfiguration.fromJson(
           json['uiConfiguration'] as Map<String, dynamic>),
     );
@@ -6918,6 +6978,7 @@ Map<String, dynamic> _$SystemConfigurationToJson(
       'lastUpdateInstant': instance.lastUpdateInstant,
       'loginRecordConfiguration': instance.loginRecordConfiguration,
       'reportTimezone': instance.reportTimezone,
+      'state': instance.state,
       'uiConfiguration': instance.uiConfiguration,
     };
 
@@ -7083,6 +7144,8 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) => Tenant(
       issuer: json['issuer'] as String,
       jwtConfiguration: JWTConfiguration.fromJson(
           json['jwtConfiguration'] as Map<String, dynamic>),
+      lambdaConfiguration: TenantLambdaConfiguration.fromJson(
+          json['lambdaConfiguration'] as Map<String, dynamic>),
       lastUpdateInstant: json['lastUpdateInstant'] as num,
       loginConfiguration: TenantLoginConfiguration.fromJson(
           json['loginConfiguration'] as Map<String, dynamic>),
@@ -7104,6 +7167,8 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) => Tenant(
           json['rateLimitConfiguration'] as Map<String, dynamic>),
       registrationConfiguration: TenantRegistrationConfiguration.fromJson(
           json['registrationConfiguration'] as Map<String, dynamic>),
+      scimServerConfiguration: TenantSCIMServerConfiguration.fromJson(
+          json['scimServerConfiguration'] as Map<String, dynamic>),
       ssoConfiguration: TenantSSOConfiguration.fromJson(
           json['ssoConfiguration'] as Map<String, dynamic>),
       state: _$enumDecode(_$ObjectStateEnumMap, json['state']),
@@ -7133,6 +7198,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) => <String, dynamic>{
       'insertInstant': instance.insertInstant,
       'issuer': instance.issuer,
       'jwtConfiguration': instance.jwtConfiguration,
+      'lambdaConfiguration': instance.lambdaConfiguration,
       'lastUpdateInstant': instance.lastUpdateInstant,
       'loginConfiguration': instance.loginConfiguration,
       'logoutURL': instance.logoutURL,
@@ -7146,6 +7212,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) => <String, dynamic>{
       'passwordValidationRules': instance.passwordValidationRules,
       'rateLimitConfiguration': instance.rateLimitConfiguration,
       'registrationConfiguration': instance.registrationConfiguration,
+      'scimServerConfiguration': instance.scimServerConfiguration,
       'ssoConfiguration': instance.ssoConfiguration,
       'state': _$ObjectStateEnumMap[instance.state],
       'themeId': instance.themeId,
@@ -7220,6 +7287,35 @@ Map<String, dynamic> _$TenantFormConfigurationToJson(
         TenantFormConfiguration instance) =>
     <String, dynamic>{
       'adminUserFormId': instance.adminUserFormId,
+    };
+
+TenantLambdaConfiguration _$TenantLambdaConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    TenantLambdaConfiguration(
+      scimEnterpriseUserRequestConverterId:
+          json['scimEnterpriseUserRequestConverterId'] as String,
+      scimEnterpriseUserResponseConverterId:
+          json['scimEnterpriseUserResponseConverterId'] as String,
+      scimGroupRequestConverterId:
+          json['scimGroupRequestConverterId'] as String,
+      scimGroupResponseConverterId:
+          json['scimGroupResponseConverterId'] as String,
+      scimUserRequestConverterId: json['scimUserRequestConverterId'] as String,
+      scimUserResponseConverterId:
+          json['scimUserResponseConverterId'] as String,
+    );
+
+Map<String, dynamic> _$TenantLambdaConfigurationToJson(
+        TenantLambdaConfiguration instance) =>
+    <String, dynamic>{
+      'scimEnterpriseUserRequestConverterId':
+          instance.scimEnterpriseUserRequestConverterId,
+      'scimEnterpriseUserResponseConverterId':
+          instance.scimEnterpriseUserResponseConverterId,
+      'scimGroupRequestConverterId': instance.scimGroupRequestConverterId,
+      'scimGroupResponseConverterId': instance.scimGroupResponseConverterId,
+      'scimUserRequestConverterId': instance.scimUserRequestConverterId,
+      'scimUserResponseConverterId': instance.scimUserResponseConverterId,
     };
 
 TenantLoginConfiguration _$TenantLoginConfigurationFromJson(
@@ -7334,6 +7430,23 @@ Map<String, dynamic> _$TenantResponseToJson(TenantResponse instance) =>
     <String, dynamic>{
       'tenant': instance.tenant,
       'tenants': instance.tenants,
+    };
+
+TenantSCIMServerConfiguration _$TenantSCIMServerConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    TenantSCIMServerConfiguration(
+      clientEntityTypeId: json['clientEntityTypeId'] as String,
+      schemas: json['schemas'] as Map<String, dynamic>,
+      serverEntityTypeId: json['serverEntityTypeId'] as String,
+    )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$TenantSCIMServerConfigurationToJson(
+        TenantSCIMServerConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'clientEntityTypeId': instance.clientEntityTypeId,
+      'schemas': instance.schemas,
+      'serverEntityTypeId': instance.serverEntityTypeId,
     };
 
 TenantSSOConfiguration _$TenantSSOConfigurationFromJson(

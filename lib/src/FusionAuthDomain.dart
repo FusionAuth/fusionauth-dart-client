@@ -1981,7 +1981,7 @@ class EntityTypeSearchRequest {
   Map<String, dynamic> toJson() => _$EntityTypeSearchRequestToJson(this);
 }
 
-/// Search request for entity types.
+/// Search response for entity types.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -3049,14 +3049,64 @@ class GroupMember {
   String groupId;
   String id;
   num insertInstant;
+  User user;
   String userId;
 
   GroupMember(
-      {this.data, this.groupId, this.id, this.insertInstant, this.userId});
+      {this.data,
+      this.groupId,
+      this.id,
+      this.insertInstant,
+      this.user,
+      this.userId});
 
   factory GroupMember.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberFromJson(json);
   Map<String, dynamic> toJson() => _$GroupMemberToJson(this);
+}
+
+/// Search criteria for Group Members
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberSearchCriteria extends BaseSearchCriteria {
+  String groupId;
+  String userId;
+
+  GroupMemberSearchCriteria({this.groupId, this.userId});
+
+  factory GroupMemberSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberSearchCriteriaToJson(this);
+}
+
+/// Search request for Group Members.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberSearchRequest {
+  GroupMemberSearchCriteria search;
+
+  GroupMemberSearchRequest({this.search});
+
+  factory GroupMemberSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberSearchRequestToJson(this);
+}
+
+/// Search response for Group Members
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberSearchResponse {
+  List<GroupMember> members;
+  num total;
+
+  GroupMemberSearchResponse({this.members, this.total});
+
+  factory GroupMemberSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberSearchResponseToJson(this);
 }
 
 /// Group API request object.
@@ -4145,7 +4195,15 @@ enum LambdaType {
   @JsonValue('XboxReconcile')
   XboxReconcile,
   @JsonValue('ClientCredentialsJWTPopulate')
-  ClientCredentialsJWTPopulate
+  ClientCredentialsJWTPopulate,
+  @JsonValue('SCIMServerGroupRequestConverter')
+  SCIMServerGroupRequestConverter,
+  @JsonValue('SCIMServerGroupResponseConverter')
+  SCIMServerGroupResponseConverter,
+  @JsonValue('SCIMServerUserRequestConverter')
+  SCIMServerUserRequestConverter,
+  @JsonValue('SCIMServerUserResponseConverter')
+  SCIMServerUserResponseConverter
 }
 
 /// Models an LDAP connector.
@@ -5564,6 +5622,7 @@ class ReactorStatus {
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
   bool licensed;
+  ReactorFeatureStatus scimServer;
   ReactorFeatureStatus threatDetection;
 
   ReactorStatus(
@@ -5576,6 +5635,7 @@ class ReactorStatus {
       this.connectors,
       this.entityManagement,
       this.licensed,
+      this.scimServer,
       this.threatDetection});
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
@@ -6386,6 +6446,7 @@ class SystemConfiguration {
   num lastUpdateInstant;
   LoginRecordConfiguration loginRecordConfiguration;
   String reportTimezone;
+  Map<String, String> state;
   UIConfiguration uiConfiguration;
 
   SystemConfiguration(
@@ -6397,6 +6458,7 @@ class SystemConfiguration {
       this.lastUpdateInstant,
       this.loginRecordConfiguration,
       this.reportTimezone,
+      this.state,
       this.uiConfiguration});
 
   factory SystemConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -6549,6 +6611,7 @@ class Tenant {
   num insertInstant;
   String issuer;
   JWTConfiguration jwtConfiguration;
+  TenantLambdaConfiguration lambdaConfiguration;
   num lastUpdateInstant;
   TenantLoginConfiguration loginConfiguration;
   String logoutURL;
@@ -6561,6 +6624,7 @@ class Tenant {
   PasswordValidationRules passwordValidationRules;
   TenantRateLimitConfiguration rateLimitConfiguration;
   TenantRegistrationConfiguration registrationConfiguration;
+  TenantSCIMServerConfiguration scimServerConfiguration;
   TenantSSOConfiguration ssoConfiguration;
   ObjectState state;
   String themeId;
@@ -6584,6 +6648,7 @@ class Tenant {
       this.insertInstant,
       this.issuer,
       this.jwtConfiguration,
+      this.lambdaConfiguration,
       this.lastUpdateInstant,
       this.loginConfiguration,
       this.logoutURL,
@@ -6596,6 +6661,7 @@ class Tenant {
       this.passwordValidationRules,
       this.rateLimitConfiguration,
       this.registrationConfiguration,
+      this.scimServerConfiguration,
       this.ssoConfiguration,
       this.state,
       this.themeId,
@@ -6670,6 +6736,29 @@ class TenantFormConfiguration {
   factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantFormConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantFormConfigurationToJson(this);
+}
+
+/// @author Rob Davis
+@JsonSerializable()
+class TenantLambdaConfiguration {
+  String scimEnterpriseUserRequestConverterId;
+  String scimEnterpriseUserResponseConverterId;
+  String scimGroupRequestConverterId;
+  String scimGroupResponseConverterId;
+  String scimUserRequestConverterId;
+  String scimUserResponseConverterId;
+
+  TenantLambdaConfiguration(
+      {this.scimEnterpriseUserRequestConverterId,
+      this.scimEnterpriseUserResponseConverterId,
+      this.scimGroupRequestConverterId,
+      this.scimGroupResponseConverterId,
+      this.scimUserRequestConverterId,
+      this.scimUserResponseConverterId});
+
+  factory TenantLambdaConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantLambdaConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantLambdaConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -6770,6 +6859,21 @@ class TenantResponse {
   factory TenantResponse.fromJson(Map<String, dynamic> json) =>
       _$TenantResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TenantResponseToJson(this);
+}
+
+/// @author Rob Davis
+@JsonSerializable()
+class TenantSCIMServerConfiguration extends Enableable {
+  String clientEntityTypeId;
+  Map<String, dynamic> schemas;
+  String serverEntityTypeId;
+
+  TenantSCIMServerConfiguration(
+      {this.clientEntityTypeId, this.schemas, this.serverEntityTypeId});
+
+  factory TenantSCIMServerConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantSCIMServerConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantSCIMServerConfigurationToJson(this);
 }
 
 /// @author Brett Pontarelli
