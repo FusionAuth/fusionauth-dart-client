@@ -706,6 +706,8 @@ const _$EventTypeEnumMap = {
   EventType.UserBulkCreate: 'UserBulkCreate',
   EventType.UserCreate: 'UserCreate',
   EventType.UserCreateComplete: 'UserCreateComplete',
+  EventType.UserIdPLink: 'UserIdPLink',
+  EventType.UserIdPUnlink: 'UserIdPUnlink',
   EventType.UserDeactivate: 'UserDeactivate',
   EventType.UserDelete: 'UserDelete',
   EventType.UserDeleteComplete: 'UserDeleteComplete',
@@ -3423,11 +3425,13 @@ IdentityProviderLinkRequest _$IdentityProviderLinkRequestFromJson(
       identityProviderUserId: json['identityProviderUserId'] as String,
       pendingIdPLinkId: json['pendingIdPLinkId'] as String,
       userId: json['userId'] as String,
-    );
+    )..eventInfo =
+        EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$IdentityProviderLinkRequestToJson(
         IdentityProviderLinkRequest instance) =>
     <String, dynamic>{
+      'eventInfo': instance.eventInfo,
       'displayName': instance.displayName,
       'identityProviderId': instance.identityProviderId,
       'identityProviderUserId': instance.identityProviderUserId,
@@ -8623,6 +8627,54 @@ Map<String, dynamic> _$UserEmailVerifiedEventToJson(
       'info': instance.info,
       'tenantId': instance.tenantId,
       'type': _$EventTypeEnumMap[instance.type],
+      'user': instance.user,
+    };
+
+UserIdentityProviderLinkEvent _$UserIdentityProviderLinkEventFromJson(
+        Map<String, dynamic> json) =>
+    UserIdentityProviderLinkEvent(
+      IdPName: json['IdPName'] as String,
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+    )
+      ..createInstant = json['createInstant'] as num
+      ..id = json['id'] as String
+      ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+      ..tenantId = json['tenantId'] as String
+      ..type = _$enumDecode(_$EventTypeEnumMap, json['type']);
+
+Map<String, dynamic> _$UserIdentityProviderLinkEventToJson(
+        UserIdentityProviderLinkEvent instance) =>
+    <String, dynamic>{
+      'createInstant': instance.createInstant,
+      'id': instance.id,
+      'info': instance.info,
+      'tenantId': instance.tenantId,
+      'type': _$EventTypeEnumMap[instance.type],
+      'IdPName': instance.IdPName,
+      'user': instance.user,
+    };
+
+UserIdentityProviderUnLinkEvent _$UserIdentityProviderUnLinkEventFromJson(
+        Map<String, dynamic> json) =>
+    UserIdentityProviderUnLinkEvent(
+      IdPName: json['IdPName'] as String,
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+    )
+      ..createInstant = json['createInstant'] as num
+      ..id = json['id'] as String
+      ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+      ..tenantId = json['tenantId'] as String
+      ..type = _$enumDecode(_$EventTypeEnumMap, json['type']);
+
+Map<String, dynamic> _$UserIdentityProviderUnLinkEventToJson(
+        UserIdentityProviderUnLinkEvent instance) =>
+    <String, dynamic>{
+      'createInstant': instance.createInstant,
+      'id': instance.id,
+      'info': instance.info,
+      'tenantId': instance.tenantId,
+      'type': _$EventTypeEnumMap[instance.type],
+      'IdPName': instance.IdPName,
       'user': instance.user,
     };
 
