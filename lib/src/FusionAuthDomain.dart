@@ -6446,7 +6446,6 @@ class SystemConfiguration {
   num lastUpdateInstant;
   LoginRecordConfiguration loginRecordConfiguration;
   String reportTimezone;
-  Map<String, String> state;
   UIConfiguration uiConfiguration;
 
   SystemConfiguration(
@@ -6458,7 +6457,6 @@ class SystemConfiguration {
       this.lastUpdateInstant,
       this.loginRecordConfiguration,
       this.reportTimezone,
-      this.state,
       this.uiConfiguration});
 
   factory SystemConfiguration.fromJson(Map<String, dynamic> json) =>

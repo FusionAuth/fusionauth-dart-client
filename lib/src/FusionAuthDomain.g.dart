@@ -6962,7 +6962,6 @@ SystemConfiguration _$SystemConfigurationFromJson(Map<String, dynamic> json) =>
       loginRecordConfiguration: LoginRecordConfiguration.fromJson(
           json['loginRecordConfiguration'] as Map<String, dynamic>),
       reportTimezone: json['reportTimezone'] as String,
-      state: Map<String, String>.from(json['state'] as Map),
       uiConfiguration: UIConfiguration.fromJson(
           json['uiConfiguration'] as Map<String, dynamic>),
     );
@@ -6978,7 +6977,6 @@ Map<String, dynamic> _$SystemConfigurationToJson(
       'lastUpdateInstant': instance.lastUpdateInstant,
       'loginRecordConfiguration': instance.loginRecordConfiguration,
       'reportTimezone': instance.reportTimezone,
-      'state': instance.state,
       'uiConfiguration': instance.uiConfiguration,
     };
 
