@@ -5054,7 +5054,10 @@ NintendoApplicationConfiguration _$NintendoApplicationConfigurationFromJson(
       buttonText: json['buttonText'] as String,
       client_id: json['client_id'] as String,
       client_secret: json['client_secret'] as String,
+      emailClaim: json['emailClaim'] as String,
       scope: json['scope'] as String,
+      uniqueIdClaim: json['uniqueIdClaim'] as String,
+      usernameClaim: json['usernameClaim'] as String,
     )
       ..enabled = json['enabled'] as bool
       ..createRegistration = json['createRegistration'] as bool
@@ -5069,7 +5072,10 @@ Map<String, dynamic> _$NintendoApplicationConfigurationToJson(
       'buttonText': instance.buttonText,
       'client_id': instance.client_id,
       'client_secret': instance.client_secret,
+      'emailClaim': instance.emailClaim,
       'scope': instance.scope,
+      'uniqueIdClaim': instance.uniqueIdClaim,
+      'usernameClaim': instance.usernameClaim,
     };
 
 NintendoIdentityProvider _$NintendoIdentityProviderFromJson(
@@ -5078,7 +5084,10 @@ NintendoIdentityProvider _$NintendoIdentityProviderFromJson(
       buttonText: json['buttonText'] as String,
       client_id: json['client_id'] as String,
       client_secret: json['client_secret'] as String,
+      emailClaim: json['emailClaim'] as String,
       scope: json['scope'] as String,
+      uniqueIdClaim: json['uniqueIdClaim'] as String,
+      usernameClaim: json['usernameClaim'] as String,
     )
       ..enabled = json['enabled'] as bool
       ..applicationConfiguration =
@@ -5133,7 +5142,10 @@ Map<String, dynamic> _$NintendoIdentityProviderToJson(
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
   val['client_secret'] = instance.client_secret;
+  val['emailClaim'] = instance.emailClaim;
   val['scope'] = instance.scope;
+  val['uniqueIdClaim'] = instance.uniqueIdClaim;
+  val['usernameClaim'] = instance.usernameClaim;
   return val;
 }
 
@@ -5251,6 +5263,9 @@ OAuthError _$OAuthErrorFromJson(Map<String, dynamic> json) => OAuthError(
           _$enumDecode(_$OAuthErrorReasonEnumMap, json['error_reason']),
       error_uri: json['error_uri'] as String,
       two_factor_id: json['two_factor_id'] as String,
+      two_factor_methods: (json['two_factor_methods'] as List<dynamic>)
+          .map((e) => TwoFactorMethod.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$OAuthErrorToJson(OAuthError instance) =>
@@ -5261,6 +5276,7 @@ Map<String, dynamic> _$OAuthErrorToJson(OAuthError instance) =>
       'error_reason': _$OAuthErrorReasonEnumMap[instance.error_reason],
       'error_uri': instance.error_uri,
       'two_factor_id': instance.two_factor_id,
+      'two_factor_methods': instance.two_factor_methods,
     };
 
 const _$OAuthErrorTypeEnumMap = {
@@ -5911,6 +5927,7 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['connectors']),
       entityManagement:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['entityManagement']),
+      expiration: json['expiration'] as String,
       licensed: json['licensed'] as bool,
       scimServer:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['scimServer']),
@@ -5935,6 +5952,7 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
       'connectors': _$ReactorFeatureStatusEnumMap[instance.connectors],
       'entityManagement':
           _$ReactorFeatureStatusEnumMap[instance.entityManagement],
+      'expiration': instance.expiration,
       'licensed': instance.licensed,
       'scimServer': _$ReactorFeatureStatusEnumMap[instance.scimServer],
       'threatDetection':

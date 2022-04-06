@@ -4853,10 +4853,19 @@ class NintendoApplicationConfiguration
   String buttonText;
   String client_id;
   String client_secret;
+  String emailClaim;
   String scope;
+  String uniqueIdClaim;
+  String usernameClaim;
 
   NintendoApplicationConfiguration(
-      {this.buttonText, this.client_id, this.client_secret, this.scope});
+      {this.buttonText,
+      this.client_id,
+      this.client_secret,
+      this.emailClaim,
+      this.scope,
+      this.uniqueIdClaim,
+      this.usernameClaim});
 
   factory NintendoApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
@@ -4874,10 +4883,19 @@ class NintendoIdentityProvider
   String buttonText;
   String client_id;
   String client_secret;
+  String emailClaim;
   String scope;
+  String uniqueIdClaim;
+  String usernameClaim;
 
   NintendoIdentityProvider(
-      {this.buttonText, this.client_id, this.client_secret, this.scope});
+      {this.buttonText,
+      this.client_id,
+      this.client_secret,
+      this.emailClaim,
+      this.scope,
+      this.uniqueIdClaim,
+      this.usernameClaim});
 
   factory NintendoIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$NintendoIdentityProviderFromJson(json);
@@ -4961,6 +4979,7 @@ class OAuthError {
   OAuthErrorReason error_reason;
   String error_uri;
   String two_factor_id;
+  List<TwoFactorMethod> two_factor_methods;
 
   OAuthError(
       {this.change_password_id,
@@ -4968,7 +4987,8 @@ class OAuthError {
       this.error_description,
       this.error_reason,
       this.error_uri,
-      this.two_factor_id});
+      this.two_factor_id,
+      this.two_factor_methods});
 
   factory OAuthError.fromJson(Map<String, dynamic> json) =>
       _$OAuthErrorFromJson(json);
@@ -5621,6 +5641,7 @@ class ReactorStatus {
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
+  String expiration;
   bool licensed;
   ReactorFeatureStatus scimServer;
   ReactorFeatureStatus threatDetection;
@@ -5634,6 +5655,7 @@ class ReactorStatus {
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
+      this.expiration,
       this.licensed,
       this.scimServer,
       this.threatDetection});
