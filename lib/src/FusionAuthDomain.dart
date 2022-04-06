@@ -2265,16 +2265,16 @@ enum EventType {
   UserCreate,
   @JsonValue('UserCreateComplete')
   UserCreateComplete,
-  @JsonValue('UserIdentityProviderLink')
-  UserIdentityProviderLink,
-  @JsonValue('UserIdentityProviderUnlink')
-  UserIdentityProviderUnlink,
   @JsonValue('UserDeactivate')
   UserDeactivate,
   @JsonValue('UserDelete')
   UserDelete,
   @JsonValue('UserDeleteComplete')
   UserDeleteComplete,
+  @JsonValue('UserIdentityProviderLink')
+  UserIdentityProviderLink,
+  @JsonValue('UserIdentityProviderUnlink')
+  UserIdentityProviderUnlink,
   @JsonValue('UserLoginIdDuplicateOnCreate')
   UserLoginIdDuplicateOnCreate,
   @JsonValue('UserLoginIdDuplicateOnUpdate')
@@ -7896,15 +7896,15 @@ class UserEmailVerifiedEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserEmailVerifiedEventToJson(this);
 }
 
-/// Models the User IdP Link Event.
+/// Models the User Identity Provider Link Event.
 ///
 /// @author Rob Davis
 @JsonSerializable()
 class UserIdentityProviderLinkEvent extends BaseEvent {
-  String identityProviderName;
+  IdentityProviderLink identityProviderLink;
   User user;
 
-  UserIdentityProviderLinkEvent({this.identityProviderName, this.user});
+  UserIdentityProviderLinkEvent({this.identityProviderLink, this.user});
 
   factory UserIdentityProviderLinkEvent.fromJson(Map<String, dynamic> json) =>
       _$UserIdentityProviderLinkEventFromJson(json);
@@ -7916,10 +7916,10 @@ class UserIdentityProviderLinkEvent extends BaseEvent {
 /// @author Rob Davis
 @JsonSerializable()
 class UserIdentityProviderUnlinkEvent extends BaseEvent {
-  String identityProviderName;
+  IdentityProviderLink identityProviderLink;
   User user;
 
-  UserIdentityProviderUnlinkEvent({this.identityProviderName, this.user});
+  UserIdentityProviderUnlinkEvent({this.identityProviderLink, this.user});
 
   factory UserIdentityProviderUnlinkEvent.fromJson(Map<String, dynamic> json) =>
       _$UserIdentityProviderUnlinkEventFromJson(json);
