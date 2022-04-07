@@ -2271,14 +2271,18 @@ enum EventType {
   UserDelete,
   @JsonValue('UserDeleteComplete')
   UserDeleteComplete,
-  @JsonValue('UserLoginIdDuplicateOnCreate')
-  UserLoginIdDuplicateOnCreate,
-  @JsonValue('UserLoginIdDuplicateOnUpdate')
-  UserLoginIdDuplicateOnUpdate,
   @JsonValue('UserEmailUpdate')
   UserEmailUpdate,
   @JsonValue('UserEmailVerified')
   UserEmailVerified,
+  @JsonValue('UserIdentityProviderLink')
+  UserIdentityProviderLink,
+  @JsonValue('UserIdentityProviderUnlink')
+  UserIdentityProviderUnlink,
+  @JsonValue('UserLoginIdDuplicateOnCreate')
+  UserLoginIdDuplicateOnCreate,
+  @JsonValue('UserLoginIdDuplicateOnUpdate')
+  UserLoginIdDuplicateOnUpdate,
   @JsonValue('UserLoginFailed')
   UserLoginFailed,
   @JsonValue('UserLoginNewDevice')
@@ -3288,7 +3292,7 @@ enum IdentityProviderLinkingStrategy {
 
 /// @author Daniel DeGroff
 @JsonSerializable()
-class IdentityProviderLinkRequest {
+class IdentityProviderLinkRequest extends BaseEventRequest {
   String displayName;
   String identityProviderId;
   String identityProviderUserId;
@@ -8014,6 +8018,37 @@ class UserEmailVerifiedEvent extends BaseEvent {
   factory UserEmailVerifiedEvent.fromJson(Map<String, dynamic> json) =>
       _$UserEmailVerifiedEventFromJson(json);
   Map<String, dynamic> toJson() => _$UserEmailVerifiedEventToJson(this);
+}
+
+/// Models the User Identity Provider Link Event.
+///
+/// @author Rob Davis
+@JsonSerializable()
+class UserIdentityProviderLinkEvent extends BaseEvent {
+  IdentityProviderLink identityProviderLink;
+  User user;
+
+  UserIdentityProviderLinkEvent({this.identityProviderLink, this.user});
+
+  factory UserIdentityProviderLinkEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserIdentityProviderLinkEventFromJson(json);
+  Map<String, dynamic> toJson() => _$UserIdentityProviderLinkEventToJson(this);
+}
+
+/// Models the User Identity Provider Unlink Event.
+///
+/// @author Rob Davis
+@JsonSerializable()
+class UserIdentityProviderUnlinkEvent extends BaseEvent {
+  IdentityProviderLink identityProviderLink;
+  User user;
+
+  UserIdentityProviderUnlinkEvent({this.identityProviderLink, this.user});
+
+  factory UserIdentityProviderUnlinkEvent.fromJson(Map<String, dynamic> json) =>
+      _$UserIdentityProviderUnlinkEventFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$UserIdentityProviderUnlinkEventToJson(this);
 }
 
 /// Models the User Login Failed Event.
