@@ -2271,6 +2271,10 @@ enum EventType {
   UserDelete,
   @JsonValue('UserDeleteComplete')
   UserDeleteComplete,
+  @JsonValue('UserEmailUpdate')
+  UserEmailUpdate,
+  @JsonValue('UserEmailVerified')
+  UserEmailVerified,
   @JsonValue('UserIdentityProviderLink')
   UserIdentityProviderLink,
   @JsonValue('UserIdentityProviderUnlink')
@@ -2279,10 +2283,6 @@ enum EventType {
   UserLoginIdDuplicateOnCreate,
   @JsonValue('UserLoginIdDuplicateOnUpdate')
   UserLoginIdDuplicateOnUpdate,
-  @JsonValue('UserEmailUpdate')
-  UserEmailUpdate,
-  @JsonValue('UserEmailVerified')
-  UserEmailVerified,
   @JsonValue('UserLoginFailed')
   UserLoginFailed,
   @JsonValue('UserLoginNewDevice')
@@ -7911,7 +7911,7 @@ class UserIdentityProviderLinkEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserIdentityProviderLinkEventToJson(this);
 }
 
-/// Models the User IdP Unlink Event.
+/// Models the User Identity Provider Unlink Event.
 ///
 /// @author Rob Davis
 @JsonSerializable()
