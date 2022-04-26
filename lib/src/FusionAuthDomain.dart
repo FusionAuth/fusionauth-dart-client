@@ -2255,6 +2255,10 @@ enum EventType {
   AuditLogCreate,
   @JsonValue('EventLogCreate')
   EventLogCreate,
+  @JsonValue('GroupMembershipAdd')
+  GroupMembershipAdd,
+  @JsonValue('GroupMembershipRemove')
+  GroupMembershipRemove,
   @JsonValue('KickstartSuccess')
   KickstartSuccess,
   @JsonValue('UserAction')
@@ -3111,6 +3115,36 @@ class GroupMemberSearchResponse {
   factory GroupMemberSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$GroupMemberSearchResponseToJson(this);
+}
+
+/// Model the Group Membership Add event
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class GroupMembershipAddEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> groupMembers;
+
+  GroupMembershipAddEvent({this.group, this.groupMembers});
+
+  factory GroupMembershipAddEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMembershipAddEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMembershipAddEventToJson(this);
+}
+
+/// Model the Group Membership Remove event
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class GroupMembershipRemoveEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> groupMembers;
+
+  GroupMembershipRemoveEvent({this.group, this.groupMembers});
+
+  factory GroupMembershipRemoveEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMembershipRemoveEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMembershipRemoveEventToJson(this);
 }
 
 /// Group API request object.
@@ -4614,7 +4648,7 @@ class MemberDeleteRequest {
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
-class MemberRequest {
+class MemberRequest extends BaseEventRequest {
   Map<String, List<GroupMember>> members;
 
   MemberRequest({this.members});
