@@ -8595,9 +8595,10 @@ enum VerificationStrategy {
 @JsonSerializable()
 class VerifyEmailRequest extends BaseEventRequest {
   String oneTimeCode;
+  String userId;
   String verificationId;
 
-  VerifyEmailRequest({this.oneTimeCode, this.verificationId});
+  VerifyEmailRequest({this.oneTimeCode, this.userId, this.verificationId});
 
   factory VerifyEmailRequest.fromJson(Map<String, dynamic> json) =>
       _$VerifyEmailRequestFromJson(json);
