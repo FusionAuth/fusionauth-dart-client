@@ -9564,6 +9564,7 @@ Map<String, dynamic> _$ValidateResponseToJson(ValidateResponse instance) =>
 VerifyEmailRequest _$VerifyEmailRequestFromJson(Map<String, dynamic> json) =>
     VerifyEmailRequest(
       oneTimeCode: json['oneTimeCode'] as String,
+      userId: json['userId'] as String,
       verificationId: json['verificationId'] as String,
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
@@ -9572,6 +9573,7 @@ Map<String, dynamic> _$VerifyEmailRequestToJson(VerifyEmailRequest instance) =>
     <String, dynamic>{
       'eventInfo': instance.eventInfo,
       'oneTimeCode': instance.oneTimeCode,
+      'userId': instance.userId,
       'verificationId': instance.verificationId,
     };
 
