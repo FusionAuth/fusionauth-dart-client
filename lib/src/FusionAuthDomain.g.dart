@@ -1502,6 +1502,7 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
       additionalHeaders: (json['additionalHeaders'] as List<dynamic>)
           .map((e) => EmailHeader.fromJson(e as Map<String, dynamic>))
           .toList(),
+      debug: json['debug'] as bool,
       defaultFromEmail: json['defaultFromEmail'] as String,
       defaultFromName: json['defaultFromName'] as String,
       emailUpdateEmailTemplateId: json['emailUpdateEmailTemplateId'] as String,
@@ -1549,6 +1550,7 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$EmailConfigurationToJson(EmailConfiguration instance) =>
     <String, dynamic>{
       'additionalHeaders': instance.additionalHeaders,
+      'debug': instance.debug,
       'defaultFromEmail': instance.defaultFromEmail,
       'defaultFromName': instance.defaultFromName,
       'emailUpdateEmailTemplateId': instance.emailUpdateEmailTemplateId,
