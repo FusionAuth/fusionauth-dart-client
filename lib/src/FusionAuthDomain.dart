@@ -1443,7 +1443,6 @@ class EmailAddress {
 @JsonSerializable()
 class EmailConfiguration {
   List<EmailHeader> additionalHeaders;
-  bool debug;
   String defaultFromEmail;
   String defaultFromName;
   String emailUpdateEmailTemplateId;
@@ -1474,7 +1473,6 @@ class EmailConfiguration {
 
   EmailConfiguration(
       {this.additionalHeaders,
-      this.debug,
       this.defaultFromEmail,
       this.defaultFromName,
       this.emailUpdateEmailTemplateId,
