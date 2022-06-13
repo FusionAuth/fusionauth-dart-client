@@ -3258,15 +3258,15 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Retrieves a single refresh token by unique Id. This is not the same thing as the string value of the refresh token, if you have that, you already have what you need..
+  /// Retrieves a single refresh token by unique Id. This is not the same thing as the string value of the refresh token. If you have that, you already have what you need.
   ///
-  /// @param {String} userId The Id of the user.
+  /// @param {String} tokenId The Id of the token.
   /// @returns {Promise<ClientResponse<RefreshTokenResponse>>}
   Future<ClientResponse<RefreshTokenResponse, Errors>> retrieveRefreshTokenById(
-      String userId) {
+      String tokenId) {
     return _start<RefreshTokenResponse, Errors>()
         .withUri('/api/jwt/refresh')
-        .withUriSegment(userId)
+        .withUriSegment(tokenId)
         .withMethod('GET')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => RefreshTokenResponse.fromJson(d)))
