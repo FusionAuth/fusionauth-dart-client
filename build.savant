@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, FusionAuth, All Rights Reserved
+ * Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,12 +61,13 @@ private void format() {
   process.consumeProcessOutput(System.out, System.err)
   process.waitFor()
 }
+
 target(name: "build", description: "Builds the generated file") {
-  if (new ProcessBuilder('pub', 'get').inheritIO().start().waitFor() != 0) {
+  if (new ProcessBuilder('dart', 'pub', 'get').inheritIO().start().waitFor() != 0) {
     fail('Failed to build the generated files')
   }
 
-  if (new ProcessBuilder('pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs').inheritIO().start().waitFor() != 0) {
+  if (new ProcessBuilder('dart', 'pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs').inheritIO().start().waitFor() != 0) {
     fail('Failed to build the generated files')
   }
 
@@ -88,14 +89,14 @@ target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
 }
 
 target(name: "test", description: "Runs the tests", dependsOn: ["build"]) {
-  if (new ProcessBuilder('pub', 'run', 'test', ).inheritIO().start().waitFor() != 0) {
+  if (new ProcessBuilder('dart', 'pub', 'run', 'test',).inheritIO().start().waitFor() != 0) {
     fail("Tests failed")
   }
 }
 
 target(name: "publish", description: "Publish in NPM", dependsOn: ["clean", "int"]) {
   // Use --force so we do not see a prompt
-  if (new ProcessBuilder('pub', 'publish', '--force').inheritIO().start().waitFor() != 0) {
+  if (new ProcessBuilder('dart', 'pub', 'publish', '--force').inheritIO().start().waitFor() != 0) {
     fail("Failed to publish")
   }
 }
