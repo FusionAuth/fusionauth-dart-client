@@ -847,6 +847,24 @@ Map<String, dynamic> _$AuthenticationTokenConfigurationToJson(
       'enabled': instance.enabled,
     };
 
+AuthenticatorAuthenticationResponse
+    _$AuthenticatorAuthenticationResponseFromJson(Map<String, dynamic> json) =>
+        AuthenticatorAuthenticationResponse(
+          authenticatorData: json['authenticatorData'] as String,
+          clientDataJSON: json['clientDataJSON'] as String,
+          signature: json['signature'] as String,
+          userHandle: json['userHandle'] as String,
+        );
+
+Map<String, dynamic> _$AuthenticatorAuthenticationResponseToJson(
+        AuthenticatorAuthenticationResponse instance) =>
+    <String, dynamic>{
+      'authenticatorData': instance.authenticatorData,
+      'clientDataJSON': instance.clientDataJSON,
+      'signature': instance.signature,
+      'userHandle': instance.userHandle,
+    };
+
 AuthenticatorConfiguration _$AuthenticatorConfigurationFromJson(
         Map<String, dynamic> json) =>
     AuthenticatorConfiguration(
@@ -867,6 +885,60 @@ const _$TOTPAlgorithmEnumMap = {
   TOTPAlgorithm.HmacSHA1: 'HmacSHA1',
   TOTPAlgorithm.HmacSHA256: 'HmacSHA256',
   TOTPAlgorithm.HmacSHA512: 'HmacSHA512',
+};
+
+AuthenticatorRegistrationResponse _$AuthenticatorRegistrationResponseFromJson(
+        Map<String, dynamic> json) =>
+    AuthenticatorRegistrationResponse(
+      attestationObject: json['attestationObject'] as String,
+      clientDataJSON: json['clientDataJSON'] as String,
+    );
+
+Map<String, dynamic> _$AuthenticatorRegistrationResponseToJson(
+        AuthenticatorRegistrationResponse instance) =>
+    <String, dynamic>{
+      'attestationObject': instance.attestationObject,
+      'clientDataJSON': instance.clientDataJSON,
+    };
+
+AuthenticatorSelectionCriteria _$AuthenticatorSelectionCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    AuthenticatorSelectionCriteria(
+      authenticatorAttachment: _$enumDecode(
+          _$AuthenticatorAttachmentEnumMap, json['authenticatorAttachment']),
+      requireResidentKey: json['requireResidentKey'] as bool,
+      residentKey:
+          _$enumDecode(_$ResidentKeyRequirementEnumMap, json['residentKey']),
+      userVerification: _$enumDecode(
+          _$UserVerificationRequirementEnumMap, json['userVerification']),
+    );
+
+Map<String, dynamic> _$AuthenticatorSelectionCriteriaToJson(
+        AuthenticatorSelectionCriteria instance) =>
+    <String, dynamic>{
+      'authenticatorAttachment':
+          _$AuthenticatorAttachmentEnumMap[instance.authenticatorAttachment],
+      'requireResidentKey': instance.requireResidentKey,
+      'residentKey': _$ResidentKeyRequirementEnumMap[instance.residentKey],
+      'userVerification':
+          _$UserVerificationRequirementEnumMap[instance.userVerification],
+    };
+
+const _$AuthenticatorAttachmentEnumMap = {
+  AuthenticatorAttachment.PLATFORM: 'PLATFORM',
+  AuthenticatorAttachment.CROSS_PLATFORM: 'CROSS_PLATFORM',
+};
+
+const _$ResidentKeyRequirementEnumMap = {
+  ResidentKeyRequirement.Discouraged: 'Discouraged',
+  ResidentKeyRequirement.Preferred: 'Preferred',
+  ResidentKeyRequirement.Required: 'Required',
+};
+
+const _$UserVerificationRequirementEnumMap = {
+  UserVerificationRequirement.required: 'required',
+  UserVerificationRequirement.preferred: 'preferred',
+  UserVerificationRequirement.discouraged: 'discouraged',
 };
 
 BaseConnectorConfiguration _$BaseConnectorConfigurationFromJson(
@@ -5823,6 +5895,236 @@ Map<String, dynamic> _$PreviewResponseToJson(PreviewResponse instance) =>
       'errors': instance.errors,
     };
 
+PublicKeyAuthenticationRequest _$PublicKeyAuthenticationRequestFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyAuthenticationRequest(
+      clientExtensionResults: json['clientExtensionResults'],
+      id: json['id'] as String,
+      response: AuthenticatorAuthenticationResponse.fromJson(
+          json['response'] as Map<String, dynamic>),
+      rpId: json['rpId'] as String,
+      type: json['type'] as String,
+    );
+
+Map<String, dynamic> _$PublicKeyAuthenticationRequestToJson(
+    PublicKeyAuthenticationRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('clientExtensionResults', instance.clientExtensionResults);
+  val['id'] = instance.id;
+  val['response'] = instance.response;
+  val['rpId'] = instance.rpId;
+  val['type'] = instance.type;
+  return val;
+}
+
+PublicKeyCredentialCreationOptions _$PublicKeyCredentialCreationOptionsFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialCreationOptions(
+      attestation: _$enumDecode(
+          _$AttestationConveyancePreferenceEnumMap, json['attestation']),
+      authenticatorSelection: AuthenticatorSelectionCriteria.fromJson(
+          json['authenticatorSelection'] as Map<String, dynamic>),
+      challenge: json['challenge'] as String,
+      excludeCredentials: (json['excludeCredentials'] as List<dynamic>)
+          .map((e) =>
+              PublicKeyCredentialDescriptor.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      pubKeyCredParams: (json['pubKeyCredParams'] as List<dynamic>)
+          .map((e) =>
+              PublicKeyCredentialParameters.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      rp: PublicKeyCredentialRpEntity.fromJson(
+          json['rp'] as Map<String, dynamic>),
+      timeout: json['timeout'] as num,
+      user: PublicKeyCredentialUserEntity.fromJson(
+          json['user'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialCreationOptionsToJson(
+        PublicKeyCredentialCreationOptions instance) =>
+    <String, dynamic>{
+      'attestation':
+          _$AttestationConveyancePreferenceEnumMap[instance.attestation],
+      'authenticatorSelection': instance.authenticatorSelection,
+      'challenge': instance.challenge,
+      'excludeCredentials': instance.excludeCredentials,
+      'pubKeyCredParams': instance.pubKeyCredParams,
+      'rp': instance.rp,
+      'timeout': instance.timeout,
+      'user': instance.user,
+    };
+
+const _$AttestationConveyancePreferenceEnumMap = {
+  AttestationConveyancePreference.none: 'none',
+  AttestationConveyancePreference.indirect: 'indirect',
+  AttestationConveyancePreference.direct: 'direct',
+  AttestationConveyancePreference.enterprise: 'enterprise',
+};
+
+PublicKeyCredentialDescriptor _$PublicKeyCredentialDescriptorFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialDescriptor(
+      id: json['id'] as String,
+      transports: (json['transports'] as List<dynamic>)
+          .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
+          .toList(),
+      type: _$enumDecode(_$PublicKeyCredentialTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialDescriptorToJson(
+        PublicKeyCredentialDescriptor instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'transports': instance.transports
+          .map((e) => _$AuthenticatorTransportEnumMap[e])
+          .toList(),
+      'type': _$PublicKeyCredentialTypeEnumMap[instance.type],
+    };
+
+const _$AuthenticatorTransportEnumMap = {
+  AuthenticatorTransport.usb: 'usb',
+  AuthenticatorTransport.nfc: 'nfc',
+  AuthenticatorTransport.ble: 'ble',
+  AuthenticatorTransport.internal: 'internal',
+};
+
+const _$PublicKeyCredentialTypeEnumMap = {
+  PublicKeyCredentialType.PUBLIC_KEY: 'PUBLIC_KEY',
+};
+
+PublicKeyCredentialEntity _$PublicKeyCredentialEntityFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialEntity(
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialEntityToJson(
+        PublicKeyCredentialEntity instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
+PublicKeyCredentialParameters _$PublicKeyCredentialParametersFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialParameters(
+      alg: _$enumDecode(_$CoseAlgorithmIdentifierEnumMap, json['alg']),
+      type: _$enumDecode(_$PublicKeyCredentialTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialParametersToJson(
+        PublicKeyCredentialParameters instance) =>
+    <String, dynamic>{
+      'alg': _$CoseAlgorithmIdentifierEnumMap[instance.alg],
+      'type': _$PublicKeyCredentialTypeEnumMap[instance.type],
+    };
+
+const _$CoseAlgorithmIdentifierEnumMap = {
+  CoseAlgorithmIdentifier.ES256: 'ES256',
+  CoseAlgorithmIdentifier.ES384: 'ES384',
+  CoseAlgorithmIdentifier.ES512: 'ES512',
+  CoseAlgorithmIdentifier.RS256: 'RS256',
+  CoseAlgorithmIdentifier.RS384: 'RS384',
+  CoseAlgorithmIdentifier.RS512: 'RS512',
+  CoseAlgorithmIdentifier.PS256: 'PS256',
+  CoseAlgorithmIdentifier.PS384: 'PS384',
+  CoseAlgorithmIdentifier.PS512: 'PS512',
+};
+
+PublicKeyCredentialRequestOptions _$PublicKeyCredentialRequestOptionsFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialRequestOptions(
+      allowCredentials: (json['allowCredentials'] as List<dynamic>)
+          .map((e) =>
+              PublicKeyCredentialDescriptor.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      challenge: json['challenge'] as String,
+      rpId: json['rpId'] as String,
+      timeout: json['timeout'] as num,
+      userVerification: _$enumDecode(
+          _$UserVerificationRequirementEnumMap, json['userVerification']),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialRequestOptionsToJson(
+        PublicKeyCredentialRequestOptions instance) =>
+    <String, dynamic>{
+      'allowCredentials': instance.allowCredentials,
+      'challenge': instance.challenge,
+      'rpId': instance.rpId,
+      'timeout': instance.timeout,
+      'userVerification':
+          _$UserVerificationRequirementEnumMap[instance.userVerification],
+    };
+
+PublicKeyCredentialRpEntity _$PublicKeyCredentialRpEntityFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialRpEntity(
+      id: json['id'] as String,
+    )..name = json['name'] as String;
+
+Map<String, dynamic> _$PublicKeyCredentialRpEntityToJson(
+        PublicKeyCredentialRpEntity instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'id': instance.id,
+    };
+
+PublicKeyCredentialUserEntity _$PublicKeyCredentialUserEntityFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialUserEntity(
+      displayName: json['displayName'] as String,
+      id: json['id'] as String,
+    )..name = json['name'] as String;
+
+Map<String, dynamic> _$PublicKeyCredentialUserEntityToJson(
+        PublicKeyCredentialUserEntity instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayName': instance.displayName,
+      'id': instance.id,
+    };
+
+PublicKeyRegistrationRequest _$PublicKeyRegistrationRequestFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyRegistrationRequest(
+      clientExtensionResults: json['clientExtensionResults'],
+      id: json['id'] as String,
+      response: AuthenticatorRegistrationResponse.fromJson(
+          json['response'] as Map<String, dynamic>),
+      rpId: json['rpId'] as String,
+      transports: (json['transports'] as List<dynamic>)
+          .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
+          .toList(),
+      type: json['type'] as String,
+    );
+
+Map<String, dynamic> _$PublicKeyRegistrationRequestToJson(
+    PublicKeyRegistrationRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('clientExtensionResults', instance.clientExtensionResults);
+  val['id'] = instance.id;
+  val['response'] = instance.response;
+  val['rpId'] = instance.rpId;
+  val['transports'] = instance.transports
+      .map((e) => _$AuthenticatorTransportEnumMap[e])
+      .toList();
+  val['type'] = instance.type;
+  return val;
+}
+
 PublicKeyResponse _$PublicKeyResponseFromJson(Map<String, dynamic> json) =>
     PublicKeyResponse(
       publicKey: json['publicKey'] as String,
@@ -9628,6 +9930,105 @@ VersionResponse _$VersionResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
     <String, dynamic>{
       'version': instance.version,
+    };
+
+WebAuthnCompleteRequest _$WebAuthnCompleteRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnCompleteRequest(
+      credential: PublicKeyRegistrationRequest.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      loginId: json['loginId'] as String,
+      origin: json['origin'] as String,
+      rpId: json['rpId'] as String,
+    );
+
+Map<String, dynamic> _$WebAuthnCompleteRequestToJson(
+        WebAuthnCompleteRequest instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+      'loginId': instance.loginId,
+      'origin': instance.origin,
+      'rpId': instance.rpId,
+    };
+
+WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
+    WebAuthnCredential(
+      alg: _$enumDecode(_$CoseAlgorithmIdentifierEnumMap, json['alg']),
+      credentialId: json['credentialId'] as String,
+      data: json['data'] as Map<String, dynamic>,
+      id: json['id'] as String,
+      insertInstant: json['insertInstant'] as num,
+      lastUseInstant: json['lastUseInstant'] as num,
+      publicKey: json['publicKey'] as String,
+      signCount: json['signCount'] as num,
+      tenantId: json['tenantId'] as String,
+      transports: (json['transports'] as List<dynamic>)
+          .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
+          .toList(),
+      userId: json['userId'] as String,
+    );
+
+Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
+    <String, dynamic>{
+      'alg': _$CoseAlgorithmIdentifierEnumMap[instance.alg],
+      'credentialId': instance.credentialId,
+      'data': instance.data,
+      'id': instance.id,
+      'insertInstant': instance.insertInstant,
+      'lastUseInstant': instance.lastUseInstant,
+      'publicKey': instance.publicKey,
+      'signCount': instance.signCount,
+      'tenantId': instance.tenantId,
+      'transports': instance.transports
+          .map((e) => _$AuthenticatorTransportEnumMap[e])
+          .toList(),
+      'userId': instance.userId,
+    };
+
+WebAuthnLoginRequest _$WebAuthnLoginRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnLoginRequest(
+      credential: PublicKeyAuthenticationRequest.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      origin: json['origin'] as String,
+      rpId: json['rpId'] as String,
+    )
+      ..eventInfo =
+          EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
+      ..applicationId = json['applicationId'] as String
+      ..ipAddress = json['ipAddress'] as String
+      ..metaData = MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+      ..newDevice = json['newDevice'] as bool
+      ..noJWT = json['noJWT'] as bool;
+
+Map<String, dynamic> _$WebAuthnLoginRequestToJson(
+        WebAuthnLoginRequest instance) =>
+    <String, dynamic>{
+      'eventInfo': instance.eventInfo,
+      'applicationId': instance.applicationId,
+      'ipAddress': instance.ipAddress,
+      'metaData': instance.metaData,
+      'newDevice': instance.newDevice,
+      'noJWT': instance.noJWT,
+      'credential': instance.credential,
+      'origin': instance.origin,
+      'rpId': instance.rpId,
+    };
+
+WebAuthnStartRequest _$WebAuthnStartRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnStartRequest(
+      applicationId: json['applicationId'] as String,
+      loginId: json['loginId'] as String,
+      state: json['state'] as Map<String, dynamic>,
+    );
+
+Map<String, dynamic> _$WebAuthnStartRequestToJson(
+        WebAuthnStartRequest instance) =>
+    <String, dynamic>{
+      'applicationId': instance.applicationId,
+      'loginId': instance.loginId,
+      'state': instance.state,
     };
 
 Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(

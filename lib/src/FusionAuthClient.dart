@@ -224,6 +224,34 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge
+  ///
+  /// @param {WebAuthnLoginRequest} request An object containing data necessary for completing the authentication ceremony
+  /// @returns {Promise<ClientResponse<LoginResponse>>}
+  Future<ClientResponse<LoginResponse, Errors>> completeWebAuthnLogin(
+      WebAuthnLoginRequest request) {
+    return _startAnonymous<LoginResponse, Errors>()
+        .withUri('/api/webauthn/login')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => LoginResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
+  ///
+  /// @param {WebAuthnCompleteRequest} request An object containing data necessary for completing the registration ceremony
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> completeWebAuthnRegistration(
+      WebAuthnCompleteRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/webauthn/complete')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .go();
+  }
+
   /// Creates an API key. You can optionally specify a unique Id for the key, if not provided one will be generated.
   /// an API key can only be created with equal or lesser authority. An API key cannot create another API key unless it is granted
   /// to that API key.
@@ -4276,6 +4304,36 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => TwoFactorStartResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Start a WebAuthn authentication ceremony by generating a new challenge for the user
+  ///
+  /// @param {WebAuthnStartRequest} request An object containing data necessary for starting the authentication ceremony
+  /// @returns {Promise<ClientResponse<PublicKeyCredentialRequestOptions>>}
+  Future<ClientResponse<PublicKeyCredentialRequestOptions, Errors>>
+      startWebAuthnLogin(WebAuthnStartRequest request) {
+    return _start<PublicKeyCredentialRequestOptions, Errors>()
+        .withUri('/api/webauthn/start')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => PublicKeyCredentialRequestOptions.fromJson(d)))
+        .go();
+  }
+
+  /// Start a WebAuthn registration ceremony by generating a new challenge for the user
+  ///
+  /// @param {WebAuthnStartRequest} request An object containing data necessary for starting the registration ceremony
+  /// @returns {Promise<ClientResponse<PublicKeyCredentialCreationOptions>>}
+  Future<ClientResponse<PublicKeyCredentialCreationOptions, Errors>>
+      startWebAuthnRegistration(WebAuthnStartRequest request) {
+    return _start<PublicKeyCredentialCreationOptions, Errors>()
+        .withUri('/api/webauthn/register')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => PublicKeyCredentialCreationOptions.fromJson(d)))
         .go();
   }
 
