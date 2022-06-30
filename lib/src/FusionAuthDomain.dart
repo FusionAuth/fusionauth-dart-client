@@ -9087,6 +9087,22 @@ class WebAuthnCredential {
   Map<String, dynamic> toJson() => _$WebAuthnCredentialToJson(this);
 }
 
+/// WebAuthn Credential API response
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnCredentialResponse {
+  WebAuthnCredential webauthnCredential;
+  List<WebAuthnCredential> webauthnCredentials;
+
+  WebAuthnCredentialResponse(
+      {this.webauthnCredential, this.webauthnCredentials});
+
+  factory WebAuthnCredentialResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnCredentialResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnCredentialResponseToJson(this);
+}
+
 /// Request to complete the WebAuthn registration ceremony
 ///
 /// @author Spencer Witt
