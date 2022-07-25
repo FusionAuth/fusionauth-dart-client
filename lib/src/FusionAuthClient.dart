@@ -4337,30 +4337,30 @@ class FusionAuthClient {
   /// Start a WebAuthn authentication ceremony by generating a new challenge for the user
   ///
   /// @param {WebAuthnStartRequest} request An object containing data necessary for starting the authentication ceremony
-  /// @returns {Promise<ClientResponse<PublicKeyCredentialRequestOptions>>}
-  Future<ClientResponse<PublicKeyCredentialRequestOptions, Errors>>
-      startWebAuthnLogin(WebAuthnStartRequest request) {
-    return _start<PublicKeyCredentialRequestOptions, Errors>()
+  /// @returns {Promise<ClientResponse<WebAuthnStartResponse>>}
+  Future<ClientResponse<WebAuthnStartResponse, Errors>> startWebAuthnLogin(
+      WebAuthnStartRequest request) {
+    return _start<WebAuthnStartResponse, Errors>()
         .withUri('/api/webauthn/start')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => PublicKeyCredentialRequestOptions.fromJson(d)))
+            (d) => WebAuthnStartResponse.fromJson(d)))
         .go();
   }
 
   /// Start a WebAuthn registration ceremony by generating a new challenge for the user
   ///
-  /// @param {WebAuthnStartRequest} request An object containing data necessary for starting the registration ceremony
-  /// @returns {Promise<ClientResponse<PublicKeyCredentialCreationOptions>>}
-  Future<ClientResponse<PublicKeyCredentialCreationOptions, Errors>>
-      startWebAuthnRegistration(WebAuthnStartRequest request) {
-    return _start<PublicKeyCredentialCreationOptions, Errors>()
+  /// @param {WebAuthnRegisterRequest} request An object containing data necessary for starting the registration ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnRegisterResponse>>}
+  Future<ClientResponse<WebAuthnRegisterResponse, Errors>>
+      startWebAuthnRegistration(WebAuthnRegisterRequest request) {
+    return _start<WebAuthnRegisterResponse, Errors>()
         .withUri('/api/webauthn/register')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => PublicKeyCredentialCreationOptions.fromJson(d)))
+            (d) => WebAuthnRegisterResponse.fromJson(d)))
         .go();
   }
 
