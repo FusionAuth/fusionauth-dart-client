@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2019, FusionAuth, All Rights Reserved
+* Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ class AccessToken {
   num expires_in;
   String id_token;
   String refresh_token;
+  String refresh_token_id;
   String scope;
   TokenType token_type;
   String userId;
@@ -36,6 +37,7 @@ class AccessToken {
       this.expires_in,
       this.id_token,
       this.refresh_token,
+      this.refresh_token_id,
       this.scope,
       this.token_type,
       this.userId});
@@ -121,6 +123,12 @@ enum Algorithm {
   HS384,
   @JsonValue('HS512')
   HS512,
+  @JsonValue('PS256')
+  PS256,
+  @JsonValue('PS384')
+  PS384,
+  @JsonValue('PS512')
+  PS512,
   @JsonValue('RS256')
   RS256,
   @JsonValue('RS384')
@@ -257,6 +265,7 @@ class Application {
   CleanSpeakConfiguration cleanSpeakConfiguration;
   Map<String, dynamic> data;
   ApplicationEmailConfiguration emailConfiguration;
+  ApplicationExternalIdentifierConfiguration externalIdentifierConfiguration;
   ApplicationFormConfiguration formConfiguration;
   String id;
   num insertInstant;
@@ -287,6 +296,7 @@ class Application {
       this.cleanSpeakConfiguration,
       this.data,
       this.emailConfiguration,
+      this.externalIdentifierConfiguration,
       this.formConfiguration,
       this.id,
       this.insertInstant,
@@ -367,16 +377,19 @@ class ApplicationEmailConfiguration {
   Map<String, dynamic> toJson() => _$ApplicationEmailConfigurationToJson(this);
 }
 
-/// Events that are bound to applications.
-///
-/// @author Brian Pontarelli
+/// @author Daniel DeGroff
 @JsonSerializable()
-class ApplicationEvent {
-  ApplicationEvent();
+class ApplicationExternalIdentifierConfiguration {
+  num twoFactorTrustIdTimeToLiveInSeconds;
 
-  factory ApplicationEvent.fromJson(Map<String, dynamic> json) =>
-      _$ApplicationEventFromJson(json);
-  Map<String, dynamic> toJson() => _$ApplicationEventToJson(this);
+  ApplicationExternalIdentifierConfiguration(
+      {this.twoFactorTrustIdTimeToLiveInSeconds});
+
+  factory ApplicationExternalIdentifierConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationExternalIdentifierConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationExternalIdentifierConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -397,15 +410,28 @@ class ApplicationFormConfiguration {
 @JsonSerializable()
 class ApplicationMultiFactorConfiguration {
   MultiFactorEmailTemplate email;
+  MultiFactorLoginPolicy loginPolicy;
   MultiFactorSMSTemplate sms;
+  ApplicationMultiFactorTrustPolicy trustPolicy;
 
-  ApplicationMultiFactorConfiguration({this.email, this.sms});
+  ApplicationMultiFactorConfiguration(
+      {this.email, this.loginPolicy, this.sms, this.trustPolicy});
 
   factory ApplicationMultiFactorConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationMultiFactorConfigurationFromJson(json);
   Map<String, dynamic> toJson() =>
       _$ApplicationMultiFactorConfigurationToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum ApplicationMultiFactorTrustPolicy {
+  @JsonValue('Any')
+  Any,
+  @JsonValue('This')
+  This,
+  @JsonValue('None')
+  None
 }
 
 /// A Application-level policy for deleting Users.
@@ -431,9 +457,8 @@ class ApplicationRegistrationDeletePolicy {
 class ApplicationRequest extends BaseEventRequest {
   Application application;
   ApplicationRole role;
-  List<String> webhookIds;
 
-  ApplicationRequest({this.application, this.role, this.webhookIds});
+  ApplicationRequest({this.application, this.role});
 
   factory ApplicationRequest.fromJson(Map<String, dynamic> json) =>
       _$ApplicationRequestFromJson(json);
@@ -742,13 +767,20 @@ class BaseElasticSearchCriteria extends BaseSearchCriteria {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class BaseEvent {
+  List<String> applicationIds;
   num createInstant;
   String id;
   EventInfo info;
   String tenantId;
   EventType type;
 
-  BaseEvent({this.createInstant, this.id, this.info, this.tenantId, this.type});
+  BaseEvent(
+      {this.applicationIds,
+      this.createInstant,
+      this.id,
+      this.info,
+      this.tenantId,
+      this.type});
 
   factory BaseEvent.fromJson(Map<String, dynamic> json) =>
       _$BaseEventFromJson(json);
@@ -1443,6 +1475,7 @@ class EmailAddress {
 @JsonSerializable()
 class EmailConfiguration {
   List<EmailHeader> additionalHeaders;
+  bool debug;
   String defaultFromEmail;
   String defaultFromName;
   String emailUpdateEmailTemplateId;
@@ -1473,6 +1506,7 @@ class EmailConfiguration {
 
   EmailConfiguration(
       {this.additionalHeaders,
+      this.debug,
       this.defaultFromEmail,
       this.defaultFromName,
       this.emailUpdateEmailTemplateId,
@@ -3276,6 +3310,8 @@ class IdentityProviderLink {
 enum IdentityProviderLinkingStrategy {
   @JsonValue('CreatePendingLink')
   CreatePendingLink,
+  @JsonValue('Disabled')
+  Disabled,
   @JsonValue('LinkAnonymously')
   LinkAnonymously,
   @JsonValue('LinkByEmail')
@@ -3841,9 +3877,7 @@ class JWTConfiguration extends Enableable {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class JWTPublicKeyUpdateEvent extends BaseEvent {
-  Set<String> applicationIds;
-
-  JWTPublicKeyUpdateEvent({this.applicationIds});
+  JWTPublicKeyUpdateEvent();
 
   factory JWTPublicKeyUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$JWTPublicKeyUpdateEventFromJson(json);
@@ -3875,15 +3909,17 @@ class JWTRefreshEvent extends BaseEvent {
 
 /// API response for refreshing a JWT with a Refresh Token.
 /// <p>
-/// Using a different response object from RefreshTokenResponse because the retrieve response will return an object for refreshToken, and this is a string.
+/// Using a different response object from RefreshTokenResponse because the retrieve response will return an object for refreshToken, and this is a
+/// string.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
 class JWTRefreshResponse {
   String refreshToken;
+  String refreshTokenId;
   String token;
 
-  JWTRefreshResponse({this.refreshToken, this.token});
+  JWTRefreshResponse({this.refreshToken, this.refreshTokenId, this.token});
 
   factory JWTRefreshResponse.fromJson(Map<String, dynamic> json) =>
       _$JWTRefreshResponseFromJson(json);
@@ -3898,12 +3934,14 @@ class JWTRefreshResponse {
 class JWTRefreshTokenRevokeEvent extends BaseEvent {
   String applicationId;
   Map<String, num> applicationTimeToLiveInSeconds;
+  RefreshToken refreshToken;
   User user;
   String userId;
 
   JWTRefreshTokenRevokeEvent(
       {this.applicationId,
       this.applicationTimeToLiveInSeconds,
+      this.refreshToken,
       this.user,
       this.userId});
 
@@ -4354,6 +4392,20 @@ enum LoginIdType {
   username
 }
 
+/// Login Ping API request object.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class LoginPingRequest extends BaseLoginRequest {
+  String userId;
+
+  LoginPingRequest({this.userId});
+
+  factory LoginPingRequest.fromJson(Map<String, dynamic> json) =>
+      _$LoginPingRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$LoginPingRequestToJson(this);
+}
+
 /// The summary of the action that is preventing login to be returned on the login response.
 ///
 /// @author Daniel DeGroff
@@ -4500,6 +4552,7 @@ class LoginResponse {
   List<TwoFactorMethod> methods;
   String pendingIdPLinkId;
   String refreshToken;
+  String refreshTokenId;
   String registrationVerificationId;
   Map<String, dynamic> state;
   Set<AuthenticationThreats> threatsDetected;
@@ -4518,6 +4571,7 @@ class LoginResponse {
       this.methods,
       this.pendingIdPLinkId,
       this.refreshToken,
+      this.refreshTokenId,
       this.registrationVerificationId,
       this.state,
       this.threatsDetected,
@@ -4825,6 +4879,14 @@ class MultiFactorEmailTemplate {
   factory MultiFactorEmailTemplate.fromJson(Map<String, dynamic> json) =>
       _$MultiFactorEmailTemplateFromJson(json);
   Map<String, dynamic> toJson() => _$MultiFactorEmailTemplateToJson(this);
+}
+
+/// @author Daniel DeGroff
+enum MultiFactorLoginPolicy {
+  @JsonValue('Disabled')
+  Disabled,
+  @JsonValue('Enabled')
+  Enabled
 }
 
 @JsonSerializable()
@@ -5641,11 +5703,13 @@ class ReactorStatus {
   ReactorFeatureStatus advancedLambdas;
   ReactorFeatureStatus advancedMultiFactorAuthentication;
   ReactorFeatureStatus advancedRegistration;
+  ReactorFeatureStatus applicationMultiFactorAuthentication;
   ReactorFeatureStatus applicationThemes;
   ReactorFeatureStatus breachedPasswordDetection;
   ReactorFeatureStatus connectors;
   ReactorFeatureStatus entityManagement;
   String expiration;
+  Map<String, String> licenseAttributes;
   bool licensed;
   ReactorFeatureStatus scimServer;
   ReactorFeatureStatus threatDetection;
@@ -5655,11 +5719,13 @@ class ReactorStatus {
       this.advancedLambdas,
       this.advancedMultiFactorAuthentication,
       this.advancedRegistration,
+      this.applicationMultiFactorAuthentication,
       this.applicationThemes,
       this.breachedPasswordDetection,
       this.connectors,
       this.entityManagement,
       this.expiration,
+      this.licenseAttributes,
       this.licensed,
       this.scimServer,
       this.threatDetection});
@@ -6802,9 +6868,11 @@ class TenantLoginConfiguration {
 class TenantMultiFactorConfiguration {
   MultiFactorAuthenticatorMethod authenticator;
   MultiFactorEmailMethod email;
+  MultiFactorLoginPolicy loginPolicy;
   MultiFactorSMSMethod sms;
 
-  TenantMultiFactorConfiguration({this.authenticator, this.email, this.sms});
+  TenantMultiFactorConfiguration(
+      {this.authenticator, this.email, this.loginPolicy, this.sms});
 
   factory TenantMultiFactorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantMultiFactorConfigurationFromJson(json);
@@ -6864,8 +6932,9 @@ class TenantRegistrationConfiguration {
 class TenantRequest extends BaseEventRequest {
   String sourceTenantId;
   Tenant tenant;
+  List<String> webhookIds;
 
-  TenantRequest({this.sourceTenantId, this.tenant});
+  TenantRequest({this.sourceTenantId, this.tenant, this.webhookIds});
 
   factory TenantRequest.fromJson(Map<String, dynamic> json) =>
       _$TenantRequestFromJson(json);
@@ -7377,6 +7446,32 @@ class TwoFactorStartResponse {
   Map<String, dynamic> toJson() => _$TwoFactorStartResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class TwoFactorStatusResponse {
+  List<TwoFactorTrust> trusts;
+  String twoFactorTrustId;
+
+  TwoFactorStatusResponse({this.trusts, this.twoFactorTrustId});
+
+  factory TwoFactorStatusResponse.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorStatusResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorStatusResponseToJson(this);
+}
+
+@JsonSerializable()
+class TwoFactorTrust {
+  String applicationId;
+  num expiration;
+  num startInstant;
+
+  TwoFactorTrust({this.applicationId, this.expiration, this.startInstant});
+
+  factory TwoFactorTrust.fromJson(Map<String, dynamic> json) =>
+      _$TwoFactorTrustFromJson(json);
+  Map<String, dynamic> toJson() => _$TwoFactorTrustToJson(this);
+}
+
 @JsonSerializable()
 class UIConfiguration {
   String headerColor;
@@ -7532,7 +7627,6 @@ class UserActionEvent extends BaseEvent {
   String actioneeUserId;
   String actionerUserId;
   String actionId;
-  List<String> applicationIds;
   String comment;
   Email email;
   bool emailedUser;
@@ -7552,7 +7646,6 @@ class UserActionEvent extends BaseEvent {
       this.actioneeUserId,
       this.actionerUserId,
       this.actionId,
-      this.applicationIds,
       this.comment,
       this.email,
       this.emailedUser,
@@ -8661,7 +8754,6 @@ class VersionResponse {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class Webhook {
-  List<String> applicationIds;
   num connectTimeout;
   Map<String, dynamic> data;
   String description;
@@ -8675,11 +8767,11 @@ class Webhook {
   num lastUpdateInstant;
   num readTimeout;
   String sslCertificate;
+  List<String> tenantIds;
   String url;
 
   Webhook(
-      {this.applicationIds,
-      this.connectTimeout,
+      {this.connectTimeout,
       this.data,
       this.description,
       this.eventsEnabled,
@@ -8692,6 +8784,7 @@ class Webhook {
       this.lastUpdateInstant,
       this.readTimeout,
       this.sslCertificate,
+      this.tenantIds,
       this.url});
 
   factory Webhook.fromJson(Map<String, dynamic> json) =>
