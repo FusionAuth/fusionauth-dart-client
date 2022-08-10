@@ -11,6 +11,7 @@ AccessToken _$AccessTokenFromJson(Map<String, dynamic> json) => AccessToken(
       expires_in: json['expires_in'] as num,
       id_token: json['id_token'] as String,
       refresh_token: json['refresh_token'] as String,
+      refresh_token_id: json['refresh_token_id'] as String,
       scope: json['scope'] as String,
       token_type: _$enumDecode(_$TokenTypeEnumMap, json['token_type']),
       userId: json['userId'] as String,
@@ -22,6 +23,7 @@ Map<String, dynamic> _$AccessTokenToJson(AccessToken instance) =>
       'expires_in': instance.expires_in,
       'id_token': instance.id_token,
       'refresh_token': instance.refresh_token,
+      'refresh_token_id': instance.refresh_token_id,
       'scope': instance.scope,
       'token_type': _$TokenTypeEnumMap[instance.token_type],
       'userId': instance.userId,
@@ -279,6 +281,7 @@ Map<String, dynamic> _$AppleIdentityProviderToJson(
 
 const _$IdentityProviderLinkingStrategyEnumMap = {
   IdentityProviderLinkingStrategy.CreatePendingLink: 'CreatePendingLink',
+  IdentityProviderLinkingStrategy.Disabled: 'Disabled',
   IdentityProviderLinkingStrategy.LinkAnonymously: 'LinkAnonymously',
   IdentityProviderLinkingStrategy.LinkByEmail: 'LinkByEmail',
   IdentityProviderLinkingStrategy.LinkByEmailForExistingUser:
@@ -321,6 +324,9 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) => Application(
       data: json['data'] as Map<String, dynamic>,
       emailConfiguration: ApplicationEmailConfiguration.fromJson(
           json['emailConfiguration'] as Map<String, dynamic>),
+      externalIdentifierConfiguration:
+          ApplicationExternalIdentifierConfiguration.fromJson(
+              json['externalIdentifierConfiguration'] as Map<String, dynamic>),
       formConfiguration: ApplicationFormConfiguration.fromJson(
           json['formConfiguration'] as Map<String, dynamic>),
       id: json['id'] as String,
@@ -368,6 +374,7 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
     'cleanSpeakConfiguration': instance.cleanSpeakConfiguration,
     'data': instance.data,
     'emailConfiguration': instance.emailConfiguration,
+    'externalIdentifierConfiguration': instance.externalIdentifierConfiguration,
     'formConfiguration': instance.formConfiguration,
     'id': instance.id,
     'insertInstant': instance.insertInstant,
@@ -482,11 +489,20 @@ Map<String, dynamic> _$ApplicationEmailConfigurationToJson(
           instance.twoFactorMethodRemoveEmailTemplateId,
     };
 
-ApplicationEvent _$ApplicationEventFromJson(Map<String, dynamic> json) =>
-    ApplicationEvent();
+ApplicationExternalIdentifierConfiguration
+    _$ApplicationExternalIdentifierConfigurationFromJson(
+            Map<String, dynamic> json) =>
+        ApplicationExternalIdentifierConfiguration(
+          twoFactorTrustIdTimeToLiveInSeconds:
+              json['twoFactorTrustIdTimeToLiveInSeconds'] as num,
+        );
 
-Map<String, dynamic> _$ApplicationEventToJson(ApplicationEvent instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$ApplicationExternalIdentifierConfigurationToJson(
+        ApplicationExternalIdentifierConfiguration instance) =>
+    <String, dynamic>{
+      'twoFactorTrustIdTimeToLiveInSeconds':
+          instance.twoFactorTrustIdTimeToLiveInSeconds,
+    };
 
 ApplicationFormConfiguration _$ApplicationFormConfigurationFromJson(
         Map<String, dynamic> json) =>
@@ -507,16 +523,34 @@ ApplicationMultiFactorConfiguration
         ApplicationMultiFactorConfiguration(
           email: MultiFactorEmailTemplate.fromJson(
               json['email'] as Map<String, dynamic>),
+          loginPolicy: _$enumDecode(
+              _$MultiFactorLoginPolicyEnumMap, json['loginPolicy']),
           sms: MultiFactorSMSTemplate.fromJson(
               json['sms'] as Map<String, dynamic>),
+          trustPolicy: _$enumDecode(
+              _$ApplicationMultiFactorTrustPolicyEnumMap, json['trustPolicy']),
         );
 
 Map<String, dynamic> _$ApplicationMultiFactorConfigurationToJson(
         ApplicationMultiFactorConfiguration instance) =>
     <String, dynamic>{
       'email': instance.email,
+      'loginPolicy': _$MultiFactorLoginPolicyEnumMap[instance.loginPolicy],
       'sms': instance.sms,
+      'trustPolicy':
+          _$ApplicationMultiFactorTrustPolicyEnumMap[instance.trustPolicy],
     };
+
+const _$MultiFactorLoginPolicyEnumMap = {
+  MultiFactorLoginPolicy.Disabled: 'Disabled',
+  MultiFactorLoginPolicy.Enabled: 'Enabled',
+};
+
+const _$ApplicationMultiFactorTrustPolicyEnumMap = {
+  ApplicationMultiFactorTrustPolicy.Any: 'Any',
+  ApplicationMultiFactorTrustPolicy.This: 'This',
+  ApplicationMultiFactorTrustPolicy.None: 'None',
+};
 
 ApplicationRegistrationDeletePolicy
     _$ApplicationRegistrationDeletePolicyFromJson(Map<String, dynamic> json) =>
@@ -536,9 +570,6 @@ ApplicationRequest _$ApplicationRequestFromJson(Map<String, dynamic> json) =>
       application:
           Application.fromJson(json['application'] as Map<String, dynamic>),
       role: ApplicationRole.fromJson(json['role'] as Map<String, dynamic>),
-      webhookIds: (json['webhookIds'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
@@ -547,7 +578,6 @@ Map<String, dynamic> _$ApplicationRequestToJson(ApplicationRequest instance) =>
       'eventInfo': instance.eventInfo,
       'application': instance.application,
       'role': instance.role,
-      'webhookIds': instance.webhookIds,
     };
 
 ApplicationResponse _$ApplicationResponseFromJson(Map<String, dynamic> json) =>
@@ -678,6 +708,9 @@ AuditLogCreateEvent _$AuditLogCreateEventFromJson(Map<String, dynamic> json) =>
     AuditLogCreateEvent(
       auditLog: AuditLog.fromJson(json['auditLog'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -687,6 +720,7 @@ AuditLogCreateEvent _$AuditLogCreateEventFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AuditLogCreateEventToJson(
         AuditLogCreateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -1000,6 +1034,9 @@ Map<String, dynamic> _$BaseElasticSearchCriteriaToJson(
     };
 
 BaseEvent _$BaseEventFromJson(Map<String, dynamic> json) => BaseEvent(
+      applicationIds: (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       createInstant: json['createInstant'] as num,
       id: json['id'] as String,
       info: EventInfo.fromJson(json['info'] as Map<String, dynamic>),
@@ -1008,6 +1045,7 @@ BaseEvent _$BaseEventFromJson(Map<String, dynamic> json) => BaseEvent(
     );
 
 Map<String, dynamic> _$BaseEventToJson(BaseEvent instance) => <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -1574,6 +1612,7 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
       additionalHeaders: (json['additionalHeaders'] as List<dynamic>)
           .map((e) => EmailHeader.fromJson(e as Map<String, dynamic>))
           .toList(),
+      debug: json['debug'] as bool,
       defaultFromEmail: json['defaultFromEmail'] as String,
       defaultFromName: json['defaultFromName'] as String,
       emailUpdateEmailTemplateId: json['emailUpdateEmailTemplateId'] as String,
@@ -1621,6 +1660,7 @@ EmailConfiguration _$EmailConfigurationFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$EmailConfigurationToJson(EmailConfiguration instance) =>
     <String, dynamic>{
       'additionalHeaders': instance.additionalHeaders,
+      'debug': instance.debug,
       'defaultFromEmail': instance.defaultFromEmail,
       'defaultFromName': instance.defaultFromName,
       'emailUpdateEmailTemplateId': instance.emailUpdateEmailTemplateId,
@@ -2350,6 +2390,9 @@ EventLogCreateEvent _$EventLogCreateEventFromJson(Map<String, dynamic> json) =>
     EventLogCreateEvent(
       eventLog: EventLog.fromJson(json['eventLog'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -2359,6 +2402,7 @@ EventLogCreateEvent _$EventLogCreateEventFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$EventLogCreateEventToJson(
         EventLogCreateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -3984,6 +4028,9 @@ const _$AlgorithmEnumMap = {
   Algorithm.HS256: 'HS256',
   Algorithm.HS384: 'HS384',
   Algorithm.HS512: 'HS512',
+  Algorithm.PS256: 'PS256',
+  Algorithm.PS384: 'PS384',
+  Algorithm.PS512: 'PS512',
   Algorithm.RS256: 'RS256',
   Algorithm.RS384: 'RS384',
   Algorithm.RS512: 'RS512',
@@ -4087,11 +4134,10 @@ const _$RefreshTokenUsagePolicyEnumMap = {
 
 JWTPublicKeyUpdateEvent _$JWTPublicKeyUpdateEventFromJson(
         Map<String, dynamic> json) =>
-    JWTPublicKeyUpdateEvent(
-      applicationIds: (json['applicationIds'] as List<dynamic>)
+    JWTPublicKeyUpdateEvent()
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
           .map((e) => e as String)
-          .toSet(),
-    )
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -4101,12 +4147,12 @@ JWTPublicKeyUpdateEvent _$JWTPublicKeyUpdateEventFromJson(
 Map<String, dynamic> _$JWTPublicKeyUpdateEventToJson(
         JWTPublicKeyUpdateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
       'tenantId': instance.tenantId,
       'type': _$EventTypeEnumMap[instance.type],
-      'applicationIds': instance.applicationIds.toList(),
     };
 
 JWTRefreshEvent _$JWTRefreshEventFromJson(Map<String, dynamic> json) =>
@@ -4117,6 +4163,9 @@ JWTRefreshEvent _$JWTRefreshEventFromJson(Map<String, dynamic> json) =>
       token: json['token'] as String,
       userId: json['userId'] as String,
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -4125,6 +4174,7 @@ JWTRefreshEvent _$JWTRefreshEventFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -4140,12 +4190,14 @@ Map<String, dynamic> _$JWTRefreshEventToJson(JWTRefreshEvent instance) =>
 JWTRefreshResponse _$JWTRefreshResponseFromJson(Map<String, dynamic> json) =>
     JWTRefreshResponse(
       refreshToken: json['refreshToken'] as String,
+      refreshTokenId: json['refreshTokenId'] as String,
       token: json['token'] as String,
     );
 
 Map<String, dynamic> _$JWTRefreshResponseToJson(JWTRefreshResponse instance) =>
     <String, dynamic>{
       'refreshToken': instance.refreshToken,
+      'refreshTokenId': instance.refreshTokenId,
       'token': instance.token,
     };
 
@@ -4155,9 +4207,14 @@ JWTRefreshTokenRevokeEvent _$JWTRefreshTokenRevokeEventFromJson(
       applicationId: json['applicationId'] as String,
       applicationTimeToLiveInSeconds:
           Map<String, num>.from(json['applicationTimeToLiveInSeconds'] as Map),
+      refreshToken:
+          RefreshToken.fromJson(json['refreshToken'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
       userId: json['userId'] as String,
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -4167,6 +4224,7 @@ JWTRefreshTokenRevokeEvent _$JWTRefreshTokenRevokeEventFromJson(
 Map<String, dynamic> _$JWTRefreshTokenRevokeEventToJson(
         JWTRefreshTokenRevokeEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -4174,6 +4232,7 @@ Map<String, dynamic> _$JWTRefreshTokenRevokeEventToJson(
       'type': _$EventTypeEnumMap[instance.type],
       'applicationId': instance.applicationId,
       'applicationTimeToLiveInSeconds': instance.applicationTimeToLiveInSeconds,
+      'refreshToken': instance.refreshToken,
       'user': instance.user,
       'userId': instance.userId,
     };
@@ -4323,6 +4382,9 @@ KickstartSuccessEvent _$KickstartSuccessEventFromJson(
     KickstartSuccessEvent(
       instanceId: json['instanceId'] as String,
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -4332,6 +4394,7 @@ KickstartSuccessEvent _$KickstartSuccessEventFromJson(
 Map<String, dynamic> _$KickstartSuccessEventToJson(
         KickstartSuccessEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -4616,6 +4679,29 @@ Map<String, dynamic> _$LoginConfigurationToJson(LoginConfiguration instance) =>
       'requireAuthentication': instance.requireAuthentication,
     };
 
+LoginPingRequest _$LoginPingRequestFromJson(Map<String, dynamic> json) =>
+    LoginPingRequest(
+      userId: json['userId'] as String,
+    )
+      ..eventInfo =
+          EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
+      ..applicationId = json['applicationId'] as String
+      ..ipAddress = json['ipAddress'] as String
+      ..metaData = MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+      ..newDevice = json['newDevice'] as bool
+      ..noJWT = json['noJWT'] as bool;
+
+Map<String, dynamic> _$LoginPingRequestToJson(LoginPingRequest instance) =>
+    <String, dynamic>{
+      'eventInfo': instance.eventInfo,
+      'applicationId': instance.applicationId,
+      'ipAddress': instance.ipAddress,
+      'metaData': instance.metaData,
+      'newDevice': instance.newDevice,
+      'noJWT': instance.noJWT,
+      'userId': instance.userId,
+    };
+
 LoginPreventedResponse _$LoginPreventedResponseFromJson(
         Map<String, dynamic> json) =>
     LoginPreventedResponse(
@@ -4789,6 +4875,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
           .toList(),
       pendingIdPLinkId: json['pendingIdPLinkId'] as String,
       refreshToken: json['refreshToken'] as String,
+      refreshTokenId: json['refreshTokenId'] as String,
       registrationVerificationId: json['registrationVerificationId'] as String,
       state: json['state'] as Map<String, dynamic>,
       threatsDetected: (json['threatsDetected'] as List<dynamic>)
@@ -4812,6 +4899,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'methods': instance.methods,
       'pendingIdPLinkId': instance.pendingIdPLinkId,
       'refreshToken': instance.refreshToken,
+      'refreshTokenId': instance.refreshTokenId,
       'registrationVerificationId': instance.registrationVerificationId,
       'state': instance.state,
       'threatsDetected': instance.threatsDetected
@@ -6225,6 +6313,9 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
           json['advancedMultiFactorAuthentication']),
       advancedRegistration: _$enumDecode(
           _$ReactorFeatureStatusEnumMap, json['advancedRegistration']),
+      applicationMultiFactorAuthentication: _$enumDecode(
+          _$ReactorFeatureStatusEnumMap,
+          json['applicationMultiFactorAuthentication']),
       applicationThemes: _$enumDecode(
           _$ReactorFeatureStatusEnumMap, json['applicationThemes']),
       breachedPasswordDetection: _$enumDecode(
@@ -6234,6 +6325,8 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
       entityManagement:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['entityManagement']),
       expiration: json['expiration'] as String,
+      licenseAttributes:
+          Map<String, String>.from(json['licenseAttributes'] as Map),
       licensed: json['licensed'] as bool,
       scimServer:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['scimServer']),
@@ -6251,6 +6344,8 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
           instance.advancedMultiFactorAuthentication],
       'advancedRegistration':
           _$ReactorFeatureStatusEnumMap[instance.advancedRegistration],
+      'applicationMultiFactorAuthentication': _$ReactorFeatureStatusEnumMap[
+          instance.applicationMultiFactorAuthentication],
       'applicationThemes':
           _$ReactorFeatureStatusEnumMap[instance.applicationThemes],
       'breachedPasswordDetection':
@@ -6259,6 +6354,7 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
       'entityManagement':
           _$ReactorFeatureStatusEnumMap[instance.entityManagement],
       'expiration': instance.expiration,
+      'licenseAttributes': instance.licenseAttributes,
       'licensed': instance.licensed,
       'scimServer': _$ReactorFeatureStatusEnumMap[instance.scimServer],
       'threatDetection':
@@ -7663,6 +7759,8 @@ TenantMultiFactorConfiguration _$TenantMultiFactorConfigurationFromJson(
           json['authenticator'] as Map<String, dynamic>),
       email: MultiFactorEmailMethod.fromJson(
           json['email'] as Map<String, dynamic>),
+      loginPolicy:
+          _$enumDecode(_$MultiFactorLoginPolicyEnumMap, json['loginPolicy']),
       sms: MultiFactorSMSMethod.fromJson(json['sms'] as Map<String, dynamic>),
     );
 
@@ -7671,6 +7769,7 @@ Map<String, dynamic> _$TenantMultiFactorConfigurationToJson(
     <String, dynamic>{
       'authenticator': instance.authenticator,
       'email': instance.email,
+      'loginPolicy': _$MultiFactorLoginPolicyEnumMap[instance.loginPolicy],
       'sms': instance.sms,
     };
 
@@ -7734,6 +7833,9 @@ TenantRequest _$TenantRequestFromJson(Map<String, dynamic> json) =>
     TenantRequest(
       sourceTenantId: json['sourceTenantId'] as String,
       tenant: Tenant.fromJson(json['tenant'] as Map<String, dynamic>),
+      webhookIds: (json['webhookIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
@@ -7742,6 +7844,7 @@ Map<String, dynamic> _$TenantRequestToJson(TenantRequest instance) =>
       'eventInfo': instance.eventInfo,
       'sourceTenantId': instance.sourceTenantId,
       'tenant': instance.tenant,
+      'webhookIds': instance.webhookIds,
     };
 
 TenantResponse _$TenantResponseFromJson(Map<String, dynamic> json) =>
@@ -7832,6 +7935,9 @@ Map<String, dynamic> _$TenantUsernameConfigurationToJson(
 TestEvent _$TestEventFromJson(Map<String, dynamic> json) => TestEvent(
       message: json['message'] as String,
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -7839,6 +7945,7 @@ TestEvent _$TestEventFromJson(Map<String, dynamic> json) => TestEvent(
       ..type = _$enumDecode(_$EventTypeEnumMap, json['type']);
 
 Map<String, dynamic> _$TestEventToJson(TestEvent instance) => <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8351,6 +8458,36 @@ Map<String, dynamic> _$TwoFactorStartResponseToJson(
       'twoFactorId': instance.twoFactorId,
     };
 
+TwoFactorStatusResponse _$TwoFactorStatusResponseFromJson(
+        Map<String, dynamic> json) =>
+    TwoFactorStatusResponse(
+      trusts: (json['trusts'] as List<dynamic>)
+          .map((e) => TwoFactorTrust.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      twoFactorTrustId: json['twoFactorTrustId'] as String,
+    );
+
+Map<String, dynamic> _$TwoFactorStatusResponseToJson(
+        TwoFactorStatusResponse instance) =>
+    <String, dynamic>{
+      'trusts': instance.trusts,
+      'twoFactorTrustId': instance.twoFactorTrustId,
+    };
+
+TwoFactorTrust _$TwoFactorTrustFromJson(Map<String, dynamic> json) =>
+    TwoFactorTrust(
+      applicationId: json['applicationId'] as String,
+      expiration: json['expiration'] as num,
+      startInstant: json['startInstant'] as num,
+    );
+
+Map<String, dynamic> _$TwoFactorTrustToJson(TwoFactorTrust instance) =>
+    <String, dynamic>{
+      'applicationId': instance.applicationId,
+      'expiration': instance.expiration,
+      'startInstant': instance.startInstant,
+    };
+
 UIConfiguration _$UIConfigurationFromJson(Map<String, dynamic> json) =>
     UIConfiguration(
       headerColor: json['headerColor'] as String,
@@ -8542,9 +8679,6 @@ UserActionEvent _$UserActionEventFromJson(Map<String, dynamic> json) =>
       actioneeUserId: json['actioneeUserId'] as String,
       actionerUserId: json['actionerUserId'] as String,
       actionId: json['actionId'] as String,
-      applicationIds: (json['applicationIds'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
       comment: json['comment'] as String,
       email: Email.fromJson(json['email'] as Map<String, dynamic>),
       emailedUser: json['emailedUser'] as bool,
@@ -8559,6 +8693,9 @@ UserActionEvent _$UserActionEventFromJson(Map<String, dynamic> json) =>
       reason: json['reason'] as String,
       reasonCode: json['reasonCode'] as String,
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8567,6 +8704,7 @@ UserActionEvent _$UserActionEventFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserActionEventToJson(UserActionEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8576,7 +8714,6 @@ Map<String, dynamic> _$UserActionEventToJson(UserActionEvent instance) =>
       'actioneeUserId': instance.actioneeUserId,
       'actionerUserId': instance.actionerUserId,
       'actionId': instance.actionId,
-      'applicationIds': instance.applicationIds,
       'comment': instance.comment,
       'email': instance.email,
       'emailedUser': instance.emailedUser,
@@ -8741,6 +8878,9 @@ UserBulkCreateEvent _$UserBulkCreateEventFromJson(Map<String, dynamic> json) =>
           .map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8750,6 +8890,7 @@ UserBulkCreateEvent _$UserBulkCreateEventFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UserBulkCreateEventToJson(
         UserBulkCreateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8867,6 +9008,9 @@ UserCreateCompleteEvent _$UserCreateCompleteEventFromJson(
     UserCreateCompleteEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8876,6 +9020,7 @@ UserCreateCompleteEvent _$UserCreateCompleteEventFromJson(
 Map<String, dynamic> _$UserCreateCompleteEventToJson(
         UserCreateCompleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8888,6 +9033,9 @@ UserCreateEvent _$UserCreateEventFromJson(Map<String, dynamic> json) =>
     UserCreateEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8896,6 +9044,7 @@ UserCreateEvent _$UserCreateEventFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserCreateEventToJson(UserCreateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8908,6 +9057,9 @@ UserDeactivateEvent _$UserDeactivateEventFromJson(Map<String, dynamic> json) =>
     UserDeactivateEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8917,6 +9069,7 @@ UserDeactivateEvent _$UserDeactivateEventFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UserDeactivateEventToJson(
         UserDeactivateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8930,6 +9083,9 @@ UserDeleteCompleteEvent _$UserDeleteCompleteEventFromJson(
     UserDeleteCompleteEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8939,6 +9095,7 @@ UserDeleteCompleteEvent _$UserDeleteCompleteEventFromJson(
 Map<String, dynamic> _$UserDeleteCompleteEventToJson(
         UserDeleteCompleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -8951,6 +9108,9 @@ UserDeleteEvent _$UserDeleteEventFromJson(Map<String, dynamic> json) =>
     UserDeleteEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -8959,6 +9119,7 @@ UserDeleteEvent _$UserDeleteEventFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserDeleteEventToJson(UserDeleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9025,6 +9186,9 @@ UserEmailUpdateEvent _$UserEmailUpdateEventFromJson(
       previousEmail: json['previousEmail'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9034,6 +9198,7 @@ UserEmailUpdateEvent _$UserEmailUpdateEventFromJson(
 Map<String, dynamic> _$UserEmailUpdateEventToJson(
         UserEmailUpdateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9048,6 +9213,9 @@ UserEmailVerifiedEvent _$UserEmailVerifiedEventFromJson(
     UserEmailVerifiedEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9057,6 +9225,7 @@ UserEmailVerifiedEvent _$UserEmailVerifiedEventFromJson(
 Map<String, dynamic> _$UserEmailVerifiedEventToJson(
         UserEmailVerifiedEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9072,6 +9241,9 @@ UserIdentityProviderLinkEvent _$UserIdentityProviderLinkEventFromJson(
           json['identityProviderLink'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9081,6 +9253,7 @@ UserIdentityProviderLinkEvent _$UserIdentityProviderLinkEventFromJson(
 Map<String, dynamic> _$UserIdentityProviderLinkEventToJson(
         UserIdentityProviderLinkEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9097,6 +9270,9 @@ UserIdentityProviderUnlinkEvent _$UserIdentityProviderUnlinkEventFromJson(
           json['identityProviderLink'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9106,6 +9282,7 @@ UserIdentityProviderUnlinkEvent _$UserIdentityProviderUnlinkEventFromJson(
 Map<String, dynamic> _$UserIdentityProviderUnlinkEventToJson(
         UserIdentityProviderUnlinkEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9123,6 +9300,9 @@ UserLoginFailedEvent _$UserLoginFailedEventFromJson(
       ipAddress: json['ipAddress'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9132,6 +9312,7 @@ UserLoginFailedEvent _$UserLoginFailedEventFromJson(
 Map<String, dynamic> _$UserLoginFailedEventToJson(
         UserLoginFailedEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9151,6 +9332,9 @@ UserLoginIdDuplicateOnCreateEvent _$UserLoginIdDuplicateOnCreateEventFromJson(
       existing: User.fromJson(json['existing'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9160,6 +9344,7 @@ UserLoginIdDuplicateOnCreateEvent _$UserLoginIdDuplicateOnCreateEventFromJson(
 Map<String, dynamic> _$UserLoginIdDuplicateOnCreateEventToJson(
         UserLoginIdDuplicateOnCreateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9174,6 +9359,9 @@ Map<String, dynamic> _$UserLoginIdDuplicateOnCreateEventToJson(
 UserLoginIdDuplicateOnUpdateEvent _$UserLoginIdDuplicateOnUpdateEventFromJson(
         Map<String, dynamic> json) =>
     UserLoginIdDuplicateOnUpdateEvent()
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9187,6 +9375,7 @@ UserLoginIdDuplicateOnUpdateEvent _$UserLoginIdDuplicateOnUpdateEventFromJson(
 Map<String, dynamic> _$UserLoginIdDuplicateOnUpdateEventToJson(
         UserLoginIdDuplicateOnUpdateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9201,6 +9390,9 @@ Map<String, dynamic> _$UserLoginIdDuplicateOnUpdateEventToJson(
 UserLoginNewDeviceEvent _$UserLoginNewDeviceEventFromJson(
         Map<String, dynamic> json) =>
     UserLoginNewDeviceEvent()
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9217,6 +9409,7 @@ UserLoginNewDeviceEvent _$UserLoginNewDeviceEventFromJson(
 Map<String, dynamic> _$UserLoginNewDeviceEventToJson(
         UserLoginNewDeviceEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9242,6 +9435,9 @@ UserLoginSuccessEvent _$UserLoginSuccessEventFromJson(
       ipAddress: json['ipAddress'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9251,6 +9447,7 @@ UserLoginSuccessEvent _$UserLoginSuccessEventFromJson(
 Map<String, dynamic> _$UserLoginSuccessEventToJson(
         UserLoginSuccessEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9272,6 +9469,9 @@ UserLoginSuspiciousEvent _$UserLoginSuspiciousEventFromJson(
           .map((e) => _$enumDecode(_$AuthenticationThreatsEnumMap, e))
           .toSet(),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9288,6 +9488,7 @@ UserLoginSuspiciousEvent _$UserLoginSuspiciousEventFromJson(
 Map<String, dynamic> _$UserLoginSuspiciousEventToJson(
         UserLoginSuspiciousEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9321,6 +9522,9 @@ UserPasswordBreachEvent _$UserPasswordBreachEventFromJson(
     UserPasswordBreachEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9330,6 +9534,7 @@ UserPasswordBreachEvent _$UserPasswordBreachEventFromJson(
 Map<String, dynamic> _$UserPasswordBreachEventToJson(
         UserPasswordBreachEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9343,6 +9548,9 @@ UserPasswordResetSendEvent _$UserPasswordResetSendEventFromJson(
     UserPasswordResetSendEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9352,6 +9560,7 @@ UserPasswordResetSendEvent _$UserPasswordResetSendEventFromJson(
 Map<String, dynamic> _$UserPasswordResetSendEventToJson(
         UserPasswordResetSendEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9365,6 +9574,9 @@ UserPasswordResetStartEvent _$UserPasswordResetStartEventFromJson(
     UserPasswordResetStartEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9374,6 +9586,7 @@ UserPasswordResetStartEvent _$UserPasswordResetStartEventFromJson(
 Map<String, dynamic> _$UserPasswordResetStartEventToJson(
         UserPasswordResetStartEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9387,6 +9600,9 @@ UserPasswordResetSuccessEvent _$UserPasswordResetSuccessEventFromJson(
     UserPasswordResetSuccessEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9396,6 +9612,7 @@ UserPasswordResetSuccessEvent _$UserPasswordResetSuccessEventFromJson(
 Map<String, dynamic> _$UserPasswordResetSuccessEventToJson(
         UserPasswordResetSuccessEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9409,6 +9626,9 @@ UserPasswordUpdateEvent _$UserPasswordUpdateEventFromJson(
     UserPasswordUpdateEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9418,6 +9638,7 @@ UserPasswordUpdateEvent _$UserPasswordUpdateEventFromJson(
 Map<String, dynamic> _$UserPasswordUpdateEventToJson(
         UserPasswordUpdateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9430,6 +9651,9 @@ UserReactivateEvent _$UserReactivateEventFromJson(Map<String, dynamic> json) =>
     UserReactivateEvent(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9439,6 +9663,7 @@ UserReactivateEvent _$UserReactivateEventFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UserReactivateEventToJson(
         UserReactivateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9496,6 +9721,9 @@ UserRegistrationCreateCompleteEvent
               json['registration'] as Map<String, dynamic>),
           user: User.fromJson(json['user'] as Map<String, dynamic>),
         )
+          ..applicationIds = (json['applicationIds'] as List<dynamic>)
+              .map((e) => e as String)
+              .toList()
           ..createInstant = json['createInstant'] as num
           ..id = json['id'] as String
           ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9505,6 +9733,7 @@ UserRegistrationCreateCompleteEvent
 Map<String, dynamic> _$UserRegistrationCreateCompleteEventToJson(
         UserRegistrationCreateCompleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9523,6 +9752,9 @@ UserRegistrationCreateEvent _$UserRegistrationCreateEventFromJson(
           json['registration'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9532,6 +9764,7 @@ UserRegistrationCreateEvent _$UserRegistrationCreateEventFromJson(
 Map<String, dynamic> _$UserRegistrationCreateEventToJson(
         UserRegistrationCreateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9550,6 +9783,9 @@ UserRegistrationDeleteCompleteEvent
               json['registration'] as Map<String, dynamic>),
           user: User.fromJson(json['user'] as Map<String, dynamic>),
         )
+          ..applicationIds = (json['applicationIds'] as List<dynamic>)
+              .map((e) => e as String)
+              .toList()
           ..createInstant = json['createInstant'] as num
           ..id = json['id'] as String
           ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9559,6 +9795,7 @@ UserRegistrationDeleteCompleteEvent
 Map<String, dynamic> _$UserRegistrationDeleteCompleteEventToJson(
         UserRegistrationDeleteCompleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9577,6 +9814,9 @@ UserRegistrationDeleteEvent _$UserRegistrationDeleteEventFromJson(
           json['registration'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9586,6 +9826,7 @@ UserRegistrationDeleteEvent _$UserRegistrationDeleteEventFromJson(
 Map<String, dynamic> _$UserRegistrationDeleteEventToJson(
         UserRegistrationDeleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9606,6 +9847,9 @@ UserRegistrationUpdateCompleteEvent
               json['registration'] as Map<String, dynamic>),
           user: User.fromJson(json['user'] as Map<String, dynamic>),
         )
+          ..applicationIds = (json['applicationIds'] as List<dynamic>)
+              .map((e) => e as String)
+              .toList()
           ..createInstant = json['createInstant'] as num
           ..id = json['id'] as String
           ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9615,6 +9859,7 @@ UserRegistrationUpdateCompleteEvent
 Map<String, dynamic> _$UserRegistrationUpdateCompleteEventToJson(
         UserRegistrationUpdateCompleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9636,6 +9881,9 @@ UserRegistrationUpdateEvent _$UserRegistrationUpdateEventFromJson(
           json['registration'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9645,6 +9893,7 @@ UserRegistrationUpdateEvent _$UserRegistrationUpdateEventFromJson(
 Map<String, dynamic> _$UserRegistrationUpdateEventToJson(
         UserRegistrationUpdateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9664,6 +9913,9 @@ UserRegistrationVerifiedEvent _$UserRegistrationVerifiedEventFromJson(
           json['registration'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9673,6 +9925,7 @@ UserRegistrationVerifiedEvent _$UserRegistrationVerifiedEventFromJson(
 Map<String, dynamic> _$UserRegistrationVerifiedEventToJson(
         UserRegistrationVerifiedEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9769,6 +10022,9 @@ UserTwoFactorMethodAddEvent _$UserTwoFactorMethodAddEventFromJson(
       method: TwoFactorMethod.fromJson(json['method'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9778,6 +10034,7 @@ UserTwoFactorMethodAddEvent _$UserTwoFactorMethodAddEventFromJson(
 Map<String, dynamic> _$UserTwoFactorMethodAddEventToJson(
         UserTwoFactorMethodAddEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9793,6 +10050,9 @@ UserTwoFactorMethodRemoveEvent _$UserTwoFactorMethodRemoveEventFromJson(
       method: TwoFactorMethod.fromJson(json['method'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9802,6 +10062,7 @@ UserTwoFactorMethodRemoveEvent _$UserTwoFactorMethodRemoveEventFromJson(
 Map<String, dynamic> _$UserTwoFactorMethodRemoveEventToJson(
         UserTwoFactorMethodRemoveEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9817,6 +10078,9 @@ UserUpdateCompleteEvent _$UserUpdateCompleteEventFromJson(
       original: User.fromJson(json['original'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9826,6 +10090,7 @@ UserUpdateCompleteEvent _$UserUpdateCompleteEventFromJson(
 Map<String, dynamic> _$UserUpdateCompleteEventToJson(
         UserUpdateCompleteEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -9840,6 +10105,9 @@ UserUpdateEvent _$UserUpdateEventFromJson(Map<String, dynamic> json) =>
       original: User.fromJson(json['original'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     )
+      ..applicationIds = (json['applicationIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList()
       ..createInstant = json['createInstant'] as num
       ..id = json['id'] as String
       ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
@@ -9848,6 +10116,7 @@ UserUpdateEvent _$UserUpdateEventFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserUpdateEventToJson(UserUpdateEvent instance) =>
     <String, dynamic>{
+      'applicationIds': instance.applicationIds,
       'createInstant': instance.createInstant,
       'id': instance.id,
       'info': instance.info,
@@ -10036,9 +10305,6 @@ Map<String, dynamic> _$WebAuthnStartRequestToJson(
     };
 
 Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
-      applicationIds: (json['applicationIds'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
       connectTimeout: json['connectTimeout'] as num,
       data: json['data'] as Map<String, dynamic>,
       description: json['description'] as String,
@@ -10054,11 +10320,12 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
       lastUpdateInstant: json['lastUpdateInstant'] as num,
       readTimeout: json['readTimeout'] as num,
       sslCertificate: json['sslCertificate'] as String,
+      tenantIds:
+          (json['tenantIds'] as List<dynamic>).map((e) => e as String).toList(),
       url: json['url'] as String,
     );
 
 Map<String, dynamic> _$WebhookToJson(Webhook instance) => <String, dynamic>{
-      'applicationIds': instance.applicationIds,
       'connectTimeout': instance.connectTimeout,
       'data': instance.data,
       'description': instance.description,
@@ -10073,6 +10340,7 @@ Map<String, dynamic> _$WebhookToJson(Webhook instance) => <String, dynamic>{
       'lastUpdateInstant': instance.lastUpdateInstant,
       'readTimeout': instance.readTimeout,
       'sslCertificate': instance.sslCertificate,
+      'tenantIds': instance.tenantIds,
       'url': instance.url,
     };
 
