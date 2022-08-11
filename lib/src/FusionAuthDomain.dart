@@ -377,6 +377,18 @@ class ApplicationEmailConfiguration {
   Map<String, dynamic> toJson() => _$ApplicationEmailConfigurationToJson(this);
 }
 
+/// Events that are bound to applications.
+///
+/// @author Brian Pontarelli
+@JsonSerializable()
+class ApplicationEvent {
+  ApplicationEvent();
+
+  factory ApplicationEvent.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationEventFromJson(json);
+  Map<String, dynamic> toJson() => _$ApplicationEventToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class ApplicationExternalIdentifierConfiguration {
@@ -555,6 +567,22 @@ enum AttestationConveyancePreference {
   enterprise
 }
 
+/// Used to indicate what type of attestation was included in the authenticator response for a given WebAuthn credential at the time it was created
+///
+/// @author Spencer Witt
+enum AttestationType {
+  @JsonValue('basic')
+  basic,
+  @JsonValue('self')
+  self,
+  @JsonValue('attestationCa')
+  attestationCa,
+  @JsonValue('anonymizationCa')
+  anonymizationCa,
+  @JsonValue('none')
+  none
+}
+
 /// An audit log.
 ///
 /// @author Brian Pontarelli
@@ -724,6 +752,18 @@ enum AuthenticatorAttachment {
   PLATFORM,
   @JsonValue('CROSS_PLATFORM')
   CROSS_PLATFORM
+}
+
+/// Describes the authenticator attachment modality preference for a WebAuthn workflow. See {@link AuthenticatorAttachment}
+///
+/// @author Spencer Witt
+enum AuthenticatorAttachmentPreference {
+  @JsonValue('PLATFORM')
+  PLATFORM,
+  @JsonValue('CROSS_PLATFORM')
+  CROSS_PLATFORM,
+  @JsonValue('EITHER')
+  EITHER
 }
 
 /// The <i>authenticator's</i> response for the authentication ceremony in its encoded format
@@ -1471,6 +1511,20 @@ class Count {
 
   factory Count.fromJson(Map<String, dynamic> json) => _$CountFromJson(json);
   Map<String, dynamic> toJson() => _$CountToJson(this);
+}
+
+/// Contains the output for the {@code credProps} extension
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class CredentialPropertiesOutput {
+  bool rk;
+
+  CredentialPropertiesOutput({this.rk});
+
+  factory CredentialPropertiesOutput.fromJson(Map<String, dynamic> json) =>
+      _$CredentialPropertiesOutputFromJson(json);
+  Map<String, dynamic> toJson() => _$CredentialPropertiesOutputToJson(this);
 }
 
 /// Response for the daily active user report.
@@ -5738,7 +5792,7 @@ enum ProofKeyForCodeExchangePolicy {
 /// @author Spencer Witt
 @JsonSerializable()
 class PublicKeyAuthenticationRequest {
-  HashMap<String, String> clientExtensionResults;
+  WebAuthnExtensionsClientOutputs clientExtensionResults;
   String id;
   AuthenticatorAuthenticationResponse response;
   String rpId;
@@ -5765,6 +5819,7 @@ class PublicKeyCredentialCreationOptions {
   AuthenticatorSelectionCriteria authenticatorSelection;
   String challenge;
   List<PublicKeyCredentialDescriptor> excludeCredentials;
+  WebAuthnRegistrationExtensionOptions extensions;
   List<PublicKeyCredentialParameters> pubKeyCredParams;
   PublicKeyCredentialRpEntity rp;
   num timeout;
@@ -5775,6 +5830,7 @@ class PublicKeyCredentialCreationOptions {
       this.authenticatorSelection,
       this.challenge,
       this.excludeCredentials,
+      this.extensions,
       this.pubKeyCredParams,
       this.rp,
       this.timeout,
@@ -5897,7 +5953,7 @@ class PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
 /// @author Spencer Witt
 @JsonSerializable()
 class PublicKeyRegistrationRequest {
-  HashMap<String, String> clientExtensionResults;
+  WebAuthnExtensionsClientOutputs clientExtensionResults;
   String id;
   AuthenticatorRegistrationResponse response;
   String rpId;
@@ -7085,6 +7141,7 @@ class Tenant {
   String themeId;
   TenantUserDeletePolicy userDeletePolicy;
   TenantUsernameConfiguration usernameConfiguration;
+  TenantWebAuthnConfiguration webAuthnConfiguration;
 
   Tenant(
       {this.accessControlConfiguration,
@@ -7121,7 +7178,8 @@ class Tenant {
       this.state,
       this.themeId,
       this.userDeletePolicy,
-      this.usernameConfiguration});
+      this.usernameConfiguration,
+      this.webAuthnConfiguration});
 
   factory Tenant.fromJson(Map<String, dynamic> json) => _$TenantFromJson(json);
   Map<String, dynamic> toJson() => _$TenantToJson(this);
@@ -7383,6 +7441,20 @@ class TenantUsernameConfiguration {
   factory TenantUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantUsernameConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantUsernameConfigurationToJson(this);
+}
+
+/// Tenant-level configuration for WebAuthn
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class TenantWebAuthnConfiguration extends Enableable {
+  WebAuthnWorkflowConfiguration reauthenticationWorkflowConfiguration;
+
+  TenantWebAuthnConfiguration({this.reauthenticationWorkflowConfiguration});
+
+  factory TenantWebAuthnConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$TenantWebAuthnConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantWebAuthnConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -9133,12 +9205,12 @@ class VersionResponse {
 @JsonSerializable()
 class WebAuthnCompleteRequest {
   PublicKeyRegistrationRequest credential;
-  String loginId;
   String origin;
   String rpId;
+  String userId;
 
   WebAuthnCompleteRequest(
-      {this.credential, this.loginId, this.origin, this.rpId});
+      {this.credential, this.origin, this.rpId, this.userId});
 
   factory WebAuthnCompleteRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCompleteRequestFromJson(json);
@@ -9151,12 +9223,15 @@ class WebAuthnCompleteRequest {
 @JsonSerializable()
 class WebAuthnCredential {
   CoseAlgorithmIdentifier alg;
+  AttestationType attestationType;
+  bool authenticatorSupportsUserVerification;
   String credentialId;
-  Map<String, dynamic> data;
   String id;
   num insertInstant;
+  bool isDiscoverableCredential;
   num lastUseInstant;
   String publicKey;
+  String rpId;
   num signCount;
   String tenantId;
   List<AuthenticatorTransport> transports;
@@ -9164,12 +9239,15 @@ class WebAuthnCredential {
 
   WebAuthnCredential(
       {this.alg,
+      this.attestationType,
+      this.authenticatorSupportsUserVerification,
       this.credentialId,
-      this.data,
       this.id,
       this.insertInstant,
+      this.isDiscoverableCredential,
       this.lastUseInstant,
       this.publicKey,
+      this.rpId,
       this.signCount,
       this.tenantId,
       this.transports,
@@ -9196,6 +9274,21 @@ class WebAuthnCredentialResponse {
   Map<String, dynamic> toJson() => _$WebAuthnCredentialResponseToJson(this);
 }
 
+/// Contains extension output for requested extensions during a WebAuthn ceremony
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnExtensionsClientOutputs {
+  CredentialPropertiesOutput credProps;
+
+  WebAuthnExtensionsClientOutputs({this.credProps});
+
+  factory WebAuthnExtensionsClientOutputs.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnExtensionsClientOutputsFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnExtensionsClientOutputsToJson(this);
+}
+
 /// Request to complete the WebAuthn registration ceremony
 ///
 /// @author Spencer Witt
@@ -9212,18 +9305,113 @@ class WebAuthnLoginRequest extends BaseLoginRequest {
   Map<String, dynamic> toJson() => _$WebAuthnLoginRequestToJson(this);
 }
 
+/// API request to start a WebAuthn registration ceremony
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnRegisterRequest {
+  Map<String, dynamic> state;
+  String userId;
+  WebAuthnWorkflow workflow;
+
+  WebAuthnRegisterRequest({this.state, this.userId, this.workflow});
+
+  factory WebAuthnRegisterRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnRegisterRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnRegisterRequestToJson(this);
+}
+
+/// API response for starting a WebAuthn registration ceremony
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnRegisterResponse {
+  PublicKeyCredentialCreationOptions options;
+
+  WebAuthnRegisterResponse({this.options});
+
+  factory WebAuthnRegisterResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnRegisterResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnRegisterResponseToJson(this);
+}
+
+/// Options to request extensions during credential registration
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnRegistrationExtensionOptions {
+  bool credProps;
+
+  WebAuthnRegistrationExtensionOptions({this.credProps});
+
+  factory WebAuthnRegistrationExtensionOptions.fromJson(
+          Map<String, dynamic> json) =>
+      _$WebAuthnRegistrationExtensionOptionsFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnRegistrationExtensionOptionsToJson(this);
+}
+
+/// API request to start a WebAuthn authentication ceremony
+///
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnStartRequest {
   String applicationId;
   String loginId;
   Map<String, dynamic> state;
+  WebAuthnWorkflow workflow;
 
-  WebAuthnStartRequest({this.applicationId, this.loginId, this.state});
+  WebAuthnStartRequest(
+      {this.applicationId, this.loginId, this.state, this.workflow});
 
   factory WebAuthnStartRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnStartRequestFromJson(json);
   Map<String, dynamic> toJson() => _$WebAuthnStartRequestToJson(this);
+}
+
+/// API response for starting a WebAuthn authentication ceremony
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnStartResponse {
+  PublicKeyCredentialRequestOptions options;
+
+  WebAuthnStartResponse({this.options});
+
+  factory WebAuthnStartResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnStartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnStartResponseToJson(this);
+}
+
+/// Identifies the WebAuthn workflow. This will affect the parameters used for credential creation
+/// and request based on the Tenant configuration.
+///
+/// @author Spencer Witt
+enum WebAuthnWorkflow {
+  @JsonValue('REAUTH')
+  REAUTH,
+  @JsonValue('BOOTSTRAP')
+  BOOTSTRAP,
+  @JsonValue('TWO_FACTOR')
+  TWO_FACTOR,
+  @JsonValue('GENERAL')
+  GENERAL
+}
+
+@JsonSerializable()
+class WebAuthnWorkflowConfiguration extends Enableable {
+  AuthenticatorAttachment authenticatorAttachment;
+  AuthenticatorAttachmentPreference authenticatorAttachmentPreference;
+  UserVerificationRequirement userVerificationRequirement;
+
+  WebAuthnWorkflowConfiguration(
+      {this.authenticatorAttachment,
+      this.authenticatorAttachmentPreference,
+      this.userVerificationRequirement});
+
+  factory WebAuthnWorkflowConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnWorkflowConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnWorkflowConfigurationToJson(this);
 }
 
 /// A server where events are sent. This includes user action events and any other events sent by FusionAuth.
