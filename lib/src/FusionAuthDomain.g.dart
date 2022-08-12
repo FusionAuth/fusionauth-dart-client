@@ -10444,8 +10444,6 @@ Map<String, dynamic> _$WebAuthnStartResponseToJson(
 WebAuthnWorkflowConfiguration _$WebAuthnWorkflowConfigurationFromJson(
         Map<String, dynamic> json) =>
     WebAuthnWorkflowConfiguration(
-      authenticatorAttachment: _$enumDecode(
-          _$AuthenticatorAttachmentEnumMap, json['authenticatorAttachment']),
       authenticatorAttachmentPreference: _$enumDecode(
           _$AuthenticatorAttachmentPreferenceEnumMap,
           json['authenticatorAttachmentPreference']),
@@ -10458,8 +10456,6 @@ Map<String, dynamic> _$WebAuthnWorkflowConfigurationToJson(
         WebAuthnWorkflowConfiguration instance) =>
     <String, dynamic>{
       'enabled': instance.enabled,
-      'authenticatorAttachment':
-          _$AuthenticatorAttachmentEnumMap[instance.authenticatorAttachment],
       'authenticatorAttachmentPreference':
           _$AuthenticatorAttachmentPreferenceEnumMap[
               instance.authenticatorAttachmentPreference],

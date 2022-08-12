@@ -9400,13 +9400,11 @@ enum WebAuthnWorkflow {
 
 @JsonSerializable()
 class WebAuthnWorkflowConfiguration extends Enableable {
-  AuthenticatorAttachment authenticatorAttachment;
   AuthenticatorAttachmentPreference authenticatorAttachmentPreference;
   UserVerificationRequirement userVerificationRequirement;
 
   WebAuthnWorkflowConfiguration(
-      {this.authenticatorAttachment,
-      this.authenticatorAttachmentPreference,
+      {this.authenticatorAttachmentPreference,
       this.userVerificationRequirement});
 
   factory WebAuthnWorkflowConfiguration.fromJson(Map<String, dynamic> json) =>
