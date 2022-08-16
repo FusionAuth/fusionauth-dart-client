@@ -7449,8 +7449,11 @@ class TenantUsernameConfiguration {
 @JsonSerializable()
 class TenantWebAuthnConfiguration extends Enableable {
   WebAuthnWorkflowConfiguration reauthenticationWorkflowConfiguration;
+  String rpId;
+  String rpName;
 
-  TenantWebAuthnConfiguration({this.reauthenticationWorkflowConfiguration});
+  TenantWebAuthnConfiguration(
+      {this.reauthenticationWorkflowConfiguration, this.rpId, this.rpName});
 
   factory TenantWebAuthnConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantWebAuthnConfigurationFromJson(json);

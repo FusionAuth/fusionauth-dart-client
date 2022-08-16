@@ -7949,6 +7949,8 @@ TenantWebAuthnConfiguration _$TenantWebAuthnConfigurationFromJson(
           WebAuthnWorkflowConfiguration.fromJson(
               json['reauthenticationWorkflowConfiguration']
                   as Map<String, dynamic>),
+      rpId: json['rpId'] as String,
+      rpName: json['rpName'] as String,
     )..enabled = json['enabled'] as bool;
 
 Map<String, dynamic> _$TenantWebAuthnConfigurationToJson(
@@ -7957,6 +7959,8 @@ Map<String, dynamic> _$TenantWebAuthnConfigurationToJson(
       'enabled': instance.enabled,
       'reauthenticationWorkflowConfiguration':
           instance.reauthenticationWorkflowConfiguration,
+      'rpId': instance.rpId,
+      'rpName': instance.rpName,
     };
 
 TestEvent _$TestEventFromJson(Map<String, dynamic> json) => TestEvent(
