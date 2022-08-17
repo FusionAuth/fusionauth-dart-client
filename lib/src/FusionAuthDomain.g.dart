@@ -740,6 +740,8 @@ const _$EventTypeEnumMap = {
   EventType.GroupMemberAddComplete: 'GroupMemberAddComplete',
   EventType.GroupMemberRemove: 'GroupMemberRemove',
   EventType.GroupMemberRemoveComplete: 'GroupMemberRemoveComplete',
+  EventType.GroupMemberUpdate: 'GroupMemberUpdate',
+  EventType.GroupMemberUpdateComplete: 'GroupMemberUpdateComplete',
   EventType.GroupUpdate: 'GroupUpdate',
   EventType.GroupUpdateComplete: 'GroupUpdateComplete',
   EventType.UserAction: 'UserAction',
@@ -3510,6 +3512,58 @@ Map<String, dynamic> _$GroupMemberSearchResponseToJson(
     <String, dynamic>{
       'members': instance.members,
       'total': instance.total,
+    };
+
+GroupMemberUpdateCompleteEvent _$GroupMemberUpdateCompleteEventFromJson(
+        Map<String, dynamic> json) =>
+    GroupMemberUpdateCompleteEvent(
+      group: Group.fromJson(json['group'] as Map<String, dynamic>),
+      members: (json['members'] as List<dynamic>)
+          .map((e) => GroupMember.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..createInstant = json['createInstant'] as num
+      ..id = json['id'] as String
+      ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+      ..tenantId = json['tenantId'] as String
+      ..type = _$enumDecode(_$EventTypeEnumMap, json['type']);
+
+Map<String, dynamic> _$GroupMemberUpdateCompleteEventToJson(
+        GroupMemberUpdateCompleteEvent instance) =>
+    <String, dynamic>{
+      'createInstant': instance.createInstant,
+      'id': instance.id,
+      'info': instance.info,
+      'tenantId': instance.tenantId,
+      'type': _$EventTypeEnumMap[instance.type],
+      'group': instance.group,
+      'members': instance.members,
+    };
+
+GroupMemberUpdateEvent _$GroupMemberUpdateEventFromJson(
+        Map<String, dynamic> json) =>
+    GroupMemberUpdateEvent(
+      group: Group.fromJson(json['group'] as Map<String, dynamic>),
+      members: (json['members'] as List<dynamic>)
+          .map((e) => GroupMember.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..createInstant = json['createInstant'] as num
+      ..id = json['id'] as String
+      ..info = EventInfo.fromJson(json['info'] as Map<String, dynamic>)
+      ..tenantId = json['tenantId'] as String
+      ..type = _$enumDecode(_$EventTypeEnumMap, json['type']);
+
+Map<String, dynamic> _$GroupMemberUpdateEventToJson(
+        GroupMemberUpdateEvent instance) =>
+    <String, dynamic>{
+      'createInstant': instance.createInstant,
+      'id': instance.id,
+      'info': instance.info,
+      'tenantId': instance.tenantId,
+      'type': _$EventTypeEnumMap[instance.type],
+      'group': instance.group,
+      'members': instance.members,
     };
 
 GroupRequest _$GroupRequestFromJson(Map<String, dynamic> json) => GroupRequest(
