@@ -2300,6 +2300,10 @@ enum EventType {
   GroupMemberRemove,
   @JsonValue('GroupMemberRemoveComplete')
   GroupMemberRemoveComplete,
+  @JsonValue('GroupMemberUpdate')
+  GroupMemberUpdate,
+  @JsonValue('GroupMemberUpdateComplete')
+  GroupMemberUpdateComplete,
   @JsonValue('GroupUpdate')
   GroupUpdate,
   @JsonValue('GroupUpdateComplete')
@@ -3091,7 +3095,7 @@ class Group {
   Map<String, dynamic> toJson() => _$GroupToJson(this);
 }
 
-/// Models the Group Created Event (and can be converted to JSON).
+/// Models the Group Created Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3105,7 +3109,7 @@ class GroupCreateCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupCreateCompleteEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Create Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3119,7 +3123,7 @@ class GroupCreateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupCreateEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Create Complete Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3133,7 +3137,7 @@ class GroupDeleteCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupDeleteCompleteEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Delete Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3172,7 +3176,7 @@ class GroupMember {
   Map<String, dynamic> toJson() => _$GroupMemberToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Member Add Complete Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3187,7 +3191,7 @@ class GroupMemberAddCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupMemberAddCompleteEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Member Add Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3202,7 +3206,7 @@ class GroupMemberAddEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupMemberAddEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Member Remove Complete Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3217,7 +3221,7 @@ class GroupMemberRemoveCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupMemberRemoveCompleteEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Member Remove Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3277,6 +3281,36 @@ class GroupMemberSearchResponse {
   Map<String, dynamic> toJson() => _$GroupMemberSearchResponseToJson(this);
 }
 
+/// Models the Group Member Update Complete Event.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberUpdateCompleteEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> members;
+
+  GroupMemberUpdateCompleteEvent({this.group, this.members});
+
+  factory GroupMemberUpdateCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberUpdateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberUpdateCompleteEventToJson(this);
+}
+
+/// Models the Group Member Update Event.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberUpdateEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> members;
+
+  GroupMemberUpdateEvent({this.group, this.members});
+
+  factory GroupMemberUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberUpdateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberUpdateEventToJson(this);
+}
+
 /// Group API request object.
 ///
 /// @author Daniel DeGroff
@@ -3307,7 +3341,7 @@ class GroupResponse {
   Map<String, dynamic> toJson() => _$GroupResponseToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Update Complete Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -3322,7 +3356,7 @@ class GroupUpdateCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$GroupUpdateCompleteEventToJson(this);
 }
 
-/// Models the Group Create Event (and can be converted to JSON).
+/// Models the Group Update Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -4031,7 +4065,7 @@ class JWTConfiguration extends Enableable {
   Map<String, dynamic> toJson() => _$JWTConfigurationToJson(this);
 }
 
-/// Models the JWT public key Refresh Token Revoke Event (and can be converted to JSON). This event might be for a single
+/// Models the JWT public key Refresh Token Revoke Event. This event might be for a single
 /// token, a user or an entire application.
 ///
 /// @author Brian Pontarelli
@@ -4088,7 +4122,7 @@ class JWTRefreshResponse {
   Map<String, dynamic> toJson() => _$JWTRefreshResponseToJson(this);
 }
 
-/// Models the Refresh Token Revoke Event (and can be converted to JSON). This event might be for a single token, a user
+/// Models the Refresh Token Revoke Event. This event might be for a single token, a user
 /// or an entire application.
 ///
 /// @author Brian Pontarelli
@@ -7780,7 +7814,7 @@ class UserAction {
   Map<String, dynamic> toJson() => _$UserActionToJson(this);
 }
 
-/// Models the user action event (and can be converted to JSON).
+/// Models the user action Event.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -7992,7 +8026,7 @@ class UserActionResponse {
   Map<String, dynamic> toJson() => _$UserActionResponseToJson(this);
 }
 
-/// Models the User Bulk Create Event (and can be converted to JSON).
+/// Models the User Bulk Create Event.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -8118,7 +8152,7 @@ class UserConsentResponse {
   Map<String, dynamic> toJson() => _$UserConsentResponseToJson(this);
 }
 
-/// Models the User Created Event (and can be converted to JSON).
+/// Models the User Created Event.
 /// <p>
 /// This is different than the user.create event in that it will be sent after the user has been created. This event cannot be made transactional.
 ///
@@ -8134,7 +8168,7 @@ class UserCreateCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserCreateCompleteEventToJson(this);
 }
 
-/// Models the User Create Event (and can be converted to JSON).
+/// Models the User Create Event.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -8148,7 +8182,7 @@ class UserCreateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserCreateEventToJson(this);
 }
 
-/// Models the User Deactivate Event (and can be converted to JSON).
+/// Models the User Deactivate Event.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -8263,7 +8297,7 @@ class UserEmailUpdateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserEmailUpdateEventToJson(this);
 }
 
-/// Models the User Email Verify Event (and can be converted to JSON).
+/// Models the User Email Verify Event.
 ///
 /// @author Trevor Smith
 @JsonSerializable()
@@ -8495,7 +8529,7 @@ class UserPasswordUpdateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserPasswordUpdateEventToJson(this);
 }
 
-/// Models the User Reactivate Event (and can be converted to JSON).
+/// Models the User Reactivate Event.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
@@ -8552,9 +8586,10 @@ class UserRegistration {
   Map<String, dynamic> toJson() => _$UserRegistrationToJson(this);
 }
 
-/// Models the User Created Registration Event (and can be converted to JSON).
+/// Models the User Created Registration Event.
 /// <p>
-/// This is different than the user.registration.create event in that it will be sent after the user has been created. This event cannot be made transactional.
+/// This is different than the user.registration.create event in that it will be sent after the user has been created. This event cannot be made
+/// transactional.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -8573,7 +8608,7 @@ class UserRegistrationCreateCompleteEvent extends BaseEvent {
       _$UserRegistrationCreateCompleteEventToJson(this);
 }
 
-/// Models the User Create Registration Event (and can be converted to JSON).
+/// Models the User Create Registration Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -8590,7 +8625,7 @@ class UserRegistrationCreateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserRegistrationCreateEventToJson(this);
 }
 
-/// Models the User Deleted Registration Event (and can be converted to JSON).
+/// Models the User Deleted Registration Event.
 /// <p>
 /// This is different than user.registration.delete in that it is sent after the TX has been committed. This event cannot be transactional.
 ///
@@ -8611,7 +8646,7 @@ class UserRegistrationDeleteCompleteEvent extends BaseEvent {
       _$UserRegistrationDeleteCompleteEventToJson(this);
 }
 
-/// Models the User Delete Registration Event (and can be converted to JSON).
+/// Models the User Delete Registration Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -8628,7 +8663,7 @@ class UserRegistrationDeleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserRegistrationDeleteEventToJson(this);
 }
 
-/// Models the User Update Registration Event (and can be converted to JSON).
+/// Models the User Update Registration Event.
 /// <p>
 /// This is different than user.registration.update in that it is sent after this event completes, this cannot be transactional.
 ///
@@ -8650,7 +8685,7 @@ class UserRegistrationUpdateCompleteEvent extends BaseEvent {
       _$UserRegistrationUpdateCompleteEventToJson(this);
 }
 
-/// Models the User Update Registration Event (and can be converted to JSON).
+/// Models the User Update Registration Event.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -8668,7 +8703,7 @@ class UserRegistrationUpdateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserRegistrationUpdateEventToJson(this);
 }
 
-/// Models the User Registration Verified Event (and can be converted to JSON).
+/// Models the User Registration Verified Event.
 ///
 /// @author Trevor Smith
 @JsonSerializable()
@@ -8813,7 +8848,7 @@ class UserUpdateCompleteEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$UserUpdateCompleteEventToJson(this);
 }
 
-/// Models the User Update Event (and can be converted to JSON).
+/// Models the User Update Event.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
