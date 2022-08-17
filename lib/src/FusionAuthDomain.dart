@@ -767,20 +767,13 @@ class BaseElasticSearchCriteria extends BaseSearchCriteria {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class BaseEvent {
-  List<String> applicationIds;
   num createInstant;
   String id;
   EventInfo info;
   String tenantId;
   EventType type;
 
-  BaseEvent(
-      {this.applicationIds,
-      this.createInstant,
-      this.id,
-      this.info,
-      this.tenantId,
-      this.type});
+  BaseEvent({this.createInstant, this.id, this.info, this.tenantId, this.type});
 
   factory BaseEvent.fromJson(Map<String, dynamic> json) =>
       _$BaseEventFromJson(json);
@@ -2291,6 +2284,26 @@ enum EventType {
   EventLogCreate,
   @JsonValue('KickstartSuccess')
   KickstartSuccess,
+  @JsonValue('GroupCreate')
+  GroupCreate,
+  @JsonValue('GroupCreateComplete')
+  GroupCreateComplete,
+  @JsonValue('GroupDelete')
+  GroupDelete,
+  @JsonValue('GroupDeleteComplete')
+  GroupDeleteComplete,
+  @JsonValue('GroupMemberAdd')
+  GroupMemberAdd,
+  @JsonValue('GroupMemberAddComplete')
+  GroupMemberAddComplete,
+  @JsonValue('GroupMemberRemove')
+  GroupMemberRemove,
+  @JsonValue('GroupMemberRemoveComplete')
+  GroupMemberRemoveComplete,
+  @JsonValue('GroupUpdate')
+  GroupUpdate,
+  @JsonValue('GroupUpdateComplete')
+  GroupUpdateComplete,
   @JsonValue('UserAction')
   UserAction,
   @JsonValue('UserBulkCreate')
@@ -3078,6 +3091,62 @@ class Group {
   Map<String, dynamic> toJson() => _$GroupToJson(this);
 }
 
+/// Models the Group Created Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupCreateCompleteEvent extends BaseEvent {
+  Group group;
+
+  GroupCreateCompleteEvent({this.group});
+
+  factory GroupCreateCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupCreateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupCreateCompleteEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupCreateEvent extends BaseEvent {
+  Group group;
+
+  GroupCreateEvent({this.group});
+
+  factory GroupCreateEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupCreateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupCreateEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupDeleteCompleteEvent extends BaseEvent {
+  Group group;
+
+  GroupDeleteCompleteEvent({this.group});
+
+  factory GroupDeleteCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupDeleteCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupDeleteCompleteEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupDeleteEvent extends BaseEvent {
+  Group group;
+
+  GroupDeleteEvent({this.group});
+
+  factory GroupDeleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupDeleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupDeleteEventToJson(this);
+}
+
 /// A User's membership into a Group
 ///
 /// @author Daniel DeGroff
@@ -3103,15 +3172,76 @@ class GroupMember {
   Map<String, dynamic> toJson() => _$GroupMemberToJson(this);
 }
 
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberAddCompleteEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> members;
+
+  GroupMemberAddCompleteEvent({this.group, this.members});
+
+  factory GroupMemberAddCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberAddCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberAddCompleteEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberAddEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> members;
+
+  GroupMemberAddEvent({this.group, this.members});
+
+  factory GroupMemberAddEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberAddEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberAddEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberRemoveCompleteEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> members;
+
+  GroupMemberRemoveCompleteEvent({this.group, this.members});
+
+  factory GroupMemberRemoveCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberRemoveCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberRemoveCompleteEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupMemberRemoveEvent extends BaseEvent {
+  Group group;
+  List<GroupMember> members;
+
+  GroupMemberRemoveEvent({this.group, this.members});
+
+  factory GroupMemberRemoveEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupMemberRemoveEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupMemberRemoveEventToJson(this);
+}
+
 /// Search criteria for Group Members
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
 class GroupMemberSearchCriteria extends BaseSearchCriteria {
   String groupId;
+  String tenantId;
   String userId;
 
-  GroupMemberSearchCriteria({this.groupId, this.userId});
+  GroupMemberSearchCriteria({this.groupId, this.tenantId, this.userId});
 
   factory GroupMemberSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberSearchCriteriaFromJson(json);
@@ -3175,6 +3305,36 @@ class GroupResponse {
   factory GroupResponse.fromJson(Map<String, dynamic> json) =>
       _$GroupResponseFromJson(json);
   Map<String, dynamic> toJson() => _$GroupResponseToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupUpdateCompleteEvent extends BaseEvent {
+  Group group;
+  Group original;
+
+  GroupUpdateCompleteEvent({this.group, this.original});
+
+  factory GroupUpdateCompleteEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupUpdateCompleteEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupUpdateCompleteEventToJson(this);
+}
+
+/// Models the Group Create Event (and can be converted to JSON).
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupUpdateEvent extends BaseEvent {
+  Group group;
+  Group original;
+
+  GroupUpdateEvent({this.group, this.original});
+
+  factory GroupUpdateEvent.fromJson(Map<String, dynamic> json) =>
+      _$GroupUpdateEventFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupUpdateEventToJson(this);
 }
 
 @JsonSerializable()
@@ -3877,7 +4037,9 @@ class JWTConfiguration extends Enableable {
 /// @author Brian Pontarelli
 @JsonSerializable()
 class JWTPublicKeyUpdateEvent extends BaseEvent {
-  JWTPublicKeyUpdateEvent();
+  Set<String> applicationIds;
+
+  JWTPublicKeyUpdateEvent({this.applicationIds});
 
   factory JWTPublicKeyUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$JWTPublicKeyUpdateEventFromJson(json);
@@ -7627,6 +7789,7 @@ class UserActionEvent extends BaseEvent {
   String actioneeUserId;
   String actionerUserId;
   String actionId;
+  List<String> applicationIds;
   String comment;
   Email email;
   bool emailedUser;
@@ -7646,6 +7809,7 @@ class UserActionEvent extends BaseEvent {
       this.actioneeUserId,
       this.actionerUserId,
       this.actionId,
+      this.applicationIds,
       this.comment,
       this.email,
       this.emailedUser,
