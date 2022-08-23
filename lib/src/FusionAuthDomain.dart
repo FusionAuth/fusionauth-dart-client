@@ -7043,7 +7043,6 @@ class Templates {
   String oauth2TwoFactorMethods;
   String oauth2Wait;
   String oauth2WebAuthN;
-  String oauth2WebAuthNComplete;
   String passwordChange;
   String passwordComplete;
   String passwordForgot;
@@ -7085,7 +7084,6 @@ class Templates {
       this.oauth2TwoFactorMethods,
       this.oauth2Wait,
       this.oauth2WebAuthN,
-      this.oauth2WebAuthNComplete,
       this.passwordChange,
       this.passwordComplete,
       this.passwordForgot,
