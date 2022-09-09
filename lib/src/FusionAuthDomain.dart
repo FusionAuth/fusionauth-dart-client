@@ -3341,6 +3341,51 @@ class GroupResponse {
   Map<String, dynamic> toJson() => _$GroupResponseToJson(this);
 }
 
+/// Search criteria for Groups
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupSearchCriteria extends BaseSearchCriteria {
+  String id;
+  String name;
+  String tenantId;
+
+  GroupSearchCriteria({this.id, this.name, this.tenantId});
+
+  factory GroupSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$GroupSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupSearchCriteriaToJson(this);
+}
+
+/// Search request for Groups.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupSearchRequest {
+  GroupSearchCriteria search;
+
+  GroupSearchRequest({this.search});
+
+  factory GroupSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$GroupSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupSearchRequestToJson(this);
+}
+
+/// Search response for Groups
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GroupSearchResponse {
+  List<Group> groups;
+  num total;
+
+  GroupSearchResponse({this.groups, this.total});
+
+  factory GroupSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$GroupSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$GroupSearchResponseToJson(this);
+}
+
 /// Models the Group Update Complete Event.
 ///
 /// @author Daniel DeGroff

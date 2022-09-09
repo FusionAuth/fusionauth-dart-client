@@ -3592,6 +3592,53 @@ Map<String, dynamic> _$GroupResponseToJson(GroupResponse instance) =>
       'groups': instance.groups,
     };
 
+GroupSearchCriteria _$GroupSearchCriteriaFromJson(Map<String, dynamic> json) =>
+    GroupSearchCriteria(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      tenantId: json['tenantId'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$GroupSearchCriteriaToJson(
+        GroupSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'id': instance.id,
+      'name': instance.name,
+      'tenantId': instance.tenantId,
+    };
+
+GroupSearchRequest _$GroupSearchRequestFromJson(Map<String, dynamic> json) =>
+    GroupSearchRequest(
+      search:
+          GroupSearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GroupSearchRequestToJson(GroupSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+GroupSearchResponse _$GroupSearchResponseFromJson(Map<String, dynamic> json) =>
+    GroupSearchResponse(
+      groups: (json['groups'] as List<dynamic>)
+          .map((e) => Group.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$GroupSearchResponseToJson(
+        GroupSearchResponse instance) =>
+    <String, dynamic>{
+      'groups': instance.groups,
+      'total': instance.total,
+    };
+
 GroupUpdateCompleteEvent _$GroupUpdateCompleteEventFromJson(
         Map<String, dynamic> json) =>
     GroupUpdateCompleteEvent(
