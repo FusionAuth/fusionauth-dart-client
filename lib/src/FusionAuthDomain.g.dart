@@ -3594,7 +3594,6 @@ Map<String, dynamic> _$GroupResponseToJson(GroupResponse instance) =>
 
 GroupSearchCriteria _$GroupSearchCriteriaFromJson(Map<String, dynamic> json) =>
     GroupSearchCriteria(
-      id: json['id'] as String,
       name: json['name'] as String,
       tenantId: json['tenantId'] as String,
     )
@@ -3608,7 +3607,6 @@ Map<String, dynamic> _$GroupSearchCriteriaToJson(
       'numberOfResults': instance.numberOfResults,
       'orderBy': instance.orderBy,
       'startRow': instance.startRow,
-      'id': instance.id,
       'name': instance.name,
       'tenantId': instance.tenantId,
     };

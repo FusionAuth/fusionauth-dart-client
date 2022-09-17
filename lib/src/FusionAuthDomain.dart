@@ -3346,11 +3346,10 @@ class GroupResponse {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class GroupSearchCriteria extends BaseSearchCriteria {
-  String id;
   String name;
   String tenantId;
 
-  GroupSearchCriteria({this.id, this.name, this.tenantId});
+  GroupSearchCriteria({this.name, this.tenantId});
 
   factory GroupSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$GroupSearchCriteriaFromJson(json);
