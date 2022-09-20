@@ -855,7 +855,9 @@ enum AuthenticatorTransport {
   @JsonValue('ble')
   ble,
   @JsonValue('internal')
-  internal
+  internal,
+  @JsonValue('cable')
+  cable
 }
 
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
@@ -9231,11 +9233,13 @@ class WebAuthnCredential {
   num insertInstant;
   bool isDiscoverableCredential;
   num lastUseInstant;
+  String name;
   String publicKey;
   String rpId;
   num signCount;
   String tenantId;
   List<AuthenticatorTransport> transports;
+  String userAgent;
   String userId;
 
   WebAuthnCredential(
@@ -9247,11 +9251,13 @@ class WebAuthnCredential {
       this.insertInstant,
       this.isDiscoverableCredential,
       this.lastUseInstant,
+      this.name,
       this.publicKey,
       this.rpId,
       this.signCount,
       this.tenantId,
       this.transports,
+      this.userAgent,
       this.userId});
 
   factory WebAuthnCredential.fromJson(Map<String, dynamic> json) =>
@@ -9311,11 +9317,13 @@ class WebAuthnLoginRequest extends BaseLoginRequest {
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnRegisterRequest {
-  Map<String, dynamic> state;
+  String credentialName;
+  String userAgent;
   String userId;
   WebAuthnWorkflow workflow;
 
-  WebAuthnRegisterRequest({this.state, this.userId, this.workflow});
+  WebAuthnRegisterRequest(
+      {this.credentialName, this.userAgent, this.userId, this.workflow});
 
   factory WebAuthnRegisterRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnRegisterRequestFromJson(json);

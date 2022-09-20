@@ -6095,6 +6095,7 @@ const _$AuthenticatorTransportEnumMap = {
   AuthenticatorTransport.nfc: 'nfc',
   AuthenticatorTransport.ble: 'ble',
   AuthenticatorTransport.internal: 'internal',
+  AuthenticatorTransport.cable: 'cable',
 };
 
 const _$PublicKeyCredentialTypeEnumMap = {
@@ -10265,6 +10266,7 @@ WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
       insertInstant: json['insertInstant'] as num,
       isDiscoverableCredential: json['isDiscoverableCredential'] as bool,
       lastUseInstant: json['lastUseInstant'] as num,
+      name: json['name'] as String,
       publicKey: json['publicKey'] as String,
       rpId: json['rpId'] as String,
       signCount: json['signCount'] as num,
@@ -10272,6 +10274,7 @@ WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
       transports: (json['transports'] as List<dynamic>)
           .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
           .toList(),
+      userAgent: json['userAgent'] as String,
       userId: json['userId'] as String,
     );
 
@@ -10286,6 +10289,7 @@ Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
       'insertInstant': instance.insertInstant,
       'isDiscoverableCredential': instance.isDiscoverableCredential,
       'lastUseInstant': instance.lastUseInstant,
+      'name': instance.name,
       'publicKey': instance.publicKey,
       'rpId': instance.rpId,
       'signCount': instance.signCount,
@@ -10293,6 +10297,7 @@ Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
       'transports': instance.transports
           .map((e) => _$AuthenticatorTransportEnumMap[e])
           .toList(),
+      'userAgent': instance.userAgent,
       'userId': instance.userId,
     };
 
@@ -10367,7 +10372,8 @@ Map<String, dynamic> _$WebAuthnLoginRequestToJson(
 WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
         Map<String, dynamic> json) =>
     WebAuthnRegisterRequest(
-      state: json['state'] as Map<String, dynamic>,
+      credentialName: json['credentialName'] as String,
+      userAgent: json['userAgent'] as String,
       userId: json['userId'] as String,
       workflow: _$enumDecode(_$WebAuthnWorkflowEnumMap, json['workflow']),
     );
@@ -10375,7 +10381,8 @@ WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
 Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
         WebAuthnRegisterRequest instance) =>
     <String, dynamic>{
-      'state': instance.state,
+      'credentialName': instance.credentialName,
+      'userAgent': instance.userAgent,
       'userId': instance.userId,
       'workflow': _$WebAuthnWorkflowEnumMap[instance.workflow],
     };
