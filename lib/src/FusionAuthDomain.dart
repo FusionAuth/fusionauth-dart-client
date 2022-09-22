@@ -1490,6 +1490,9 @@ enum CoseEllipticCurve {
   Secp256k1
 }
 
+/// COSE key type
+///
+/// @author Spencer Witt
 enum CoseKeyType {
   @JsonValue('Reserved')
   Reserved,
@@ -9229,11 +9232,11 @@ class WebAuthnCredential {
   AttestationType attestationType;
   bool authenticatorSupportsUserVerification;
   String credentialId;
+  String displayName;
   String id;
   num insertInstant;
   bool isDiscoverableCredential;
   num lastUseInstant;
-  String name;
   String publicKey;
   String rpId;
   num signCount;
@@ -9247,11 +9250,11 @@ class WebAuthnCredential {
       this.attestationType,
       this.authenticatorSupportsUserVerification,
       this.credentialId,
+      this.displayName,
       this.id,
       this.insertInstant,
       this.isDiscoverableCredential,
       this.lastUseInstant,
-      this.name,
       this.publicKey,
       this.rpId,
       this.signCount,
