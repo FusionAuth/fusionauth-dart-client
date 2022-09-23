@@ -1687,6 +1687,19 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Import a WebAuthn credential
+  ///
+  /// @param {WebAuthnImportRequest} request An object containing data necessary for importing the credential
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> importWebAuthnCredential(
+      WebAuthnImportRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/webauthn/import')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .go();
+  }
+
   /// Inspect an access token issued by FusionAuth.
   ///
   /// @param {String} client_id The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.

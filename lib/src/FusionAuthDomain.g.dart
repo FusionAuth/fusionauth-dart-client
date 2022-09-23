@@ -10339,6 +10339,19 @@ Map<String, dynamic> _$WebAuthnExtensionsClientOutputsToJson(
       'credProps': instance.credProps,
     };
 
+WebAuthnImportRequest _$WebAuthnImportRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnImportRequest(
+      credential: WebAuthnCredential.fromJson(
+          json['credential'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebAuthnImportRequestToJson(
+        WebAuthnImportRequest instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+    };
+
 WebAuthnLoginRequest _$WebAuthnLoginRequestFromJson(
         Map<String, dynamic> json) =>
     WebAuthnLoginRequest(

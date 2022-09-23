@@ -9299,6 +9299,20 @@ class WebAuthnExtensionsClientOutputs {
       _$WebAuthnExtensionsClientOutputsToJson(this);
 }
 
+/// API request to import an existing WebAuthn credential
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnImportRequest {
+  WebAuthnCredential credential;
+
+  WebAuthnImportRequest({this.credential});
+
+  factory WebAuthnImportRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnImportRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnImportRequestToJson(this);
+}
+
 /// Request to complete the WebAuthn registration ceremony
 ///
 /// @author Spencer Witt
