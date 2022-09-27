@@ -10254,6 +10254,18 @@ Map<String, dynamic> _$WebAuthnCompleteRequestToJson(
       'userId': instance.userId,
     };
 
+WebAuthnCompleteResponse _$WebAuthnCompleteResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnCompleteResponse(
+      credentialId: json['credentialId'] as String,
+    );
+
+Map<String, dynamic> _$WebAuthnCompleteResponseToJson(
+        WebAuthnCompleteResponse instance) =>
+    <String, dynamic>{
+      'credentialId': instance.credentialId,
+    };
+
 WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
     WebAuthnCredential(
       alg: _$enumDecode(_$CoseAlgorithmIdentifierEnumMap, json['alg']),

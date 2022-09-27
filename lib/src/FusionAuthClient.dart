@@ -242,13 +242,15 @@ class FusionAuthClient {
   /// Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
   ///
   /// @param {WebAuthnCompleteRequest} request An object containing data necessary for completing the registration ceremony
-  /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, Errors>> completeWebAuthnRegistration(
-      WebAuthnCompleteRequest request) {
-    return _start<void, Errors>()
+  /// @returns {Promise<ClientResponse<WebAuthnCompleteResponse>>}
+  Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
+      completeWebAuthnRegistration(WebAuthnCompleteRequest request) {
+    return _start<WebAuthnCompleteResponse, Errors>()
         .withUri('/api/webauthn/complete')
         .withJSONBody(request)
         .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnCompleteResponse.fromJson(d)))
         .go();
   }
 

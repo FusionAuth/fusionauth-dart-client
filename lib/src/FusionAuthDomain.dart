@@ -9223,6 +9223,20 @@ class WebAuthnCompleteRequest {
   Map<String, dynamic> toJson() => _$WebAuthnCompleteRequestToJson(this);
 }
 
+/// API response for completing WebAuthn credential registration
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnCompleteResponse {
+  String credentialId;
+
+  WebAuthnCompleteResponse({this.credentialId});
+
+  factory WebAuthnCompleteResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnCompleteResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnCompleteResponseToJson(this);
+}
+
 /// A User's WebAuthnCredential. Contains all data required to complete WebAuthn authentication ceremonies.
 ///
 /// @author Spencer Witt
