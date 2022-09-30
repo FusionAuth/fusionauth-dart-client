@@ -748,22 +748,22 @@ class AuthenticationTokenConfiguration extends Enableable {
 ///
 /// @author Spencer Witt
 enum AuthenticatorAttachment {
-  @JsonValue('PLATFORM')
-  PLATFORM,
-  @JsonValue('CROSS_PLATFORM')
-  CROSS_PLATFORM
+  @JsonValue('platform')
+  platform,
+  @JsonValue('crossPlatform')
+  crossPlatform
 }
 
 /// Describes the authenticator attachment modality preference for a WebAuthn workflow. See {@link AuthenticatorAttachment}
 ///
 /// @author Spencer Witt
 enum AuthenticatorAttachmentPreference {
-  @JsonValue('PLATFORM')
-  PLATFORM,
-  @JsonValue('CROSS_PLATFORM')
-  CROSS_PLATFORM,
-  @JsonValue('EITHER')
-  EITHER
+  @JsonValue('platform')
+  platform,
+  @JsonValue('crossPlatform')
+  crossPlatform,
+  @JsonValue('either')
+  either
 }
 
 /// The <i>authenticator's</i> response for the authentication ceremony in its encoded format
@@ -5934,8 +5934,8 @@ class PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
 ///
 /// @author Spencer Witt
 enum PublicKeyCredentialType {
-  @JsonValue('PUBLIC_KEY')
-  PUBLIC_KEY
+  @JsonValue('publicKey')
+  publicKey
 }
 
 /// Supply additional information about the user account when creating a new credential
@@ -6485,12 +6485,12 @@ class RequiresCORSConfiguration {
 ///
 /// @author Spencer Witt
 enum ResidentKeyRequirement {
-  @JsonValue('Discouraged')
-  Discouraged,
-  @JsonValue('Preferred')
-  Preferred,
-  @JsonValue('Required')
-  Required
+  @JsonValue('discouraged')
+  discouraged,
+  @JsonValue('preferred')
+  preferred,
+  @JsonValue('required')
+  required
 }
 
 enum SAMLLogoutBehavior {
@@ -9428,14 +9428,14 @@ class WebAuthnStartResponse {
 ///
 /// @author Spencer Witt
 enum WebAuthnWorkflow {
-  @JsonValue('REAUTH')
-  REAUTH,
-  @JsonValue('BOOTSTRAP')
-  BOOTSTRAP,
-  @JsonValue('TWO_FACTOR')
-  TWO_FACTOR,
-  @JsonValue('GENERAL')
-  GENERAL
+  @JsonValue('reAuthentication')
+  reAuthentication,
+  @JsonValue('bootstrap')
+  bootstrap,
+  @JsonValue('twoFactor')
+  twoFactor,
+  @JsonValue('general')
+  general
 }
 
 @JsonSerializable()

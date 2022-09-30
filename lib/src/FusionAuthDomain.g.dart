@@ -965,14 +965,14 @@ Map<String, dynamic> _$AuthenticatorSelectionCriteriaToJson(
     };
 
 const _$AuthenticatorAttachmentEnumMap = {
-  AuthenticatorAttachment.PLATFORM: 'PLATFORM',
-  AuthenticatorAttachment.CROSS_PLATFORM: 'CROSS_PLATFORM',
+  AuthenticatorAttachment.platform: 'platform',
+  AuthenticatorAttachment.crossPlatform: 'crossPlatform',
 };
 
 const _$ResidentKeyRequirementEnumMap = {
-  ResidentKeyRequirement.Discouraged: 'Discouraged',
-  ResidentKeyRequirement.Preferred: 'Preferred',
-  ResidentKeyRequirement.Required: 'Required',
+  ResidentKeyRequirement.discouraged: 'discouraged',
+  ResidentKeyRequirement.preferred: 'preferred',
+  ResidentKeyRequirement.required: 'required',
 };
 
 const _$UserVerificationRequirementEnumMap = {
@@ -6099,7 +6099,7 @@ const _$AuthenticatorTransportEnumMap = {
 };
 
 const _$PublicKeyCredentialTypeEnumMap = {
-  PublicKeyCredentialType.PUBLIC_KEY: 'PUBLIC_KEY',
+  PublicKeyCredentialType.publicKey: 'publicKey',
 };
 
 PublicKeyCredentialEntity _$PublicKeyCredentialEntityFromJson(
@@ -10413,10 +10413,10 @@ Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
     };
 
 const _$WebAuthnWorkflowEnumMap = {
-  WebAuthnWorkflow.REAUTH: 'REAUTH',
-  WebAuthnWorkflow.BOOTSTRAP: 'BOOTSTRAP',
-  WebAuthnWorkflow.TWO_FACTOR: 'TWO_FACTOR',
-  WebAuthnWorkflow.GENERAL: 'GENERAL',
+  WebAuthnWorkflow.reAuthentication: 'reAuthentication',
+  WebAuthnWorkflow.bootstrap: 'bootstrap',
+  WebAuthnWorkflow.twoFactor: 'twoFactor',
+  WebAuthnWorkflow.general: 'general',
 };
 
 WebAuthnRegisterResponse _$WebAuthnRegisterResponseFromJson(
@@ -10498,9 +10498,9 @@ Map<String, dynamic> _$WebAuthnWorkflowConfigurationToJson(
     };
 
 const _$AuthenticatorAttachmentPreferenceEnumMap = {
-  AuthenticatorAttachmentPreference.PLATFORM: 'PLATFORM',
-  AuthenticatorAttachmentPreference.CROSS_PLATFORM: 'CROSS_PLATFORM',
-  AuthenticatorAttachmentPreference.EITHER: 'EITHER',
+  AuthenticatorAttachmentPreference.platform: 'platform',
+  AuthenticatorAttachmentPreference.crossPlatform: 'crossPlatform',
+  AuthenticatorAttachmentPreference.either: 'either',
 };
 
 Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
