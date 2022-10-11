@@ -5799,15 +5799,15 @@ enum ProofKeyForCodeExchangePolicy {
 class PublicKeyAuthenticationRequest {
   WebAuthnExtensionsClientOutputs clientExtensionResults;
   String id;
+  String relyingPartyId;
   AuthenticatorAuthenticationResponse response;
-  String rpId;
   String type;
 
   PublicKeyAuthenticationRequest(
       {this.clientExtensionResults,
       this.id,
+      this.relyingPartyId,
       this.response,
-      this.rpId,
       this.type});
 
   factory PublicKeyAuthenticationRequest.fromJson(Map<String, dynamic> json) =>
@@ -5826,7 +5826,7 @@ class PublicKeyCredentialCreationOptions {
   List<PublicKeyCredentialDescriptor> excludeCredentials;
   WebAuthnRegistrationExtensionOptions extensions;
   List<PublicKeyCredentialParameters> pubKeyCredParams;
-  PublicKeyCredentialRpEntity rp;
+  PublicKeyCredentialRelyingPartyEntity rp;
   num timeout;
   PublicKeyCredentialUserEntity user;
 
@@ -5891,6 +5891,22 @@ class PublicKeyCredentialParameters {
   Map<String, dynamic> toJson() => _$PublicKeyCredentialParametersToJson(this);
 }
 
+/// Supply additional information about the Relying Party when creating a new credential
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class PublicKeyCredentialRelyingPartyEntity extends PublicKeyCredentialEntity {
+  String id;
+
+  PublicKeyCredentialRelyingPartyEntity({this.id});
+
+  factory PublicKeyCredentialRelyingPartyEntity.fromJson(
+          Map<String, dynamic> json) =>
+      _$PublicKeyCredentialRelyingPartyEntityFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$PublicKeyCredentialRelyingPartyEntityToJson(this);
+}
+
 /// Provides the <i>authenticator</i> with the data it needs to generate an assertion.
 ///
 /// @author Spencer Witt
@@ -5898,14 +5914,14 @@ class PublicKeyCredentialParameters {
 class PublicKeyCredentialRequestOptions {
   List<PublicKeyCredentialDescriptor> allowCredentials;
   String challenge;
-  String rpId;
+  String relyingPartyId;
   num timeout;
   UserVerificationRequirement userVerification;
 
   PublicKeyCredentialRequestOptions(
       {this.allowCredentials,
       this.challenge,
-      this.rpId,
+      this.relyingPartyId,
       this.timeout,
       this.userVerification});
 
@@ -5914,20 +5930,6 @@ class PublicKeyCredentialRequestOptions {
       _$PublicKeyCredentialRequestOptionsFromJson(json);
   Map<String, dynamic> toJson() =>
       _$PublicKeyCredentialRequestOptionsToJson(this);
-}
-
-/// Supply additional information about the Relying Party when creating a new credential
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
-  String id;
-
-  PublicKeyCredentialRpEntity({this.id});
-
-  factory PublicKeyCredentialRpEntity.fromJson(Map<String, dynamic> json) =>
-      _$PublicKeyCredentialRpEntityFromJson(json);
-  Map<String, dynamic> toJson() => _$PublicKeyCredentialRpEntityToJson(this);
 }
 
 /// Defines valid credential types. This is an extension point in the WebAuthn spec. The only defined value at this time is "public-key"
@@ -7446,21 +7448,38 @@ class TenantUsernameConfiguration {
   Map<String, dynamic> toJson() => _$TenantUsernameConfigurationToJson(this);
 }
 
-/// Tenant-level configuration for WebAuthn
-///
-/// @author Spencer Witt
+// TODO : WebAuthn : Daniel Review : Do we need this Enableable
 @JsonSerializable()
 class TenantWebAuthnConfiguration extends Enableable {
-  WebAuthnWorkflowConfiguration reauthenticationWorkflowConfiguration;
-  String rpId;
-  String rpName;
+  TenantWebAuthnWorkflowConfiguration reauthenticationWorkflowConfiguration;
+  String relyingPartyId;
+  String relyingPartyName;
 
   TenantWebAuthnConfiguration(
-      {this.reauthenticationWorkflowConfiguration, this.rpId, this.rpName});
+      {this.reauthenticationWorkflowConfiguration,
+      this.relyingPartyId,
+      this.relyingPartyName});
 
   factory TenantWebAuthnConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantWebAuthnConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$TenantWebAuthnConfigurationToJson(this);
+}
+
+/// @author Spencer Witt
+@JsonSerializable()
+class TenantWebAuthnWorkflowConfiguration extends Enableable {
+  AuthenticatorAttachmentPreference authenticatorAttachmentPreference;
+  UserVerificationRequirement userVerificationRequirement;
+
+  TenantWebAuthnWorkflowConfiguration(
+      {this.authenticatorAttachmentPreference,
+      this.userVerificationRequirement});
+
+  factory TenantWebAuthnWorkflowConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$TenantWebAuthnWorkflowConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$TenantWebAuthnWorkflowConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -9212,11 +9231,11 @@ class VersionResponse {
 class WebAuthnCompleteRequest {
   PublicKeyRegistrationRequest credential;
   String origin;
-  String rpId;
+  String relyingPartyId;
   String userId;
 
   WebAuthnCompleteRequest(
-      {this.credential, this.origin, this.rpId, this.userId});
+      {this.credential, this.origin, this.relyingPartyId, this.userId});
 
   factory WebAuthnCompleteRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCompleteRequestFromJson(json);
@@ -9242,7 +9261,7 @@ class WebAuthnCompleteResponse {
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnCredential {
-  CoseAlgorithmIdentifier alg;
+  CoseAlgorithmIdentifier algorithm;
   AttestationType attestationType;
   bool authenticatorSupportsUserVerification;
   String credentialId;
@@ -9252,7 +9271,7 @@ class WebAuthnCredential {
   bool isDiscoverableCredential;
   num lastUseInstant;
   String publicKey;
-  String rpId;
+  String relyingPartyId;
   num signCount;
   String tenantId;
   List<AuthenticatorTransport> transports;
@@ -9260,7 +9279,7 @@ class WebAuthnCredential {
   String userId;
 
   WebAuthnCredential(
-      {this.alg,
+      {this.algorithm,
       this.attestationType,
       this.authenticatorSupportsUserVerification,
       this.credentialId,
@@ -9270,7 +9289,7 @@ class WebAuthnCredential {
       this.isDiscoverableCredential,
       this.lastUseInstant,
       this.publicKey,
-      this.rpId,
+      this.relyingPartyId,
       this.signCount,
       this.tenantId,
       this.transports,
@@ -9334,9 +9353,9 @@ class WebAuthnImportRequest {
 class WebAuthnLoginRequest extends BaseLoginRequest {
   PublicKeyAuthenticationRequest credential;
   String origin;
-  String rpId;
+  String relyingPartyId;
 
-  WebAuthnLoginRequest({this.credential, this.origin, this.rpId});
+  WebAuthnLoginRequest({this.credential, this.origin, this.relyingPartyId});
 
   factory WebAuthnLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnLoginRequestFromJson(json);
@@ -9443,20 +9462,6 @@ enum WebAuthnWorkflow {
   twoFactor,
   @JsonValue('general')
   general
-}
-
-@JsonSerializable()
-class WebAuthnWorkflowConfiguration extends Enableable {
-  AuthenticatorAttachmentPreference authenticatorAttachmentPreference;
-  UserVerificationRequirement userVerificationRequirement;
-
-  WebAuthnWorkflowConfiguration(
-      {this.authenticatorAttachmentPreference,
-      this.userVerificationRequirement});
-
-  factory WebAuthnWorkflowConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$WebAuthnWorkflowConfigurationFromJson(json);
-  Map<String, dynamic> toJson() => _$WebAuthnWorkflowConfigurationToJson(this);
 }
 
 /// A server where events are sent. This includes user action events and any other events sent by FusionAuth.

@@ -7605,7 +7605,7 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) => Tenant(
           json['userDeletePolicy'] as Map<String, dynamic>),
       usernameConfiguration: TenantUsernameConfiguration.fromJson(
           json['usernameConfiguration'] as Map<String, dynamic>),
-      webAuthnConfiguration: TenantWebAuthnConfiguration.fromJson(
+      webAuthnConfiguration: TenantWebAuthnConfiguration2.fromJson(
           json['webAuthnConfiguration'] as Map<String, dynamic>),
     );
 
@@ -7941,25 +7941,25 @@ Map<String, dynamic> _$TenantUsernameConfigurationToJson(
       'unique': instance.unique,
     };
 
-TenantWebAuthnConfiguration _$TenantWebAuthnConfigurationFromJson(
+TenantWebAuthnConfiguration2 _$TenantWebAuthnConfiguration2FromJson(
         Map<String, dynamic> json) =>
-    TenantWebAuthnConfiguration(
+    TenantWebAuthnConfiguration2(
       reauthenticationWorkflowConfiguration:
           WebAuthnWorkflowConfiguration.fromJson(
               json['reauthenticationWorkflowConfiguration']
                   as Map<String, dynamic>),
       rpId: json['rpId'] as String,
-      rpName: json['rpName'] as String,
+      relyingPartyName: json['relyingPartyName'] as String,
     )..enabled = json['enabled'] as bool;
 
-Map<String, dynamic> _$TenantWebAuthnConfigurationToJson(
-        TenantWebAuthnConfiguration instance) =>
+Map<String, dynamic> _$TenantWebAuthnConfiguration2ToJson(
+        TenantWebAuthnConfiguration2 instance) =>
     <String, dynamic>{
       'enabled': instance.enabled,
       'reauthenticationWorkflowConfiguration':
           instance.reauthenticationWorkflowConfiguration,
       'rpId': instance.rpId,
-      'rpName': instance.rpName,
+      'relyingPartyName': instance.relyingPartyName,
     };
 
 TestEvent _$TestEventFromJson(Map<String, dynamic> json) => TestEvent(
