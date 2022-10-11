@@ -4170,6 +4170,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches groups with the specified criteria and pagination.
+  ///
+  /// @param {GroupSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<GroupSearchResponse>>}
+  Future<ClientResponse<GroupSearchResponse, Errors>> searchGroups(
+      GroupSearchRequest request) {
+    return _start<GroupSearchResponse, Errors>()
+        .withUri('/api/group/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => GroupSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the IP Access Control Lists with the specified criteria and pagination.
   ///
   /// @param {IPAccessControlListSearchRequest} request The search criteria and pagination information.
