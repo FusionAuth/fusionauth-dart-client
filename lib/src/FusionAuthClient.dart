@@ -224,7 +224,22 @@ class FusionAuthClient {
         .go();
   }
 
-  /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge
+  /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
+  ///
+  /// @param {WebAuthnLoginRequest} request An object containing data necessary for completing the authentication ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnCompleteResponse>>}
+  Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
+      completeWebAuthnAssertion(WebAuthnLoginRequest request) {
+    return _startAnonymous<WebAuthnCompleteResponse, Errors>()
+        .withUri('/api/webauthn/assertion')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnCompleteResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge and then login the user in
   ///
   /// @param {WebAuthnLoginRequest} request An object containing data necessary for completing the authentication ceremony
   /// @returns {Promise<ClientResponse<LoginResponse>>}

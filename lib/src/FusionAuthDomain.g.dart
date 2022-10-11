@@ -10448,8 +10448,10 @@ WebAuthnStartRequest _$WebAuthnStartRequestFromJson(
         Map<String, dynamic> json) =>
     WebAuthnStartRequest(
       applicationId: json['applicationId'] as String,
+      credentialId: json['credentialId'] as String,
       loginId: json['loginId'] as String,
       state: json['state'] as Map<String, dynamic>,
+      userId: json['userId'] as String,
       workflow: _$enumDecode(_$WebAuthnWorkflowEnumMap, json['workflow']),
     );
 
@@ -10457,8 +10459,10 @@ Map<String, dynamic> _$WebAuthnStartRequestToJson(
         WebAuthnStartRequest instance) =>
     <String, dynamic>{
       'applicationId': instance.applicationId,
+      'credentialId': instance.credentialId,
       'loginId': instance.loginId,
       'state': instance.state,
+      'userId': instance.userId,
       'workflow': _$WebAuthnWorkflowEnumMap[instance.workflow],
     };
 

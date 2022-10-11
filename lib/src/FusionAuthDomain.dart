@@ -9223,7 +9223,7 @@ class WebAuthnCompleteRequest {
   Map<String, dynamic> toJson() => _$WebAuthnCompleteRequestToJson(this);
 }
 
-/// API response for completing WebAuthn credential registration
+/// API response for completing WebAuthn credential registration or assertion
 ///
 /// @author Spencer Witt
 @JsonSerializable()
@@ -9397,12 +9397,19 @@ class WebAuthnRegistrationExtensionOptions {
 @JsonSerializable()
 class WebAuthnStartRequest {
   String applicationId;
+  String credentialId;
   String loginId;
   Map<String, dynamic> state;
+  String userId;
   WebAuthnWorkflow workflow;
 
   WebAuthnStartRequest(
-      {this.applicationId, this.loginId, this.state, this.workflow});
+      {this.applicationId,
+      this.credentialId,
+      this.loginId,
+      this.state,
+      this.userId,
+      this.workflow});
 
   factory WebAuthnStartRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnStartRequestFromJson(json);
