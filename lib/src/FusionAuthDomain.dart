@@ -727,6 +727,12 @@ class AuditLogSearchResponse {
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
 }
 
+/// @author Brett Pontarelli
+enum AuthenticationThreats {
+  @JsonValue('ImpossibleTravel')
+  ImpossibleTravel
+}
+
 @JsonSerializable()
 class AuthenticationTokenConfiguration extends Enableable {
   AuthenticationTokenConfiguration();
@@ -7094,6 +7100,25 @@ class SonyPSNApplicationConfiguration
       _$SonyPSNApplicationConfigurationFromJson(json);
   Map<String, dynamic> toJson() =>
       _$SonyPSNApplicationConfigurationToJson(this);
+}
+
+/// SonyPSN gaming login provider.
+///
+/// @author Brett Pontarelli
+@JsonSerializable()
+class SonyPSNIdentityProvider
+    extends BaseIdentityProvider<SonyPSNApplicationConfiguration> {
+  String buttonText;
+  String client_id;
+  String client_secret;
+  String scope;
+
+  SonyPSNIdentityProvider(
+      {this.buttonText, this.client_id, this.client_secret, this.scope});
+
+  factory SonyPSNIdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$SonyPSNIdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$SonyPSNIdentityProviderToJson(this);
 }
 
 /// @author Daniel DeGroff
