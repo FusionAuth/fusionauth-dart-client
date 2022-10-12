@@ -854,8 +854,8 @@ enum AuthenticatorTransport {
   nfc,
   @JsonValue('ble')
   ble,
-  @JsonValue('internal')
-  internal,
+  @JsonValue('platform')
+  platform,
   @JsonValue('cable')
   cable
 }

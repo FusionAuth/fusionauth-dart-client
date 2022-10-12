@@ -6415,7 +6415,7 @@ const _$AuthenticatorTransportEnumMap = {
   AuthenticatorTransport.usb: 'usb',
   AuthenticatorTransport.nfc: 'nfc',
   AuthenticatorTransport.ble: 'ble',
-  AuthenticatorTransport.internal: 'internal',
+  AuthenticatorTransport.platform: 'platform',
   AuthenticatorTransport.cable: 'cable',
 };
 
