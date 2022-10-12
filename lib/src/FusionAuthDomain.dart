@@ -727,12 +727,6 @@ class AuditLogSearchResponse {
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
 }
 
-/// @author Brett Pontarelli
-enum AuthenticationThreats {
-  @JsonValue('ImpossibleTravel')
-  ImpossibleTravel
-}
-
 @JsonSerializable()
 class AuthenticationTokenConfiguration extends Enableable {
   AuthenticationTokenConfiguration();
@@ -6039,15 +6033,15 @@ enum ProofKeyForCodeExchangePolicy {
 class PublicKeyAuthenticationRequest {
   WebAuthnExtensionsClientOutputs clientExtensionResults;
   String id;
-  String relyingPartyId;
   AuthenticatorAuthenticationResponse response;
+  String rpId;
   String type;
 
   PublicKeyAuthenticationRequest(
       {this.clientExtensionResults,
       this.id,
-      this.relyingPartyId,
       this.response,
+      this.rpId,
       this.type});
 
   factory PublicKeyAuthenticationRequest.fromJson(Map<String, dynamic> json) =>
@@ -7102,25 +7096,6 @@ class SonyPSNApplicationConfiguration
       _$SonyPSNApplicationConfigurationToJson(this);
 }
 
-/// SonyPSN gaming login provider.
-///
-/// @author Brett Pontarelli
-@JsonSerializable()
-class SonyPSNIdentityProvider
-    extends BaseIdentityProvider<SonyPSNApplicationConfiguration> {
-  String buttonText;
-  String client_id;
-  String client_secret;
-  String scope;
-
-  SonyPSNIdentityProvider(
-      {this.buttonText, this.client_id, this.client_secret, this.scope});
-
-  factory SonyPSNIdentityProvider.fromJson(Map<String, dynamic> json) =>
-      _$SonyPSNIdentityProviderFromJson(json);
-  Map<String, dynamic> toJson() => _$SonyPSNIdentityProviderToJson(this);
-}
-
 /// @author Daniel DeGroff
 enum Sort {
   @JsonValue('asc')
@@ -7267,6 +7242,9 @@ class Templates {
   String accountTwoFactorDisable;
   String accountTwoFactorEnable;
   String accountTwoFactorIndex;
+  String accountWebAuthnAdd;
+  String accountWebAuthnDelete;
+  String accountWebAuthnIndex;
   String emailComplete;
   String emailSend;
   String emailSent;
@@ -7289,7 +7267,7 @@ class Templates {
   String oauth2TwoFactor;
   String oauth2TwoFactorMethods;
   String oauth2Wait;
-  String oauth2WebAuthN;
+  String oauth2WebAuthn;
   String passwordChange;
   String passwordComplete;
   String passwordForgot;
@@ -7308,6 +7286,9 @@ class Templates {
       this.accountTwoFactorDisable,
       this.accountTwoFactorEnable,
       this.accountTwoFactorIndex,
+      this.accountWebAuthnAdd,
+      this.accountWebAuthnDelete,
+      this.accountWebAuthnIndex,
       this.emailComplete,
       this.emailSend,
       this.emailSent,
@@ -7330,7 +7311,7 @@ class Templates {
       this.oauth2TwoFactor,
       this.oauth2TwoFactorMethods,
       this.oauth2Wait,
-      this.oauth2WebAuthN,
+      this.oauth2WebAuthn,
       this.passwordChange,
       this.passwordComplete,
       this.passwordForgot,
@@ -7705,7 +7686,7 @@ class TenantWebAuthnConfiguration extends Enableable {
   Map<String, dynamic> toJson() => _$TenantWebAuthnConfigurationToJson(this);
 }
 
-/// @author Spencer Witt
+// TODO : WebAuthn : Daniel Review : If this also ends up living in the Application, we should rename to WebAuthnWorkflowConfiguration
 @JsonSerializable()
 class TenantWebAuthnWorkflowConfiguration extends Enableable {
   AuthenticatorAttachmentPreference authenticatorAttachmentPreference;
@@ -9474,11 +9455,11 @@ class VersionResponse {
 class WebAuthnCompleteRequest {
   PublicKeyRegistrationRequest credential;
   String origin;
-  String relyingPartyId;
+  String rpId;
   String userId;
 
   WebAuthnCompleteRequest(
-      {this.credential, this.origin, this.relyingPartyId, this.userId});
+      {this.credential, this.origin, this.rpId, this.userId});
 
   factory WebAuthnCompleteRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCompleteRequestFromJson(json);
@@ -9596,9 +9577,9 @@ class WebAuthnImportRequest {
 class WebAuthnLoginRequest extends BaseLoginRequest {
   PublicKeyAuthenticationRequest credential;
   String origin;
-  String relyingPartyId;
+  String rpId;
 
-  WebAuthnLoginRequest({this.credential, this.origin, this.relyingPartyId});
+  WebAuthnLoginRequest({this.credential, this.origin, this.rpId});
 
   factory WebAuthnLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnLoginRequestFromJson(json);
