@@ -6364,6 +6364,9 @@ class ReactorStatus {
   bool licensed;
   ReactorFeatureStatus scimServer;
   ReactorFeatureStatus threatDetection;
+  ReactorFeatureStatus webAuthn;
+  ReactorFeatureStatus webAuthnPlatformAuthenticators;
+  ReactorFeatureStatus webAuthnRoamingAuthenticators;
 
   ReactorStatus(
       {this.advancedIdentityProviders,
@@ -6379,7 +6382,10 @@ class ReactorStatus {
       this.licenseAttributes,
       this.licensed,
       this.scimServer,
-      this.threatDetection});
+      this.threatDetection,
+      this.webAuthn,
+      this.webAuthnPlatformAuthenticators,
+      this.webAuthnRoamingAuthenticators});
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
       _$ReactorStatusFromJson(json);

@@ -6328,9 +6328,9 @@ PublicKeyAuthenticationRequest _$PublicKeyAuthenticationRequestFromJson(
       clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
           json['clientExtensionResults'] as Map<String, dynamic>),
       id: json['id'] as String,
-      relyingPartyId: json['relyingPartyId'] as String,
       response: AuthenticatorAuthenticationResponse.fromJson(
           json['response'] as Map<String, dynamic>),
+      rpId: json['rpId'] as String,
       type: json['type'] as String,
     );
 
@@ -6339,8 +6339,8 @@ Map<String, dynamic> _$PublicKeyAuthenticationRequestToJson(
     <String, dynamic>{
       'clientExtensionResults': instance.clientExtensionResults,
       'id': instance.id,
-      'relyingPartyId': instance.relyingPartyId,
       'response': instance.response,
+      'rpId': instance.rpId,
       'type': instance.type,
     };
 
@@ -6662,6 +6662,12 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['scimServer']),
       threatDetection:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['threatDetection']),
+      webAuthn: _$enumDecode(_$ReactorFeatureStatusEnumMap, json['webAuthn']),
+      webAuthnPlatformAuthenticators: _$enumDecode(
+          _$ReactorFeatureStatusEnumMap,
+          json['webAuthnPlatformAuthenticators']),
+      webAuthnRoamingAuthenticators: _$enumDecode(
+          _$ReactorFeatureStatusEnumMap, json['webAuthnRoamingAuthenticators']),
     );
 
 Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
@@ -6689,6 +6695,11 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
       'scimServer': _$ReactorFeatureStatusEnumMap[instance.scimServer],
       'threatDetection':
           _$ReactorFeatureStatusEnumMap[instance.threatDetection],
+      'webAuthn': _$ReactorFeatureStatusEnumMap[instance.webAuthn],
+      'webAuthnPlatformAuthenticators': _$ReactorFeatureStatusEnumMap[
+          instance.webAuthnPlatformAuthenticators],
+      'webAuthnRoamingAuthenticators':
+          _$ReactorFeatureStatusEnumMap[instance.webAuthnRoamingAuthenticators],
     };
 
 const _$ReactorFeatureStatusEnumMap = {
@@ -7778,6 +7789,9 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       accountTwoFactorDisable: json['accountTwoFactorDisable'] as String,
       accountTwoFactorEnable: json['accountTwoFactorEnable'] as String,
       accountTwoFactorIndex: json['accountTwoFactorIndex'] as String,
+      accountWebAuthnAdd: json['accountWebAuthnAdd'] as String,
+      accountWebAuthnDelete: json['accountWebAuthnDelete'] as String,
+      accountWebAuthnIndex: json['accountWebAuthnIndex'] as String,
       emailComplete: json['emailComplete'] as String,
       emailSend: json['emailSend'] as String,
       emailSent: json['emailSent'] as String,
@@ -7803,7 +7817,7 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       oauth2TwoFactor: json['oauth2TwoFactor'] as String,
       oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
       oauth2Wait: json['oauth2Wait'] as String,
-      oauth2WebAuthN: json['oauth2WebAuthN'] as String,
+      oauth2WebAuthn: json['oauth2WebAuthn'] as String,
       passwordChange: json['passwordChange'] as String,
       passwordComplete: json['passwordComplete'] as String,
       passwordForgot: json['passwordForgot'] as String,
@@ -7824,6 +7838,9 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'accountTwoFactorDisable': instance.accountTwoFactorDisable,
       'accountTwoFactorEnable': instance.accountTwoFactorEnable,
       'accountTwoFactorIndex': instance.accountTwoFactorIndex,
+      'accountWebAuthnAdd': instance.accountWebAuthnAdd,
+      'accountWebAuthnDelete': instance.accountWebAuthnDelete,
+      'accountWebAuthnIndex': instance.accountWebAuthnIndex,
       'emailComplete': instance.emailComplete,
       'emailSend': instance.emailSend,
       'emailSent': instance.emailSent,
@@ -7848,7 +7865,7 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'oauth2TwoFactor': instance.oauth2TwoFactor,
       'oauth2TwoFactorMethods': instance.oauth2TwoFactorMethods,
       'oauth2Wait': instance.oauth2Wait,
-      'oauth2WebAuthN': instance.oauth2WebAuthN,
+      'oauth2WebAuthn': instance.oauth2WebAuthn,
       'passwordChange': instance.passwordChange,
       'passwordComplete': instance.passwordComplete,
       'passwordForgot': instance.passwordForgot,
@@ -10455,7 +10472,7 @@ WebAuthnCompleteRequest _$WebAuthnCompleteRequestFromJson(
       credential: PublicKeyRegistrationRequest.fromJson(
           json['credential'] as Map<String, dynamic>),
       origin: json['origin'] as String,
-      relyingPartyId: json['relyingPartyId'] as String,
+      rpId: json['rpId'] as String,
       userId: json['userId'] as String,
     );
 
@@ -10464,7 +10481,7 @@ Map<String, dynamic> _$WebAuthnCompleteRequestToJson(
     <String, dynamic>{
       'credential': instance.credential,
       'origin': instance.origin,
-      'relyingPartyId': instance.relyingPartyId,
+      'rpId': instance.rpId,
       'userId': instance.userId,
     };
 
@@ -10585,7 +10602,7 @@ WebAuthnLoginRequest _$WebAuthnLoginRequestFromJson(
       credential: PublicKeyAuthenticationRequest.fromJson(
           json['credential'] as Map<String, dynamic>),
       origin: json['origin'] as String,
-      relyingPartyId: json['relyingPartyId'] as String,
+      rpId: json['rpId'] as String,
     )
       ..eventInfo =
           EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
@@ -10606,7 +10623,7 @@ Map<String, dynamic> _$WebAuthnLoginRequestToJson(
       'noJWT': instance.noJWT,
       'credential': instance.credential,
       'origin': instance.origin,
-      'relyingPartyId': instance.relyingPartyId,
+      'rpId': instance.rpId,
     };
 
 WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
