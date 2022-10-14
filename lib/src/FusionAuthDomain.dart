@@ -9525,6 +9525,7 @@ class WebAuthnCredential {
   num insertInstant;
   bool isDiscoverableCredential;
   num lastUseInstant;
+  String name;
   String publicKey;
   String relyingPartyId;
   num signCount;
@@ -9543,6 +9544,7 @@ class WebAuthnCredential {
       this.insertInstant,
       this.isDiscoverableCredential,
       this.lastUseInstant,
+      this.name,
       this.publicKey,
       this.relyingPartyId,
       this.signCount,
@@ -9622,13 +9624,18 @@ class WebAuthnLoginRequest extends BaseLoginRequest {
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnRegisterRequest {
-  String credentialName;
+  String displayName;
+  String name;
   String userAgent;
   String userId;
   WebAuthnWorkflow workflow;
 
   WebAuthnRegisterRequest(
-      {this.credentialName, this.userAgent, this.userId, this.workflow});
+      {this.displayName,
+      this.name,
+      this.userAgent,
+      this.userId,
+      this.workflow});
 
   factory WebAuthnRegisterRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnRegisterRequestFromJson(json);
