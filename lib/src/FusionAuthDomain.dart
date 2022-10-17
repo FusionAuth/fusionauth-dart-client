@@ -9512,9 +9512,9 @@ class WebAuthnCompleteRequest {
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnCompleteResponse {
-  String credentialId;
+  WebAuthnCredential credential;
 
-  WebAuthnCompleteResponse({this.credentialId});
+  WebAuthnCompleteResponse({this.credential});
 
   factory WebAuthnCompleteResponse.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCompleteResponseFromJson(json);
