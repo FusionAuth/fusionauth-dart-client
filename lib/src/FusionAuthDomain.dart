@@ -2646,6 +2646,8 @@ class ExternalIdentifierConfiguration {
   SecureGeneratorConfiguration twoFactorOneTimeCodeIdGenerator;
   num twoFactorOneTimeCodeIdTimeToLiveInSeconds;
   num twoFactorTrustIdTimeToLiveInSeconds;
+  num webAuthnAuthenticationChallenge;
+  num webAuthnRegistrationChallenge;
 
   ExternalIdentifierConfiguration(
       {this.authorizationGrantIdTimeToLiveInSeconds,
@@ -2671,7 +2673,9 @@ class ExternalIdentifierConfiguration {
       this.twoFactorIdTimeToLiveInSeconds,
       this.twoFactorOneTimeCodeIdGenerator,
       this.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
-      this.twoFactorTrustIdTimeToLiveInSeconds});
+      this.twoFactorTrustIdTimeToLiveInSeconds,
+      this.webAuthnAuthenticationChallenge,
+      this.webAuthnRegistrationChallenge});
 
   factory ExternalIdentifierConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ExternalIdentifierConfigurationFromJson(json);
@@ -7299,6 +7303,8 @@ class Templates {
   String oauth2TwoFactorMethods;
   String oauth2Wait;
   String oauth2WebAuthn;
+  String oauth2WebAuthnReauth;
+  String oauth2WebAuthnReauthEnable;
   String passwordChange;
   String passwordComplete;
   String passwordForgot;
@@ -7343,6 +7349,8 @@ class Templates {
       this.oauth2TwoFactorMethods,
       this.oauth2Wait,
       this.oauth2WebAuthn,
+      this.oauth2WebAuthnReauth,
+      this.oauth2WebAuthnReauthEnable,
       this.passwordChange,
       this.passwordComplete,
       this.passwordForgot,
@@ -7703,12 +7711,14 @@ class TenantUsernameConfiguration {
 // TODO : WebAuthn : Daniel Review : Do we need this Enableable
 @JsonSerializable()
 class TenantWebAuthnConfiguration extends Enableable {
-  TenantWebAuthnWorkflowConfiguration reauthenticationWorkflowConfiguration;
+  TenantWebAuthnWorkflowConfiguration bootstrapWorkflow;
+  TenantWebAuthnWorkflowConfiguration reauthenticationWorkflow;
   String relyingPartyId;
   String relyingPartyName;
 
   TenantWebAuthnConfiguration(
-      {this.reauthenticationWorkflowConfiguration,
+      {this.bootstrapWorkflow,
+      this.reauthenticationWorkflow,
       this.relyingPartyId,
       this.relyingPartyName});
 
