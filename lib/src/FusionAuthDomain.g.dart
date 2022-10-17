@@ -2558,6 +2558,10 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
           json['twoFactorOneTimeCodeIdTimeToLiveInSeconds'] as num,
       twoFactorTrustIdTimeToLiveInSeconds:
           json['twoFactorTrustIdTimeToLiveInSeconds'] as num,
+      webAuthnAuthenticationChallenge:
+          json['webAuthnAuthenticationChallenge'] as num,
+      webAuthnRegistrationChallenge:
+          json['webAuthnRegistrationChallenge'] as num,
     );
 
 Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
@@ -2603,6 +2607,9 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
           instance.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
       'twoFactorTrustIdTimeToLiveInSeconds':
           instance.twoFactorTrustIdTimeToLiveInSeconds,
+      'webAuthnAuthenticationChallenge':
+          instance.webAuthnAuthenticationChallenge,
+      'webAuthnRegistrationChallenge': instance.webAuthnRegistrationChallenge,
     };
 
 ExternalJWTApplicationConfiguration
@@ -7818,6 +7825,8 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
       oauth2Wait: json['oauth2Wait'] as String,
       oauth2WebAuthn: json['oauth2WebAuthn'] as String,
+      oauth2WebAuthnReauth: json['oauth2WebAuthnReauth'] as String,
+      oauth2WebAuthnReauthEnable: json['oauth2WebAuthnReauthEnable'] as String,
       passwordChange: json['passwordChange'] as String,
       passwordComplete: json['passwordComplete'] as String,
       passwordForgot: json['passwordForgot'] as String,
@@ -7866,6 +7875,8 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'oauth2TwoFactorMethods': instance.oauth2TwoFactorMethods,
       'oauth2Wait': instance.oauth2Wait,
       'oauth2WebAuthn': instance.oauth2WebAuthn,
+      'oauth2WebAuthnReauth': instance.oauth2WebAuthnReauth,
+      'oauth2WebAuthnReauthEnable': instance.oauth2WebAuthnReauthEnable,
       'passwordChange': instance.passwordChange,
       'passwordComplete': instance.passwordComplete,
       'passwordForgot': instance.passwordForgot,
@@ -8283,10 +8294,10 @@ Map<String, dynamic> _$TenantUsernameConfigurationToJson(
 TenantWebAuthnConfiguration _$TenantWebAuthnConfigurationFromJson(
         Map<String, dynamic> json) =>
     TenantWebAuthnConfiguration(
-      reauthenticationWorkflowConfiguration:
-          TenantWebAuthnWorkflowConfiguration.fromJson(
-              json['reauthenticationWorkflowConfiguration']
-                  as Map<String, dynamic>),
+      bootstrapWorkflow: TenantWebAuthnWorkflowConfiguration.fromJson(
+          json['bootstrapWorkflow'] as Map<String, dynamic>),
+      reauthenticationWorkflow: TenantWebAuthnWorkflowConfiguration.fromJson(
+          json['reauthenticationWorkflow'] as Map<String, dynamic>),
       relyingPartyId: json['relyingPartyId'] as String,
       relyingPartyName: json['relyingPartyName'] as String,
     )..enabled = json['enabled'] as bool;
@@ -8295,8 +8306,8 @@ Map<String, dynamic> _$TenantWebAuthnConfigurationToJson(
         TenantWebAuthnConfiguration instance) =>
     <String, dynamic>{
       'enabled': instance.enabled,
-      'reauthenticationWorkflowConfiguration':
-          instance.reauthenticationWorkflowConfiguration,
+      'bootstrapWorkflow': instance.bootstrapWorkflow,
+      'reauthenticationWorkflow': instance.reauthenticationWorkflow,
       'relyingPartyId': instance.relyingPartyId,
       'relyingPartyName': instance.relyingPartyName,
     };
@@ -10511,6 +10522,7 @@ WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
       insertInstant: json['insertInstant'] as num,
       isDiscoverableCredential: json['isDiscoverableCredential'] as bool,
       lastUseInstant: json['lastUseInstant'] as num,
+      name: json['name'] as String,
       publicKey: json['publicKey'] as String,
       relyingPartyId: json['relyingPartyId'] as String,
       signCount: json['signCount'] as num,
@@ -10534,6 +10546,7 @@ Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
       'insertInstant': instance.insertInstant,
       'isDiscoverableCredential': instance.isDiscoverableCredential,
       'lastUseInstant': instance.lastUseInstant,
+      'name': instance.name,
       'publicKey': instance.publicKey,
       'relyingPartyId': instance.relyingPartyId,
       'signCount': instance.signCount,
@@ -10629,7 +10642,8 @@ Map<String, dynamic> _$WebAuthnLoginRequestToJson(
 WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
         Map<String, dynamic> json) =>
     WebAuthnRegisterRequest(
-      credentialName: json['credentialName'] as String,
+      displayName: json['displayName'] as String,
+      name: json['name'] as String,
       userAgent: json['userAgent'] as String,
       userId: json['userId'] as String,
       workflow: _$enumDecode(_$WebAuthnWorkflowEnumMap, json['workflow']),
@@ -10638,7 +10652,8 @@ WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
 Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
         WebAuthnRegisterRequest instance) =>
     <String, dynamic>{
-      'credentialName': instance.credentialName,
+      'displayName': instance.displayName,
+      'name': instance.name,
       'userAgent': instance.userAgent,
       'userId': instance.userId,
       'workflow': _$WebAuthnWorkflowEnumMap[instance.workflow],
