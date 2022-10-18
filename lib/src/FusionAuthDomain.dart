@@ -9530,10 +9530,10 @@ class WebAuthnCredential {
   AttestationType attestationType;
   bool authenticatorSupportsUserVerification;
   String credentialId;
+  bool discoverable;
   String displayName;
   String id;
   num insertInstant;
-  bool isDiscoverableCredential;
   num lastUseInstant;
   String name;
   String publicKey;
@@ -9549,10 +9549,10 @@ class WebAuthnCredential {
       this.attestationType,
       this.authenticatorSupportsUserVerification,
       this.credentialId,
+      this.discoverable,
       this.displayName,
       this.id,
       this.insertInstant,
-      this.isDiscoverableCredential,
       this.lastUseInstant,
       this.name,
       this.publicKey,
