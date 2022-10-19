@@ -10499,13 +10499,14 @@ Map<String, dynamic> _$WebAuthnCompleteRequestToJson(
 WebAuthnCompleteResponse _$WebAuthnCompleteResponseFromJson(
         Map<String, dynamic> json) =>
     WebAuthnCompleteResponse(
-      credentialId: json['credentialId'] as String,
+      credential: WebAuthnCredential.fromJson(
+          json['credential'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$WebAuthnCompleteResponseToJson(
         WebAuthnCompleteResponse instance) =>
     <String, dynamic>{
-      'credentialId': instance.credentialId,
+      'credential': instance.credential,
     };
 
 WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
@@ -10517,10 +10518,11 @@ WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
       authenticatorSupportsUserVerification:
           json['authenticatorSupportsUserVerification'] as bool,
       credentialId: json['credentialId'] as String,
+      data: json['data'] as Map<String, dynamic>,
+      discoverable: json['discoverable'] as bool,
       displayName: json['displayName'] as String,
       id: json['id'] as String,
       insertInstant: json['insertInstant'] as num,
-      isDiscoverableCredential: json['isDiscoverableCredential'] as bool,
       lastUseInstant: json['lastUseInstant'] as num,
       name: json['name'] as String,
       publicKey: json['publicKey'] as String,
@@ -10541,10 +10543,11 @@ Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
       'authenticatorSupportsUserVerification':
           instance.authenticatorSupportsUserVerification,
       'credentialId': instance.credentialId,
+      'data': instance.data,
+      'discoverable': instance.discoverable,
       'displayName': instance.displayName,
       'id': instance.id,
       'insertInstant': instance.insertInstant,
-      'isDiscoverableCredential': instance.isDiscoverableCredential,
       'lastUseInstant': instance.lastUseInstant,
       'name': instance.name,
       'publicKey': instance.publicKey,
@@ -10569,9 +10572,9 @@ const _$AttestationTypeEnumMap = {
 WebAuthnCredentialResponse _$WebAuthnCredentialResponseFromJson(
         Map<String, dynamic> json) =>
     WebAuthnCredentialResponse(
-      webauthnCredential: WebAuthnCredential.fromJson(
-          json['webauthnCredential'] as Map<String, dynamic>),
-      webauthnCredentials: (json['webauthnCredentials'] as List<dynamic>)
+      credential: WebAuthnCredential.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      credentials: (json['credentials'] as List<dynamic>)
           .map((e) => WebAuthnCredential.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -10579,8 +10582,8 @@ WebAuthnCredentialResponse _$WebAuthnCredentialResponseFromJson(
 Map<String, dynamic> _$WebAuthnCredentialResponseToJson(
         WebAuthnCredentialResponse instance) =>
     <String, dynamic>{
-      'webauthnCredential': instance.webauthnCredential,
-      'webauthnCredentials': instance.webauthnCredentials,
+      'credential': instance.credential,
+      'credentials': instance.credentials,
     };
 
 WebAuthnExtensionsClientOutputs _$WebAuthnExtensionsClientOutputsFromJson(
@@ -10599,14 +10602,17 @@ Map<String, dynamic> _$WebAuthnExtensionsClientOutputsToJson(
 WebAuthnImportRequest _$WebAuthnImportRequestFromJson(
         Map<String, dynamic> json) =>
     WebAuthnImportRequest(
-      credential: WebAuthnCredential.fromJson(
-          json['credential'] as Map<String, dynamic>),
+      credentials: (json['credentials'] as List<dynamic>)
+          .map((e) => WebAuthnCredential.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      validateDbConstraints: json['validateDbConstraints'] as bool,
     );
 
 Map<String, dynamic> _$WebAuthnImportRequestToJson(
         WebAuthnImportRequest instance) =>
     <String, dynamic>{
-      'credential': instance.credential,
+      'credentials': instance.credentials,
+      'validateDbConstraints': instance.validateDbConstraints,
     };
 
 WebAuthnLoginRequest _$WebAuthnLoginRequestFromJson(
