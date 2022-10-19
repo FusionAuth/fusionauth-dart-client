@@ -9530,6 +9530,7 @@ class WebAuthnCredential {
   AttestationType attestationType;
   bool authenticatorSupportsUserVerification;
   String credentialId;
+  Map<String, dynamic> data;
   bool discoverable;
   String displayName;
   String id;
@@ -9549,6 +9550,7 @@ class WebAuthnCredential {
       this.attestationType,
       this.authenticatorSupportsUserVerification,
       this.credentialId,
+      this.data,
       this.discoverable,
       this.displayName,
       this.id,
@@ -9573,11 +9575,10 @@ class WebAuthnCredential {
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnCredentialResponse {
-  WebAuthnCredential webauthnCredential;
-  List<WebAuthnCredential> webauthnCredentials;
+  WebAuthnCredential credential;
+  List<WebAuthnCredential> credentials;
 
-  WebAuthnCredentialResponse(
-      {this.webauthnCredential, this.webauthnCredentials});
+  WebAuthnCredentialResponse({this.credential, this.credentials});
 
   factory WebAuthnCredentialResponse.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCredentialResponseFromJson(json);
@@ -9599,14 +9600,15 @@ class WebAuthnExtensionsClientOutputs {
       _$WebAuthnExtensionsClientOutputsToJson(this);
 }
 
-/// API request to import an existing WebAuthn credential
+/// API request to import an existing WebAuthn credential(s)
 ///
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnImportRequest {
-  WebAuthnCredential credential;
+  List<WebAuthnCredential> credentials;
+  bool validateDbConstraints;
 
-  WebAuthnImportRequest({this.credential});
+  WebAuthnImportRequest({this.credentials, this.validateDbConstraints});
 
   factory WebAuthnImportRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnImportRequestFromJson(json);
