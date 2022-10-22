@@ -211,6 +211,28 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Make a Client Credentials grant request to obtain an access token.
+  ///
+  /// @param {String} client_id The client identifier. The client Id is the Id of the FusionAuth Entity in which you you are attempting to authenticate.
+  /// @param {String} client_secret The client secret used to authenticate this request.
+  /// @param {String} scope (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:<target-entity-id>:<roles>. Roles are an optional comma separated list.
+  /// @returns {Promise<ClientResponse<AccessToken>>}
+  Future<ClientResponse<AccessToken, OAuthError>> clientCredentialsGrant(
+      String client_id, String client_secret, String scope) {
+    var body = Map<String, dynamic>();
+    body['client_id'] = client_id;
+    body['client_secret'] = client_secret;
+    body['grant_type'] = 'client_credentials';
+    body['scope'] = scope;
+    return _startAnonymous<AccessToken, OAuthError>()
+        .withUri('/oauth2/token')
+        .withFormData(body)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => AccessToken.fromJson(d)))
+        .go();
+  }
+
   /// Adds a comment to the user's account.
   ///
   /// @param {UserCommentRequest} request The request object that contains all the information used to create the user comment.
