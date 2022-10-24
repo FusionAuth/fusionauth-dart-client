@@ -253,7 +253,7 @@ class FusionAuthClient {
   Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
       completeWebAuthnAssertion(WebAuthnLoginRequest request) {
     return _startAnonymous<WebAuthnCompleteResponse, Errors>()
-        .withUri('/api/webauthn/assertion')
+        .withUri('/api/webauthn/assert')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
@@ -283,7 +283,7 @@ class FusionAuthClient {
   Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
       completeWebAuthnRegistration(WebAuthnCompleteRequest request) {
     return _start<WebAuthnCompleteResponse, Errors>()
-        .withUri('/api/webauthn/complete')
+        .withUri('/api/webauthn/register/complete')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
@@ -4479,7 +4479,7 @@ class FusionAuthClient {
   Future<ClientResponse<WebAuthnRegisterResponse, Errors>>
       startWebAuthnRegistration(WebAuthnRegisterRequest request) {
     return _start<WebAuthnRegisterResponse, Errors>()
-        .withUri('/api/webauthn/register')
+        .withUri('/api/webauthn/register/start')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(

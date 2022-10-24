@@ -2646,8 +2646,8 @@ class ExternalIdentifierConfiguration {
   SecureGeneratorConfiguration twoFactorOneTimeCodeIdGenerator;
   num twoFactorOneTimeCodeIdTimeToLiveInSeconds;
   num twoFactorTrustIdTimeToLiveInSeconds;
-  num webAuthnAuthenticationChallenge;
-  num webAuthnRegistrationChallenge;
+  num webAuthnAuthenticationChallengeTimeToLiveInSeconds;
+  num webAuthnRegistrationChallengeTimeToLiveInSeconds;
 
   ExternalIdentifierConfiguration(
       {this.authorizationGrantIdTimeToLiveInSeconds,
@@ -2674,8 +2674,8 @@ class ExternalIdentifierConfiguration {
       this.twoFactorOneTimeCodeIdGenerator,
       this.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
       this.twoFactorTrustIdTimeToLiveInSeconds,
-      this.webAuthnAuthenticationChallenge,
-      this.webAuthnRegistrationChallenge});
+      this.webAuthnAuthenticationChallengeTimeToLiveInSeconds,
+      this.webAuthnRegistrationChallengeTimeToLiveInSeconds});
 
   factory ExternalIdentifierConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ExternalIdentifierConfigurationFromJson(json);
