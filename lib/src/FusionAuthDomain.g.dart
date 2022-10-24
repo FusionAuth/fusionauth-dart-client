@@ -2558,10 +2558,10 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
           json['twoFactorOneTimeCodeIdTimeToLiveInSeconds'] as num,
       twoFactorTrustIdTimeToLiveInSeconds:
           json['twoFactorTrustIdTimeToLiveInSeconds'] as num,
-      webAuthnAuthenticationChallenge:
-          json['webAuthnAuthenticationChallenge'] as num,
-      webAuthnRegistrationChallenge:
-          json['webAuthnRegistrationChallenge'] as num,
+      webAuthnAuthenticationChallengeTimeToLiveInSeconds:
+          json['webAuthnAuthenticationChallengeTimeToLiveInSeconds'] as num,
+      webAuthnRegistrationChallengeTimeToLiveInSeconds:
+          json['webAuthnRegistrationChallengeTimeToLiveInSeconds'] as num,
     );
 
 Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
@@ -2607,9 +2607,10 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
           instance.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
       'twoFactorTrustIdTimeToLiveInSeconds':
           instance.twoFactorTrustIdTimeToLiveInSeconds,
-      'webAuthnAuthenticationChallenge':
-          instance.webAuthnAuthenticationChallenge,
-      'webAuthnRegistrationChallenge': instance.webAuthnRegistrationChallenge,
+      'webAuthnAuthenticationChallengeTimeToLiveInSeconds':
+          instance.webAuthnAuthenticationChallengeTimeToLiveInSeconds,
+      'webAuthnRegistrationChallengeTimeToLiveInSeconds':
+          instance.webAuthnRegistrationChallengeTimeToLiveInSeconds,
     };
 
 ExternalJWTApplicationConfiguration
