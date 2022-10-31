@@ -9728,8 +9728,8 @@ class WebAuthnStartResponse {
 ///
 /// @author Spencer Witt
 enum WebAuthnWorkflow {
-  @JsonValue('reAuthentication')
-  reAuthentication,
+  @JsonValue('reauthentication')
+  reauthentication,
   @JsonValue('bootstrap')
   bootstrap,
   @JsonValue('twoFactor')
