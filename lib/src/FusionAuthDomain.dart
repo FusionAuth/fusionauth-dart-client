@@ -1459,6 +1459,30 @@ enum CoseAlgorithmIdentifier {
   PS512
 }
 
+/// COSE Elliptic Curve identifier to determine which elliptic curve to use with a given key
+///
+/// @author Spencer Witt
+enum CoseEllipticCurve {
+  @JsonValue('Reserved')
+  Reserved,
+  @JsonValue('P256')
+  P256,
+  @JsonValue('P384')
+  P384,
+  @JsonValue('P521')
+  P521,
+  @JsonValue('X25519')
+  X25519,
+  @JsonValue('X448')
+  X448,
+  @JsonValue('Ed25519')
+  Ed25519,
+  @JsonValue('Ed448')
+  Ed448,
+  @JsonValue('Secp256k1')
+  Secp256k1
+}
+
 // TODO : WebAuthn/Domain - this type is only used internally, but it is referenced in CoseAlgorithmIdentifier which is required in public domain
 enum CoseKeyType {
   @JsonValue('Reserved')

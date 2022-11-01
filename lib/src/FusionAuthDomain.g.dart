@@ -10667,7 +10667,7 @@ Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
     };
 
 const _$WebAuthnWorkflowEnumMap = {
-  WebAuthnWorkflow.reAuthentication: 'reAuthentication',
+  WebAuthnWorkflow.reauthentication: 'reauthentication',
   WebAuthnWorkflow.bootstrap: 'bootstrap',
   WebAuthnWorkflow.twoFactor: 'twoFactor',
   WebAuthnWorkflow.general: 'general',
