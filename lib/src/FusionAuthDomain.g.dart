@@ -6404,7 +6404,7 @@ PublicKeyCredentialDescriptor _$PublicKeyCredentialDescriptorFromJson(
     PublicKeyCredentialDescriptor(
       id: json['id'] as String,
       transports: (json['transports'] as List<dynamic>)
-          .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
+          .map((e) => e as String)
           .toList(),
       type: _$enumDecode(_$PublicKeyCredentialTypeEnumMap, json['type']),
     );
@@ -6413,19 +6413,9 @@ Map<String, dynamic> _$PublicKeyCredentialDescriptorToJson(
         PublicKeyCredentialDescriptor instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'transports': instance.transports
-          .map((e) => _$AuthenticatorTransportEnumMap[e])
-          .toList(),
+      'transports': instance.transports,
       'type': _$PublicKeyCredentialTypeEnumMap[instance.type],
     };
-
-const _$AuthenticatorTransportEnumMap = {
-  AuthenticatorTransport.usb: 'usb',
-  AuthenticatorTransport.nfc: 'nfc',
-  AuthenticatorTransport.ble: 'ble',
-  AuthenticatorTransport.platform: 'platform',
-  AuthenticatorTransport.cable: 'cable',
-};
 
 const _$PublicKeyCredentialTypeEnumMap = {
   PublicKeyCredentialType.publicKey: 'publicKey',
@@ -6491,7 +6481,7 @@ PublicKeyCredentialRequestOptions _$PublicKeyCredentialRequestOptionsFromJson(
               PublicKeyCredentialDescriptor.fromJson(e as Map<String, dynamic>))
           .toList(),
       challenge: json['challenge'] as String,
-      relyingPartyId: json['relyingPartyId'] as String,
+      rpId: json['rpId'] as String,
       timeout: json['timeout'] as num,
       userVerification: _$enumDecode(
           _$UserVerificationRequirementEnumMap, json['userVerification']),
@@ -6502,7 +6492,7 @@ Map<String, dynamic> _$PublicKeyCredentialRequestOptionsToJson(
     <String, dynamic>{
       'allowCredentials': instance.allowCredentials,
       'challenge': instance.challenge,
-      'relyingPartyId': instance.relyingPartyId,
+      'rpId': instance.rpId,
       'timeout': instance.timeout,
       'userVerification':
           _$UserVerificationRequirementEnumMap[instance.userVerification],
@@ -6533,7 +6523,7 @@ PublicKeyRegistrationRequest _$PublicKeyRegistrationRequestFromJson(
           json['response'] as Map<String, dynamic>),
       rpId: json['rpId'] as String,
       transports: (json['transports'] as List<dynamic>)
-          .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
+          .map((e) => e as String)
           .toList(),
       type: json['type'] as String,
     );
@@ -6545,9 +6535,7 @@ Map<String, dynamic> _$PublicKeyRegistrationRequestToJson(
       'id': instance.id,
       'response': instance.response,
       'rpId': instance.rpId,
-      'transports': instance.transports
-          .map((e) => _$AuthenticatorTransportEnumMap[e])
-          .toList(),
+      'transports': instance.transports,
       'type': instance.type,
     };
 
@@ -10531,7 +10519,7 @@ WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
       signCount: json['signCount'] as num,
       tenantId: json['tenantId'] as String,
       transports: (json['transports'] as List<dynamic>)
-          .map((e) => _$enumDecode(_$AuthenticatorTransportEnumMap, e))
+          .map((e) => e as String)
           .toList(),
       userAgent: json['userAgent'] as String,
       userId: json['userId'] as String,
@@ -10555,9 +10543,7 @@ Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
       'relyingPartyId': instance.relyingPartyId,
       'signCount': instance.signCount,
       'tenantId': instance.tenantId,
-      'transports': instance.transports
-          .map((e) => _$AuthenticatorTransportEnumMap[e])
-          .toList(),
+      'transports': instance.transports,
       'userAgent': instance.userAgent,
       'userId': instance.userId,
     };

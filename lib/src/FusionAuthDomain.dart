@@ -843,23 +843,6 @@ class AuthenticatorSelectionCriteria {
   Map<String, dynamic> toJson() => _$AuthenticatorSelectionCriteriaToJson(this);
 }
 
-/// Describes how the authenticator communicates with a client. This can be used by the client as a hint to locate the
-/// appropriate authenticator.
-///
-/// @author Spencer Witt
-enum AuthenticatorTransport {
-  @JsonValue('usb')
-  usb,
-  @JsonValue('nfc')
-  nfc,
-  @JsonValue('ble')
-  ble,
-  @JsonValue('platform')
-  platform,
-  @JsonValue('cable')
-  cable
-}
-
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
 @JsonSerializable()
 class BaseConnectorConfiguration {
@@ -6096,7 +6079,7 @@ class PublicKeyCredentialCreationOptions {
 @JsonSerializable()
 class PublicKeyCredentialDescriptor {
   String id;
-  List<AuthenticatorTransport> transports;
+  List<String> transports;
   PublicKeyCredentialType type;
 
   PublicKeyCredentialDescriptor({this.id, this.transports, this.type});
@@ -6156,14 +6139,14 @@ class PublicKeyCredentialRelyingPartyEntity extends PublicKeyCredentialEntity {
 class PublicKeyCredentialRequestOptions {
   List<PublicKeyCredentialDescriptor> allowCredentials;
   String challenge;
-  String relyingPartyId;
+  String rpId;
   num timeout;
   UserVerificationRequirement userVerification;
 
   PublicKeyCredentialRequestOptions(
       {this.allowCredentials,
       this.challenge,
-      this.relyingPartyId,
+      this.rpId,
       this.timeout,
       this.userVerification});
 
@@ -6206,7 +6189,7 @@ class PublicKeyRegistrationRequest {
   String id;
   AuthenticatorRegistrationResponse response;
   String rpId;
-  List<AuthenticatorTransport> transports;
+  List<String> transports;
   String type;
 
   PublicKeyRegistrationRequest(
@@ -9539,7 +9522,7 @@ class WebAuthnCredential {
   String relyingPartyId;
   num signCount;
   String tenantId;
-  List<AuthenticatorTransport> transports;
+  List<String> transports;
   String userAgent;
   String userId;
 
