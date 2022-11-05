@@ -8326,9 +8326,9 @@ Map<String, dynamic> _$TenantWebAuthnWorkflowConfigurationToJson(
     };
 
 const _$AuthenticatorAttachmentPreferenceEnumMap = {
+  AuthenticatorAttachmentPreference.any: 'any',
   AuthenticatorAttachmentPreference.platform: 'platform',
   AuthenticatorAttachmentPreference.crossPlatform: 'crossPlatform',
-  AuthenticatorAttachmentPreference.either: 'either',
 };
 
 TestEvent _$TestEventFromJson(Map<String, dynamic> json) => TestEvent(
