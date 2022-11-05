@@ -8285,6 +8285,7 @@ TenantWebAuthnConfiguration _$TenantWebAuthnConfigurationFromJson(
     TenantWebAuthnConfiguration(
       bootstrapWorkflow: TenantWebAuthnWorkflowConfiguration.fromJson(
           json['bootstrapWorkflow'] as Map<String, dynamic>),
+      debug: json['debug'] as bool,
       reauthenticationWorkflow: TenantWebAuthnWorkflowConfiguration.fromJson(
           json['reauthenticationWorkflow'] as Map<String, dynamic>),
       relyingPartyId: json['relyingPartyId'] as String,
@@ -8296,6 +8297,7 @@ Map<String, dynamic> _$TenantWebAuthnConfigurationToJson(
     <String, dynamic>{
       'enabled': instance.enabled,
       'bootstrapWorkflow': instance.bootstrapWorkflow,
+      'debug': instance.debug,
       'reauthenticationWorkflow': instance.reauthenticationWorkflow,
       'relyingPartyId': instance.relyingPartyId,
       'relyingPartyName': instance.relyingPartyName,

@@ -7693,12 +7693,14 @@ class TenantUsernameConfiguration {
 @JsonSerializable()
 class TenantWebAuthnConfiguration extends Enableable {
   TenantWebAuthnWorkflowConfiguration bootstrapWorkflow;
+  bool debug;
   TenantWebAuthnWorkflowConfiguration reauthenticationWorkflow;
   String relyingPartyId;
   String relyingPartyName;
 
   TenantWebAuthnConfiguration(
       {this.bootstrapWorkflow,
+      this.debug,
       this.reauthenticationWorkflow,
       this.relyingPartyId,
       this.relyingPartyName});
