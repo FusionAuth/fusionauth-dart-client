@@ -758,12 +758,12 @@ enum AuthenticatorAttachment {
 ///
 /// @author Spencer Witt
 enum AuthenticatorAttachmentPreference {
+  @JsonValue('any')
+  any,
   @JsonValue('platform')
   platform,
   @JsonValue('crossPlatform')
-  crossPlatform,
-  @JsonValue('either')
-  either
+  crossPlatform
 }
 
 /// The <i>authenticator's</i> response for the authentication ceremony in its encoded format
@@ -7689,7 +7689,9 @@ class TenantUsernameConfiguration {
   Map<String, dynamic> toJson() => _$TenantUsernameConfigurationToJson(this);
 }
 
-// TODO : WebAuthn : Daniel Review : Do we need this Enableable
+/// Tenant-level configuration for WebAuthn
+///
+/// @author Spencer Witt
 @JsonSerializable()
 class TenantWebAuthnConfiguration extends Enableable {
   TenantWebAuthnWorkflowConfiguration bootstrapWorkflow;
