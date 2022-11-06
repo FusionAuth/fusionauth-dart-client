@@ -1466,7 +1466,9 @@ enum CoseEllipticCurve {
   Secp256k1
 }
 
-// TODO : WebAuthn/Domain - this type is only used internally, but it is referenced in CoseAlgorithmIdentifier which is required in public domain
+/// COSE key type
+///
+/// @author Spencer Witt
 enum CoseKeyType {
   @JsonValue('Reserved')
   Reserved,
@@ -7712,7 +7714,7 @@ class TenantWebAuthnConfiguration extends Enableable {
   Map<String, dynamic> toJson() => _$TenantWebAuthnConfigurationToJson(this);
 }
 
-// TODO : WebAuthn : Daniel Review : If this also ends up living in the Application, we should rename to WebAuthnWorkflowConfiguration
+/// @author Spencer Witt
 @JsonSerializable()
 class TenantWebAuthnWorkflowConfiguration extends Enableable {
   AuthenticatorAttachmentPreference authenticatorAttachmentPreference;
@@ -9713,14 +9715,12 @@ class WebAuthnStartResponse {
 ///
 /// @author Spencer Witt
 enum WebAuthnWorkflow {
-  @JsonValue('reauthentication')
-  reauthentication,
   @JsonValue('bootstrap')
   bootstrap,
-  @JsonValue('twoFactor')
-  twoFactor,
   @JsonValue('general')
-  general
+  general,
+  @JsonValue('reauthentication')
+  reauthentication
 }
 
 /// A server where events are sent. This includes user action events and any other events sent by FusionAuth.
