@@ -363,6 +363,8 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) => Application(
       verificationStrategy: _$enumDecode(
           _$VerificationStrategyEnumMap, json['verificationStrategy']),
       verifyRegistration: json['verifyRegistration'] as bool,
+      webAuthnConfiguration: ApplicationWebAuthnConfiguration.fromJson(
+          json['webAuthnConfiguration'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ApplicationToJson(Application instance) {
@@ -406,6 +408,7 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
   val['verificationStrategy'] =
       _$VerificationStrategyEnumMap[instance.verificationStrategy];
   val['verifyRegistration'] = instance.verifyRegistration;
+  val['webAuthnConfiguration'] = instance.webAuthnConfiguration;
   return val;
 }
 
@@ -650,6 +653,16 @@ const _$UnverifiedBehaviorEnumMap = {
   UnverifiedBehavior.Allow: 'Allow',
   UnverifiedBehavior.Gated: 'Gated',
 };
+
+ApplicationWebAuthnConfiguration _$ApplicationWebAuthnConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    ApplicationWebAuthnConfiguration()..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$ApplicationWebAuthnConfigurationToJson(
+        ApplicationWebAuthnConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+    };
 
 Attachment _$AttachmentFromJson(Map<String, dynamic> json) => Attachment(
       attachment:
@@ -7042,6 +7055,8 @@ SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) =>
       callbackURL: json['callbackURL'] as String,
       debug: json['debug'] as bool,
       defaultVerificationKeyId: json['defaultVerificationKeyId'] as String,
+      initiatedLogin: SAMLv2IdPInitiatedLoginConfiguration.fromJson(
+          json['initiatedLogin'] as Map<String, dynamic>),
       issuer: json['issuer'] as String,
       keyId: json['keyId'] as String,
       logout: SAMLv2Logout.fromJson(json['logout'] as Map<String, dynamic>),
@@ -7062,6 +7077,7 @@ Map<String, dynamic> _$SAMLv2ConfigurationToJson(
       'callbackURL': instance.callbackURL,
       'debug': instance.debug,
       'defaultVerificationKeyId': instance.defaultVerificationKeyId,
+      'initiatedLogin': instance.initiatedLogin,
       'issuer': instance.issuer,
       'keyId': instance.keyId,
       'logout': instance.logout,
@@ -7257,6 +7273,19 @@ Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
   val['usernameClaim'] = instance.usernameClaim;
   return val;
 }
+
+SAMLv2IdPInitiatedLoginConfiguration
+    _$SAMLv2IdPInitiatedLoginConfigurationFromJson(Map<String, dynamic> json) =>
+        SAMLv2IdPInitiatedLoginConfiguration(
+          nameIdFormat: json['nameIdFormat'] as String,
+        )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$SAMLv2IdPInitiatedLoginConfigurationToJson(
+        SAMLv2IdPInitiatedLoginConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'nameIdFormat': instance.nameIdFormat,
+    };
 
 SAMLv2Logout _$SAMLv2LogoutFromJson(Map<String, dynamic> json) => SAMLv2Logout(
       behavior: _$enumDecode(_$SAMLLogoutBehaviorEnumMap, json['behavior']),
@@ -10655,10 +10684,9 @@ Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
     };
 
 const _$WebAuthnWorkflowEnumMap = {
-  WebAuthnWorkflow.reauthentication: 'reauthentication',
   WebAuthnWorkflow.bootstrap: 'bootstrap',
-  WebAuthnWorkflow.twoFactor: 'twoFactor',
   WebAuthnWorkflow.general: 'general',
+  WebAuthnWorkflow.reauthentication: 'reauthentication',
 };
 
 WebAuthnRegisterResponse _$WebAuthnRegisterResponseFromJson(
