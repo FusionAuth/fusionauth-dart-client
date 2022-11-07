@@ -288,6 +288,7 @@ class Application {
   String verificationEmailTemplateId;
   VerificationStrategy verificationStrategy;
   bool verifyRegistration;
+  ApplicationWebAuthnConfiguration webAuthnConfiguration;
 
   Application(
       {this.accessControlConfiguration,
@@ -318,7 +319,8 @@ class Application {
       this.unverified,
       this.verificationEmailTemplateId,
       this.verificationStrategy,
-      this.verifyRegistration});
+      this.verifyRegistration,
+      this.webAuthnConfiguration});
 
   factory Application.fromJson(Map<String, dynamic> json) =>
       _$ApplicationFromJson(json);
@@ -535,6 +537,20 @@ class ApplicationUnverifiedConfiguration {
       _$ApplicationUnverifiedConfigurationFromJson(json);
   Map<String, dynamic> toJson() =>
       _$ApplicationUnverifiedConfigurationToJson(this);
+}
+
+/// Application-level configuration for WebAuthn
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class ApplicationWebAuthnConfiguration extends Enableable {
+  ApplicationWebAuthnConfiguration();
+
+  factory ApplicationWebAuthnConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$ApplicationWebAuthnConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$ApplicationWebAuthnConfigurationToJson(this);
 }
 
 /// This class is a simple attachment with a byte array, name and MIME type.
@@ -6756,6 +6772,7 @@ class SAMLv2Configuration extends Enableable {
   String callbackURL;
   bool debug;
   String defaultVerificationKeyId;
+  SAMLv2IdPInitiatedLoginConfiguration initiatedLogin;
   String issuer;
   String keyId;
   SAMLv2Logout logout;
@@ -6770,6 +6787,7 @@ class SAMLv2Configuration extends Enableable {
       this.callbackURL,
       this.debug,
       this.defaultVerificationKeyId,
+      this.initiatedLogin,
       this.issuer,
       this.keyId,
       this.logout,
@@ -6866,6 +6884,22 @@ class SAMLv2IdPInitiatedIdentityProvider
       _$SAMLv2IdPInitiatedIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() =>
       _$SAMLv2IdPInitiatedIdentityProviderToJson(this);
+}
+
+/// IdP Initiated login configuration
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class SAMLv2IdPInitiatedLoginConfiguration extends Enableable {
+  String nameIdFormat;
+
+  SAMLv2IdPInitiatedLoginConfiguration({this.nameIdFormat});
+
+  factory SAMLv2IdPInitiatedLoginConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$SAMLv2IdPInitiatedLoginConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2IdPInitiatedLoginConfigurationToJson(this);
 }
 
 @JsonSerializable()
