@@ -249,15 +249,15 @@ class FusionAuthClient {
   /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
   ///
   /// @param {WebAuthnLoginRequest} request An object containing data necessary for completing the authentication ceremony
-  /// @returns {Promise<ClientResponse<WebAuthnCompleteResponse>>}
-  Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
+  /// @returns {Promise<ClientResponse<WebAuthnAssertResponse>>}
+  Future<ClientResponse<WebAuthnAssertResponse, Errors>>
       completeWebAuthnAssertion(WebAuthnLoginRequest request) {
-    return _startAnonymous<WebAuthnCompleteResponse, Errors>()
+    return _startAnonymous<WebAuthnAssertResponse, Errors>()
         .withUri('/api/webauthn/assert')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => WebAuthnCompleteResponse.fromJson(d)))
+            (d) => WebAuthnAssertResponse.fromJson(d)))
         .go();
   }
 
@@ -278,16 +278,16 @@ class FusionAuthClient {
 
   /// Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
   ///
-  /// @param {WebAuthnCompleteRequest} request An object containing data necessary for completing the registration ceremony
-  /// @returns {Promise<ClientResponse<WebAuthnCompleteResponse>>}
-  Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
-      completeWebAuthnRegistration(WebAuthnCompleteRequest request) {
-    return _start<WebAuthnCompleteResponse, Errors>()
+  /// @param {WebAuthnRegisterCompleteRequest} request An object containing data necessary for completing the registration ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnRegisterCompleteResponse>>}
+  Future<ClientResponse<WebAuthnRegisterCompleteResponse, Errors>>
+      completeWebAuthnRegistration(WebAuthnRegisterCompleteRequest request) {
+    return _start<WebAuthnRegisterCompleteResponse, Errors>()
         .withUri('/api/webauthn/register/complete')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => WebAuthnCompleteResponse.fromJson(d)))
+            (d) => WebAuthnRegisterCompleteResponse.fromJson(d)))
         .go();
   }
 
@@ -1728,10 +1728,10 @@ class FusionAuthClient {
 
   /// Import a WebAuthn credential
   ///
-  /// @param {WebAuthnImportRequest} request An object containing data necessary for importing the credential
+  /// @param {WebAuthnCredentialImportRequest} request An object containing data necessary for importing the credential
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, Errors>> importWebAuthnCredential(
-      WebAuthnImportRequest request) {
+      WebAuthnCredentialImportRequest request) {
     return _start<void, Errors>()
         .withUri('/api/webauthn/import')
         .withJSONBody(request)
@@ -4474,16 +4474,16 @@ class FusionAuthClient {
 
   /// Start a WebAuthn registration ceremony by generating a new challenge for the user
   ///
-  /// @param {WebAuthnRegisterRequest} request An object containing data necessary for starting the registration ceremony
-  /// @returns {Promise<ClientResponse<WebAuthnRegisterResponse>>}
-  Future<ClientResponse<WebAuthnRegisterResponse, Errors>>
-      startWebAuthnRegistration(WebAuthnRegisterRequest request) {
-    return _start<WebAuthnRegisterResponse, Errors>()
+  /// @param {WebAuthnRegisterStartRequest} request An object containing data necessary for starting the registration ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnRegisterStartResponse>>}
+  Future<ClientResponse<WebAuthnRegisterStartResponse, Errors>>
+      startWebAuthnRegistration(WebAuthnRegisterStartRequest request) {
+    return _start<WebAuthnRegisterStartResponse, Errors>()
         .withUri('/api/webauthn/register/start')
         .withJSONBody(request)
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
-            (d) => WebAuthnRegisterResponse.fromJson(d)))
+            (d) => WebAuthnRegisterStartResponse.fromJson(d)))
         .go();
   }
 

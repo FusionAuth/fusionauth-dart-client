@@ -798,29 +798,6 @@ enum AuthenticatorAttachmentPreference {
   crossPlatform
 }
 
-/// The <i>authenticator's</i> response for the authentication ceremony in its encoded format
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class AuthenticatorAuthenticationResponse {
-  String authenticatorData;
-  String clientDataJSON;
-  String signature;
-  String userHandle;
-
-  AuthenticatorAuthenticationResponse(
-      {this.authenticatorData,
-      this.clientDataJSON,
-      this.signature,
-      this.userHandle});
-
-  factory AuthenticatorAuthenticationResponse.fromJson(
-          Map<String, dynamic> json) =>
-      _$AuthenticatorAuthenticationResponseFromJson(json);
-  Map<String, dynamic> toJson() =>
-      _$AuthenticatorAuthenticationResponseToJson(this);
-}
-
 /// @author Daniel DeGroff
 @JsonSerializable()
 class AuthenticatorConfiguration {
@@ -833,24 +810,6 @@ class AuthenticatorConfiguration {
   factory AuthenticatorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$AuthenticatorConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$AuthenticatorConfigurationToJson(this);
-}
-
-/// The <i>authenticator's</i> response for the registration ceremony in its encoded format
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class AuthenticatorRegistrationResponse {
-  String attestationObject;
-  String clientDataJSON;
-
-  AuthenticatorRegistrationResponse(
-      {this.attestationObject, this.clientDataJSON});
-
-  factory AuthenticatorRegistrationResponse.fromJson(
-          Map<String, dynamic> json) =>
-      _$AuthenticatorRegistrationResponseFromJson(json);
-  Map<String, dynamic> toJson() =>
-      _$AuthenticatorRegistrationResponseToJson(this);
 }
 
 /// Used by the Relying Party to specify their requirements for authenticator attributes. Fields use the deprecated "resident key" terminology to refer
@@ -6052,29 +6011,6 @@ enum ProofKeyForCodeExchangePolicy {
   NotRequiredWhenUsingClientAuthentication
 }
 
-/// Request to authenticate with WebAuthn
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class PublicKeyAuthenticationRequest {
-  WebAuthnExtensionsClientOutputs clientExtensionResults;
-  String id;
-  AuthenticatorAuthenticationResponse response;
-  String rpId;
-  String type;
-
-  PublicKeyAuthenticationRequest(
-      {this.clientExtensionResults,
-      this.id,
-      this.response,
-      this.rpId,
-      this.type});
-
-  factory PublicKeyAuthenticationRequest.fromJson(Map<String, dynamic> json) =>
-      _$PublicKeyAuthenticationRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$PublicKeyAuthenticationRequestToJson(this);
-}
-
 /// Allows the Relying Party to specify desired attributes of a new credential.
 ///
 /// @author Spencer Witt
@@ -6213,31 +6149,6 @@ class PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
   factory PublicKeyCredentialUserEntity.fromJson(Map<String, dynamic> json) =>
       _$PublicKeyCredentialUserEntityFromJson(json);
   Map<String, dynamic> toJson() => _$PublicKeyCredentialUserEntityToJson(this);
-}
-
-/// Request to register a new public key with WebAuthn
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class PublicKeyRegistrationRequest {
-  WebAuthnExtensionsClientOutputs clientExtensionResults;
-  String id;
-  AuthenticatorRegistrationResponse response;
-  String rpId;
-  List<String> transports;
-  String type;
-
-  PublicKeyRegistrationRequest(
-      {this.clientExtensionResults,
-      this.id,
-      this.response,
-      this.rpId,
-      this.transports,
-      this.type});
-
-  factory PublicKeyRegistrationRequest.fromJson(Map<String, dynamic> json) =>
-      _$PublicKeyRegistrationRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$PublicKeyRegistrationRequestToJson(this);
 }
 
 /// JWT Public Key Response Object
@@ -9527,36 +9438,59 @@ class VersionResponse {
   Map<String, dynamic> toJson() => _$VersionResponseToJson(this);
 }
 
-/// Request to complete the WebAuthn registration ceremony for a new credential
+/// API response for completing WebAuthn assertion
 ///
 /// @author Spencer Witt
 @JsonSerializable()
-class WebAuthnCompleteRequest {
-  PublicKeyRegistrationRequest credential;
-  String origin;
-  String rpId;
-  String userId;
-
-  WebAuthnCompleteRequest(
-      {this.credential, this.origin, this.rpId, this.userId});
-
-  factory WebAuthnCompleteRequest.fromJson(Map<String, dynamic> json) =>
-      _$WebAuthnCompleteRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$WebAuthnCompleteRequestToJson(this);
-}
-
-/// API response for completing WebAuthn credential registration or assertion
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class WebAuthnCompleteResponse {
+class WebAuthnAssertResponse {
   WebAuthnCredential credential;
 
-  WebAuthnCompleteResponse({this.credential});
+  WebAuthnAssertResponse({this.credential});
 
-  factory WebAuthnCompleteResponse.fromJson(Map<String, dynamic> json) =>
-      _$WebAuthnCompleteResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$WebAuthnCompleteResponseToJson(this);
+  factory WebAuthnAssertResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnAssertResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnAssertResponseToJson(this);
+}
+
+/// The <i>authenticator's</i> response for the authentication ceremony in its encoded format
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnAuthenticatorAuthenticationResponse {
+  String authenticatorData;
+  String clientDataJSON;
+  String signature;
+  String userHandle;
+
+  WebAuthnAuthenticatorAuthenticationResponse(
+      {this.authenticatorData,
+      this.clientDataJSON,
+      this.signature,
+      this.userHandle});
+
+  factory WebAuthnAuthenticatorAuthenticationResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$WebAuthnAuthenticatorAuthenticationResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnAuthenticatorAuthenticationResponseToJson(this);
+}
+
+/// The <i>authenticator's</i> response for the registration ceremony in its encoded format
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnAuthenticatorRegistrationResponse {
+  String attestationObject;
+  String clientDataJSON;
+
+  WebAuthnAuthenticatorRegistrationResponse(
+      {this.attestationObject, this.clientDataJSON});
+
+  factory WebAuthnAuthenticatorRegistrationResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$WebAuthnAuthenticatorRegistrationResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnAuthenticatorRegistrationResponseToJson(this);
 }
 
 /// A User's WebAuthnCredential. Contains all data required to complete WebAuthn authentication ceremonies.
@@ -9608,6 +9542,23 @@ class WebAuthnCredential {
   Map<String, dynamic> toJson() => _$WebAuthnCredentialToJson(this);
 }
 
+/// API request to import an existing WebAuthn credential(s)
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnCredentialImportRequest {
+  List<WebAuthnCredential> credentials;
+  bool validateDbConstraints;
+
+  WebAuthnCredentialImportRequest(
+      {this.credentials, this.validateDbConstraints});
+
+  factory WebAuthnCredentialImportRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnCredentialImportRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnCredentialImportRequestToJson(this);
+}
+
 /// WebAuthn Credential API response
 ///
 /// @author Spencer Witt
@@ -9638,27 +9589,12 @@ class WebAuthnExtensionsClientOutputs {
       _$WebAuthnExtensionsClientOutputsToJson(this);
 }
 
-/// API request to import an existing WebAuthn credential(s)
-///
-/// @author Spencer Witt
-@JsonSerializable()
-class WebAuthnImportRequest {
-  List<WebAuthnCredential> credentials;
-  bool validateDbConstraints;
-
-  WebAuthnImportRequest({this.credentials, this.validateDbConstraints});
-
-  factory WebAuthnImportRequest.fromJson(Map<String, dynamic> json) =>
-      _$WebAuthnImportRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$WebAuthnImportRequestToJson(this);
-}
-
 /// Request to complete the WebAuthn registration ceremony
 ///
 /// @author Spencer Witt
 @JsonSerializable()
 class WebAuthnLoginRequest extends BaseLoginRequest {
-  PublicKeyAuthenticationRequest credential;
+  WebAuthnPublicKeyAuthenticationRequest credential;
   String origin;
   String rpId;
   String twoFactorTrustId;
@@ -9671,41 +9607,128 @@ class WebAuthnLoginRequest extends BaseLoginRequest {
   Map<String, dynamic> toJson() => _$WebAuthnLoginRequestToJson(this);
 }
 
+/// Request to authenticate with WebAuthn
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnPublicKeyAuthenticationRequest {
+  WebAuthnExtensionsClientOutputs clientExtensionResults;
+  String id;
+  WebAuthnAuthenticatorAuthenticationResponse response;
+  String rpId;
+  String type;
+
+  WebAuthnPublicKeyAuthenticationRequest(
+      {this.clientExtensionResults,
+      this.id,
+      this.response,
+      this.rpId,
+      this.type});
+
+  factory WebAuthnPublicKeyAuthenticationRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$WebAuthnPublicKeyAuthenticationRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnPublicKeyAuthenticationRequestToJson(this);
+}
+
+/// Request to register a new public key with WebAuthn
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnPublicKeyRegistrationRequest {
+  WebAuthnExtensionsClientOutputs clientExtensionResults;
+  String id;
+  WebAuthnAuthenticatorRegistrationResponse response;
+  String rpId;
+  List<String> transports;
+  String type;
+
+  WebAuthnPublicKeyRegistrationRequest(
+      {this.clientExtensionResults,
+      this.id,
+      this.response,
+      this.rpId,
+      this.transports,
+      this.type});
+
+  factory WebAuthnPublicKeyRegistrationRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$WebAuthnPublicKeyRegistrationRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnPublicKeyRegistrationRequestToJson(this);
+}
+
+/// Request to complete the WebAuthn registration ceremony for a new credential,.
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnRegisterCompleteRequest {
+  WebAuthnPublicKeyRegistrationRequest credential;
+  String origin;
+  String rpId;
+  String userId;
+
+  WebAuthnRegisterCompleteRequest(
+      {this.credential, this.origin, this.rpId, this.userId});
+
+  factory WebAuthnRegisterCompleteRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnRegisterCompleteRequestFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnRegisterCompleteRequestToJson(this);
+}
+
+/// API response for completing WebAuthn credential registration or assertion
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebAuthnRegisterCompleteResponse {
+  WebAuthnCredential credential;
+
+  WebAuthnRegisterCompleteResponse({this.credential});
+
+  factory WebAuthnRegisterCompleteResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$WebAuthnRegisterCompleteResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$WebAuthnRegisterCompleteResponseToJson(this);
+}
+
 /// API request to start a WebAuthn registration ceremony
 ///
 /// @author Spencer Witt
 @JsonSerializable()
-class WebAuthnRegisterRequest {
+class WebAuthnRegisterStartRequest {
   String displayName;
   String name;
   String userAgent;
   String userId;
   WebAuthnWorkflow workflow;
 
-  WebAuthnRegisterRequest(
+  WebAuthnRegisterStartRequest(
       {this.displayName,
       this.name,
       this.userAgent,
       this.userId,
       this.workflow});
 
-  factory WebAuthnRegisterRequest.fromJson(Map<String, dynamic> json) =>
-      _$WebAuthnRegisterRequestFromJson(json);
-  Map<String, dynamic> toJson() => _$WebAuthnRegisterRequestToJson(this);
+  factory WebAuthnRegisterStartRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnRegisterStartRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnRegisterStartRequestToJson(this);
 }
 
 /// API response for starting a WebAuthn registration ceremony
 ///
 /// @author Spencer Witt
 @JsonSerializable()
-class WebAuthnRegisterResponse {
+class WebAuthnRegisterStartResponse {
   PublicKeyCredentialCreationOptions options;
 
-  WebAuthnRegisterResponse({this.options});
+  WebAuthnRegisterStartResponse({this.options});
 
-  factory WebAuthnRegisterResponse.fromJson(Map<String, dynamic> json) =>
-      _$WebAuthnRegisterResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$WebAuthnRegisterResponseToJson(this);
+  factory WebAuthnRegisterStartResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebAuthnRegisterStartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebAuthnRegisterStartResponseToJson(this);
 }
 
 /// Options to request extensions during credential registration
