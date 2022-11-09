@@ -211,6 +211,28 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Make a Client Credentials grant request to obtain an access token.
+  ///
+  /// @param {String} client_id The client identifier. The client Id is the Id of the FusionAuth Entity in which you are attempting to authenticate.
+  /// @param {String} client_secret The client secret used to authenticate this request.
+  /// @param {String} scope (Optional) This parameter is used to indicate which target entity you are requesting access. To request access to an entity, use the format target-entity:&lt;target-entity-id&gt;:&lt;roles&gt;. Roles are an optional comma separated list.
+  /// @returns {Promise<ClientResponse<AccessToken>>}
+  Future<ClientResponse<AccessToken, OAuthError>> clientCredentialsGrant(
+      String client_id, String client_secret, String scope) {
+    var body = Map<String, dynamic>();
+    body['client_id'] = client_id;
+    body['client_secret'] = client_secret;
+    body['grant_type'] = 'client_credentials';
+    body['scope'] = scope;
+    return _startAnonymous<AccessToken, OAuthError>()
+        .withUri('/oauth2/token')
+        .withFormData(body)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => AccessToken.fromJson(d)))
+        .go();
+  }
+
   /// Adds a comment to the user's account.
   ///
   /// @param {UserCommentRequest} request The request object that contains all the information used to create the user comment.
@@ -221,6 +243,51 @@ class FusionAuthClient {
         .withUri('/api/user/comment')
         .withJSONBody(request)
         .withMethod('POST')
+        .go();
+  }
+
+  /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge without logging the user in
+  ///
+  /// @param {WebAuthnLoginRequest} request An object containing data necessary for completing the authentication ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnCompleteResponse>>}
+  Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
+      completeWebAuthnAssertion(WebAuthnLoginRequest request) {
+    return _startAnonymous<WebAuthnCompleteResponse, Errors>()
+        .withUri('/api/webauthn/assert')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnCompleteResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Complete a WebAuthn authentication ceremony by validating the signature against the previously generated challenge and then login the user in
+  ///
+  /// @param {WebAuthnLoginRequest} request An object containing data necessary for completing the authentication ceremony
+  /// @returns {Promise<ClientResponse<LoginResponse>>}
+  Future<ClientResponse<LoginResponse, Errors>> completeWebAuthnLogin(
+      WebAuthnLoginRequest request) {
+    return _startAnonymous<LoginResponse, Errors>()
+        .withUri('/api/webauthn/login')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => LoginResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Complete a WebAuthn registration ceremony by validating the client request and saving the new credential
+  ///
+  /// @param {WebAuthnCompleteRequest} request An object containing data necessary for completing the registration ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnCompleteResponse>>}
+  Future<ClientResponse<WebAuthnCompleteResponse, Errors>>
+      completeWebAuthnRegistration(WebAuthnCompleteRequest request) {
+    return _start<WebAuthnCompleteResponse, Errors>()
+        .withUri('/api/webauthn/register/complete')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnCompleteResponse.fromJson(d)))
         .go();
   }
 
@@ -1266,6 +1333,18 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Deletes the WebAuthn credential for the given Id.
+  ///
+  /// @param {String} id The Id of the WebAuthn credential to delete.
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> deleteWebAuthnCredential(String id) {
+    return _start<void, Errors>()
+        .withUri('/api/webauthn')
+        .withUriSegment(id)
+        .withMethod('DELETE')
+        .go();
+  }
+
   /// Deletes the webhook for the given Id.
   ///
   /// @param {String} webhookId The Id of the webhook to delete.
@@ -1642,6 +1721,19 @@ class FusionAuthClient {
   Future<ClientResponse<void, Errors>> importUsers(ImportRequest request) {
     return _start<void, Errors>()
         .withUri('/api/user/import')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .go();
+  }
+
+  /// Import a WebAuthn credential
+  ///
+  /// @param {WebAuthnImportRequest} request An object containing data necessary for importing the credential
+  /// @returns {Promise<ClientResponse<void>>}
+  Future<ClientResponse<void, Errors>> importWebAuthnCredential(
+      WebAuthnImportRequest request) {
+    return _start<void, Errors>()
+        .withUri('/api/webauthn/import')
         .withJSONBody(request)
         .withMethod('POST')
         .go();
@@ -3806,6 +3898,36 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Retrieves the WebAuthn credential for the given Id.
+  ///
+  /// @param {String} id The Id of the WebAuthn credential.
+  /// @returns {Promise<ClientResponse<WebAuthnCredentialResponse>>}
+  Future<ClientResponse<WebAuthnCredentialResponse, Errors>>
+      retrieveWebAuthnCredential(String id) {
+    return _start<WebAuthnCredentialResponse, Errors>()
+        .withUri('/api/webauthn')
+        .withUriSegment(id)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnCredentialResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Retrieves all WebAuthn credentials for the given user.
+  ///
+  /// @param {String} userId The user's ID.
+  /// @returns {Promise<ClientResponse<WebAuthnCredentialResponse>>}
+  Future<ClientResponse<WebAuthnCredentialResponse, Errors>>
+      retrieveWebAuthnCredentialsForUser(String userId) {
+    return _start<WebAuthnCredentialResponse, Errors>()
+        .withUri('/api/webauthn')
+        .withParameter('userId', userId)
+        .withMethod('GET')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnCredentialResponse.fromJson(d)))
+        .go();
+  }
+
   /// Retrieves the webhook for the given Id. If you pass in null for the id, this will return all the webhooks.
   ///
   /// @param {String} webhookId (Optional) The Id of the webhook.
@@ -4332,6 +4454,36 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => TwoFactorStartResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Start a WebAuthn authentication ceremony by generating a new challenge for the user
+  ///
+  /// @param {WebAuthnStartRequest} request An object containing data necessary for starting the authentication ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnStartResponse>>}
+  Future<ClientResponse<WebAuthnStartResponse, Errors>> startWebAuthnLogin(
+      WebAuthnStartRequest request) {
+    return _start<WebAuthnStartResponse, Errors>()
+        .withUri('/api/webauthn/start')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnStartResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Start a WebAuthn registration ceremony by generating a new challenge for the user
+  ///
+  /// @param {WebAuthnRegisterRequest} request An object containing data necessary for starting the registration ceremony
+  /// @returns {Promise<ClientResponse<WebAuthnRegisterResponse>>}
+  Future<ClientResponse<WebAuthnRegisterResponse, Errors>>
+      startWebAuthnRegistration(WebAuthnRegisterRequest request) {
+    return _start<WebAuthnRegisterResponse, Errors>()
+        .withUri('/api/webauthn/register/start')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebAuthnRegisterResponse.fromJson(d)))
         .go();
   }
 

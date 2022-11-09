@@ -363,6 +363,8 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) => Application(
       verificationStrategy: _$enumDecode(
           _$VerificationStrategyEnumMap, json['verificationStrategy']),
       verifyRegistration: json['verifyRegistration'] as bool,
+      webAuthnConfiguration: ApplicationWebAuthnConfiguration.fromJson(
+          json['webAuthnConfiguration'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ApplicationToJson(Application instance) {
@@ -406,6 +408,7 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) {
   val['verificationStrategy'] =
       _$VerificationStrategyEnumMap[instance.verificationStrategy];
   val['verifyRegistration'] = instance.verifyRegistration;
+  val['webAuthnConfiguration'] = instance.webAuthnConfiguration;
   return val;
 }
 
@@ -488,6 +491,12 @@ Map<String, dynamic> _$ApplicationEmailConfigurationToJson(
       'twoFactorMethodRemoveEmailTemplateId':
           instance.twoFactorMethodRemoveEmailTemplateId,
     };
+
+ApplicationEvent _$ApplicationEventFromJson(Map<String, dynamic> json) =>
+    ApplicationEvent();
+
+Map<String, dynamic> _$ApplicationEventToJson(ApplicationEvent instance) =>
+    <String, dynamic>{};
 
 ApplicationExternalIdentifierConfiguration
     _$ApplicationExternalIdentifierConfigurationFromJson(
@@ -644,6 +653,36 @@ const _$UnverifiedBehaviorEnumMap = {
   UnverifiedBehavior.Allow: 'Allow',
   UnverifiedBehavior.Gated: 'Gated',
 };
+
+ApplicationWebAuthnConfiguration _$ApplicationWebAuthnConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    ApplicationWebAuthnConfiguration(
+      bootstrapWorkflow: ApplicationWebAuthnWorkflowConfiguration.fromJson(
+          json['bootstrapWorkflow'] as Map<String, dynamic>),
+      reauthenticationWorkflow:
+          ApplicationWebAuthnWorkflowConfiguration.fromJson(
+              json['reauthenticationWorkflow'] as Map<String, dynamic>),
+    )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$ApplicationWebAuthnConfigurationToJson(
+        ApplicationWebAuthnConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'bootstrapWorkflow': instance.bootstrapWorkflow,
+      'reauthenticationWorkflow': instance.reauthenticationWorkflow,
+    };
+
+ApplicationWebAuthnWorkflowConfiguration
+    _$ApplicationWebAuthnWorkflowConfigurationFromJson(
+            Map<String, dynamic> json) =>
+        ApplicationWebAuthnWorkflowConfiguration()
+          ..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$ApplicationWebAuthnWorkflowConfigurationToJson(
+        ApplicationWebAuthnWorkflowConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+    };
 
 Attachment _$AttachmentFromJson(Map<String, dynamic> json) => Attachment(
       attachment:
@@ -889,6 +928,24 @@ Map<String, dynamic> _$AuthenticationTokenConfigurationToJson(
       'enabled': instance.enabled,
     };
 
+AuthenticatorAuthenticationResponse
+    _$AuthenticatorAuthenticationResponseFromJson(Map<String, dynamic> json) =>
+        AuthenticatorAuthenticationResponse(
+          authenticatorData: json['authenticatorData'] as String,
+          clientDataJSON: json['clientDataJSON'] as String,
+          signature: json['signature'] as String,
+          userHandle: json['userHandle'] as String,
+        );
+
+Map<String, dynamic> _$AuthenticatorAuthenticationResponseToJson(
+        AuthenticatorAuthenticationResponse instance) =>
+    <String, dynamic>{
+      'authenticatorData': instance.authenticatorData,
+      'clientDataJSON': instance.clientDataJSON,
+      'signature': instance.signature,
+      'userHandle': instance.userHandle,
+    };
+
 AuthenticatorConfiguration _$AuthenticatorConfigurationFromJson(
         Map<String, dynamic> json) =>
     AuthenticatorConfiguration(
@@ -909,6 +966,60 @@ const _$TOTPAlgorithmEnumMap = {
   TOTPAlgorithm.HmacSHA1: 'HmacSHA1',
   TOTPAlgorithm.HmacSHA256: 'HmacSHA256',
   TOTPAlgorithm.HmacSHA512: 'HmacSHA512',
+};
+
+AuthenticatorRegistrationResponse _$AuthenticatorRegistrationResponseFromJson(
+        Map<String, dynamic> json) =>
+    AuthenticatorRegistrationResponse(
+      attestationObject: json['attestationObject'] as String,
+      clientDataJSON: json['clientDataJSON'] as String,
+    );
+
+Map<String, dynamic> _$AuthenticatorRegistrationResponseToJson(
+        AuthenticatorRegistrationResponse instance) =>
+    <String, dynamic>{
+      'attestationObject': instance.attestationObject,
+      'clientDataJSON': instance.clientDataJSON,
+    };
+
+AuthenticatorSelectionCriteria _$AuthenticatorSelectionCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    AuthenticatorSelectionCriteria(
+      authenticatorAttachment: _$enumDecode(
+          _$AuthenticatorAttachmentEnumMap, json['authenticatorAttachment']),
+      requireResidentKey: json['requireResidentKey'] as bool,
+      residentKey:
+          _$enumDecode(_$ResidentKeyRequirementEnumMap, json['residentKey']),
+      userVerification: _$enumDecode(
+          _$UserVerificationRequirementEnumMap, json['userVerification']),
+    );
+
+Map<String, dynamic> _$AuthenticatorSelectionCriteriaToJson(
+        AuthenticatorSelectionCriteria instance) =>
+    <String, dynamic>{
+      'authenticatorAttachment':
+          _$AuthenticatorAttachmentEnumMap[instance.authenticatorAttachment],
+      'requireResidentKey': instance.requireResidentKey,
+      'residentKey': _$ResidentKeyRequirementEnumMap[instance.residentKey],
+      'userVerification':
+          _$UserVerificationRequirementEnumMap[instance.userVerification],
+    };
+
+const _$AuthenticatorAttachmentEnumMap = {
+  AuthenticatorAttachment.platform: 'platform',
+  AuthenticatorAttachment.crossPlatform: 'crossPlatform',
+};
+
+const _$ResidentKeyRequirementEnumMap = {
+  ResidentKeyRequirement.discouraged: 'discouraged',
+  ResidentKeyRequirement.preferred: 'preferred',
+  ResidentKeyRequirement.required: 'required',
+};
+
+const _$UserVerificationRequirementEnumMap = {
+  UserVerificationRequirement.required: 'required',
+  UserVerificationRequirement.preferred: 'preferred',
+  UserVerificationRequirement.discouraged: 'discouraged',
 };
 
 BaseConnectorConfiguration _$BaseConnectorConfigurationFromJson(
@@ -1386,6 +1497,18 @@ Count _$CountFromJson(Map<String, dynamic> json) => Count(
 Map<String, dynamic> _$CountToJson(Count instance) => <String, dynamic>{
       'count': instance.count,
       'interval': instance.interval,
+    };
+
+CredentialPropertiesOutput _$CredentialPropertiesOutputFromJson(
+        Map<String, dynamic> json) =>
+    CredentialPropertiesOutput(
+      rk: json['rk'] as bool,
+    );
+
+Map<String, dynamic> _$CredentialPropertiesOutputToJson(
+        CredentialPropertiesOutput instance) =>
+    <String, dynamic>{
+      'rk': instance.rk,
     };
 
 DailyActiveUserReportResponse _$DailyActiveUserReportResponseFromJson(
@@ -2468,6 +2591,10 @@ ExternalIdentifierConfiguration _$ExternalIdentifierConfigurationFromJson(
           json['twoFactorOneTimeCodeIdTimeToLiveInSeconds'] as num,
       twoFactorTrustIdTimeToLiveInSeconds:
           json['twoFactorTrustIdTimeToLiveInSeconds'] as num,
+      webAuthnAuthenticationChallengeTimeToLiveInSeconds:
+          json['webAuthnAuthenticationChallengeTimeToLiveInSeconds'] as num,
+      webAuthnRegistrationChallengeTimeToLiveInSeconds:
+          json['webAuthnRegistrationChallengeTimeToLiveInSeconds'] as num,
     );
 
 Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
@@ -2513,6 +2640,10 @@ Map<String, dynamic> _$ExternalIdentifierConfigurationToJson(
           instance.twoFactorOneTimeCodeIdTimeToLiveInSeconds,
       'twoFactorTrustIdTimeToLiveInSeconds':
           instance.twoFactorTrustIdTimeToLiveInSeconds,
+      'webAuthnAuthenticationChallengeTimeToLiveInSeconds':
+          instance.webAuthnAuthenticationChallengeTimeToLiveInSeconds,
+      'webAuthnRegistrationChallengeTimeToLiveInSeconds':
+          instance.webAuthnRegistrationChallengeTimeToLiveInSeconds,
     };
 
 ExternalJWTApplicationConfiguration
@@ -5356,11 +5487,13 @@ Map<String, dynamic> _$MessengerTransportToJson(MessengerTransport instance) =>
     <String, dynamic>{};
 
 MetaData _$MetaDataFromJson(Map<String, dynamic> json) => MetaData(
+      data: json['data'] as Map<String, dynamic>,
       device: DeviceInfo.fromJson(json['device'] as Map<String, dynamic>),
       scopes: (json['scopes'] as List<dynamic>).map((e) => e as String).toSet(),
     );
 
 Map<String, dynamic> _$MetaDataToJson(MetaData instance) => <String, dynamic>{
+      'data': instance.data,
       'device': instance.device,
       'scopes': instance.scopes.toList(),
     };
@@ -6232,6 +6365,215 @@ Map<String, dynamic> _$PreviewResponseToJson(PreviewResponse instance) =>
       'errors': instance.errors,
     };
 
+PublicKeyAuthenticationRequest _$PublicKeyAuthenticationRequestFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyAuthenticationRequest(
+      clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
+          json['clientExtensionResults'] as Map<String, dynamic>),
+      id: json['id'] as String,
+      response: AuthenticatorAuthenticationResponse.fromJson(
+          json['response'] as Map<String, dynamic>),
+      rpId: json['rpId'] as String,
+      type: json['type'] as String,
+    );
+
+Map<String, dynamic> _$PublicKeyAuthenticationRequestToJson(
+        PublicKeyAuthenticationRequest instance) =>
+    <String, dynamic>{
+      'clientExtensionResults': instance.clientExtensionResults,
+      'id': instance.id,
+      'response': instance.response,
+      'rpId': instance.rpId,
+      'type': instance.type,
+    };
+
+PublicKeyCredentialCreationOptions _$PublicKeyCredentialCreationOptionsFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialCreationOptions(
+      attestation: _$enumDecode(
+          _$AttestationConveyancePreferenceEnumMap, json['attestation']),
+      authenticatorSelection: AuthenticatorSelectionCriteria.fromJson(
+          json['authenticatorSelection'] as Map<String, dynamic>),
+      challenge: json['challenge'] as String,
+      excludeCredentials: (json['excludeCredentials'] as List<dynamic>)
+          .map((e) =>
+              PublicKeyCredentialDescriptor.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      extensions: WebAuthnRegistrationExtensionOptions.fromJson(
+          json['extensions'] as Map<String, dynamic>),
+      pubKeyCredParams: (json['pubKeyCredParams'] as List<dynamic>)
+          .map((e) =>
+              PublicKeyCredentialParameters.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      rp: PublicKeyCredentialRelyingPartyEntity.fromJson(
+          json['rp'] as Map<String, dynamic>),
+      timeout: json['timeout'] as num,
+      user: PublicKeyCredentialUserEntity.fromJson(
+          json['user'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialCreationOptionsToJson(
+        PublicKeyCredentialCreationOptions instance) =>
+    <String, dynamic>{
+      'attestation':
+          _$AttestationConveyancePreferenceEnumMap[instance.attestation],
+      'authenticatorSelection': instance.authenticatorSelection,
+      'challenge': instance.challenge,
+      'excludeCredentials': instance.excludeCredentials,
+      'extensions': instance.extensions,
+      'pubKeyCredParams': instance.pubKeyCredParams,
+      'rp': instance.rp,
+      'timeout': instance.timeout,
+      'user': instance.user,
+    };
+
+const _$AttestationConveyancePreferenceEnumMap = {
+  AttestationConveyancePreference.none: 'none',
+  AttestationConveyancePreference.indirect: 'indirect',
+  AttestationConveyancePreference.direct: 'direct',
+  AttestationConveyancePreference.enterprise: 'enterprise',
+};
+
+PublicKeyCredentialDescriptor _$PublicKeyCredentialDescriptorFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialDescriptor(
+      id: json['id'] as String,
+      transports: (json['transports'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      type: _$enumDecode(_$PublicKeyCredentialTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialDescriptorToJson(
+        PublicKeyCredentialDescriptor instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'transports': instance.transports,
+      'type': _$PublicKeyCredentialTypeEnumMap[instance.type],
+    };
+
+const _$PublicKeyCredentialTypeEnumMap = {
+  PublicKeyCredentialType.publicKey: 'publicKey',
+};
+
+PublicKeyCredentialEntity _$PublicKeyCredentialEntityFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialEntity(
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialEntityToJson(
+        PublicKeyCredentialEntity instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
+PublicKeyCredentialParameters _$PublicKeyCredentialParametersFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialParameters(
+      alg: _$enumDecode(_$CoseAlgorithmIdentifierEnumMap, json['alg']),
+      type: _$enumDecode(_$PublicKeyCredentialTypeEnumMap, json['type']),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialParametersToJson(
+        PublicKeyCredentialParameters instance) =>
+    <String, dynamic>{
+      'alg': _$CoseAlgorithmIdentifierEnumMap[instance.alg],
+      'type': _$PublicKeyCredentialTypeEnumMap[instance.type],
+    };
+
+const _$CoseAlgorithmIdentifierEnumMap = {
+  CoseAlgorithmIdentifier.ES256: 'ES256',
+  CoseAlgorithmIdentifier.ES384: 'ES384',
+  CoseAlgorithmIdentifier.ES512: 'ES512',
+  CoseAlgorithmIdentifier.RS256: 'RS256',
+  CoseAlgorithmIdentifier.RS384: 'RS384',
+  CoseAlgorithmIdentifier.RS512: 'RS512',
+  CoseAlgorithmIdentifier.PS256: 'PS256',
+  CoseAlgorithmIdentifier.PS384: 'PS384',
+  CoseAlgorithmIdentifier.PS512: 'PS512',
+};
+
+PublicKeyCredentialRelyingPartyEntity
+    _$PublicKeyCredentialRelyingPartyEntityFromJson(
+            Map<String, dynamic> json) =>
+        PublicKeyCredentialRelyingPartyEntity(
+          id: json['id'] as String,
+        )..name = json['name'] as String;
+
+Map<String, dynamic> _$PublicKeyCredentialRelyingPartyEntityToJson(
+        PublicKeyCredentialRelyingPartyEntity instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'id': instance.id,
+    };
+
+PublicKeyCredentialRequestOptions _$PublicKeyCredentialRequestOptionsFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialRequestOptions(
+      allowCredentials: (json['allowCredentials'] as List<dynamic>)
+          .map((e) =>
+              PublicKeyCredentialDescriptor.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      challenge: json['challenge'] as String,
+      rpId: json['rpId'] as String,
+      timeout: json['timeout'] as num,
+      userVerification: _$enumDecode(
+          _$UserVerificationRequirementEnumMap, json['userVerification']),
+    );
+
+Map<String, dynamic> _$PublicKeyCredentialRequestOptionsToJson(
+        PublicKeyCredentialRequestOptions instance) =>
+    <String, dynamic>{
+      'allowCredentials': instance.allowCredentials,
+      'challenge': instance.challenge,
+      'rpId': instance.rpId,
+      'timeout': instance.timeout,
+      'userVerification':
+          _$UserVerificationRequirementEnumMap[instance.userVerification],
+    };
+
+PublicKeyCredentialUserEntity _$PublicKeyCredentialUserEntityFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyCredentialUserEntity(
+      displayName: json['displayName'] as String,
+      id: json['id'] as String,
+    )..name = json['name'] as String;
+
+Map<String, dynamic> _$PublicKeyCredentialUserEntityToJson(
+        PublicKeyCredentialUserEntity instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayName': instance.displayName,
+      'id': instance.id,
+    };
+
+PublicKeyRegistrationRequest _$PublicKeyRegistrationRequestFromJson(
+        Map<String, dynamic> json) =>
+    PublicKeyRegistrationRequest(
+      clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
+          json['clientExtensionResults'] as Map<String, dynamic>),
+      id: json['id'] as String,
+      response: AuthenticatorRegistrationResponse.fromJson(
+          json['response'] as Map<String, dynamic>),
+      rpId: json['rpId'] as String,
+      transports: (json['transports'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      type: json['type'] as String,
+    );
+
+Map<String, dynamic> _$PublicKeyRegistrationRequestToJson(
+        PublicKeyRegistrationRequest instance) =>
+    <String, dynamic>{
+      'clientExtensionResults': instance.clientExtensionResults,
+      'id': instance.id,
+      'response': instance.response,
+      'rpId': instance.rpId,
+      'transports': instance.transports,
+      'type': instance.type,
+    };
+
 PublicKeyResponse _$PublicKeyResponseFromJson(Map<String, dynamic> json) =>
     PublicKeyResponse(
       publicKey: json['publicKey'] as String,
@@ -6351,6 +6693,12 @@ ReactorStatus _$ReactorStatusFromJson(Map<String, dynamic> json) =>
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['scimServer']),
       threatDetection:
           _$enumDecode(_$ReactorFeatureStatusEnumMap, json['threatDetection']),
+      webAuthn: _$enumDecode(_$ReactorFeatureStatusEnumMap, json['webAuthn']),
+      webAuthnPlatformAuthenticators: _$enumDecode(
+          _$ReactorFeatureStatusEnumMap,
+          json['webAuthnPlatformAuthenticators']),
+      webAuthnRoamingAuthenticators: _$enumDecode(
+          _$ReactorFeatureStatusEnumMap, json['webAuthnRoamingAuthenticators']),
     );
 
 Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
@@ -6378,6 +6726,11 @@ Map<String, dynamic> _$ReactorStatusToJson(ReactorStatus instance) =>
       'scimServer': _$ReactorFeatureStatusEnumMap[instance.scimServer],
       'threatDetection':
           _$ReactorFeatureStatusEnumMap[instance.threatDetection],
+      'webAuthn': _$ReactorFeatureStatusEnumMap[instance.webAuthn],
+      'webAuthnPlatformAuthenticators': _$ReactorFeatureStatusEnumMap[
+          instance.webAuthnPlatformAuthenticators],
+      'webAuthnRoamingAuthenticators':
+          _$ReactorFeatureStatusEnumMap[instance.webAuthnRoamingAuthenticators],
     };
 
 const _$ReactorFeatureStatusEnumMap = {
@@ -6724,6 +7077,8 @@ SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) =>
       callbackURL: json['callbackURL'] as String,
       debug: json['debug'] as bool,
       defaultVerificationKeyId: json['defaultVerificationKeyId'] as String,
+      initiatedLogin: SAMLv2IdPInitiatedLoginConfiguration.fromJson(
+          json['initiatedLogin'] as Map<String, dynamic>),
       issuer: json['issuer'] as String,
       keyId: json['keyId'] as String,
       logout: SAMLv2Logout.fromJson(json['logout'] as Map<String, dynamic>),
@@ -6744,6 +7099,7 @@ Map<String, dynamic> _$SAMLv2ConfigurationToJson(
       'callbackURL': instance.callbackURL,
       'debug': instance.debug,
       'defaultVerificationKeyId': instance.defaultVerificationKeyId,
+      'initiatedLogin': instance.initiatedLogin,
       'issuer': instance.issuer,
       'keyId': instance.keyId,
       'logout': instance.logout,
@@ -6939,6 +7295,19 @@ Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
   val['usernameClaim'] = instance.usernameClaim;
   return val;
 }
+
+SAMLv2IdPInitiatedLoginConfiguration
+    _$SAMLv2IdPInitiatedLoginConfigurationFromJson(Map<String, dynamic> json) =>
+        SAMLv2IdPInitiatedLoginConfiguration(
+          nameIdFormat: json['nameIdFormat'] as String,
+        )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$SAMLv2IdPInitiatedLoginConfigurationToJson(
+        SAMLv2IdPInitiatedLoginConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'nameIdFormat': instance.nameIdFormat,
+    };
 
 SAMLv2Logout _$SAMLv2LogoutFromJson(Map<String, dynamic> json) => SAMLv2Logout(
       behavior: _$enumDecode(_$SAMLLogoutBehaviorEnumMap, json['behavior']),
@@ -7467,6 +7836,9 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       accountTwoFactorDisable: json['accountTwoFactorDisable'] as String,
       accountTwoFactorEnable: json['accountTwoFactorEnable'] as String,
       accountTwoFactorIndex: json['accountTwoFactorIndex'] as String,
+      accountWebAuthnAdd: json['accountWebAuthnAdd'] as String,
+      accountWebAuthnDelete: json['accountWebAuthnDelete'] as String,
+      accountWebAuthnIndex: json['accountWebAuthnIndex'] as String,
       emailComplete: json['emailComplete'] as String,
       emailSend: json['emailSend'] as String,
       emailSent: json['emailSent'] as String,
@@ -7492,6 +7864,9 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       oauth2TwoFactor: json['oauth2TwoFactor'] as String,
       oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
       oauth2Wait: json['oauth2Wait'] as String,
+      oauth2WebAuthn: json['oauth2WebAuthn'] as String,
+      oauth2WebAuthnReauth: json['oauth2WebAuthnReauth'] as String,
+      oauth2WebAuthnReauthEnable: json['oauth2WebAuthnReauthEnable'] as String,
       passwordChange: json['passwordChange'] as String,
       passwordComplete: json['passwordComplete'] as String,
       passwordForgot: json['passwordForgot'] as String,
@@ -7512,6 +7887,9 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'accountTwoFactorDisable': instance.accountTwoFactorDisable,
       'accountTwoFactorEnable': instance.accountTwoFactorEnable,
       'accountTwoFactorIndex': instance.accountTwoFactorIndex,
+      'accountWebAuthnAdd': instance.accountWebAuthnAdd,
+      'accountWebAuthnDelete': instance.accountWebAuthnDelete,
+      'accountWebAuthnIndex': instance.accountWebAuthnIndex,
       'emailComplete': instance.emailComplete,
       'emailSend': instance.emailSend,
       'emailSent': instance.emailSent,
@@ -7536,6 +7914,9 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'oauth2TwoFactor': instance.oauth2TwoFactor,
       'oauth2TwoFactorMethods': instance.oauth2TwoFactorMethods,
       'oauth2Wait': instance.oauth2Wait,
+      'oauth2WebAuthn': instance.oauth2WebAuthn,
+      'oauth2WebAuthnReauth': instance.oauth2WebAuthnReauth,
+      'oauth2WebAuthnReauthEnable': instance.oauth2WebAuthnReauthEnable,
       'passwordChange': instance.passwordChange,
       'passwordComplete': instance.passwordComplete,
       'passwordForgot': instance.passwordForgot,
@@ -7614,6 +7995,8 @@ Tenant _$TenantFromJson(Map<String, dynamic> json) => Tenant(
           json['userDeletePolicy'] as Map<String, dynamic>),
       usernameConfiguration: TenantUsernameConfiguration.fromJson(
           json['usernameConfiguration'] as Map<String, dynamic>),
+      webAuthnConfiguration: TenantWebAuthnConfiguration.fromJson(
+          json['webAuthnConfiguration'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TenantToJson(Tenant instance) => <String, dynamic>{
@@ -7655,6 +8038,7 @@ Map<String, dynamic> _$TenantToJson(Tenant instance) => <String, dynamic>{
       'themeId': instance.themeId,
       'userDeletePolicy': instance.userDeletePolicy,
       'usernameConfiguration': instance.usernameConfiguration,
+      'webAuthnConfiguration': instance.webAuthnConfiguration,
     };
 
 Tenantable _$TenantableFromJson(Map<String, dynamic> json) => Tenantable();
@@ -7946,6 +8330,57 @@ Map<String, dynamic> _$TenantUsernameConfigurationToJson(
     <String, dynamic>{
       'unique': instance.unique,
     };
+
+TenantWebAuthnConfiguration _$TenantWebAuthnConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    TenantWebAuthnConfiguration(
+      bootstrapWorkflow: TenantWebAuthnWorkflowConfiguration.fromJson(
+          json['bootstrapWorkflow'] as Map<String, dynamic>),
+      debug: json['debug'] as bool,
+      reauthenticationWorkflow: TenantWebAuthnWorkflowConfiguration.fromJson(
+          json['reauthenticationWorkflow'] as Map<String, dynamic>),
+      relyingPartyId: json['relyingPartyId'] as String,
+      relyingPartyName: json['relyingPartyName'] as String,
+    )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$TenantWebAuthnConfigurationToJson(
+        TenantWebAuthnConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'bootstrapWorkflow': instance.bootstrapWorkflow,
+      'debug': instance.debug,
+      'reauthenticationWorkflow': instance.reauthenticationWorkflow,
+      'relyingPartyId': instance.relyingPartyId,
+      'relyingPartyName': instance.relyingPartyName,
+    };
+
+TenantWebAuthnWorkflowConfiguration
+    _$TenantWebAuthnWorkflowConfigurationFromJson(Map<String, dynamic> json) =>
+        TenantWebAuthnWorkflowConfiguration(
+          authenticatorAttachmentPreference: _$enumDecode(
+              _$AuthenticatorAttachmentPreferenceEnumMap,
+              json['authenticatorAttachmentPreference']),
+          userVerificationRequirement: _$enumDecode(
+              _$UserVerificationRequirementEnumMap,
+              json['userVerificationRequirement']),
+        )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$TenantWebAuthnWorkflowConfigurationToJson(
+        TenantWebAuthnWorkflowConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'authenticatorAttachmentPreference':
+          _$AuthenticatorAttachmentPreferenceEnumMap[
+              instance.authenticatorAttachmentPreference],
+      'userVerificationRequirement': _$UserVerificationRequirementEnumMap[
+          instance.userVerificationRequirement],
+    };
+
+const _$AuthenticatorAttachmentPreferenceEnumMap = {
+  AuthenticatorAttachmentPreference.any: 'any',
+  AuthenticatorAttachmentPreference.platform: 'platform',
+  AuthenticatorAttachmentPreference.crossPlatform: 'crossPlatform',
+};
 
 TestEvent _$TestEventFromJson(Map<String, dynamic> json) => TestEvent(
       message: json['message'] as String,
@@ -10082,6 +10517,260 @@ VersionResponse _$VersionResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
     <String, dynamic>{
       'version': instance.version,
+    };
+
+WebAuthnCompleteRequest _$WebAuthnCompleteRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnCompleteRequest(
+      credential: PublicKeyRegistrationRequest.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      origin: json['origin'] as String,
+      rpId: json['rpId'] as String,
+      userId: json['userId'] as String,
+    );
+
+Map<String, dynamic> _$WebAuthnCompleteRequestToJson(
+        WebAuthnCompleteRequest instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+      'origin': instance.origin,
+      'rpId': instance.rpId,
+      'userId': instance.userId,
+    };
+
+WebAuthnCompleteResponse _$WebAuthnCompleteResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnCompleteResponse(
+      credential: WebAuthnCredential.fromJson(
+          json['credential'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebAuthnCompleteResponseToJson(
+        WebAuthnCompleteResponse instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+    };
+
+WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
+    WebAuthnCredential(
+      algorithm:
+          _$enumDecode(_$CoseAlgorithmIdentifierEnumMap, json['algorithm']),
+      attestationType:
+          _$enumDecode(_$AttestationTypeEnumMap, json['attestationType']),
+      authenticatorSupportsUserVerification:
+          json['authenticatorSupportsUserVerification'] as bool,
+      credentialId: json['credentialId'] as String,
+      data: json['data'] as Map<String, dynamic>,
+      discoverable: json['discoverable'] as bool,
+      displayName: json['displayName'] as String,
+      id: json['id'] as String,
+      insertInstant: json['insertInstant'] as num,
+      lastUseInstant: json['lastUseInstant'] as num,
+      name: json['name'] as String,
+      publicKey: json['publicKey'] as String,
+      relyingPartyId: json['relyingPartyId'] as String,
+      signCount: json['signCount'] as num,
+      tenantId: json['tenantId'] as String,
+      transports: (json['transports'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      userAgent: json['userAgent'] as String,
+      userId: json['userId'] as String,
+    );
+
+Map<String, dynamic> _$WebAuthnCredentialToJson(WebAuthnCredential instance) =>
+    <String, dynamic>{
+      'algorithm': _$CoseAlgorithmIdentifierEnumMap[instance.algorithm],
+      'attestationType': _$AttestationTypeEnumMap[instance.attestationType],
+      'authenticatorSupportsUserVerification':
+          instance.authenticatorSupportsUserVerification,
+      'credentialId': instance.credentialId,
+      'data': instance.data,
+      'discoverable': instance.discoverable,
+      'displayName': instance.displayName,
+      'id': instance.id,
+      'insertInstant': instance.insertInstant,
+      'lastUseInstant': instance.lastUseInstant,
+      'name': instance.name,
+      'publicKey': instance.publicKey,
+      'relyingPartyId': instance.relyingPartyId,
+      'signCount': instance.signCount,
+      'tenantId': instance.tenantId,
+      'transports': instance.transports,
+      'userAgent': instance.userAgent,
+      'userId': instance.userId,
+    };
+
+const _$AttestationTypeEnumMap = {
+  AttestationType.basic: 'basic',
+  AttestationType.self: 'self',
+  AttestationType.attestationCa: 'attestationCa',
+  AttestationType.anonymizationCa: 'anonymizationCa',
+  AttestationType.none: 'none',
+};
+
+WebAuthnCredentialResponse _$WebAuthnCredentialResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnCredentialResponse(
+      credential: WebAuthnCredential.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      credentials: (json['credentials'] as List<dynamic>)
+          .map((e) => WebAuthnCredential.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$WebAuthnCredentialResponseToJson(
+        WebAuthnCredentialResponse instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+      'credentials': instance.credentials,
+    };
+
+WebAuthnExtensionsClientOutputs _$WebAuthnExtensionsClientOutputsFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnExtensionsClientOutputs(
+      credProps: CredentialPropertiesOutput.fromJson(
+          json['credProps'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebAuthnExtensionsClientOutputsToJson(
+        WebAuthnExtensionsClientOutputs instance) =>
+    <String, dynamic>{
+      'credProps': instance.credProps,
+    };
+
+WebAuthnImportRequest _$WebAuthnImportRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnImportRequest(
+      credentials: (json['credentials'] as List<dynamic>)
+          .map((e) => WebAuthnCredential.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      validateDbConstraints: json['validateDbConstraints'] as bool,
+    );
+
+Map<String, dynamic> _$WebAuthnImportRequestToJson(
+        WebAuthnImportRequest instance) =>
+    <String, dynamic>{
+      'credentials': instance.credentials,
+      'validateDbConstraints': instance.validateDbConstraints,
+    };
+
+WebAuthnLoginRequest _$WebAuthnLoginRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnLoginRequest(
+      credential: PublicKeyAuthenticationRequest.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      origin: json['origin'] as String,
+      rpId: json['rpId'] as String,
+      twoFactorTrustId: json['twoFactorTrustId'] as String,
+    )
+      ..eventInfo =
+          EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>)
+      ..applicationId = json['applicationId'] as String
+      ..ipAddress = json['ipAddress'] as String
+      ..metaData = MetaData.fromJson(json['metaData'] as Map<String, dynamic>)
+      ..newDevice = json['newDevice'] as bool
+      ..noJWT = json['noJWT'] as bool;
+
+Map<String, dynamic> _$WebAuthnLoginRequestToJson(
+        WebAuthnLoginRequest instance) =>
+    <String, dynamic>{
+      'eventInfo': instance.eventInfo,
+      'applicationId': instance.applicationId,
+      'ipAddress': instance.ipAddress,
+      'metaData': instance.metaData,
+      'newDevice': instance.newDevice,
+      'noJWT': instance.noJWT,
+      'credential': instance.credential,
+      'origin': instance.origin,
+      'rpId': instance.rpId,
+      'twoFactorTrustId': instance.twoFactorTrustId,
+    };
+
+WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnRegisterRequest(
+      displayName: json['displayName'] as String,
+      name: json['name'] as String,
+      userAgent: json['userAgent'] as String,
+      userId: json['userId'] as String,
+      workflow: _$enumDecode(_$WebAuthnWorkflowEnumMap, json['workflow']),
+    );
+
+Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
+        WebAuthnRegisterRequest instance) =>
+    <String, dynamic>{
+      'displayName': instance.displayName,
+      'name': instance.name,
+      'userAgent': instance.userAgent,
+      'userId': instance.userId,
+      'workflow': _$WebAuthnWorkflowEnumMap[instance.workflow],
+    };
+
+const _$WebAuthnWorkflowEnumMap = {
+  WebAuthnWorkflow.bootstrap: 'bootstrap',
+  WebAuthnWorkflow.general: 'general',
+  WebAuthnWorkflow.reauthentication: 'reauthentication',
+};
+
+WebAuthnRegisterResponse _$WebAuthnRegisterResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnRegisterResponse(
+      options: PublicKeyCredentialCreationOptions.fromJson(
+          json['options'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebAuthnRegisterResponseToJson(
+        WebAuthnRegisterResponse instance) =>
+    <String, dynamic>{
+      'options': instance.options,
+    };
+
+WebAuthnRegistrationExtensionOptions
+    _$WebAuthnRegistrationExtensionOptionsFromJson(Map<String, dynamic> json) =>
+        WebAuthnRegistrationExtensionOptions(
+          credProps: json['credProps'] as bool,
+        );
+
+Map<String, dynamic> _$WebAuthnRegistrationExtensionOptionsToJson(
+        WebAuthnRegistrationExtensionOptions instance) =>
+    <String, dynamic>{
+      'credProps': instance.credProps,
+    };
+
+WebAuthnStartRequest _$WebAuthnStartRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnStartRequest(
+      applicationId: json['applicationId'] as String,
+      credentialId: json['credentialId'] as String,
+      loginId: json['loginId'] as String,
+      state: json['state'] as Map<String, dynamic>,
+      userId: json['userId'] as String,
+      workflow: _$enumDecode(_$WebAuthnWorkflowEnumMap, json['workflow']),
+    );
+
+Map<String, dynamic> _$WebAuthnStartRequestToJson(
+        WebAuthnStartRequest instance) =>
+    <String, dynamic>{
+      'applicationId': instance.applicationId,
+      'credentialId': instance.credentialId,
+      'loginId': instance.loginId,
+      'state': instance.state,
+      'userId': instance.userId,
+      'workflow': _$WebAuthnWorkflowEnumMap[instance.workflow],
+    };
+
+WebAuthnStartResponse _$WebAuthnStartResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnStartResponse(
+      options: PublicKeyCredentialRequestOptions.fromJson(
+          json['options'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebAuthnStartResponseToJson(
+        WebAuthnStartResponse instance) =>
+    <String, dynamic>{
+      'options': instance.options,
     };
 
 Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
