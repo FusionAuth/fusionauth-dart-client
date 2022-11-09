@@ -928,24 +928,6 @@ Map<String, dynamic> _$AuthenticationTokenConfigurationToJson(
       'enabled': instance.enabled,
     };
 
-AuthenticatorAuthenticationResponse
-    _$AuthenticatorAuthenticationResponseFromJson(Map<String, dynamic> json) =>
-        AuthenticatorAuthenticationResponse(
-          authenticatorData: json['authenticatorData'] as String,
-          clientDataJSON: json['clientDataJSON'] as String,
-          signature: json['signature'] as String,
-          userHandle: json['userHandle'] as String,
-        );
-
-Map<String, dynamic> _$AuthenticatorAuthenticationResponseToJson(
-        AuthenticatorAuthenticationResponse instance) =>
-    <String, dynamic>{
-      'authenticatorData': instance.authenticatorData,
-      'clientDataJSON': instance.clientDataJSON,
-      'signature': instance.signature,
-      'userHandle': instance.userHandle,
-    };
-
 AuthenticatorConfiguration _$AuthenticatorConfigurationFromJson(
         Map<String, dynamic> json) =>
     AuthenticatorConfiguration(
@@ -967,20 +949,6 @@ const _$TOTPAlgorithmEnumMap = {
   TOTPAlgorithm.HmacSHA256: 'HmacSHA256',
   TOTPAlgorithm.HmacSHA512: 'HmacSHA512',
 };
-
-AuthenticatorRegistrationResponse _$AuthenticatorRegistrationResponseFromJson(
-        Map<String, dynamic> json) =>
-    AuthenticatorRegistrationResponse(
-      attestationObject: json['attestationObject'] as String,
-      clientDataJSON: json['clientDataJSON'] as String,
-    );
-
-Map<String, dynamic> _$AuthenticatorRegistrationResponseToJson(
-        AuthenticatorRegistrationResponse instance) =>
-    <String, dynamic>{
-      'attestationObject': instance.attestationObject,
-      'clientDataJSON': instance.clientDataJSON,
-    };
 
 AuthenticatorSelectionCriteria _$AuthenticatorSelectionCriteriaFromJson(
         Map<String, dynamic> json) =>
@@ -6365,28 +6333,6 @@ Map<String, dynamic> _$PreviewResponseToJson(PreviewResponse instance) =>
       'errors': instance.errors,
     };
 
-PublicKeyAuthenticationRequest _$PublicKeyAuthenticationRequestFromJson(
-        Map<String, dynamic> json) =>
-    PublicKeyAuthenticationRequest(
-      clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
-          json['clientExtensionResults'] as Map<String, dynamic>),
-      id: json['id'] as String,
-      response: AuthenticatorAuthenticationResponse.fromJson(
-          json['response'] as Map<String, dynamic>),
-      rpId: json['rpId'] as String,
-      type: json['type'] as String,
-    );
-
-Map<String, dynamic> _$PublicKeyAuthenticationRequestToJson(
-        PublicKeyAuthenticationRequest instance) =>
-    <String, dynamic>{
-      'clientExtensionResults': instance.clientExtensionResults,
-      'id': instance.id,
-      'response': instance.response,
-      'rpId': instance.rpId,
-      'type': instance.type,
-    };
-
 PublicKeyCredentialCreationOptions _$PublicKeyCredentialCreationOptionsFromJson(
         Map<String, dynamic> json) =>
     PublicKeyCredentialCreationOptions(
@@ -6546,32 +6492,6 @@ Map<String, dynamic> _$PublicKeyCredentialUserEntityToJson(
       'name': instance.name,
       'displayName': instance.displayName,
       'id': instance.id,
-    };
-
-PublicKeyRegistrationRequest _$PublicKeyRegistrationRequestFromJson(
-        Map<String, dynamic> json) =>
-    PublicKeyRegistrationRequest(
-      clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
-          json['clientExtensionResults'] as Map<String, dynamic>),
-      id: json['id'] as String,
-      response: AuthenticatorRegistrationResponse.fromJson(
-          json['response'] as Map<String, dynamic>),
-      rpId: json['rpId'] as String,
-      transports: (json['transports'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      type: json['type'] as String,
-    );
-
-Map<String, dynamic> _$PublicKeyRegistrationRequestToJson(
-        PublicKeyRegistrationRequest instance) =>
-    <String, dynamic>{
-      'clientExtensionResults': instance.clientExtensionResults,
-      'id': instance.id,
-      'response': instance.response,
-      'rpId': instance.rpId,
-      'transports': instance.transports,
-      'type': instance.type,
     };
 
 PublicKeyResponse _$PublicKeyResponseFromJson(Map<String, dynamic> json) =>
@@ -10519,36 +10439,51 @@ Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
       'version': instance.version,
     };
 
-WebAuthnCompleteRequest _$WebAuthnCompleteRequestFromJson(
+WebAuthnAssertResponse _$WebAuthnAssertResponseFromJson(
         Map<String, dynamic> json) =>
-    WebAuthnCompleteRequest(
-      credential: PublicKeyRegistrationRequest.fromJson(
-          json['credential'] as Map<String, dynamic>),
-      origin: json['origin'] as String,
-      rpId: json['rpId'] as String,
-      userId: json['userId'] as String,
-    );
-
-Map<String, dynamic> _$WebAuthnCompleteRequestToJson(
-        WebAuthnCompleteRequest instance) =>
-    <String, dynamic>{
-      'credential': instance.credential,
-      'origin': instance.origin,
-      'rpId': instance.rpId,
-      'userId': instance.userId,
-    };
-
-WebAuthnCompleteResponse _$WebAuthnCompleteResponseFromJson(
-        Map<String, dynamic> json) =>
-    WebAuthnCompleteResponse(
+    WebAuthnAssertResponse(
       credential: WebAuthnCredential.fromJson(
           json['credential'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$WebAuthnCompleteResponseToJson(
-        WebAuthnCompleteResponse instance) =>
+Map<String, dynamic> _$WebAuthnAssertResponseToJson(
+        WebAuthnAssertResponse instance) =>
     <String, dynamic>{
       'credential': instance.credential,
+    };
+
+WebAuthnAuthenticatorAuthenticationResponse
+    _$WebAuthnAuthenticatorAuthenticationResponseFromJson(
+            Map<String, dynamic> json) =>
+        WebAuthnAuthenticatorAuthenticationResponse(
+          authenticatorData: json['authenticatorData'] as String,
+          clientDataJSON: json['clientDataJSON'] as String,
+          signature: json['signature'] as String,
+          userHandle: json['userHandle'] as String,
+        );
+
+Map<String, dynamic> _$WebAuthnAuthenticatorAuthenticationResponseToJson(
+        WebAuthnAuthenticatorAuthenticationResponse instance) =>
+    <String, dynamic>{
+      'authenticatorData': instance.authenticatorData,
+      'clientDataJSON': instance.clientDataJSON,
+      'signature': instance.signature,
+      'userHandle': instance.userHandle,
+    };
+
+WebAuthnAuthenticatorRegistrationResponse
+    _$WebAuthnAuthenticatorRegistrationResponseFromJson(
+            Map<String, dynamic> json) =>
+        WebAuthnAuthenticatorRegistrationResponse(
+          attestationObject: json['attestationObject'] as String,
+          clientDataJSON: json['clientDataJSON'] as String,
+        );
+
+Map<String, dynamic> _$WebAuthnAuthenticatorRegistrationResponseToJson(
+        WebAuthnAuthenticatorRegistrationResponse instance) =>
+    <String, dynamic>{
+      'attestationObject': instance.attestationObject,
+      'clientDataJSON': instance.clientDataJSON,
     };
 
 WebAuthnCredential _$WebAuthnCredentialFromJson(Map<String, dynamic> json) =>
@@ -10609,6 +10544,22 @@ const _$AttestationTypeEnumMap = {
   AttestationType.none: 'none',
 };
 
+WebAuthnCredentialImportRequest _$WebAuthnCredentialImportRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnCredentialImportRequest(
+      credentials: (json['credentials'] as List<dynamic>)
+          .map((e) => WebAuthnCredential.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      validateDbConstraints: json['validateDbConstraints'] as bool,
+    );
+
+Map<String, dynamic> _$WebAuthnCredentialImportRequestToJson(
+        WebAuthnCredentialImportRequest instance) =>
+    <String, dynamic>{
+      'credentials': instance.credentials,
+      'validateDbConstraints': instance.validateDbConstraints,
+    };
+
 WebAuthnCredentialResponse _$WebAuthnCredentialResponseFromJson(
         Map<String, dynamic> json) =>
     WebAuthnCredentialResponse(
@@ -10639,26 +10590,10 @@ Map<String, dynamic> _$WebAuthnExtensionsClientOutputsToJson(
       'credProps': instance.credProps,
     };
 
-WebAuthnImportRequest _$WebAuthnImportRequestFromJson(
-        Map<String, dynamic> json) =>
-    WebAuthnImportRequest(
-      credentials: (json['credentials'] as List<dynamic>)
-          .map((e) => WebAuthnCredential.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      validateDbConstraints: json['validateDbConstraints'] as bool,
-    );
-
-Map<String, dynamic> _$WebAuthnImportRequestToJson(
-        WebAuthnImportRequest instance) =>
-    <String, dynamic>{
-      'credentials': instance.credentials,
-      'validateDbConstraints': instance.validateDbConstraints,
-    };
-
 WebAuthnLoginRequest _$WebAuthnLoginRequestFromJson(
         Map<String, dynamic> json) =>
     WebAuthnLoginRequest(
-      credential: PublicKeyAuthenticationRequest.fromJson(
+      credential: WebAuthnPublicKeyAuthenticationRequest.fromJson(
           json['credential'] as Map<String, dynamic>),
       origin: json['origin'] as String,
       rpId: json['rpId'] as String,
@@ -10687,9 +10622,90 @@ Map<String, dynamic> _$WebAuthnLoginRequestToJson(
       'twoFactorTrustId': instance.twoFactorTrustId,
     };
 
-WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
+WebAuthnPublicKeyAuthenticationRequest
+    _$WebAuthnPublicKeyAuthenticationRequestFromJson(
+            Map<String, dynamic> json) =>
+        WebAuthnPublicKeyAuthenticationRequest(
+          clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
+              json['clientExtensionResults'] as Map<String, dynamic>),
+          id: json['id'] as String,
+          response: WebAuthnAuthenticatorAuthenticationResponse.fromJson(
+              json['response'] as Map<String, dynamic>),
+          rpId: json['rpId'] as String,
+          type: json['type'] as String,
+        );
+
+Map<String, dynamic> _$WebAuthnPublicKeyAuthenticationRequestToJson(
+        WebAuthnPublicKeyAuthenticationRequest instance) =>
+    <String, dynamic>{
+      'clientExtensionResults': instance.clientExtensionResults,
+      'id': instance.id,
+      'response': instance.response,
+      'rpId': instance.rpId,
+      'type': instance.type,
+    };
+
+WebAuthnPublicKeyRegistrationRequest
+    _$WebAuthnPublicKeyRegistrationRequestFromJson(Map<String, dynamic> json) =>
+        WebAuthnPublicKeyRegistrationRequest(
+          clientExtensionResults: WebAuthnExtensionsClientOutputs.fromJson(
+              json['clientExtensionResults'] as Map<String, dynamic>),
+          id: json['id'] as String,
+          response: WebAuthnAuthenticatorRegistrationResponse.fromJson(
+              json['response'] as Map<String, dynamic>),
+          rpId: json['rpId'] as String,
+          transports: (json['transports'] as List<dynamic>)
+              .map((e) => e as String)
+              .toList(),
+          type: json['type'] as String,
+        );
+
+Map<String, dynamic> _$WebAuthnPublicKeyRegistrationRequestToJson(
+        WebAuthnPublicKeyRegistrationRequest instance) =>
+    <String, dynamic>{
+      'clientExtensionResults': instance.clientExtensionResults,
+      'id': instance.id,
+      'response': instance.response,
+      'rpId': instance.rpId,
+      'transports': instance.transports,
+      'type': instance.type,
+    };
+
+WebAuthnRegisterCompleteRequest _$WebAuthnRegisterCompleteRequestFromJson(
         Map<String, dynamic> json) =>
-    WebAuthnRegisterRequest(
+    WebAuthnRegisterCompleteRequest(
+      credential: WebAuthnPublicKeyRegistrationRequest.fromJson(
+          json['credential'] as Map<String, dynamic>),
+      origin: json['origin'] as String,
+      rpId: json['rpId'] as String,
+      userId: json['userId'] as String,
+    );
+
+Map<String, dynamic> _$WebAuthnRegisterCompleteRequestToJson(
+        WebAuthnRegisterCompleteRequest instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+      'origin': instance.origin,
+      'rpId': instance.rpId,
+      'userId': instance.userId,
+    };
+
+WebAuthnRegisterCompleteResponse _$WebAuthnRegisterCompleteResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnRegisterCompleteResponse(
+      credential: WebAuthnCredential.fromJson(
+          json['credential'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebAuthnRegisterCompleteResponseToJson(
+        WebAuthnRegisterCompleteResponse instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+    };
+
+WebAuthnRegisterStartRequest _$WebAuthnRegisterStartRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebAuthnRegisterStartRequest(
       displayName: json['displayName'] as String,
       name: json['name'] as String,
       userAgent: json['userAgent'] as String,
@@ -10697,8 +10713,8 @@ WebAuthnRegisterRequest _$WebAuthnRegisterRequestFromJson(
       workflow: _$enumDecode(_$WebAuthnWorkflowEnumMap, json['workflow']),
     );
 
-Map<String, dynamic> _$WebAuthnRegisterRequestToJson(
-        WebAuthnRegisterRequest instance) =>
+Map<String, dynamic> _$WebAuthnRegisterStartRequestToJson(
+        WebAuthnRegisterStartRequest instance) =>
     <String, dynamic>{
       'displayName': instance.displayName,
       'name': instance.name,
@@ -10713,15 +10729,15 @@ const _$WebAuthnWorkflowEnumMap = {
   WebAuthnWorkflow.reauthentication: 'reauthentication',
 };
 
-WebAuthnRegisterResponse _$WebAuthnRegisterResponseFromJson(
+WebAuthnRegisterStartResponse _$WebAuthnRegisterStartResponseFromJson(
         Map<String, dynamic> json) =>
-    WebAuthnRegisterResponse(
+    WebAuthnRegisterStartResponse(
       options: PublicKeyCredentialCreationOptions.fromJson(
           json['options'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$WebAuthnRegisterResponseToJson(
-        WebAuthnRegisterResponse instance) =>
+Map<String, dynamic> _$WebAuthnRegisterStartResponseToJson(
+        WebAuthnRegisterStartResponse instance) =>
     <String, dynamic>{
       'options': instance.options,
     };
