@@ -553,6 +553,7 @@ Map<String, dynamic> _$ApplicationMultiFactorConfigurationToJson(
 const _$MultiFactorLoginPolicyEnumMap = {
   MultiFactorLoginPolicy.Disabled: 'Disabled',
   MultiFactorLoginPolicy.Enabled: 'Enabled',
+  MultiFactorLoginPolicy.Required: 'Required',
 };
 
 const _$ApplicationMultiFactorTrustPolicyEnumMap = {
@@ -2805,12 +2806,28 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   return val;
 }
 
+FailedAuthenticationActionCancelPolicy
+    _$FailedAuthenticationActionCancelPolicyFromJson(
+            Map<String, dynamic> json) =>
+        FailedAuthenticationActionCancelPolicy(
+          onPasswordReset: json['onPasswordReset'] as bool,
+        );
+
+Map<String, dynamic> _$FailedAuthenticationActionCancelPolicyToJson(
+        FailedAuthenticationActionCancelPolicy instance) =>
+    <String, dynamic>{
+      'onPasswordReset': instance.onPasswordReset,
+    };
+
 FailedAuthenticationConfiguration _$FailedAuthenticationConfigurationFromJson(
         Map<String, dynamic> json) =>
     FailedAuthenticationConfiguration(
+      actionCancelPolicy: FailedAuthenticationActionCancelPolicy.fromJson(
+          json['actionCancelPolicy'] as Map<String, dynamic>),
       actionDuration: json['actionDuration'] as num,
       actionDurationUnit:
           _$enumDecode(_$ExpiryUnitEnumMap, json['actionDurationUnit']),
+      emailUser: json['emailUser'] as bool,
       resetCountInSeconds: json['resetCountInSeconds'] as num,
       tooManyAttempts: json['tooManyAttempts'] as num,
       userActionId: json['userActionId'] as String,
@@ -2819,8 +2836,10 @@ FailedAuthenticationConfiguration _$FailedAuthenticationConfigurationFromJson(
 Map<String, dynamic> _$FailedAuthenticationConfigurationToJson(
         FailedAuthenticationConfiguration instance) =>
     <String, dynamic>{
+      'actionCancelPolicy': instance.actionCancelPolicy,
       'actionDuration': instance.actionDuration,
       'actionDurationUnit': _$ExpiryUnitEnumMap[instance.actionDurationUnit],
+      'emailUser': instance.emailUser,
       'resetCountInSeconds': instance.resetCountInSeconds,
       'tooManyAttempts': instance.tooManyAttempts,
       'userActionId': instance.userActionId,
@@ -6756,6 +6775,7 @@ RefreshTokenRevocationPolicy _$RefreshTokenRevocationPolicyFromJson(
         Map<String, dynamic> json) =>
     RefreshTokenRevocationPolicy(
       onLoginPrevented: json['onLoginPrevented'] as bool,
+      onMultiFactorEnable: json['onMultiFactorEnable'] as bool,
       onPasswordChanged: json['onPasswordChanged'] as bool,
     );
 
@@ -6763,6 +6783,7 @@ Map<String, dynamic> _$RefreshTokenRevocationPolicyToJson(
         RefreshTokenRevocationPolicy instance) =>
     <String, dynamic>{
       'onLoginPrevented': instance.onLoginPrevented,
+      'onMultiFactorEnable': instance.onMultiFactorEnable,
       'onPasswordChanged': instance.onPasswordChanged,
     };
 
@@ -7782,7 +7803,10 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       oauth2Register: json['oauth2Register'] as String,
       oauth2StartIdPLink: json['oauth2StartIdPLink'] as String,
       oauth2TwoFactor: json['oauth2TwoFactor'] as String,
+      oauth2TwoFactorEnable: json['oauth2TwoFactorEnable'] as String,
       oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
+      oauth2TwoFactorRecoveryCodes:
+          json['oauth2TwoFactorRecoveryCodes'] as String,
       oauth2Wait: json['oauth2Wait'] as String,
       oauth2WebAuthn: json['oauth2WebAuthn'] as String,
       oauth2WebAuthnReauth: json['oauth2WebAuthnReauth'] as String,
@@ -7832,7 +7856,9 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'oauth2Register': instance.oauth2Register,
       'oauth2StartIdPLink': instance.oauth2StartIdPLink,
       'oauth2TwoFactor': instance.oauth2TwoFactor,
+      'oauth2TwoFactorEnable': instance.oauth2TwoFactorEnable,
       'oauth2TwoFactorMethods': instance.oauth2TwoFactorMethods,
+      'oauth2TwoFactorRecoveryCodes': instance.oauth2TwoFactorRecoveryCodes,
       'oauth2Wait': instance.oauth2Wait,
       'oauth2WebAuthn': instance.oauth2WebAuthn,
       'oauth2WebAuthnReauth': instance.oauth2WebAuthnReauth,

@@ -2748,20 +2748,38 @@ class FacebookIdentityProvider
   Map<String, dynamic> toJson() => _$FacebookIdentityProviderToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FailedAuthenticationActionCancelPolicy {
+  bool onPasswordReset;
+
+  FailedAuthenticationActionCancelPolicy({this.onPasswordReset});
+
+  factory FailedAuthenticationActionCancelPolicy.fromJson(
+          Map<String, dynamic> json) =>
+      _$FailedAuthenticationActionCancelPolicyFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$FailedAuthenticationActionCancelPolicyToJson(this);
+}
+
 /// Configuration for the behavior of failed login attempts. This helps us protect against brute force password attacks.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
 class FailedAuthenticationConfiguration {
+  FailedAuthenticationActionCancelPolicy actionCancelPolicy;
   num actionDuration;
   ExpiryUnit actionDurationUnit;
+  bool emailUser;
   num resetCountInSeconds;
   num tooManyAttempts;
   String userActionId;
 
   FailedAuthenticationConfiguration(
-      {this.actionDuration,
+      {this.actionCancelPolicy,
+      this.actionDuration,
       this.actionDurationUnit,
+      this.emailUser,
       this.resetCountInSeconds,
       this.tooManyAttempts,
       this.userActionId});
@@ -5328,7 +5346,9 @@ enum MultiFactorLoginPolicy {
   @JsonValue('Disabled')
   Disabled,
   @JsonValue('Enabled')
-  Enabled
+  Enabled,
+  @JsonValue('Required')
+  Required
 }
 
 @JsonSerializable()
@@ -6433,9 +6453,13 @@ class RefreshTokenResponse {
 @JsonSerializable()
 class RefreshTokenRevocationPolicy {
   bool onLoginPrevented;
+  bool onMultiFactorEnable;
   bool onPasswordChanged;
 
-  RefreshTokenRevocationPolicy({this.onLoginPrevented, this.onPasswordChanged});
+  RefreshTokenRevocationPolicy(
+      {this.onLoginPrevented,
+      this.onMultiFactorEnable,
+      this.onPasswordChanged});
 
   factory RefreshTokenRevocationPolicy.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenRevocationPolicyFromJson(json);
@@ -7245,7 +7269,9 @@ class Templates {
   String oauth2Register;
   String oauth2StartIdPLink;
   String oauth2TwoFactor;
+  String oauth2TwoFactorEnable;
   String oauth2TwoFactorMethods;
+  String oauth2TwoFactorRecoveryCodes;
   String oauth2Wait;
   String oauth2WebAuthn;
   String oauth2WebAuthnReauth;
@@ -7291,7 +7317,9 @@ class Templates {
       this.oauth2Register,
       this.oauth2StartIdPLink,
       this.oauth2TwoFactor,
+      this.oauth2TwoFactorEnable,
       this.oauth2TwoFactorMethods,
+      this.oauth2TwoFactorRecoveryCodes,
       this.oauth2Wait,
       this.oauth2WebAuthn,
       this.oauth2WebAuthnReauth,
