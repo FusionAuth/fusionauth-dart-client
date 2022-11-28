@@ -7805,8 +7805,8 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       oauth2TwoFactor: json['oauth2TwoFactor'] as String,
       oauth2TwoFactorEnable: json['oauth2TwoFactorEnable'] as String,
       oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
-      oauth2TwoFactorRecoveryCodes:
-          json['oauth2TwoFactorRecoveryCodes'] as String,
+      oauth2TwoFactorEnableComplete:
+          json['oauth2TwoFactorEnableComplete'] as String,
       oauth2Wait: json['oauth2Wait'] as String,
       oauth2WebAuthn: json['oauth2WebAuthn'] as String,
       oauth2WebAuthnReauth: json['oauth2WebAuthnReauth'] as String,
@@ -7858,7 +7858,7 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'oauth2TwoFactor': instance.oauth2TwoFactor,
       'oauth2TwoFactorEnable': instance.oauth2TwoFactorEnable,
       'oauth2TwoFactorMethods': instance.oauth2TwoFactorMethods,
-      'oauth2TwoFactorRecoveryCodes': instance.oauth2TwoFactorRecoveryCodes,
+      'oauth2TwoFactorEnableComplete': instance.oauth2TwoFactorEnableComplete,
       'oauth2Wait': instance.oauth2Wait,
       'oauth2WebAuthn': instance.oauth2WebAuthn,
       'oauth2WebAuthnReauth': instance.oauth2WebAuthnReauth,

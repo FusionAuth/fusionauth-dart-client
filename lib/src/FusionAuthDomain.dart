@@ -5007,6 +5007,7 @@ class LoginResponse {
   List<LoginPreventedResponse> actions;
   String changePasswordId;
   ChangePasswordReason changePasswordReason;
+  List<String> configurableMethods;
   String emailVerificationId;
   List<TwoFactorMethod> methods;
   String pendingIdPLinkId;
@@ -5026,6 +5027,7 @@ class LoginResponse {
       {this.actions,
       this.changePasswordId,
       this.changePasswordReason,
+      this.configurableMethods,
       this.emailVerificationId,
       this.methods,
       this.pendingIdPLinkId,
@@ -7270,8 +7272,8 @@ class Templates {
   String oauth2StartIdPLink;
   String oauth2TwoFactor;
   String oauth2TwoFactorEnable;
+  String oauth2TwoFactorEnableComplete;
   String oauth2TwoFactorMethods;
-  String oauth2TwoFactorRecoveryCodes;
   String oauth2Wait;
   String oauth2WebAuthn;
   String oauth2WebAuthnReauth;
@@ -7318,8 +7320,8 @@ class Templates {
       this.oauth2StartIdPLink,
       this.oauth2TwoFactor,
       this.oauth2TwoFactorEnable,
+      this.oauth2TwoFactorEnableComplete,
       this.oauth2TwoFactorMethods,
-      this.oauth2TwoFactorRecoveryCodes,
       this.oauth2Wait,
       this.oauth2WebAuthn,
       this.oauth2WebAuthnReauth,
@@ -8065,6 +8067,7 @@ class TwoFactorRequest extends BaseEventRequest {
   String mobilePhone;
   String secret;
   String secretBase32Encoded;
+  String twoFactorId;
 
   TwoFactorRequest(
       {this.applicationId,
@@ -8074,7 +8077,8 @@ class TwoFactorRequest extends BaseEventRequest {
       this.method,
       this.mobilePhone,
       this.secret,
-      this.secretBase32Encoded});
+      this.secretBase32Encoded,
+      this.twoFactorId});
 
   factory TwoFactorRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorRequestFromJson(json);
@@ -8084,9 +8088,10 @@ class TwoFactorRequest extends BaseEventRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class TwoFactorResponse {
+  String code;
   List<String> recoveryCodes;
 
-  TwoFactorResponse({this.recoveryCodes});
+  TwoFactorResponse({this.code, this.recoveryCodes});
 
   factory TwoFactorResponse.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorResponseFromJson(json);
