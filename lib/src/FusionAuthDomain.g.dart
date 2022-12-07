@@ -553,6 +553,7 @@ Map<String, dynamic> _$ApplicationMultiFactorConfigurationToJson(
 const _$MultiFactorLoginPolicyEnumMap = {
   MultiFactorLoginPolicy.Disabled: 'Disabled',
   MultiFactorLoginPolicy.Enabled: 'Enabled',
+  MultiFactorLoginPolicy.Required: 'Required',
 };
 
 const _$ApplicationMultiFactorTrustPolicyEnumMap = {
@@ -2805,12 +2806,28 @@ Map<String, dynamic> _$FacebookIdentityProviderToJson(
   return val;
 }
 
+FailedAuthenticationActionCancelPolicy
+    _$FailedAuthenticationActionCancelPolicyFromJson(
+            Map<String, dynamic> json) =>
+        FailedAuthenticationActionCancelPolicy(
+          onPasswordReset: json['onPasswordReset'] as bool,
+        );
+
+Map<String, dynamic> _$FailedAuthenticationActionCancelPolicyToJson(
+        FailedAuthenticationActionCancelPolicy instance) =>
+    <String, dynamic>{
+      'onPasswordReset': instance.onPasswordReset,
+    };
+
 FailedAuthenticationConfiguration _$FailedAuthenticationConfigurationFromJson(
         Map<String, dynamic> json) =>
     FailedAuthenticationConfiguration(
+      actionCancelPolicy: FailedAuthenticationActionCancelPolicy.fromJson(
+          json['actionCancelPolicy'] as Map<String, dynamic>),
       actionDuration: json['actionDuration'] as num,
       actionDurationUnit:
           _$enumDecode(_$ExpiryUnitEnumMap, json['actionDurationUnit']),
+      emailUser: json['emailUser'] as bool,
       resetCountInSeconds: json['resetCountInSeconds'] as num,
       tooManyAttempts: json['tooManyAttempts'] as num,
       userActionId: json['userActionId'] as String,
@@ -2819,8 +2836,10 @@ FailedAuthenticationConfiguration _$FailedAuthenticationConfigurationFromJson(
 Map<String, dynamic> _$FailedAuthenticationConfigurationToJson(
         FailedAuthenticationConfiguration instance) =>
     <String, dynamic>{
+      'actionCancelPolicy': instance.actionCancelPolicy,
       'actionDuration': instance.actionDuration,
       'actionDurationUnit': _$ExpiryUnitEnumMap[instance.actionDurationUnit],
+      'emailUser': instance.emailUser,
       'resetCountInSeconds': instance.resetCountInSeconds,
       'tooManyAttempts': instance.tooManyAttempts,
       'userActionId': instance.userActionId,
@@ -5217,6 +5236,9 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       changePasswordId: json['changePasswordId'] as String,
       changePasswordReason: _$enumDecode(
           _$ChangePasswordReasonEnumMap, json['changePasswordReason']),
+      configurableMethods: (json['configurableMethods'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       emailVerificationId: json['emailVerificationId'] as String,
       methods: (json['methods'] as List<dynamic>)
           .map((e) => TwoFactorMethod.fromJson(e as Map<String, dynamic>))
@@ -5243,6 +5265,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'changePasswordId': instance.changePasswordId,
       'changePasswordReason':
           _$ChangePasswordReasonEnumMap[instance.changePasswordReason],
+      'configurableMethods': instance.configurableMethods,
       'emailVerificationId': instance.emailVerificationId,
       'methods': instance.methods,
       'pendingIdPLinkId': instance.pendingIdPLinkId,
@@ -6756,6 +6779,7 @@ RefreshTokenRevocationPolicy _$RefreshTokenRevocationPolicyFromJson(
         Map<String, dynamic> json) =>
     RefreshTokenRevocationPolicy(
       onLoginPrevented: json['onLoginPrevented'] as bool,
+      onMultiFactorEnable: json['onMultiFactorEnable'] as bool,
       onPasswordChanged: json['onPasswordChanged'] as bool,
     );
 
@@ -6763,6 +6787,7 @@ Map<String, dynamic> _$RefreshTokenRevocationPolicyToJson(
         RefreshTokenRevocationPolicy instance) =>
     <String, dynamic>{
       'onLoginPrevented': instance.onLoginPrevented,
+      'onMultiFactorEnable': instance.onMultiFactorEnable,
       'onPasswordChanged': instance.onPasswordChanged,
     };
 
@@ -7782,6 +7807,9 @@ Templates _$TemplatesFromJson(Map<String, dynamic> json) => Templates(
       oauth2Register: json['oauth2Register'] as String,
       oauth2StartIdPLink: json['oauth2StartIdPLink'] as String,
       oauth2TwoFactor: json['oauth2TwoFactor'] as String,
+      oauth2TwoFactorEnable: json['oauth2TwoFactorEnable'] as String,
+      oauth2TwoFactorEnableComplete:
+          json['oauth2TwoFactorEnableComplete'] as String,
       oauth2TwoFactorMethods: json['oauth2TwoFactorMethods'] as String,
       oauth2Wait: json['oauth2Wait'] as String,
       oauth2WebAuthn: json['oauth2WebAuthn'] as String,
@@ -7832,6 +7860,8 @@ Map<String, dynamic> _$TemplatesToJson(Templates instance) => <String, dynamic>{
       'oauth2Register': instance.oauth2Register,
       'oauth2StartIdPLink': instance.oauth2StartIdPLink,
       'oauth2TwoFactor': instance.oauth2TwoFactor,
+      'oauth2TwoFactorEnable': instance.oauth2TwoFactorEnable,
+      'oauth2TwoFactorEnableComplete': instance.oauth2TwoFactorEnableComplete,
       'oauth2TwoFactorMethods': instance.oauth2TwoFactorMethods,
       'oauth2Wait': instance.oauth2Wait,
       'oauth2WebAuthn': instance.oauth2WebAuthn,
@@ -8736,6 +8766,7 @@ TwoFactorRequest _$TwoFactorRequestFromJson(Map<String, dynamic> json) =>
       mobilePhone: json['mobilePhone'] as String,
       secret: json['secret'] as String,
       secretBase32Encoded: json['secretBase32Encoded'] as String,
+      twoFactorId: json['twoFactorId'] as String,
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
@@ -8750,10 +8781,12 @@ Map<String, dynamic> _$TwoFactorRequestToJson(TwoFactorRequest instance) =>
       'mobilePhone': instance.mobilePhone,
       'secret': instance.secret,
       'secretBase32Encoded': instance.secretBase32Encoded,
+      'twoFactorId': instance.twoFactorId,
     };
 
 TwoFactorResponse _$TwoFactorResponseFromJson(Map<String, dynamic> json) =>
     TwoFactorResponse(
+      code: json['code'] as String,
       recoveryCodes: (json['recoveryCodes'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -8761,6 +8794,7 @@ TwoFactorResponse _$TwoFactorResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TwoFactorResponseToJson(TwoFactorResponse instance) =>
     <String, dynamic>{
+      'code': instance.code,
       'recoveryCodes': instance.recoveryCodes,
     };
 
