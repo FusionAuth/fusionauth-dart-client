@@ -2748,20 +2748,40 @@ class FacebookIdentityProvider
   Map<String, dynamic> toJson() => _$FacebookIdentityProviderToJson(this);
 }
 
+/// A policy to configure if and when the user-action is canceled prior to the expiration of the action.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class FailedAuthenticationActionCancelPolicy {
+  bool onPasswordReset;
+
+  FailedAuthenticationActionCancelPolicy({this.onPasswordReset});
+
+  factory FailedAuthenticationActionCancelPolicy.fromJson(
+          Map<String, dynamic> json) =>
+      _$FailedAuthenticationActionCancelPolicyFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$FailedAuthenticationActionCancelPolicyToJson(this);
+}
+
 /// Configuration for the behavior of failed login attempts. This helps us protect against brute force password attacks.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
 class FailedAuthenticationConfiguration {
+  FailedAuthenticationActionCancelPolicy actionCancelPolicy;
   num actionDuration;
   ExpiryUnit actionDurationUnit;
+  bool emailUser;
   num resetCountInSeconds;
   num tooManyAttempts;
   String userActionId;
 
   FailedAuthenticationConfiguration(
-      {this.actionDuration,
+      {this.actionCancelPolicy,
+      this.actionDuration,
       this.actionDurationUnit,
+      this.emailUser,
       this.resetCountInSeconds,
       this.tooManyAttempts,
       this.userActionId});
@@ -4989,6 +5009,7 @@ class LoginResponse {
   List<LoginPreventedResponse> actions;
   String changePasswordId;
   ChangePasswordReason changePasswordReason;
+  List<String> configurableMethods;
   String emailVerificationId;
   List<TwoFactorMethod> methods;
   String pendingIdPLinkId;
@@ -5008,6 +5029,7 @@ class LoginResponse {
       {this.actions,
       this.changePasswordId,
       this.changePasswordReason,
+      this.configurableMethods,
       this.emailVerificationId,
       this.methods,
       this.pendingIdPLinkId,
@@ -5328,7 +5350,9 @@ enum MultiFactorLoginPolicy {
   @JsonValue('Disabled')
   Disabled,
   @JsonValue('Enabled')
-  Enabled
+  Enabled,
+  @JsonValue('Required')
+  Required
 }
 
 @JsonSerializable()
@@ -6433,9 +6457,13 @@ class RefreshTokenResponse {
 @JsonSerializable()
 class RefreshTokenRevocationPolicy {
   bool onLoginPrevented;
+  bool onMultiFactorEnable;
   bool onPasswordChanged;
 
-  RefreshTokenRevocationPolicy({this.onLoginPrevented, this.onPasswordChanged});
+  RefreshTokenRevocationPolicy(
+      {this.onLoginPrevented,
+      this.onMultiFactorEnable,
+      this.onPasswordChanged});
 
   factory RefreshTokenRevocationPolicy.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenRevocationPolicyFromJson(json);
@@ -7245,6 +7273,8 @@ class Templates {
   String oauth2Register;
   String oauth2StartIdPLink;
   String oauth2TwoFactor;
+  String oauth2TwoFactorEnable;
+  String oauth2TwoFactorEnableComplete;
   String oauth2TwoFactorMethods;
   String oauth2Wait;
   String oauth2WebAuthn;
@@ -7291,6 +7321,8 @@ class Templates {
       this.oauth2Register,
       this.oauth2StartIdPLink,
       this.oauth2TwoFactor,
+      this.oauth2TwoFactorEnable,
+      this.oauth2TwoFactorEnableComplete,
       this.oauth2TwoFactorMethods,
       this.oauth2Wait,
       this.oauth2WebAuthn,
@@ -8037,6 +8069,7 @@ class TwoFactorRequest extends BaseEventRequest {
   String mobilePhone;
   String secret;
   String secretBase32Encoded;
+  String twoFactorId;
 
   TwoFactorRequest(
       {this.applicationId,
@@ -8046,7 +8079,8 @@ class TwoFactorRequest extends BaseEventRequest {
       this.method,
       this.mobilePhone,
       this.secret,
-      this.secretBase32Encoded});
+      this.secretBase32Encoded,
+      this.twoFactorId});
 
   factory TwoFactorRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorRequestFromJson(json);
@@ -8056,9 +8090,10 @@ class TwoFactorRequest extends BaseEventRequest {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class TwoFactorResponse {
+  String code;
   List<String> recoveryCodes;
 
-  TwoFactorResponse({this.recoveryCodes});
+  TwoFactorResponse({this.code, this.recoveryCodes});
 
   factory TwoFactorResponse.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorResponseFromJson(json);
