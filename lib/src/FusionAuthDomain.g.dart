@@ -5046,6 +5046,19 @@ Map<String, dynamic> _$LoginConfigurationToJson(LoginConfiguration instance) =>
       'requireAuthentication': instance.requireAuthentication,
     };
 
+LoginHintConfiguration _$LoginHintConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    LoginHintConfiguration(
+      parameterName: json['parameterName'] as String,
+    )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$LoginHintConfigurationToJson(
+        LoginHintConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'parameterName': instance.parameterName,
+    };
+
 LoginPingRequest _$LoginPingRequestFromJson(Map<String, dynamic> json) =>
     LoginPingRequest(
       userId: json['userId'] as String,
@@ -7079,6 +7092,8 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
       idpEndpoint: json['idpEndpoint'] as String,
       issuer: json['issuer'] as String,
       keyId: json['keyId'] as String,
+      loginHintConfiguration: LoginHintConfiguration.fromJson(
+          json['loginHintConfiguration'] as Map<String, dynamic>),
       nameIdFormat: json['nameIdFormat'] as String,
       postRequest: json['postRequest'] as bool,
       requestSigningKeyId: json['requestSigningKeyId'] as String,
@@ -7144,6 +7159,7 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   val['idpEndpoint'] = instance.idpEndpoint;
   val['issuer'] = instance.issuer;
   val['keyId'] = instance.keyId;
+  val['loginHintConfiguration'] = instance.loginHintConfiguration;
   val['nameIdFormat'] = instance.nameIdFormat;
   val['postRequest'] = instance.postRequest;
   val['requestSigningKeyId'] = instance.requestSigningKeyId;

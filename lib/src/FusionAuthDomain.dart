@@ -4846,6 +4846,18 @@ class LoginConfiguration {
   Map<String, dynamic> toJson() => _$LoginConfigurationToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class LoginHintConfiguration extends Enableable {
+  String parameterName;
+
+  LoginHintConfiguration({this.parameterName});
+
+  factory LoginHintConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$LoginHintConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$LoginHintConfigurationToJson(this);
+}
+
 enum LoginIdType {
   @JsonValue('email')
   email,
@@ -6770,6 +6782,7 @@ class SAMLv2IdentityProvider
   String idpEndpoint;
   String issuer;
   String keyId;
+  LoginHintConfiguration loginHintConfiguration;
   String nameIdFormat;
   bool postRequest;
   String requestSigningKeyId;
@@ -6787,6 +6800,7 @@ class SAMLv2IdentityProvider
       this.idpEndpoint,
       this.issuer,
       this.keyId,
+      this.loginHintConfiguration,
       this.nameIdFormat,
       this.postRequest,
       this.requestSigningKeyId,
