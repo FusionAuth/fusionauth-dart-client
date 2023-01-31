@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
+* Copyright (c) 2019-2023, FusionAuth, All Rights Reserved
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -224,6 +224,7 @@ class APIKeyResponse {
 @JsonSerializable()
 class AppleApplicationConfiguration
     extends BaseIdentityProviderApplicationConfiguration {
+  String bundleId;
   String buttonText;
   String keyId;
   String scope;
@@ -231,7 +232,12 @@ class AppleApplicationConfiguration
   String teamId;
 
   AppleApplicationConfiguration(
-      {this.buttonText, this.keyId, this.scope, this.servicesId, this.teamId});
+      {this.bundleId,
+      this.buttonText,
+      this.keyId,
+      this.scope,
+      this.servicesId,
+      this.teamId});
 
   factory AppleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$AppleApplicationConfigurationFromJson(json);
@@ -242,6 +248,7 @@ class AppleApplicationConfiguration
 @JsonSerializable()
 class AppleIdentityProvider
     extends BaseIdentityProvider<AppleApplicationConfiguration> {
+  String bundleId;
   String buttonText;
   String keyId;
   String scope;
@@ -249,7 +256,12 @@ class AppleIdentityProvider
   String teamId;
 
   AppleIdentityProvider(
-      {this.buttonText, this.keyId, this.scope, this.servicesId, this.teamId});
+      {this.bundleId,
+      this.buttonText,
+      this.keyId,
+      this.scope,
+      this.servicesId,
+      this.teamId});
 
   factory AppleIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$AppleIdentityProviderFromJson(json);
@@ -471,8 +483,9 @@ class ApplicationRegistrationDeletePolicy {
 class ApplicationRequest extends BaseEventRequest {
   Application application;
   ApplicationRole role;
+  String sourceApplicationId;
 
-  ApplicationRequest({this.application, this.role});
+  ApplicationRequest({this.application, this.role, this.sourceApplicationId});
 
   factory ApplicationRequest.fromJson(Map<String, dynamic> json) =>
       _$ApplicationRequestFromJson(json);
@@ -1023,6 +1036,29 @@ class BaseMessengerConfiguration {
   factory BaseMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$BaseMessengerConfigurationFromJson(json);
   Map<String, dynamic> toJson() => _$BaseMessengerConfigurationToJson(this);
+}
+
+/// @author Lyle Schemmerling
+@JsonSerializable()
+class BaseSAMLv2IdentityProvider<
+        D extends BaseIdentityProviderApplicationConfiguration>
+    extends BaseIdentityProvider<D> {
+  String emailClaim;
+  String keyId;
+  String uniqueIdClaim;
+  bool useNameIdForEmail;
+  String usernameClaim;
+
+  BaseSAMLv2IdentityProvider(
+      {this.emailClaim,
+      this.keyId,
+      this.uniqueIdClaim,
+      this.useNameIdForEmail,
+      this.usernameClaim});
+
+  factory BaseSAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
+      _$BaseSAMLv2IdentityProviderFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseSAMLv2IdentityProviderToJson(this);
 }
 
 /// @author Brian Pontarelli
@@ -4706,7 +4742,9 @@ enum LambdaType {
   @JsonValue('SCIMServerUserRequestConverter')
   SCIMServerUserRequestConverter,
   @JsonValue('SCIMServerUserResponseConverter')
-  SCIMServerUserResponseConverter
+  SCIMServerUserResponseConverter,
+  @JsonValue('SelfServiceRegistrationValidation')
+  SelfServiceRegistrationValidation
 }
 
 /// Models an LDAP connector.
@@ -5458,11 +5496,20 @@ class NonTransactionalEvent {
   Map<String, dynamic> toJson() => _$NonTransactionalEventToJson(this);
 }
 
+/// @author Johnathon Wood
+enum Oauth2AuthorizedURLValidationPolicy {
+  @JsonValue('AllowWildcards')
+  AllowWildcards,
+  @JsonValue('ExactMatch')
+  ExactMatch
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class OAuth2Configuration {
   List<String> authorizedOriginURLs;
   List<String> authorizedRedirectURLs;
+  Oauth2AuthorizedURLValidationPolicy authorizedURLValidationPolicy;
   ClientAuthenticationPolicy clientAuthenticationPolicy;
   String clientId;
   String clientSecret;
@@ -5479,6 +5526,7 @@ class OAuth2Configuration {
   OAuth2Configuration(
       {this.authorizedOriginURLs,
       this.authorizedRedirectURLs,
+      this.authorizedURLValidationPolicy,
       this.clientAuthenticationPolicy,
       this.clientId,
       this.clientSecret,
@@ -6733,6 +6781,18 @@ class SAMLv2ApplicationConfiguration
   Map<String, dynamic> toJson() => _$SAMLv2ApplicationConfigurationToJson(this);
 }
 
+/// @author Lyle Schemmerling
+@JsonSerializable()
+class SAMLv2AssertionConfiguration {
+  SAMLv2DestinationAssertionConfiguration destination;
+
+  SAMLv2AssertionConfiguration({this.destination});
+
+  factory SAMLv2AssertionConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2AssertionConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$SAMLv2AssertionConfigurationToJson(this);
+}
+
 @JsonSerializable()
 class SAMLv2Configuration extends Enableable {
   String audience;
@@ -6769,45 +6829,64 @@ class SAMLv2Configuration extends Enableable {
   Map<String, dynamic> toJson() => _$SAMLv2ConfigurationToJson(this);
 }
 
+/// @author Lyle Schemmerling
+@JsonSerializable()
+class SAMLv2DestinationAssertionConfiguration {
+  List<String> alternates;
+  SAMLv2DestinationAssertionPolicy policy;
+
+  SAMLv2DestinationAssertionConfiguration({this.alternates, this.policy});
+
+  factory SAMLv2DestinationAssertionConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$SAMLv2DestinationAssertionConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2DestinationAssertionConfigurationToJson(this);
+}
+
+/// @author Lyle Schemmerling
+enum SAMLv2DestinationAssertionPolicy {
+  @JsonValue('Enabled')
+  Enabled,
+  @JsonValue('Disabled')
+  Disabled,
+  @JsonValue('AllowAlternates')
+  AllowAlternates
+}
+
 /// SAML v2 identity provider configuration.
 ///
 /// @author Brian Pontarelli
 @JsonSerializable()
 class SAMLv2IdentityProvider
-    extends BaseIdentityProvider<SAMLv2ApplicationConfiguration> {
+    extends BaseSAMLv2IdentityProvider<SAMLv2ApplicationConfiguration> {
+  SAMLv2AssertionConfiguration assertionConfiguration;
   String buttonImageURL;
   String buttonText;
   Set<String> domains;
-  String emailClaim;
   String idpEndpoint;
+  SAMLv2IdpInitiatedConfiguration idpInitiatedConfiguration;
   String issuer;
-  String keyId;
   LoginHintConfiguration loginHintConfiguration;
   String nameIdFormat;
   bool postRequest;
   String requestSigningKeyId;
   bool signRequest;
-  String uniqueIdClaim;
-  bool useNameIdForEmail;
-  String usernameClaim;
   CanonicalizationMethod xmlSignatureC14nMethod;
 
   SAMLv2IdentityProvider(
-      {this.buttonImageURL,
+      {this.assertionConfiguration,
+      this.buttonImageURL,
       this.buttonText,
       this.domains,
-      this.emailClaim,
       this.idpEndpoint,
+      this.idpInitiatedConfiguration,
       this.issuer,
-      this.keyId,
       this.loginHintConfiguration,
       this.nameIdFormat,
       this.postRequest,
       this.requestSigningKeyId,
       this.signRequest,
-      this.uniqueIdClaim,
-      this.useNameIdForEmail,
-      this.usernameClaim,
       this.xmlSignatureC14nMethod});
 
   factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
@@ -6828,26 +6907,30 @@ class SAMLv2IdPInitiatedApplicationConfiguration
       _$SAMLv2IdPInitiatedApplicationConfigurationToJson(this);
 }
 
+/// Config for regular SAML IDP configurations that support IDP-initiated requests
+///
+/// @author Lyle Schemmerling
+@JsonSerializable()
+class SAMLv2IdpInitiatedConfiguration extends Enableable {
+  String issuer;
+
+  SAMLv2IdpInitiatedConfiguration({this.issuer});
+
+  factory SAMLv2IdpInitiatedConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SAMLv2IdpInitiatedConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$SAMLv2IdpInitiatedConfigurationToJson(this);
+}
+
 /// SAML v2 IdP Initiated identity provider configuration.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
-class SAMLv2IdPInitiatedIdentityProvider
-    extends BaseIdentityProvider<SAMLv2IdPInitiatedApplicationConfiguration> {
-  String emailClaim;
+class SAMLv2IdPInitiatedIdentityProvider extends BaseSAMLv2IdentityProvider<
+    SAMLv2IdPInitiatedApplicationConfiguration> {
   String issuer;
-  String keyId;
-  String uniqueIdClaim;
-  bool useNameIdForEmail;
-  String usernameClaim;
 
-  SAMLv2IdPInitiatedIdentityProvider(
-      {this.emailClaim,
-      this.issuer,
-      this.keyId,
-      this.uniqueIdClaim,
-      this.useNameIdForEmail,
-      this.usernameClaim});
+  SAMLv2IdPInitiatedIdentityProvider({this.issuer});
 
   factory SAMLv2IdPInitiatedIdentityProvider.fromJson(
           Map<String, dynamic> json) =>
@@ -7248,9 +7331,10 @@ class SystemConfigurationResponse {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class SystemLogsExportRequest extends BaseExportRequest {
+  bool includeArchived;
   num lastNBytes;
 
-  SystemLogsExportRequest({this.lastNBytes});
+  SystemLogsExportRequest({this.includeArchived, this.lastNBytes});
 
   factory SystemLogsExportRequest.fromJson(Map<String, dynamic> json) =>
       _$SystemLogsExportRequestFromJson(json);
