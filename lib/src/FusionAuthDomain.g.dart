@@ -191,6 +191,7 @@ Map<String, dynamic> _$APIKeyResponseToJson(APIKeyResponse instance) =>
 AppleApplicationConfiguration _$AppleApplicationConfigurationFromJson(
         Map<String, dynamic> json) =>
     AppleApplicationConfiguration(
+      bundleId: json['bundleId'] as String,
       buttonText: json['buttonText'] as String,
       keyId: json['keyId'] as String,
       scope: json['scope'] as String,
@@ -207,6 +208,7 @@ Map<String, dynamic> _$AppleApplicationConfigurationToJson(
       'enabled': instance.enabled,
       'createRegistration': instance.createRegistration,
       'data': instance.data,
+      'bundleId': instance.bundleId,
       'buttonText': instance.buttonText,
       'keyId': instance.keyId,
       'scope': instance.scope,
@@ -217,6 +219,7 @@ Map<String, dynamic> _$AppleApplicationConfigurationToJson(
 AppleIdentityProvider _$AppleIdentityProviderFromJson(
         Map<String, dynamic> json) =>
     AppleIdentityProvider(
+      bundleId: json['bundleId'] as String,
       buttonText: json['buttonText'] as String,
       keyId: json['keyId'] as String,
       scope: json['scope'] as String,
@@ -271,6 +274,7 @@ Map<String, dynamic> _$AppleIdentityProviderToJson(
   val['name'] = instance.name;
   val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
+  val['bundleId'] = instance.bundleId;
   val['buttonText'] = instance.buttonText;
   val['keyId'] = instance.keyId;
   val['scope'] = instance.scope;
@@ -580,6 +584,7 @@ ApplicationRequest _$ApplicationRequestFromJson(Map<String, dynamic> json) =>
       application:
           Application.fromJson(json['application'] as Map<String, dynamic>),
       role: ApplicationRole.fromJson(json['role'] as Map<String, dynamic>),
+      sourceApplicationId: json['sourceApplicationId'] as String,
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
@@ -588,6 +593,7 @@ Map<String, dynamic> _$ApplicationRequestToJson(ApplicationRequest instance) =>
       'eventInfo': instance.eventInfo,
       'application': instance.application,
       'role': instance.role,
+      'sourceApplicationId': instance.sourceApplicationId,
     };
 
 ApplicationResponse _$ApplicationResponseFromJson(Map<String, dynamic> json) =>
@@ -1184,6 +1190,75 @@ const _$MessengerTypeEnumMap = {
   MessengerType.Kafka: 'Kafka',
   MessengerType.Twilio: 'Twilio',
 };
+
+BaseSAMLv2IdentityProvider<D> _$BaseSAMLv2IdentityProviderFromJson<
+            D extends BaseIdentityProviderApplicationConfiguration>(
+        Map<String, dynamic> json) =>
+    BaseSAMLv2IdentityProvider<D>(
+      emailClaim: json['emailClaim'] as String,
+      keyId: json['keyId'] as String,
+      uniqueIdClaim: json['uniqueIdClaim'] as String,
+      useNameIdForEmail: json['useNameIdForEmail'] as bool,
+      usernameClaim: json['usernameClaim'] as String,
+    )
+      ..enabled = json['enabled'] as bool
+      ..applicationConfiguration =
+          (json['applicationConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k,
+            IdentityProviderApplicationConfigurationConverter<D>().fromJson(e)),
+      )
+      ..data = json['data'] as Map<String, dynamic>
+      ..debug = json['debug'] as bool
+      ..id = json['id'] as String
+      ..insertInstant = json['insertInstant'] as num
+      ..lambdaConfiguration = json['lambdaConfiguration']
+      ..lastUpdateInstant = json['lastUpdateInstant'] as num
+      ..linkingStrategy = _$enumDecode(
+          _$IdentityProviderLinkingStrategyEnumMap, json['linkingStrategy'])
+      ..name = json['name'] as String
+      ..tenantConfiguration =
+          (json['tenantConfiguration'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            IdentityProviderTenantConfiguration.fromJson(
+                e as Map<String, dynamic>)),
+      )
+      ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
+
+Map<String, dynamic> _$BaseSAMLv2IdentityProviderToJson<
+        D extends BaseIdentityProviderApplicationConfiguration>(
+    BaseSAMLv2IdentityProvider<D> instance) {
+  final val = <String, dynamic>{
+    'enabled': instance.enabled,
+    'applicationConfiguration': instance.applicationConfiguration.map((k, e) =>
+        MapEntry(k,
+            IdentityProviderApplicationConfigurationConverter<D>().toJson(e))),
+    'data': instance.data,
+    'debug': instance.debug,
+    'id': instance.id,
+    'insertInstant': instance.insertInstant,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('lambdaConfiguration', instance.lambdaConfiguration);
+  val['lastUpdateInstant'] = instance.lastUpdateInstant;
+  val['linkingStrategy'] =
+      _$IdentityProviderLinkingStrategyEnumMap[instance.linkingStrategy];
+  val['name'] = instance.name;
+  val['tenantConfiguration'] = instance.tenantConfiguration;
+  val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
+  val['emailClaim'] = instance.emailClaim;
+  val['keyId'] = instance.keyId;
+  val['uniqueIdClaim'] = instance.uniqueIdClaim;
+  val['useNameIdForEmail'] = instance.useNameIdForEmail;
+  val['usernameClaim'] = instance.usernameClaim;
+  return val;
+}
 
 BaseSearchCriteria _$BaseSearchCriteriaFromJson(Map<String, dynamic> json) =>
     BaseSearchCriteria(
@@ -4822,6 +4897,8 @@ const _$LambdaTypeEnumMap = {
       'SCIMServerGroupResponseConverter',
   LambdaType.SCIMServerUserRequestConverter: 'SCIMServerUserRequestConverter',
   LambdaType.SCIMServerUserResponseConverter: 'SCIMServerUserResponseConverter',
+  LambdaType.SelfServiceRegistrationValidation:
+      'SelfServiceRegistrationValidation',
 };
 
 LambdaRequest _$LambdaRequestFromJson(Map<String, dynamic> json) =>
@@ -5715,6 +5792,9 @@ OAuth2Configuration _$OAuth2ConfigurationFromJson(Map<String, dynamic> json) =>
       authorizedRedirectURLs: (json['authorizedRedirectURLs'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      authorizedURLValidationPolicy: _$enumDecode(
+          _$Oauth2AuthorizedURLValidationPolicyEnumMap,
+          json['authorizedURLValidationPolicy']),
       clientAuthenticationPolicy: _$enumDecode(
           _$ClientAuthenticationPolicyEnumMap,
           json['clientAuthenticationPolicy']),
@@ -5741,6 +5821,9 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(
     <String, dynamic>{
       'authorizedOriginURLs': instance.authorizedOriginURLs,
       'authorizedRedirectURLs': instance.authorizedRedirectURLs,
+      'authorizedURLValidationPolicy':
+          _$Oauth2AuthorizedURLValidationPolicyEnumMap[
+              instance.authorizedURLValidationPolicy],
       'clientAuthenticationPolicy': _$ClientAuthenticationPolicyEnumMap[
           instance.clientAuthenticationPolicy],
       'clientId': instance.clientId,
@@ -5757,6 +5840,11 @@ Map<String, dynamic> _$OAuth2ConfigurationToJson(
       'requireClientAuthentication': instance.requireClientAuthentication,
       'requireRegistration': instance.requireRegistration,
     };
+
+const _$Oauth2AuthorizedURLValidationPolicyEnumMap = {
+  Oauth2AuthorizedURLValidationPolicy.AllowWildcards: 'AllowWildcards',
+  Oauth2AuthorizedURLValidationPolicy.ExactMatch: 'ExactMatch',
+};
 
 const _$ClientAuthenticationPolicyEnumMap = {
   ClientAuthenticationPolicy.Required: 'Required',
@@ -7026,6 +7114,19 @@ Map<String, dynamic> _$SAMLv2ApplicationConfigurationToJson(
       'buttonText': instance.buttonText,
     };
 
+SAMLv2AssertionConfiguration _$SAMLv2AssertionConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    SAMLv2AssertionConfiguration(
+      destination: SAMLv2DestinationAssertionConfiguration.fromJson(
+          json['destination'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SAMLv2AssertionConfigurationToJson(
+        SAMLv2AssertionConfiguration instance) =>
+    <String, dynamic>{
+      'destination': instance.destination,
+    };
+
 SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) =>
     SAMLv2Configuration(
       audience: json['audience'] as String,
@@ -7081,26 +7182,49 @@ const _$XMLSignatureLocationEnumMap = {
   XMLSignatureLocation.Response: 'Response',
 };
 
+SAMLv2DestinationAssertionConfiguration
+    _$SAMLv2DestinationAssertionConfigurationFromJson(
+            Map<String, dynamic> json) =>
+        SAMLv2DestinationAssertionConfiguration(
+          alternates: (json['alternates'] as List<dynamic>)
+              .map((e) => e as String)
+              .toList(),
+          policy: _$enumDecode(
+              _$SAMLv2DestinationAssertionPolicyEnumMap, json['policy']),
+        );
+
+Map<String, dynamic> _$SAMLv2DestinationAssertionConfigurationToJson(
+        SAMLv2DestinationAssertionConfiguration instance) =>
+    <String, dynamic>{
+      'alternates': instance.alternates,
+      'policy': _$SAMLv2DestinationAssertionPolicyEnumMap[instance.policy],
+    };
+
+const _$SAMLv2DestinationAssertionPolicyEnumMap = {
+  SAMLv2DestinationAssertionPolicy.Enabled: 'Enabled',
+  SAMLv2DestinationAssertionPolicy.Disabled: 'Disabled',
+  SAMLv2DestinationAssertionPolicy.AllowAlternates: 'AllowAlternates',
+};
+
 SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
         Map<String, dynamic> json) =>
     SAMLv2IdentityProvider(
+      assertionConfiguration: SAMLv2AssertionConfiguration.fromJson(
+          json['assertionConfiguration'] as Map<String, dynamic>),
       buttonImageURL: json['buttonImageURL'] as String,
       buttonText: json['buttonText'] as String,
       domains:
           (json['domains'] as List<dynamic>).map((e) => e as String).toSet(),
-      emailClaim: json['emailClaim'] as String,
       idpEndpoint: json['idpEndpoint'] as String,
+      idpInitiatedConfiguration: SAMLv2IdpInitiatedConfiguration.fromJson(
+          json['idpInitiatedConfiguration'] as Map<String, dynamic>),
       issuer: json['issuer'] as String,
-      keyId: json['keyId'] as String,
       loginHintConfiguration: LoginHintConfiguration.fromJson(
           json['loginHintConfiguration'] as Map<String, dynamic>),
       nameIdFormat: json['nameIdFormat'] as String,
       postRequest: json['postRequest'] as bool,
       requestSigningKeyId: json['requestSigningKeyId'] as String,
       signRequest: json['signRequest'] as bool,
-      uniqueIdClaim: json['uniqueIdClaim'] as String,
-      useNameIdForEmail: json['useNameIdForEmail'] as bool,
-      usernameClaim: json['usernameClaim'] as String,
       xmlSignatureC14nMethod: _$enumDecode(
           _$CanonicalizationMethodEnumMap, json['xmlSignatureC14nMethod']),
     )
@@ -7126,7 +7250,12 @@ SAMLv2IdentityProvider _$SAMLv2IdentityProviderFromJson(
             IdentityProviderTenantConfiguration.fromJson(
                 e as Map<String, dynamic>)),
       )
-      ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
+      ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type'])
+      ..emailClaim = json['emailClaim'] as String
+      ..keyId = json['keyId'] as String
+      ..uniqueIdClaim = json['uniqueIdClaim'] as String
+      ..useNameIdForEmail = json['useNameIdForEmail'] as bool
+      ..usernameClaim = json['usernameClaim'] as String;
 
 Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
     SAMLv2IdentityProvider instance) {
@@ -7152,21 +7281,23 @@ Map<String, dynamic> _$SAMLv2IdentityProviderToJson(
   val['name'] = instance.name;
   val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
+  val['emailClaim'] = instance.emailClaim;
+  val['keyId'] = instance.keyId;
+  val['uniqueIdClaim'] = instance.uniqueIdClaim;
+  val['useNameIdForEmail'] = instance.useNameIdForEmail;
+  val['usernameClaim'] = instance.usernameClaim;
+  val['assertionConfiguration'] = instance.assertionConfiguration;
   val['buttonImageURL'] = instance.buttonImageURL;
   val['buttonText'] = instance.buttonText;
   val['domains'] = instance.domains.toList();
-  val['emailClaim'] = instance.emailClaim;
   val['idpEndpoint'] = instance.idpEndpoint;
+  val['idpInitiatedConfiguration'] = instance.idpInitiatedConfiguration;
   val['issuer'] = instance.issuer;
-  val['keyId'] = instance.keyId;
   val['loginHintConfiguration'] = instance.loginHintConfiguration;
   val['nameIdFormat'] = instance.nameIdFormat;
   val['postRequest'] = instance.postRequest;
   val['requestSigningKeyId'] = instance.requestSigningKeyId;
   val['signRequest'] = instance.signRequest;
-  val['uniqueIdClaim'] = instance.uniqueIdClaim;
-  val['useNameIdForEmail'] = instance.useNameIdForEmail;
-  val['usernameClaim'] = instance.usernameClaim;
   val['xmlSignatureC14nMethod'] =
       _$CanonicalizationMethodEnumMap[instance.xmlSignatureC14nMethod];
   return val;
@@ -7188,15 +7319,23 @@ Map<String, dynamic> _$SAMLv2IdPInitiatedApplicationConfigurationToJson(
       'data': instance.data,
     };
 
+SAMLv2IdpInitiatedConfiguration _$SAMLv2IdpInitiatedConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    SAMLv2IdpInitiatedConfiguration(
+      issuer: json['issuer'] as String,
+    )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$SAMLv2IdpInitiatedConfigurationToJson(
+        SAMLv2IdpInitiatedConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'issuer': instance.issuer,
+    };
+
 SAMLv2IdPInitiatedIdentityProvider _$SAMLv2IdPInitiatedIdentityProviderFromJson(
         Map<String, dynamic> json) =>
     SAMLv2IdPInitiatedIdentityProvider(
-      emailClaim: json['emailClaim'] as String,
       issuer: json['issuer'] as String,
-      keyId: json['keyId'] as String,
-      uniqueIdClaim: json['uniqueIdClaim'] as String,
-      useNameIdForEmail: json['useNameIdForEmail'] as bool,
-      usernameClaim: json['usernameClaim'] as String,
     )
       ..enabled = json['enabled'] as bool
       ..applicationConfiguration =
@@ -7222,7 +7361,12 @@ SAMLv2IdPInitiatedIdentityProvider _$SAMLv2IdPInitiatedIdentityProviderFromJson(
             IdentityProviderTenantConfiguration.fromJson(
                 e as Map<String, dynamic>)),
       )
-      ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type']);
+      ..type = _$enumDecode(_$IdentityProviderTypeEnumMap, json['type'])
+      ..emailClaim = json['emailClaim'] as String
+      ..keyId = json['keyId'] as String
+      ..uniqueIdClaim = json['uniqueIdClaim'] as String
+      ..useNameIdForEmail = json['useNameIdForEmail'] as bool
+      ..usernameClaim = json['usernameClaim'] as String;
 
 Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
     SAMLv2IdPInitiatedIdentityProvider instance) {
@@ -7249,11 +7393,11 @@ Map<String, dynamic> _$SAMLv2IdPInitiatedIdentityProviderToJson(
   val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
   val['emailClaim'] = instance.emailClaim;
-  val['issuer'] = instance.issuer;
   val['keyId'] = instance.keyId;
   val['uniqueIdClaim'] = instance.uniqueIdClaim;
   val['useNameIdForEmail'] = instance.useNameIdForEmail;
   val['usernameClaim'] = instance.usernameClaim;
+  val['issuer'] = instance.issuer;
   return val;
 }
 
@@ -7778,6 +7922,7 @@ Map<String, dynamic> _$SystemConfigurationResponseToJson(
 SystemLogsExportRequest _$SystemLogsExportRequestFromJson(
         Map<String, dynamic> json) =>
     SystemLogsExportRequest(
+      includeArchived: json['includeArchived'] as bool,
       lastNBytes: json['lastNBytes'] as num,
     )
       ..dateTimeSecondsFormat = json['dateTimeSecondsFormat'] as String
@@ -7788,6 +7933,7 @@ Map<String, dynamic> _$SystemLogsExportRequestToJson(
     <String, dynamic>{
       'dateTimeSecondsFormat': instance.dateTimeSecondsFormat,
       'zoneId': instance.zoneId,
+      'includeArchived': instance.includeArchived,
       'lastNBytes': instance.lastNBytes,
     };
 
