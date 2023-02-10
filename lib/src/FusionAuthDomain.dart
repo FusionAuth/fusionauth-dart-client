@@ -3824,18 +3824,11 @@ enum IdentityProviderLinkingStrategy {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class IdentityProviderLinkRequest extends BaseEventRequest {
-  String displayName;
-  String identityProviderId;
-  String identityProviderUserId;
+  IdentityProviderLink identityProviderLink;
   String pendingIdPLinkId;
-  String userId;
 
   IdentityProviderLinkRequest(
-      {this.displayName,
-      this.identityProviderId,
-      this.identityProviderUserId,
-      this.pendingIdPLinkId,
-      this.userId});
+      {this.identityProviderLink, this.pendingIdPLinkId});
 
   factory IdentityProviderLinkRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLinkRequestFromJson(json);
