@@ -4040,11 +4040,9 @@ Map<String, dynamic> _$IdentityProviderLinkToJson(
 IdentityProviderLinkRequest _$IdentityProviderLinkRequestFromJson(
         Map<String, dynamic> json) =>
     IdentityProviderLinkRequest(
-      displayName: json['displayName'] as String,
-      identityProviderId: json['identityProviderId'] as String,
-      identityProviderUserId: json['identityProviderUserId'] as String,
+      identityProviderLink: IdentityProviderLink.fromJson(
+          json['identityProviderLink'] as Map<String, dynamic>),
       pendingIdPLinkId: json['pendingIdPLinkId'] as String,
-      userId: json['userId'] as String,
     )..eventInfo =
         EventInfo.fromJson(json['eventInfo'] as Map<String, dynamic>);
 
@@ -4052,11 +4050,8 @@ Map<String, dynamic> _$IdentityProviderLinkRequestToJson(
         IdentityProviderLinkRequest instance) =>
     <String, dynamic>{
       'eventInfo': instance.eventInfo,
-      'displayName': instance.displayName,
-      'identityProviderId': instance.identityProviderId,
-      'identityProviderUserId': instance.identityProviderUserId,
+      'identityProviderLink': instance.identityProviderLink,
       'pendingIdPLinkId': instance.pendingIdPLinkId,
-      'userId': instance.userId,
     };
 
 IdentityProviderLinkResponse _$IdentityProviderLinkResponseFromJson(
