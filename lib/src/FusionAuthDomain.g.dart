@@ -3339,7 +3339,7 @@ GoogleApplicationConfiguration _$GoogleApplicationConfigurationFromJson(
       client_secret: json['client_secret'] as String,
       loginMethod: _$enumDecode(
           _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
-      properties: GoogleIdentityProviderParameters.fromJson(
+      properties: GoogleIdentityProviderProperties.fromJson(
           json['properties'] as Map<String, dynamic>),
       scope: json['scope'] as String,
     )
@@ -3369,7 +3369,7 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
       client_secret: json['client_secret'] as String,
       loginMethod: _$enumDecode(
           _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
-      properties: GoogleIdentityProviderParameters.fromJson(
+      properties: GoogleIdentityProviderProperties.fromJson(
           json['properties'] as Map<String, dynamic>),
       scope: json['scope'] as String,
     )
@@ -3431,15 +3431,15 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   return val;
 }
 
-GoogleIdentityProviderParameters _$GoogleIdentityProviderParametersFromJson(
+GoogleIdentityProviderProperties _$GoogleIdentityProviderPropertiesFromJson(
         Map<String, dynamic> json) =>
-    GoogleIdentityProviderParameters(
+    GoogleIdentityProviderProperties(
       api: json['api'] as String,
       button: json['button'] as String,
     );
 
-Map<String, dynamic> _$GoogleIdentityProviderParametersToJson(
-        GoogleIdentityProviderParameters instance) =>
+Map<String, dynamic> _$GoogleIdentityProviderPropertiesToJson(
+        GoogleIdentityProviderProperties instance) =>
     <String, dynamic>{
       'api': instance.api,
       'button': instance.button,
