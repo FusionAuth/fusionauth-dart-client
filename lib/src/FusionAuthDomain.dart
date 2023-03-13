@@ -3266,6 +3266,7 @@ class GoogleApplicationConfiguration
   String client_id;
   String client_secret;
   IdentityProviderLoginMethod loginMethod;
+  GoogleIdentityProviderProperties properties;
   String scope;
 
   GoogleApplicationConfiguration(
@@ -3273,6 +3274,7 @@ class GoogleApplicationConfiguration
       this.client_id,
       this.client_secret,
       this.loginMethod,
+      this.properties,
       this.scope});
 
   factory GoogleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -3290,6 +3292,7 @@ class GoogleIdentityProvider
   String client_id;
   String client_secret;
   IdentityProviderLoginMethod loginMethod;
+  GoogleIdentityProviderProperties properties;
   String scope;
 
   GoogleIdentityProvider(
@@ -3297,11 +3300,29 @@ class GoogleIdentityProvider
       this.client_id,
       this.client_secret,
       this.loginMethod,
+      this.properties,
       this.scope});
 
   factory GoogleIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$GoogleIdentityProviderFromJson(json);
   Map<String, dynamic> toJson() => _$GoogleIdentityProviderToJson(this);
+}
+
+/// Google social login provider parameters.
+///
+/// @author Daniel DeGroff
+@JsonSerializable()
+class GoogleIdentityProviderProperties {
+  String api;
+  String button;
+
+  GoogleIdentityProviderProperties({this.api, this.button});
+
+  factory GoogleIdentityProviderProperties.fromJson(
+          Map<String, dynamic> json) =>
+      _$GoogleIdentityProviderPropertiesFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$GoogleIdentityProviderPropertiesToJson(this);
 }
 
 /// Authorization Grant types as defined by the <a href="https://tools.ietf.org/html/rfc6749">The OAuth 2.0 Authorization
@@ -3854,7 +3875,9 @@ enum IdentityProviderLoginMethod {
   @JsonValue('UsePopup')
   UsePopup,
   @JsonValue('UseRedirect')
-  UseRedirect
+  UseRedirect,
+  @JsonValue('UseVendorJavaScript')
+  UseVendorJavaScript
 }
 
 /// Login API request object used for login to third-party systems (i.e. Login with Facebook).
@@ -7216,17 +7239,32 @@ class SortField {
   Map<String, dynamic> toJson() => _$SortFieldToJson(this);
 }
 
+/// Steam API modes.
+///
+/// @author Daniel DeGroff
+enum SteamAPIMode {
+  @JsonValue('Public')
+  Public,
+  @JsonValue('Partner')
+  Partner
+}
+
 /// @author Brett Pontarelli
 @JsonSerializable()
 class SteamApplicationConfiguration
     extends BaseIdentityProviderApplicationConfiguration {
+  SteamAPIMode apiMode;
   String buttonText;
   String client_id;
   String scope;
   String webAPIKey;
 
   SteamApplicationConfiguration(
-      {this.buttonText, this.client_id, this.scope, this.webAPIKey});
+      {this.apiMode,
+      this.buttonText,
+      this.client_id,
+      this.scope,
+      this.webAPIKey});
 
   factory SteamApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SteamApplicationConfigurationFromJson(json);
@@ -7239,13 +7277,18 @@ class SteamApplicationConfiguration
 @JsonSerializable()
 class SteamIdentityProvider
     extends BaseIdentityProvider<SteamApplicationConfiguration> {
+  SteamAPIMode apiMode;
   String buttonText;
   String client_id;
   String scope;
   String webAPIKey;
 
   SteamIdentityProvider(
-      {this.buttonText, this.client_id, this.scope, this.webAPIKey});
+      {this.apiMode,
+      this.buttonText,
+      this.client_id,
+      this.scope,
+      this.webAPIKey});
 
   factory SteamIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$SteamIdentityProviderFromJson(json);

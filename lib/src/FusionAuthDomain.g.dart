@@ -2808,6 +2808,7 @@ Map<String, dynamic> _$FacebookApplicationConfigurationToJson(
 const _$IdentityProviderLoginMethodEnumMap = {
   IdentityProviderLoginMethod.UsePopup: 'UsePopup',
   IdentityProviderLoginMethod.UseRedirect: 'UseRedirect',
+  IdentityProviderLoginMethod.UseVendorJavaScript: 'UseVendorJavaScript',
 };
 
 FacebookIdentityProvider _$FacebookIdentityProviderFromJson(
@@ -3338,6 +3339,8 @@ GoogleApplicationConfiguration _$GoogleApplicationConfigurationFromJson(
       client_secret: json['client_secret'] as String,
       loginMethod: _$enumDecode(
           _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
+      properties: GoogleIdentityProviderParameters.fromJson(
+          json['properties'] as Map<String, dynamic>),
       scope: json['scope'] as String,
     )
       ..enabled = json['enabled'] as bool
@@ -3354,6 +3357,7 @@ Map<String, dynamic> _$GoogleApplicationConfigurationToJson(
       'client_id': instance.client_id,
       'client_secret': instance.client_secret,
       'loginMethod': _$IdentityProviderLoginMethodEnumMap[instance.loginMethod],
+      'properties': instance.properties,
       'scope': instance.scope,
     };
 
@@ -3365,6 +3369,8 @@ GoogleIdentityProvider _$GoogleIdentityProviderFromJson(
       client_secret: json['client_secret'] as String,
       loginMethod: _$enumDecode(
           _$IdentityProviderLoginMethodEnumMap, json['loginMethod']),
+      properties: GoogleIdentityProviderParameters.fromJson(
+          json['properties'] as Map<String, dynamic>),
       scope: json['scope'] as String,
     )
       ..enabled = json['enabled'] as bool
@@ -3420,9 +3426,24 @@ Map<String, dynamic> _$GoogleIdentityProviderToJson(
   val['client_secret'] = instance.client_secret;
   val['loginMethod'] =
       _$IdentityProviderLoginMethodEnumMap[instance.loginMethod];
+  val['properties'] = instance.properties;
   val['scope'] = instance.scope;
   return val;
 }
+
+GoogleIdentityProviderParameters _$GoogleIdentityProviderParametersFromJson(
+        Map<String, dynamic> json) =>
+    GoogleIdentityProviderParameters(
+      api: json['api'] as String,
+      button: json['button'] as String,
+    );
+
+Map<String, dynamic> _$GoogleIdentityProviderParametersToJson(
+        GoogleIdentityProviderParameters instance) =>
+    <String, dynamic>{
+      'api': instance.api,
+      'button': instance.button,
+    };
 
 Group _$GroupFromJson(Map<String, dynamic> json) => Group(
       data: json['data'] as Map<String, dynamic>,
@@ -7764,6 +7785,7 @@ const _$SortEnumMap = {
 SteamApplicationConfiguration _$SteamApplicationConfigurationFromJson(
         Map<String, dynamic> json) =>
     SteamApplicationConfiguration(
+      apiMode: _$enumDecode(_$SteamAPIModeEnumMap, json['apiMode']),
       buttonText: json['buttonText'] as String,
       client_id: json['client_id'] as String,
       scope: json['scope'] as String,
@@ -7779,15 +7801,22 @@ Map<String, dynamic> _$SteamApplicationConfigurationToJson(
       'enabled': instance.enabled,
       'createRegistration': instance.createRegistration,
       'data': instance.data,
+      'apiMode': _$SteamAPIModeEnumMap[instance.apiMode],
       'buttonText': instance.buttonText,
       'client_id': instance.client_id,
       'scope': instance.scope,
       'webAPIKey': instance.webAPIKey,
     };
 
+const _$SteamAPIModeEnumMap = {
+  SteamAPIMode.Public: 'Public',
+  SteamAPIMode.Partner: 'Partner',
+};
+
 SteamIdentityProvider _$SteamIdentityProviderFromJson(
         Map<String, dynamic> json) =>
     SteamIdentityProvider(
+      apiMode: _$enumDecode(_$SteamAPIModeEnumMap, json['apiMode']),
       buttonText: json['buttonText'] as String,
       client_id: json['client_id'] as String,
       scope: json['scope'] as String,
@@ -7841,6 +7870,7 @@ Map<String, dynamic> _$SteamIdentityProviderToJson(
   val['name'] = instance.name;
   val['tenantConfiguration'] = instance.tenantConfiguration;
   val['type'] = _$IdentityProviderTypeEnumMap[instance.type];
+  val['apiMode'] = _$SteamAPIModeEnumMap[instance.apiMode];
   val['buttonText'] = instance.buttonText;
   val['client_id'] = instance.client_id;
   val['scope'] = instance.scope;
