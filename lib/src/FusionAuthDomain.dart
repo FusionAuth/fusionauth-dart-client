@@ -535,6 +535,51 @@ class ApplicationRole {
   Map<String, dynamic> toJson() => _$ApplicationRoleToJson(this);
 }
 
+/// Search criteria for Applications
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class ApplicationSearchCriteria extends BaseSearchCriteria {
+  String name;
+  ObjectState state;
+  String tenantId;
+
+  ApplicationSearchCriteria({this.name, this.state, this.tenantId});
+
+  factory ApplicationSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$ApplicationSearchCriteriaToJson(this);
+}
+
+/// Search request for Applications
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class ApplicationSearchRequest {
+  ApplicationSearchCriteria search;
+
+  ApplicationSearchRequest({this.search});
+
+  factory ApplicationSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ApplicationSearchRequestToJson(this);
+}
+
+/// Application search response
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class ApplicationSearchResponse {
+  List<Application> applications;
+  num total;
+
+  ApplicationSearchResponse({this.applications, this.total});
+
+  factory ApplicationSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ApplicationSearchResponseToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class ApplicationUnverifiedConfiguration {
@@ -1397,6 +1442,49 @@ class ConsentResponse {
   Map<String, dynamic> toJson() => _$ConsentResponseToJson(this);
 }
 
+/// Search criteria for Consents
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class ConsentSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  ConsentSearchCriteria({this.name});
+
+  factory ConsentSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$ConsentSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$ConsentSearchCriteriaToJson(this);
+}
+
+/// Search request for Consents
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class ConsentSearchRequest {
+  ConsentSearchCriteria search;
+
+  ConsentSearchRequest({this.search});
+
+  factory ConsentSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$ConsentSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ConsentSearchRequestToJson(this);
+}
+
+/// Consent search response
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class ConsentSearchResponse {
+  List<Consent> consents;
+  num total;
+
+  ConsentSearchResponse({this.consents, this.total});
+
+  factory ConsentSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$ConsentSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ConsentSearchResponseToJson(this);
+}
+
 /// Models a consent.
 ///
 /// @author Daniel DeGroff
@@ -1882,6 +1970,49 @@ class EmailTemplateResponse {
   factory EmailTemplateResponse.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateResponseFromJson(json);
   Map<String, dynamic> toJson() => _$EmailTemplateResponseToJson(this);
+}
+
+/// Search criteria for Email templates
+///
+/// @author Mark Manes
+@JsonSerializable()
+class EmailTemplateSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  EmailTemplateSearchCriteria({this.name});
+
+  factory EmailTemplateSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailTemplateSearchCriteriaToJson(this);
+}
+
+/// Search request for email templates
+///
+/// @author Mark Manes
+@JsonSerializable()
+class EmailTemplateSearchRequest {
+  EmailTemplateSearchCriteria search;
+
+  EmailTemplateSearchRequest({this.search});
+
+  factory EmailTemplateSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailTemplateSearchRequestToJson(this);
+}
+
+/// Email template search response
+///
+/// @author Mark Manes
+@JsonSerializable()
+class EmailTemplateSearchResponse {
+  List<EmailTemplate> emailTemplates;
+  num total;
+
+  EmailTemplateSearchResponse({this.emailTemplates, this.total});
+
+  factory EmailTemplateSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$EmailTemplateSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$EmailTemplateSearchResponseToJson(this);
 }
 
 /// @author Daniel DeGroff
@@ -3960,6 +4091,50 @@ class IdentityProviderResponse {
   Map<String, dynamic> toJson() => _$IdentityProviderResponseToJson(this);
 }
 
+/// Search criteria for Identity Providers.
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class IdentityProviderSearchCriteria extends BaseSearchCriteria {
+  String applicationId;
+  String name;
+
+  IdentityProviderSearchCriteria({this.applicationId, this.name});
+
+  factory IdentityProviderSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$IdentityProviderSearchCriteriaToJson(this);
+}
+
+/// Search request for Identity Providers
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class IdentityProviderSearchRequest {
+  IdentityProviderSearchCriteria search;
+
+  IdentityProviderSearchRequest({this.search});
+
+  factory IdentityProviderSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$IdentityProviderSearchRequestToJson(this);
+}
+
+/// Identity Provider response.
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class IdentityProviderSearchResponse {
+  List<BaseIdentityProvider<dynamic>> identityProviders;
+  num total;
+
+  IdentityProviderSearchResponse({this.identityProviders, this.total});
+
+  factory IdentityProviderSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$IdentityProviderSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$IdentityProviderSearchResponseToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class IdentityProviderStartLoginRequest extends BaseLoginRequest {
@@ -4609,6 +4784,51 @@ class KeyResponse {
   Map<String, dynamic> toJson() => _$KeyResponseToJson(this);
 }
 
+/// Search criteria for Keys
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class KeySearchCriteria extends BaseSearchCriteria {
+  KeyAlgorithm algorithm;
+  String name;
+  KeyType type;
+
+  KeySearchCriteria({this.algorithm, this.name, this.type});
+
+  factory KeySearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$KeySearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$KeySearchCriteriaToJson(this);
+}
+
+/// Search request for Keys
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class KeySearchRequest {
+  KeySearchCriteria search;
+
+  KeySearchRequest({this.search});
+
+  factory KeySearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$KeySearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$KeySearchRequestToJson(this);
+}
+
+/// Key search response
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class KeySearchResponse {
+  List<Key> keys;
+  num total;
+
+  KeySearchResponse({this.keys, this.total});
+
+  factory KeySearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$KeySearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$KeySearchResponseToJson(this);
+}
+
 enum KeyType {
   @JsonValue('EC')
   EC,
@@ -4707,6 +4927,51 @@ class LambdaResponse {
   factory LambdaResponse.fromJson(Map<String, dynamic> json) =>
       _$LambdaResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LambdaResponseToJson(this);
+}
+
+/// Search criteria for Lambdas
+///
+/// @author Mark Manes
+@JsonSerializable()
+class LambdaSearchCriteria extends BaseSearchCriteria {
+  String body;
+  String name;
+  LambdaType type;
+
+  LambdaSearchCriteria({this.body, this.name, this.type});
+
+  factory LambdaSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$LambdaSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$LambdaSearchCriteriaToJson(this);
+}
+
+/// Search request for Lambdas
+///
+/// @author Mark Manes
+@JsonSerializable()
+class LambdaSearchRequest {
+  LambdaSearchCriteria search;
+
+  LambdaSearchRequest({this.search});
+
+  factory LambdaSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$LambdaSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$LambdaSearchRequestToJson(this);
+}
+
+/// Lambda search response
+///
+/// @author Mark Manes
+@JsonSerializable()
+class LambdaSearchResponse {
+  List<Lambda> lambdas;
+  num total;
+
+  LambdaSearchResponse({this.lambdas, this.total});
+
+  factory LambdaSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$LambdaSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$LambdaSearchResponseToJson(this);
 }
 
 /// The types of lambdas that indicate how they are invoked by FusionAuth.
@@ -7768,6 +8033,49 @@ class TenantSCIMServerConfiguration extends Enableable {
   Map<String, dynamic> toJson() => _$TenantSCIMServerConfigurationToJson(this);
 }
 
+/// Search criteria for Tenants
+///
+/// @author Mark Manes
+@JsonSerializable()
+class TenantSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  TenantSearchCriteria({this.name});
+
+  factory TenantSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$TenantSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantSearchCriteriaToJson(this);
+}
+
+/// Search request for Tenants
+///
+/// @author Mark Manes
+@JsonSerializable()
+class TenantSearchRequest {
+  TenantSearchCriteria search;
+
+  TenantSearchRequest({this.search});
+
+  factory TenantSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$TenantSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantSearchRequestToJson(this);
+}
+
+/// Tenant search response
+///
+/// @author Mark Manes
+@JsonSerializable()
+class TenantSearchResponse {
+  List<Tenant> tenants;
+  num total;
+
+  TenantSearchResponse({this.tenants, this.total});
+
+  factory TenantSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$TenantSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TenantSearchResponseToJson(this);
+}
+
 /// @author Brett Pontarelli
 @JsonSerializable()
 class TenantSSOConfiguration {
@@ -7927,6 +8235,49 @@ class ThemeResponse {
   factory ThemeResponse.fromJson(Map<String, dynamic> json) =>
       _$ThemeResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ThemeResponseToJson(this);
+}
+
+/// Search criteria for themes
+///
+/// @author Mark Manes
+@JsonSerializable()
+class ThemeSearchCriteria extends BaseSearchCriteria {
+  String name;
+
+  ThemeSearchCriteria({this.name});
+
+  factory ThemeSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$ThemeSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$ThemeSearchCriteriaToJson(this);
+}
+
+/// Search request for Themes.
+///
+/// @author Mark Manes
+@JsonSerializable()
+class ThemeSearchRequest {
+  ThemeSearchCriteria search;
+
+  ThemeSearchRequest({this.search});
+
+  factory ThemeSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$ThemeSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$ThemeSearchRequestToJson(this);
+}
+
+/// Search response for Themes
+///
+/// @author Mark Manes
+@JsonSerializable()
+class ThemeSearchResponse {
+  List<Theme> themes;
+  num total;
+
+  ThemeSearchResponse({this.themes, this.total});
+
+  factory ThemeSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$ThemeSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ThemeSearchResponseToJson(this);
 }
 
 /// A policy for deleting Users.
@@ -8734,6 +9085,53 @@ class UserCommentResponse {
   factory UserCommentResponse.fromJson(Map<String, dynamic> json) =>
       _$UserCommentResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserCommentResponseToJson(this);
+}
+
+/// Search criteria for user comments.
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class UserCommentSearchCriteria extends BaseSearchCriteria {
+  String comment;
+  String commenterId;
+  String tenantId;
+  String userId;
+
+  UserCommentSearchCriteria(
+      {this.comment, this.commenterId, this.tenantId, this.userId});
+
+  factory UserCommentSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$UserCommentSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$UserCommentSearchCriteriaToJson(this);
+}
+
+/// Search request for user comments
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class UserCommentSearchRequest {
+  UserCommentSearchCriteria search;
+
+  UserCommentSearchRequest({this.search});
+
+  factory UserCommentSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$UserCommentSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$UserCommentSearchRequestToJson(this);
+}
+
+/// User comment search response
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class UserCommentSearchResponse {
+  num total;
+  List<UserComment> userComments;
+
+  UserCommentSearchResponse({this.total, this.userComments});
+
+  factory UserCommentSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserCommentSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$UserCommentSearchResponseToJson(this);
 }
 
 /// Models a User consent.
@@ -10038,6 +10436,50 @@ class WebhookResponse {
   factory WebhookResponse.fromJson(Map<String, dynamic> json) =>
       _$WebhookResponseFromJson(json);
   Map<String, dynamic> toJson() => _$WebhookResponseToJson(this);
+}
+
+/// Search criteria for webhooks.
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebhookSearchCriteria extends BaseSearchCriteria {
+  String description;
+  String tenantId;
+
+  WebhookSearchCriteria({this.description, this.tenantId});
+
+  factory WebhookSearchCriteria.fromJson(Map<String, dynamic> json) =>
+      _$WebhookSearchCriteriaFromJson(json);
+  Map<String, dynamic> toJson() => _$WebhookSearchCriteriaToJson(this);
+}
+
+/// Search request for webhooks
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebhookSearchRequest {
+  WebhookSearchCriteria search;
+
+  WebhookSearchRequest({this.search});
+
+  factory WebhookSearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$WebhookSearchRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$WebhookSearchRequestToJson(this);
+}
+
+/// Webhook search response
+///
+/// @author Spencer Witt
+@JsonSerializable()
+class WebhookSearchResponse {
+  num total;
+  List<Webhook> webhooks;
+
+  WebhookSearchResponse({this.total, this.webhooks});
+
+  factory WebhookSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$WebhookSearchResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$WebhookSearchResponseToJson(this);
 }
 
 /// @author Brett Pontarelli

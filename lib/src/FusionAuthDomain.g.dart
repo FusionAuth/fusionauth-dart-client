@@ -636,6 +636,57 @@ Map<String, dynamic> _$ApplicationRoleToJson(ApplicationRole instance) =>
       'name': instance.name,
     };
 
+ApplicationSearchCriteria _$ApplicationSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    ApplicationSearchCriteria(
+      name: json['name'] as String,
+      state: _$enumDecode(_$ObjectStateEnumMap, json['state']),
+      tenantId: json['tenantId'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$ApplicationSearchCriteriaToJson(
+        ApplicationSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'name': instance.name,
+      'state': _$ObjectStateEnumMap[instance.state],
+      'tenantId': instance.tenantId,
+    };
+
+ApplicationSearchRequest _$ApplicationSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    ApplicationSearchRequest(
+      search: ApplicationSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ApplicationSearchRequestToJson(
+        ApplicationSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+ApplicationSearchResponse _$ApplicationSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    ApplicationSearchResponse(
+      applications: (json['applications'] as List<dynamic>)
+          .map((e) => Application.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$ApplicationSearchResponseToJson(
+        ApplicationSearchResponse instance) =>
+    <String, dynamic>{
+      'applications': instance.applications,
+      'total': instance.total,
+    };
+
 ApplicationUnverifiedConfiguration _$ApplicationUnverifiedConfigurationFromJson(
         Map<String, dynamic> json) =>
     ApplicationUnverifiedConfiguration(
@@ -1491,6 +1542,53 @@ Map<String, dynamic> _$ConsentResponseToJson(ConsentResponse instance) =>
       'consents': instance.consents,
     };
 
+ConsentSearchCriteria _$ConsentSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    ConsentSearchCriteria(
+      name: json['name'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$ConsentSearchCriteriaToJson(
+        ConsentSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'name': instance.name,
+    };
+
+ConsentSearchRequest _$ConsentSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    ConsentSearchRequest(
+      search: ConsentSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ConsentSearchRequestToJson(
+        ConsentSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+ConsentSearchResponse _$ConsentSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    ConsentSearchResponse(
+      consents: (json['consents'] as List<dynamic>)
+          .map((e) => Consent.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$ConsentSearchResponseToJson(
+        ConsentSearchResponse instance) =>
+    <String, dynamic>{
+      'consents': instance.consents,
+      'total': instance.total,
+    };
+
 CORSConfiguration _$CORSConfigurationFromJson(Map<String, dynamic> json) =>
     CORSConfiguration(
       allowCredentials: json['allowCredentials'] as bool,
@@ -1907,6 +2005,53 @@ Map<String, dynamic> _$EmailTemplateResponseToJson(
     <String, dynamic>{
       'emailTemplate': instance.emailTemplate,
       'emailTemplates': instance.emailTemplates,
+    };
+
+EmailTemplateSearchCriteria _$EmailTemplateSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    EmailTemplateSearchCriteria(
+      name: json['name'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$EmailTemplateSearchCriteriaToJson(
+        EmailTemplateSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'name': instance.name,
+    };
+
+EmailTemplateSearchRequest _$EmailTemplateSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    EmailTemplateSearchRequest(
+      search: EmailTemplateSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$EmailTemplateSearchRequestToJson(
+        EmailTemplateSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+EmailTemplateSearchResponse _$EmailTemplateSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    EmailTemplateSearchResponse(
+      emailTemplates: (json['emailTemplates'] as List<dynamic>)
+          .map((e) => EmailTemplate.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$EmailTemplateSearchResponseToJson(
+        EmailTemplateSearchResponse instance) =>
+    <String, dynamic>{
+      'emailTemplates': instance.emailTemplates,
+      'total': instance.total,
     };
 
 EmailUnverifiedOptions _$EmailUnverifiedOptionsFromJson(
@@ -4195,6 +4340,56 @@ Map<String, dynamic> _$IdentityProviderResponseToJson(
       'identityProviders': instance.identityProviders,
     };
 
+IdentityProviderSearchCriteria _$IdentityProviderSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    IdentityProviderSearchCriteria(
+      applicationId: json['applicationId'] as String,
+      name: json['name'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$IdentityProviderSearchCriteriaToJson(
+        IdentityProviderSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'applicationId': instance.applicationId,
+      'name': instance.name,
+    };
+
+IdentityProviderSearchRequest _$IdentityProviderSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    IdentityProviderSearchRequest(
+      search: IdentityProviderSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$IdentityProviderSearchRequestToJson(
+        IdentityProviderSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+IdentityProviderSearchResponse _$IdentityProviderSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    IdentityProviderSearchResponse(
+      identityProviders: (json['identityProviders'] as List<dynamic>)
+          .map((e) =>
+              BaseIdentityProvider<dynamic>.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$IdentityProviderSearchResponseToJson(
+        IdentityProviderSearchResponse instance) =>
+    <String, dynamic>{
+      'identityProviders': instance.identityProviders,
+      'total': instance.total,
+    };
+
 IdentityProviderStartLoginRequest _$IdentityProviderStartLoginRequestFromJson(
         Map<String, dynamic> json) =>
     IdentityProviderStartLoginRequest(
@@ -4839,6 +5034,51 @@ Map<String, dynamic> _$KeyResponseToJson(KeyResponse instance) =>
       'keys': instance.keys,
     };
 
+KeySearchCriteria _$KeySearchCriteriaFromJson(Map<String, dynamic> json) =>
+    KeySearchCriteria(
+      algorithm: _$enumDecode(_$KeyAlgorithmEnumMap, json['algorithm']),
+      name: json['name'] as String,
+      type: _$enumDecode(_$KeyTypeEnumMap, json['type']),
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$KeySearchCriteriaToJson(KeySearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'algorithm': _$KeyAlgorithmEnumMap[instance.algorithm],
+      'name': instance.name,
+      'type': _$KeyTypeEnumMap[instance.type],
+    };
+
+KeySearchRequest _$KeySearchRequestFromJson(Map<String, dynamic> json) =>
+    KeySearchRequest(
+      search:
+          KeySearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$KeySearchRequestToJson(KeySearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+KeySearchResponse _$KeySearchResponseFromJson(Map<String, dynamic> json) =>
+    KeySearchResponse(
+      keys: (json['keys'] as List<dynamic>)
+          .map((e) => Key.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$KeySearchResponseToJson(KeySearchResponse instance) =>
+    <String, dynamic>{
+      'keys': instance.keys,
+      'total': instance.total,
+    };
+
 KickstartSuccessEvent _$KickstartSuccessEventFromJson(
         Map<String, dynamic> json) =>
     KickstartSuccessEvent(
@@ -4939,6 +5179,56 @@ Map<String, dynamic> _$LambdaResponseToJson(LambdaResponse instance) =>
     <String, dynamic>{
       'lambda': instance.lambda,
       'lambdas': instance.lambdas,
+    };
+
+LambdaSearchCriteria _$LambdaSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    LambdaSearchCriteria(
+      body: json['body'] as String,
+      name: json['name'] as String,
+      type: _$enumDecode(_$LambdaTypeEnumMap, json['type']),
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$LambdaSearchCriteriaToJson(
+        LambdaSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'body': instance.body,
+      'name': instance.name,
+      'type': _$LambdaTypeEnumMap[instance.type],
+    };
+
+LambdaSearchRequest _$LambdaSearchRequestFromJson(Map<String, dynamic> json) =>
+    LambdaSearchRequest(
+      search:
+          LambdaSearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$LambdaSearchRequestToJson(
+        LambdaSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+LambdaSearchResponse _$LambdaSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    LambdaSearchResponse(
+      lambdas: (json['lambdas'] as List<dynamic>)
+          .map((e) => Lambda.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$LambdaSearchResponseToJson(
+        LambdaSearchResponse instance) =>
+    <String, dynamic>{
+      'lambdas': instance.lambdas,
+      'total': instance.total,
     };
 
 LDAPConnectorConfiguration _$LDAPConnectorConfigurationFromJson(
@@ -8414,6 +8704,52 @@ Map<String, dynamic> _$TenantSCIMServerConfigurationToJson(
       'serverEntityTypeId': instance.serverEntityTypeId,
     };
 
+TenantSearchCriteria _$TenantSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    TenantSearchCriteria(
+      name: json['name'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$TenantSearchCriteriaToJson(
+        TenantSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'name': instance.name,
+    };
+
+TenantSearchRequest _$TenantSearchRequestFromJson(Map<String, dynamic> json) =>
+    TenantSearchRequest(
+      search:
+          TenantSearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$TenantSearchRequestToJson(
+        TenantSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+TenantSearchResponse _$TenantSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    TenantSearchResponse(
+      tenants: (json['tenants'] as List<dynamic>)
+          .map((e) => Tenant.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$TenantSearchResponseToJson(
+        TenantSearchResponse instance) =>
+    <String, dynamic>{
+      'tenants': instance.tenants,
+      'total': instance.total,
+    };
+
 TenantSSOConfiguration _$TenantSSOConfigurationFromJson(
         Map<String, dynamic> json) =>
     TenantSSOConfiguration(
@@ -8585,6 +8921,49 @@ Map<String, dynamic> _$ThemeResponseToJson(ThemeResponse instance) =>
     <String, dynamic>{
       'theme': instance.theme,
       'themes': instance.themes,
+    };
+
+ThemeSearchCriteria _$ThemeSearchCriteriaFromJson(Map<String, dynamic> json) =>
+    ThemeSearchCriteria(
+      name: json['name'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$ThemeSearchCriteriaToJson(
+        ThemeSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'name': instance.name,
+    };
+
+ThemeSearchRequest _$ThemeSearchRequestFromJson(Map<String, dynamic> json) =>
+    ThemeSearchRequest(
+      search:
+          ThemeSearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ThemeSearchRequestToJson(ThemeSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+ThemeSearchResponse _$ThemeSearchResponseFromJson(Map<String, dynamic> json) =>
+    ThemeSearchResponse(
+      themes: (json['themes'] as List<dynamic>)
+          .map((e) => Theme.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as num,
+    );
+
+Map<String, dynamic> _$ThemeSearchResponseToJson(
+        ThemeSearchResponse instance) =>
+    <String, dynamic>{
+      'themes': instance.themes,
+      'total': instance.total,
     };
 
 TimeBasedDeletePolicy _$TimeBasedDeletePolicyFromJson(
@@ -9523,6 +9902,59 @@ Map<String, dynamic> _$UserCommentResponseToJson(
         UserCommentResponse instance) =>
     <String, dynamic>{
       'userComment': instance.userComment,
+      'userComments': instance.userComments,
+    };
+
+UserCommentSearchCriteria _$UserCommentSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    UserCommentSearchCriteria(
+      comment: json['comment'] as String,
+      commenterId: json['commenterId'] as String,
+      tenantId: json['tenantId'] as String,
+      userId: json['userId'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$UserCommentSearchCriteriaToJson(
+        UserCommentSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'comment': instance.comment,
+      'commenterId': instance.commenterId,
+      'tenantId': instance.tenantId,
+      'userId': instance.userId,
+    };
+
+UserCommentSearchRequest _$UserCommentSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    UserCommentSearchRequest(
+      search: UserCommentSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$UserCommentSearchRequestToJson(
+        UserCommentSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+UserCommentSearchResponse _$UserCommentSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    UserCommentSearchResponse(
+      total: json['total'] as num,
+      userComments: (json['userComments'] as List<dynamic>)
+          .map((e) => UserComment.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$UserCommentSearchResponseToJson(
+        UserCommentSearchResponse instance) =>
+    <String, dynamic>{
+      'total': instance.total,
       'userComments': instance.userComments,
     };
 
@@ -11071,6 +11503,55 @@ WebhookResponse _$WebhookResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$WebhookResponseToJson(WebhookResponse instance) =>
     <String, dynamic>{
       'webhook': instance.webhook,
+      'webhooks': instance.webhooks,
+    };
+
+WebhookSearchCriteria _$WebhookSearchCriteriaFromJson(
+        Map<String, dynamic> json) =>
+    WebhookSearchCriteria(
+      description: json['description'] as String,
+      tenantId: json['tenantId'] as String,
+    )
+      ..numberOfResults = json['numberOfResults'] as num
+      ..orderBy = json['orderBy'] as String
+      ..startRow = json['startRow'] as num;
+
+Map<String, dynamic> _$WebhookSearchCriteriaToJson(
+        WebhookSearchCriteria instance) =>
+    <String, dynamic>{
+      'numberOfResults': instance.numberOfResults,
+      'orderBy': instance.orderBy,
+      'startRow': instance.startRow,
+      'description': instance.description,
+      'tenantId': instance.tenantId,
+    };
+
+WebhookSearchRequest _$WebhookSearchRequestFromJson(
+        Map<String, dynamic> json) =>
+    WebhookSearchRequest(
+      search: WebhookSearchCriteria.fromJson(
+          json['search'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WebhookSearchRequestToJson(
+        WebhookSearchRequest instance) =>
+    <String, dynamic>{
+      'search': instance.search,
+    };
+
+WebhookSearchResponse _$WebhookSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    WebhookSearchResponse(
+      total: json['total'] as num,
+      webhooks: (json['webhooks'] as List<dynamic>)
+          .map((e) => Webhook.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$WebhookSearchResponseToJson(
+        WebhookSearchResponse instance) =>
+    <String, dynamic>{
+      'total': instance.total,
       'webhooks': instance.webhooks,
     };
 

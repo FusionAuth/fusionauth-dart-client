@@ -4087,6 +4087,21 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches applications with the specified criteria and pagination.
+  ///
+  /// @param {ApplicationSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<ApplicationSearchResponse>>}
+  Future<ClientResponse<ApplicationSearchResponse, Errors>> searchApplications(
+      ApplicationSearchRequest request) {
+    return _start<ApplicationSearchResponse, Errors>()
+        .withUri('/api/application/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => ApplicationSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the audit logs with the specified criteria and pagination.
   ///
   /// @param {AuditLogSearchRequest} request The search criteria and pagination information.
@@ -4099,6 +4114,36 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => AuditLogSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches consents with the specified criteria and pagination.
+  ///
+  /// @param {ConsentSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<ConsentSearchResponse>>}
+  Future<ClientResponse<ConsentSearchResponse, Errors>> searchConsents(
+      ConsentSearchRequest request) {
+    return _start<ConsentSearchResponse, Errors>()
+        .withUri('/api/consent/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => ConsentSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches email templates with the specified criteria and pagination.
+  ///
+  /// @param {EmailTemplateSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<EmailTemplateSearchResponse>>}
+  Future<ClientResponse<EmailTemplateSearchResponse, Errors>>
+      searchEmailTemplates(EmailTemplateSearchRequest request) {
+    return _start<EmailTemplateSearchResponse, Errors>()
+        .withUri('/api/email/template/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => EmailTemplateSearchResponse.fromJson(d)))
         .go();
   }
 
@@ -4222,6 +4267,51 @@ class FusionAuthClient {
         .go();
   }
 
+  /// Searches identity providers with the specified criteria and pagination.
+  ///
+  /// @param {IdentityProviderSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<IdentityProviderSearchResponse>>}
+  Future<ClientResponse<IdentityProviderSearchResponse, Errors>>
+      searchIdentityProviders(IdentityProviderSearchRequest request) {
+    return _start<IdentityProviderSearchResponse, Errors>()
+        .withUri('/api/identity-provider/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => IdentityProviderSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches keys with the specified criteria and pagination.
+  ///
+  /// @param {KeySearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<KeySearchResponse>>}
+  Future<ClientResponse<KeySearchResponse, Errors>> searchKeys(
+      KeySearchRequest request) {
+    return _start<KeySearchResponse, Errors>()
+        .withUri('/api/key/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(
+            defaultResponseHandlerBuilder((d) => KeySearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches lambdas with the specified criteria and pagination.
+  ///
+  /// @param {LambdaSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<LambdaSearchResponse>>}
+  Future<ClientResponse<LambdaSearchResponse, Errors>> searchLambdas(
+      LambdaSearchRequest request) {
+    return _start<LambdaSearchResponse, Errors>()
+        .withUri('/api/lambda/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => LambdaSearchResponse.fromJson(d)))
+        .go();
+  }
+
   /// Searches the login records with the specified criteria and pagination.
   ///
   /// @param {LoginRecordSearchRequest} request The search criteria and pagination information.
@@ -4234,6 +4324,51 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(defaultResponseHandlerBuilder(
             (d) => LoginRecordSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches tenants with the specified criteria and pagination.
+  ///
+  /// @param {TenantSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<TenantSearchResponse>>}
+  Future<ClientResponse<TenantSearchResponse, Errors>> searchTenants(
+      TenantSearchRequest request) {
+    return _start<TenantSearchResponse, Errors>()
+        .withUri('/api/tenant/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => TenantSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches themes with the specified criteria and pagination.
+  ///
+  /// @param {ThemeSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<ThemeSearchResponse>>}
+  Future<ClientResponse<ThemeSearchResponse, Errors>> searchThemes(
+      ThemeSearchRequest request) {
+    return _start<ThemeSearchResponse, Errors>()
+        .withUri('/api/theme/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => ThemeSearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches user comments with the specified criteria and pagination.
+  ///
+  /// @param {UserCommentSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<UserCommentSearchResponse>>}
+  Future<ClientResponse<UserCommentSearchResponse, Errors>> searchUserComments(
+      UserCommentSearchRequest request) {
+    return _start<UserCommentSearchResponse, Errors>()
+        .withUri('/api/user/comment/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => UserCommentSearchResponse.fromJson(d)))
         .go();
   }
 
@@ -4299,6 +4434,21 @@ class FusionAuthClient {
         .withMethod('POST')
         .withResponseHandler(
             defaultResponseHandlerBuilder((d) => SearchResponse.fromJson(d)))
+        .go();
+  }
+
+  /// Searches webhooks with the specified criteria and pagination.
+  ///
+  /// @param {WebhookSearchRequest} request The search criteria and pagination information.
+  /// @returns {Promise<ClientResponse<WebhookSearchResponse>>}
+  Future<ClientResponse<WebhookSearchResponse, Errors>> searchWebhooks(
+      WebhookSearchRequest request) {
+    return _start<WebhookSearchResponse, Errors>()
+        .withUri('/api/webhook/search')
+        .withJSONBody(request)
+        .withMethod('POST')
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => WebhookSearchResponse.fromJson(d)))
         .go();
   }
 
