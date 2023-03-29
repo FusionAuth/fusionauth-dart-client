@@ -3759,15 +3759,15 @@ class FusionAuthClient {
   /// Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
   ///
   /// @param {String} encodedJWT The encoded JWT (access token).
-  /// @returns {Promise<ClientResponse<UserResponse>>}
-  Future<ClientResponse<UserResponse, OAuthError>>
+  /// @returns {Promise<ClientResponse<Map<String, dynamic>>>}
+  Future<ClientResponse<Map<String, dynamic>, OAuthError>>
       retrieveUserInfoFromAccessToken(String encodedJWT) {
-    return _startAnonymous<UserResponse, OAuthError>()
+    return _startAnonymous<Map<String, dynamic>, OAuthError>()
         .withUri('/oauth2/userinfo')
         .withAuthorization('Bearer ' + encodedJWT)
         .withMethod('GET')
-        .withResponseHandler(
-            defaultResponseHandlerBuilder((d) => UserResponse.fromJson(d)))
+        .withResponseHandler(defaultResponseHandlerBuilder(
+            (d) => Map<String, dynamic>.fromJson(d)))
         .go();
   }
 
