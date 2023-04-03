@@ -521,6 +521,8 @@ ApplicationFormConfiguration _$ApplicationFormConfigurationFromJson(
         Map<String, dynamic> json) =>
     ApplicationFormConfiguration(
       adminRegistrationFormId: json['adminRegistrationFormId'] as String,
+      selfServiceFormConfiguration: SelfServiceFormConfiguration.fromJson(
+          json['selfServiceFormConfiguration'] as Map<String, dynamic>),
       selfServiceFormId: json['selfServiceFormId'] as String,
     );
 
@@ -528,6 +530,7 @@ Map<String, dynamic> _$ApplicationFormConfigurationToJson(
         ApplicationFormConfiguration instance) =>
     <String, dynamic>{
       'adminRegistrationFormId': instance.adminRegistrationFormId,
+      'selfServiceFormConfiguration': instance.selfServiceFormConfiguration,
       'selfServiceFormId': instance.selfServiceFormId,
     };
 
@@ -7883,6 +7886,20 @@ const _$ContentStatusEnumMap = {
   ContentStatus.REJECTED: 'REJECTED',
 };
 
+SelfServiceFormConfiguration _$SelfServiceFormConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    SelfServiceFormConfiguration(
+      requireCurrentPasswordOnPasswordChange:
+          json['requireCurrentPasswordOnPasswordChange'] as bool,
+    );
+
+Map<String, dynamic> _$SelfServiceFormConfigurationToJson(
+        SelfServiceFormConfiguration instance) =>
+    <String, dynamic>{
+      'requireCurrentPasswordOnPasswordChange':
+          instance.requireCurrentPasswordOnPasswordChange,
+    };
+
 SendRequest _$SendRequestFromJson(Map<String, dynamic> json) => SendRequest(
       applicationId: json['applicationId'] as String,
       bccAddresses: (json['bccAddresses'] as List<dynamic>)
@@ -10841,6 +10858,7 @@ Map<String, dynamic> _$UserRegistrationVerifiedEventToJson(
 
 UserRequest _$UserRequestFromJson(Map<String, dynamic> json) => UserRequest(
       applicationId: json['applicationId'] as String,
+      currentPassword: json['currentPassword'] as String,
       disableDomainBlock: json['disableDomainBlock'] as bool,
       sendSetPasswordEmail: json['sendSetPasswordEmail'] as bool,
       skipVerification: json['skipVerification'] as bool,
@@ -10852,6 +10870,7 @@ Map<String, dynamic> _$UserRequestToJson(UserRequest instance) =>
     <String, dynamic>{
       'eventInfo': instance.eventInfo,
       'applicationId': instance.applicationId,
+      'currentPassword': instance.currentPassword,
       'disableDomainBlock': instance.disableDomainBlock,
       'sendSetPasswordEmail': instance.sendSetPasswordEmail,
       'skipVerification': instance.skipVerification,

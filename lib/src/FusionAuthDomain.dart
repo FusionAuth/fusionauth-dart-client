@@ -422,10 +422,13 @@ class ApplicationExternalIdentifierConfiguration {
 @JsonSerializable()
 class ApplicationFormConfiguration {
   String adminRegistrationFormId;
+  SelfServiceFormConfiguration selfServiceFormConfiguration;
   String selfServiceFormId;
 
   ApplicationFormConfiguration(
-      {this.adminRegistrationFormId, this.selfServiceFormId});
+      {this.adminRegistrationFormId,
+      this.selfServiceFormConfiguration,
+      this.selfServiceFormId});
 
   factory ApplicationFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ApplicationFormConfigurationFromJson(json);
@@ -7381,6 +7384,18 @@ class SecureIdentity {
   Map<String, dynamic> toJson() => _$SecureIdentityToJson(this);
 }
 
+/// @author andrewpai
+@JsonSerializable()
+class SelfServiceFormConfiguration {
+  bool requireCurrentPasswordOnPasswordChange;
+
+  SelfServiceFormConfiguration({this.requireCurrentPasswordOnPasswordChange});
+
+  factory SelfServiceFormConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$SelfServiceFormConfigurationFromJson(json);
+  Map<String, dynamic> toJson() => _$SelfServiceFormConfigurationToJson(this);
+}
+
 /// @author Daniel DeGroff
 @JsonSerializable()
 class SendRequest {
@@ -9770,6 +9785,7 @@ class UserRegistrationVerifiedEvent extends BaseEvent {
 @JsonSerializable()
 class UserRequest extends BaseEventRequest {
   String applicationId;
+  String currentPassword;
   bool disableDomainBlock;
   bool sendSetPasswordEmail;
   bool skipVerification;
@@ -9777,6 +9793,7 @@ class UserRequest extends BaseEventRequest {
 
   UserRequest(
       {this.applicationId,
+      this.currentPassword,
       this.disableDomainBlock,
       this.sendSetPasswordEmail,
       this.skipVerification,
