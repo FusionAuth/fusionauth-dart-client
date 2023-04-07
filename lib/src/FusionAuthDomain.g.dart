@@ -4348,6 +4348,7 @@ IdentityProviderSearchCriteria _$IdentityProviderSearchCriteriaFromJson(
     IdentityProviderSearchCriteria(
       applicationId: json['applicationId'] as String,
       name: json['name'] as String,
+      type: json['type'] as String,
     )
       ..numberOfResults = json['numberOfResults'] as num
       ..orderBy = json['orderBy'] as String
@@ -4361,6 +4362,7 @@ Map<String, dynamic> _$IdentityProviderSearchCriteriaToJson(
       'startRow': instance.startRow,
       'applicationId': instance.applicationId,
       'name': instance.name,
+      'type': instance.type,
     };
 
 IdentityProviderSearchRequest _$IdentityProviderSearchRequestFromJson(
@@ -11530,6 +11532,7 @@ WebhookSearchCriteria _$WebhookSearchCriteriaFromJson(
     WebhookSearchCriteria(
       description: json['description'] as String,
       tenantId: json['tenantId'] as String,
+      url: json['url'] as String,
     )
       ..numberOfResults = json['numberOfResults'] as num
       ..orderBy = json['orderBy'] as String
@@ -11543,6 +11546,7 @@ Map<String, dynamic> _$WebhookSearchCriteriaToJson(
       'startRow': instance.startRow,
       'description': instance.description,
       'tenantId': instance.tenantId,
+      'url': instance.url,
     };
 
 WebhookSearchRequest _$WebhookSearchRequestFromJson(

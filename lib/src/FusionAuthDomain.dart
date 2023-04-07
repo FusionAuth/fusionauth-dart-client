@@ -4101,8 +4101,9 @@ class IdentityProviderResponse {
 class IdentityProviderSearchCriteria extends BaseSearchCriteria {
   String applicationId;
   String name;
+  String type;
 
-  IdentityProviderSearchCriteria({this.applicationId, this.name});
+  IdentityProviderSearchCriteria({this.applicationId, this.name, this.type});
 
   factory IdentityProviderSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderSearchCriteriaFromJson(json);
@@ -10462,8 +10463,9 @@ class WebhookResponse {
 class WebhookSearchCriteria extends BaseSearchCriteria {
   String description;
   String tenantId;
+  String url;
 
-  WebhookSearchCriteria({this.description, this.tenantId});
+  WebhookSearchCriteria({this.description, this.tenantId, this.url});
 
   factory WebhookSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$WebhookSearchCriteriaFromJson(json);
