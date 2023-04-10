@@ -4101,7 +4101,7 @@ class IdentityProviderResponse {
 class IdentityProviderSearchCriteria extends BaseSearchCriteria {
   String applicationId;
   String name;
-  String type;
+  IdentityProviderType type;
 
   IdentityProviderSearchCriteria({this.applicationId, this.name, this.type});
 
