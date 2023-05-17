@@ -4543,6 +4543,7 @@ class JWTConfiguration extends Enableable {
   String idTokenKeyId;
   RefreshTokenExpirationPolicy refreshTokenExpirationPolicy;
   RefreshTokenRevocationPolicy refreshTokenRevocationPolicy;
+  RefreshTokenSlidingWindowConfiguration refreshTokenSlidingWindowConfiguration;
   num refreshTokenTimeToLiveInMinutes;
   RefreshTokenUsagePolicy refreshTokenUsagePolicy;
   num timeToLiveInSeconds;
@@ -4552,6 +4553,7 @@ class JWTConfiguration extends Enableable {
       this.idTokenKeyId,
       this.refreshTokenExpirationPolicy,
       this.refreshTokenRevocationPolicy,
+      this.refreshTokenSlidingWindowConfiguration,
       this.refreshTokenTimeToLiveInMinutes,
       this.refreshTokenUsagePolicy,
       this.timeToLiveInSeconds});
@@ -6765,7 +6767,9 @@ enum RefreshTokenExpirationPolicy {
   @JsonValue('Fixed')
   Fixed,
   @JsonValue('SlidingWindow')
-  SlidingWindow
+  SlidingWindow,
+  @JsonValue('SlidingWindowWithMaximumLifetime')
+  SlidingWindowWithMaximumLifetime
 }
 
 /// Refresh Token Import request.
@@ -6829,6 +6833,20 @@ class RefreshTokenRevokeRequest extends BaseEventRequest {
   factory RefreshTokenRevokeRequest.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenRevokeRequestFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenRevokeRequestToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class RefreshTokenSlidingWindowConfiguration {
+  num maximumTimeToLiveInMinutes;
+
+  RefreshTokenSlidingWindowConfiguration({this.maximumTimeToLiveInMinutes});
+
+  factory RefreshTokenSlidingWindowConfiguration.fromJson(
+          Map<String, dynamic> json) =>
+      _$RefreshTokenSlidingWindowConfigurationFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$RefreshTokenSlidingWindowConfigurationToJson(this);
 }
 
 /// @author Daniel DeGroff
