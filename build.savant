@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2022, FusionAuth, All Rights Reserved
+ * Copyright (c) 2019-2023, FusionAuth, All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,9 +66,9 @@ target(name: "build", description: "Builds the generated file") {
     fail('Failed to build the generated files')
   }
 
-  if (new ProcessBuilder('dart', 'pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs').inheritIO().start().waitFor() != 0) {
-    fail('Failed to build the generated files')
-  }
+//  if (new ProcessBuilder('dart', 'run', 'build_runner', 'build', '--delete-conflicting-outputs').inheritIO().start().waitFor() != 0) {
+//    fail('Failed to build the generated files')
+//  }
 
   format()
 }
