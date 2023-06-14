@@ -1792,7 +1792,7 @@ class FusionAuthClient {
   /// @param {String} token The access token returned by this OAuth provider as the result of a successful client credentials grant.
   /// @returns {Promise<ClientResponse<Map<String, dynamic>>>}
   Future<ClientResponse<Map<String, dynamic>, OAuthError>>
-      introspectAccessToken(String token) {
+      introspectClientCredentialsAccessToken(String token) {
     var body = Map<String, dynamic>();
     body['token'] = token;
     return _startAnonymous<Map<String, dynamic>, OAuthError>()

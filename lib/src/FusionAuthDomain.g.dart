@@ -2353,6 +2353,7 @@ const _$OAuthErrorReasonEnumMap = {
       'access_token_unavailable_for_processing',
   OAuthErrorReason.access_token_failed_processing:
       'access_token_failed_processing',
+  OAuthErrorReason.access_token_invalid: 'access_token_invalid',
   OAuthErrorReason.refresh_token_not_found: 'refresh_token_not_found',
   OAuthErrorReason.refresh_token_type_not_supported:
       'refresh_token_type_not_supported',
@@ -2377,6 +2378,7 @@ const _$OAuthErrorReasonEnumMap = {
   OAuthErrorReason.invalid_target_entity_scope: 'invalid_target_entity_scope',
   OAuthErrorReason.invalid_entity_permission_scope:
       'invalid_entity_permission_scope',
+  OAuthErrorReason.invalid_user_id: 'invalid_user_id',
   OAuthErrorReason.grant_type_disabled: 'grant_type_disabled',
   OAuthErrorReason.missing_client_id: 'missing_client_id',
   OAuthErrorReason.missing_client_secret: 'missing_client_secret',
@@ -2390,6 +2392,7 @@ const _$OAuthErrorReasonEnumMap = {
   OAuthErrorReason.missing_response_type: 'missing_response_type',
   OAuthErrorReason.missing_token: 'missing_token',
   OAuthErrorReason.missing_user_code: 'missing_user_code',
+  OAuthErrorReason.missing_user_id: 'missing_user_id',
   OAuthErrorReason.missing_verification_uri: 'missing_verification_uri',
   OAuthErrorReason.login_prevented: 'login_prevented',
   OAuthErrorReason.not_licensed: 'not_licensed',
@@ -3683,6 +3686,28 @@ Map<String, dynamic> _$RefreshTokenResponseToJson(
       'refreshTokens': instance.refreshTokens,
     };
 
+DeviceApprovalResponse _$DeviceApprovalResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeviceApprovalResponse(
+      deviceGrantStatus: json['deviceGrantStatus'] as String,
+      deviceInfo:
+          DeviceInfo.fromJson(json['deviceInfo'] as Map<String, dynamic>),
+      identityProviderLink: IdentityProviderLink.fromJson(
+          json['identityProviderLink'] as Map<String, dynamic>),
+      tenantId: json['tenantId'] as String,
+      userId: json['userId'] as String,
+    );
+
+Map<String, dynamic> _$DeviceApprovalResponseToJson(
+        DeviceApprovalResponse instance) =>
+    <String, dynamic>{
+      'deviceGrantStatus': instance.deviceGrantStatus,
+      'deviceInfo': instance.deviceInfo,
+      'identityProviderLink': instance.identityProviderLink,
+      'tenantId': instance.tenantId,
+      'userId': instance.userId,
+    };
+
 JWT _$JWTFromJson(Map<String, dynamic> json) => JWT(
       aud: json['aud'],
       exp: json['exp'] as num,
@@ -4967,6 +4992,7 @@ const _$ProofKeyForCodeExchangePolicyEnumMap = {
 TwoFactorSendRequest _$TwoFactorSendRequestFromJson(
         Map<String, dynamic> json) =>
     TwoFactorSendRequest(
+      applicationId: json['applicationId'] as String,
       email: json['email'] as String,
       method: json['method'] as String,
       methodId: json['methodId'] as String,
@@ -4977,6 +5003,7 @@ TwoFactorSendRequest _$TwoFactorSendRequestFromJson(
 Map<String, dynamic> _$TwoFactorSendRequestToJson(
         TwoFactorSendRequest instance) =>
     <String, dynamic>{
+      'applicationId': instance.applicationId,
       'email': instance.email,
       'method': instance.method,
       'methodId': instance.methodId,
@@ -6015,7 +6042,7 @@ DeviceInfo _$DeviceInfoFromJson(Map<String, dynamic> json) => DeviceInfo(
       lastAccessedAddress: json['lastAccessedAddress'] as String,
       lastAccessedInstant: json['lastAccessedInstant'] as num,
       name: json['name'] as String,
-      type: _$enumDecode(_$DeviceTypeEnumMap, json['type']),
+      type: json['type'] as String,
     );
 
 Map<String, dynamic> _$DeviceInfoToJson(DeviceInfo instance) =>
@@ -6024,20 +6051,8 @@ Map<String, dynamic> _$DeviceInfoToJson(DeviceInfo instance) =>
       'lastAccessedAddress': instance.lastAccessedAddress,
       'lastAccessedInstant': instance.lastAccessedInstant,
       'name': instance.name,
-      'type': _$DeviceTypeEnumMap[instance.type],
+      'type': instance.type,
     };
-
-const _$DeviceTypeEnumMap = {
-  DeviceType.BROWSER: 'BROWSER',
-  DeviceType.DESKTOP: 'DESKTOP',
-  DeviceType.LAPTOP: 'LAPTOP',
-  DeviceType.MOBILE: 'MOBILE',
-  DeviceType.OTHER: 'OTHER',
-  DeviceType.SERVER: 'SERVER',
-  DeviceType.TABLET: 'TABLET',
-  DeviceType.TV: 'TV',
-  DeviceType.UNKNOWN: 'UNKNOWN',
-};
 
 SMSMessageTemplate _$SMSMessageTemplateFromJson(Map<String, dynamic> json) =>
     SMSMessageTemplate(
@@ -8062,6 +8077,8 @@ IdentityProviderLink _$IdentityProviderLinkFromJson(
       data: json['data'] as Map<String, dynamic>,
       displayName: json['displayName'] as String,
       identityProviderId: json['identityProviderId'] as String,
+      identityProviderType: _$enumDecode(
+          _$IdentityProviderTypeEnumMap, json['identityProviderType']),
       identityProviderUserId: json['identityProviderUserId'] as String,
       insertInstant: json['insertInstant'] as num,
       lastLoginInstant: json['lastLoginInstant'] as num,
@@ -8076,6 +8093,8 @@ Map<String, dynamic> _$IdentityProviderLinkToJson(
       'data': instance.data,
       'displayName': instance.displayName,
       'identityProviderId': instance.identityProviderId,
+      'identityProviderType':
+          _$IdentityProviderTypeEnumMap[instance.identityProviderType],
       'identityProviderUserId': instance.identityProviderUserId,
       'insertInstant': instance.insertInstant,
       'lastLoginInstant': instance.lastLoginInstant,
@@ -9964,6 +9983,30 @@ Map<String, dynamic> _$JWTPublicKeyUpdateEventToJson(
       'applicationIds': instance.applicationIds.toList(),
     };
 
+DeviceUserCodeResponse _$DeviceUserCodeResponseFromJson(
+        Map<String, dynamic> json) =>
+    DeviceUserCodeResponse(
+      client_id: json['client_id'] as String,
+      deviceInfo:
+          DeviceInfo.fromJson(json['deviceInfo'] as Map<String, dynamic>),
+      expires_in: json['expires_in'] as num,
+      pendingIdPLink: PendingIdPLink.fromJson(
+          json['pendingIdPLink'] as Map<String, dynamic>),
+      tenantId: json['tenantId'] as String,
+      user_code: json['user_code'] as String,
+    );
+
+Map<String, dynamic> _$DeviceUserCodeResponseToJson(
+        DeviceUserCodeResponse instance) =>
+    <String, dynamic>{
+      'client_id': instance.client_id,
+      'deviceInfo': instance.deviceInfo,
+      'expires_in': instance.expires_in,
+      'pendingIdPLink': instance.pendingIdPLink,
+      'tenantId': instance.tenantId,
+      'user_code': instance.user_code,
+    };
+
 EntityType _$EntityTypeFromJson(Map<String, dynamic> json) => EntityType(
       data: json['data'] as Map<String, dynamic>,
       id: json['id'] as String,
@@ -11445,6 +11488,27 @@ Map<String, dynamic> _$GroupMemberRemoveEventToJson(
       'type': _$EventTypeEnumMap[instance.type],
       'group': instance.group,
       'members': instance.members,
+    };
+
+IdentityProviderPendingLinkResponse
+    _$IdentityProviderPendingLinkResponseFromJson(Map<String, dynamic> json) =>
+        IdentityProviderPendingLinkResponse(
+          identityProviderTenantConfiguration:
+              IdentityProviderTenantConfiguration.fromJson(
+                  json['identityProviderTenantConfiguration']
+                      as Map<String, dynamic>),
+          linkCount: json['linkCount'] as num,
+          pendingIdPLink: PendingIdPLink.fromJson(
+              json['pendingIdPLink'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$IdentityProviderPendingLinkResponseToJson(
+        IdentityProviderPendingLinkResponse instance) =>
+    <String, dynamic>{
+      'identityProviderTenantConfiguration':
+          instance.identityProviderTenantConfiguration,
+      'linkCount': instance.linkCount,
+      'pendingIdPLink': instance.pendingIdPLink,
     };
 
 ChangePasswordResponse _$ChangePasswordResponseFromJson(
