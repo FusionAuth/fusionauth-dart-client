@@ -3182,6 +3182,27 @@ class RefreshTokenResponse {
   Map<String, dynamic> toJson() => _$RefreshTokenResponseToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class DeviceApprovalResponse {
+  String deviceGrantStatus;
+  DeviceInfo deviceInfo;
+  IdentityProviderLink identityProviderLink;
+  String tenantId;
+  String userId;
+
+  DeviceApprovalResponse(
+      {this.deviceGrantStatus,
+      this.deviceInfo,
+      this.identityProviderLink,
+      this.tenantId,
+      this.userId});
+
+  factory DeviceApprovalResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeviceApprovalResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$DeviceApprovalResponseToJson(this);
+}
+
 /// JSON Web Token (JWT) as defined by RFC 7519.
 /// <pre>
 /// From RFC 7519 Section 1. Introduction:
@@ -4208,6 +4229,7 @@ class OAuth2Configuration {
 /// @author Daniel DeGroff
 @JsonSerializable()
 class TwoFactorSendRequest {
+  String applicationId;
   String email;
   String method;
   String methodId;
@@ -4215,7 +4237,12 @@ class TwoFactorSendRequest {
   String userId;
 
   TwoFactorSendRequest(
-      {this.email, this.method, this.methodId, this.mobilePhone, this.userId});
+      {this.applicationId,
+      this.email,
+      this.method,
+      this.methodId,
+      this.mobilePhone,
+      this.userId});
 
   factory TwoFactorSendRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorSendRequestFromJson(json);
@@ -5132,7 +5159,7 @@ class DeviceInfo {
   String lastAccessedAddress;
   num lastAccessedInstant;
   String name;
-  DeviceType type;
+  String type;
 
   DeviceInfo(
       {this.description,
@@ -6959,6 +6986,7 @@ class IdentityProviderLink {
   Map<String, dynamic> data;
   String displayName;
   String identityProviderId;
+  IdentityProviderType identityProviderType;
   String identityProviderUserId;
   num insertInstant;
   num lastLoginInstant;
@@ -6970,6 +6998,7 @@ class IdentityProviderLink {
       {this.data,
       this.displayName,
       this.identityProviderId,
+      this.identityProviderType,
       this.identityProviderUserId,
       this.insertInstant,
       this.lastLoginInstant,
@@ -8699,6 +8728,29 @@ class JWTPublicKeyUpdateEvent extends BaseEvent {
   Map<String, dynamic> toJson() => _$JWTPublicKeyUpdateEventToJson(this);
 }
 
+/// @author Daniel DeGroff
+@JsonSerializable()
+class DeviceUserCodeResponse {
+  String client_id;
+  DeviceInfo deviceInfo;
+  num expires_in;
+  PendingIdPLink pendingIdPLink;
+  String tenantId;
+  String user_code;
+
+  DeviceUserCodeResponse(
+      {this.client_id,
+      this.deviceInfo,
+      this.expires_in,
+      this.pendingIdPLink,
+      this.tenantId,
+      this.user_code});
+
+  factory DeviceUserCodeResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeviceUserCodeResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$DeviceUserCodeResponseToJson(this);
+}
+
 /// Models an entity type that has a specific set of permissions. These are global objects and can be used across tenants.
 ///
 /// @author Brian Pontarelli
@@ -8775,7 +8827,7 @@ class PreviewResponse {
   Map<String, dynamic> toJson() => _$PreviewResponseToJson(this);
 }
 
-/// Event event to indicate kickstart has been successfully completed.
+/// Event to indicate kickstart has been successfully completed.
 ///
 /// @author Daniel DeGroff
 @JsonSerializable()
@@ -10165,6 +10217,8 @@ enum OAuthErrorReason {
   access_token_unavailable_for_processing,
   @JsonValue('access_token_failed_processing')
   access_token_failed_processing,
+  @JsonValue('access_token_invalid')
+  access_token_invalid,
   @JsonValue('refresh_token_not_found')
   refresh_token_not_found,
   @JsonValue('refresh_token_type_not_supported')
@@ -10205,6 +10259,8 @@ enum OAuthErrorReason {
   invalid_target_entity_scope,
   @JsonValue('invalid_entity_permission_scope')
   invalid_entity_permission_scope,
+  @JsonValue('invalid_user_id')
+  invalid_user_id,
   @JsonValue('grant_type_disabled')
   grant_type_disabled,
   @JsonValue('missing_client_id')
@@ -10231,6 +10287,8 @@ enum OAuthErrorReason {
   missing_token,
   @JsonValue('missing_user_code')
   missing_user_code,
+  @JsonValue('missing_user_id')
+  missing_user_id,
   @JsonValue('missing_verification_uri')
   missing_verification_uri,
   @JsonValue('login_prevented')
@@ -10320,6 +10378,25 @@ class GroupMemberRemoveEvent extends BaseEvent {
   factory GroupMemberRemoveEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberRemoveEventFromJson(json);
   Map<String, dynamic> toJson() => _$GroupMemberRemoveEventToJson(this);
+}
+
+/// @author Daniel DeGroff
+@JsonSerializable()
+class IdentityProviderPendingLinkResponse {
+  IdentityProviderTenantConfiguration identityProviderTenantConfiguration;
+  num linkCount;
+  PendingIdPLink pendingIdPLink;
+
+  IdentityProviderPendingLinkResponse(
+      {this.identityProviderTenantConfiguration,
+      this.linkCount,
+      this.pendingIdPLink});
+
+  factory IdentityProviderPendingLinkResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$IdentityProviderPendingLinkResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$IdentityProviderPendingLinkResponseToJson(this);
 }
 
 /// Change password response object.
