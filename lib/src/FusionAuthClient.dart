@@ -3803,7 +3803,8 @@ class FusionAuthClient {
   ///
   /// @param {String} user_code The end-user verification code.
   /// @returns {Promise<ClientResponse<void>>}
-  Future<ClientResponse<void, void>> retrieveUserCode(String user_code) {
+  Future<ClientResponse<void, void>> retrieveUserCodeUsingAPIKey(
+      String user_code) {
     var body = Map<String, dynamic>();
     body['user_code'] = user_code;
     return _startAnonymous<void, void>()
