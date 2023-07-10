@@ -1,7 +1,7 @@
 name: fusionauth_dart_client
 description: >-
   A FusionAuth client library written in Dart.
-version: 1.43.1
+version: 1.43.2
 homepage: https://github.com/FusionAuth/fusionauth-dart-client
 
 environment:
