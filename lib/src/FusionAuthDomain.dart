@@ -746,7 +746,7 @@ class JSONWebKey {
   String kid;
   KeyType kty;
   String n;
-  final Map<String, dynamic> _other = Map<String, dynamic>();
+  final Map<String, dynamic> _other = <String, dynamic>{};
   dynamic operator [](String index) => _other[index]; // Get any other fields
   void operator []=(String index, dynamic value) =>
       _other[index] = value; // Set any other fields
@@ -3398,7 +3398,7 @@ class JWT {
   String iss;
   String jti;
   num nbf;
-  final Map<String, dynamic> _otherClaims = Map<String, dynamic>();
+  final Map<String, dynamic> _otherClaims = <String, dynamic>{};
   dynamic operator [](String index) =>
       _otherClaims[index]; // Get any other fields
   void operator []=(String index, dynamic value) =>
