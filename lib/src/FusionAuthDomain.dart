@@ -40,6 +40,7 @@ class TenantLambdaConfiguration {
 
   factory TenantLambdaConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantLambdaConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantLambdaConfigurationToJson(this);
 }
 
@@ -63,6 +64,7 @@ class SAMLv2AssertionEncryptionConfiguration extends Enableable {
   factory SAMLv2AssertionEncryptionConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$SAMLv2AssertionEncryptionConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SAMLv2AssertionEncryptionConfigurationToJson(this);
 }
@@ -89,6 +91,7 @@ class UserActionReason {
 
   factory UserActionReason.fromJson(Map<String, dynamic> json) =>
       _$UserActionReasonFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionReasonToJson(this);
 }
 
@@ -99,6 +102,7 @@ class AuthenticationTokenConfiguration extends Enableable {
   factory AuthenticationTokenConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$AuthenticationTokenConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$AuthenticationTokenConfigurationToJson(this);
 }
@@ -114,6 +118,7 @@ class AuditLogCreateEvent extends BaseEvent {
 
   factory AuditLogCreateEvent.fromJson(Map<String, dynamic> json) =>
       _$AuditLogCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogCreateEventToJson(this);
 }
 
@@ -127,6 +132,7 @@ class FusionAuthConnectorConfiguration extends BaseConnectorConfiguration {
   factory FusionAuthConnectorConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$FusionAuthConnectorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$FusionAuthConnectorConfigurationToJson(this);
 }
@@ -140,6 +146,7 @@ class AuditLogRequest extends BaseEventRequest {
 
   factory AuditLogRequest.fromJson(Map<String, dynamic> json) =>
       _$AuditLogRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogRequestToJson(this);
 }
 
@@ -163,6 +170,7 @@ class IPAccessControlList {
 
   factory IPAccessControlList.fromJson(Map<String, dynamic> json) =>
       _$IPAccessControlListFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IPAccessControlListToJson(this);
 }
 
@@ -177,6 +185,7 @@ class SAMLv2DestinationAssertionConfiguration {
   factory SAMLv2DestinationAssertionConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$SAMLv2DestinationAssertionConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SAMLv2DestinationAssertionConfigurationToJson(this);
 }
@@ -192,6 +201,7 @@ class FormRequest {
 
   factory FormRequest.fromJson(Map<String, dynamic> json) =>
       _$FormRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormRequestToJson(this);
 }
 
@@ -204,6 +214,7 @@ class UserCommentRequest {
 
   factory UserCommentRequest.fromJson(Map<String, dynamic> json) =>
       _$UserCommentRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCommentRequestToJson(this);
 }
 
@@ -219,6 +230,7 @@ class SAMLv2IdPInitiatedLoginConfiguration extends Enableable {
   factory SAMLv2IdPInitiatedLoginConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$SAMLv2IdPInitiatedLoginConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SAMLv2IdPInitiatedLoginConfigurationToJson(this);
 }
@@ -231,6 +243,7 @@ class DeleteConfiguration extends Enableable {
 
   factory DeleteConfiguration.fromJson(Map<String, dynamic> json) =>
       _$DeleteConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeleteConfigurationToJson(this);
 }
 
@@ -262,6 +275,7 @@ class KeySearchResponse {
 
   factory KeySearchResponse.fromJson(Map<String, dynamic> json) =>
       _$KeySearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KeySearchResponseToJson(this);
 }
 
@@ -277,6 +291,7 @@ class ApplicationRegistrationDeletePolicy {
   factory ApplicationRegistrationDeletePolicy.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationRegistrationDeletePolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationRegistrationDeletePolicyToJson(this);
 }
@@ -295,6 +310,7 @@ class UserRegistrationDeleteEvent extends BaseEvent {
 
   factory UserRegistrationDeleteEvent.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationDeleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserRegistrationDeleteEventToJson(this);
 }
 
@@ -322,6 +338,7 @@ class AccessToken {
 
   factory AccessToken.fromJson(Map<String, dynamic> json) =>
       _$AccessTokenFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AccessTokenToJson(this);
 }
 
@@ -336,6 +353,7 @@ class GroupMemberSearchRequest {
 
   factory GroupMemberSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberSearchRequestToJson(this);
 }
 
@@ -347,6 +365,7 @@ class MultiFactorSMSTemplate {
 
   factory MultiFactorSMSTemplate.fromJson(Map<String, dynamic> json) =>
       _$MultiFactorSMSTemplateFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MultiFactorSMSTemplateToJson(this);
 }
 
@@ -370,6 +389,7 @@ class UserComment {
 
   factory UserComment.fromJson(Map<String, dynamic> json) =>
       _$UserCommentFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCommentToJson(this);
 }
 
@@ -384,6 +404,7 @@ class GroupDeleteCompleteEvent extends BaseEvent {
 
   factory GroupDeleteCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupDeleteCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupDeleteCompleteEventToJson(this);
 }
 
@@ -399,6 +420,7 @@ class EmailTemplateSearchResponse {
 
   factory EmailTemplateSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateSearchResponseToJson(this);
 }
 
@@ -411,6 +433,7 @@ class InstanceEvent extends NonTransactionalEvent {
 
   factory InstanceEvent.fromJson(Map<String, dynamic> json) =>
       _$InstanceEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$InstanceEventToJson(this);
 }
 
@@ -460,6 +483,7 @@ class UserActionEvent extends BaseEvent {
 
   factory UserActionEvent.fromJson(Map<String, dynamic> json) =>
       _$UserActionEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionEventToJson(this);
 }
 
@@ -487,6 +511,7 @@ class SMSMessage {
 
   factory SMSMessage.fromJson(Map<String, dynamic> json) =>
       _$SMSMessageFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SMSMessageToJson(this);
 }
 
@@ -503,6 +528,7 @@ class TwitterApplicationConfiguration
 
   factory TwitterApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TwitterApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$TwitterApplicationConfigurationToJson(this);
 }
@@ -553,6 +579,7 @@ class WebAuthnCredential {
 
   factory WebAuthnCredential.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCredentialFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnCredentialToJson(this);
 }
 
@@ -565,6 +592,7 @@ class RegistrationUnverifiedOptions {
 
   factory RegistrationUnverifiedOptions.fromJson(Map<String, dynamic> json) =>
       _$RegistrationUnverifiedOptionsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RegistrationUnverifiedOptionsToJson(this);
 }
 
@@ -589,6 +617,7 @@ class CredentialPropertiesOutput {
 
   factory CredentialPropertiesOutput.fromJson(Map<String, dynamic> json) =>
       _$CredentialPropertiesOutputFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CredentialPropertiesOutputToJson(this);
 }
 
@@ -602,6 +631,7 @@ class VerifyRegistrationRequest extends BaseEventRequest {
 
   factory VerifyRegistrationRequest.fromJson(Map<String, dynamic> json) =>
       _$VerifyRegistrationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VerifyRegistrationRequestToJson(this);
 }
 
@@ -641,6 +671,7 @@ class EmailTemplate {
 
   factory EmailTemplate.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateToJson(this);
 }
 
@@ -655,6 +686,7 @@ class UserEmailVerifiedEvent extends BaseEvent {
 
   factory UserEmailVerifiedEvent.fromJson(Map<String, dynamic> json) =>
       _$UserEmailVerifiedEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserEmailVerifiedEventToJson(this);
 }
 
@@ -668,6 +700,7 @@ class ApplicationAccessControlConfiguration {
   factory ApplicationAccessControlConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationAccessControlConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationAccessControlConfigurationToJson(this);
 }
@@ -684,6 +717,7 @@ class FormResponse {
 
   factory FormResponse.fromJson(Map<String, dynamic> json) =>
       _$FormResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormResponseToJson(this);
 }
 
@@ -749,6 +783,7 @@ class JSONWebKey {
 
   factory JSONWebKey.fromJson(Map<String, dynamic> json) =>
       _$JSONWebKeyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JSONWebKeyToJson(this);
 }
 
@@ -763,6 +798,7 @@ class ConsentSearchRequest {
 
   factory ConsentSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$ConsentSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConsentSearchRequestToJson(this);
 }
 
@@ -777,6 +813,7 @@ class UserReactivateEvent extends BaseEvent {
 
   factory UserReactivateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserReactivateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserReactivateEventToJson(this);
 }
 
@@ -827,6 +864,7 @@ class OpenIdConfiguration {
 
   factory OpenIdConfiguration.fromJson(Map<String, dynamic> json) =>
       _$OpenIdConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OpenIdConfigurationToJson(this);
 }
 
@@ -839,6 +877,7 @@ class UserSearchCriteria extends BaseElasticSearchCriteria {
 
   factory UserSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$UserSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserSearchCriteriaToJson(this);
 }
 
@@ -882,6 +921,7 @@ class RefreshToken {
 
   factory RefreshToken.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshTokenToJson(this);
 }
 
@@ -898,6 +938,7 @@ class EntityGrantSearchCriteria extends BaseSearchCriteria {
 
   factory EntityGrantSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityGrantSearchCriteriaToJson(this);
 }
 
@@ -928,6 +969,7 @@ class Email {
       this.to});
 
   factory Email.fromJson(Map<String, dynamic> json) => _$EmailFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailToJson(this);
 }
 
@@ -957,6 +999,7 @@ class AuditLog {
 
   factory AuditLog.fromJson(Map<String, dynamic> json) =>
       _$AuditLogFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogToJson(this);
 }
 
@@ -972,6 +1015,7 @@ class UserIdentityProviderLinkEvent extends BaseEvent {
 
   factory UserIdentityProviderLinkEvent.fromJson(Map<String, dynamic> json) =>
       _$UserIdentityProviderLinkEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserIdentityProviderLinkEventToJson(this);
 }
 
@@ -987,6 +1031,7 @@ class ApplicationSearchResponse {
 
   factory ApplicationSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$ApplicationSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationSearchResponseToJson(this);
 }
 
@@ -1004,6 +1049,7 @@ class OAuthConfigurationResponse {
 
   factory OAuthConfigurationResponse.fromJson(Map<String, dynamic> json) =>
       _$OAuthConfigurationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OAuthConfigurationResponseToJson(this);
 }
 
@@ -1020,6 +1066,7 @@ class PublicKeyCredentialDescriptor {
 
   factory PublicKeyCredentialDescriptor.fromJson(Map<String, dynamic> json) =>
       _$PublicKeyCredentialDescriptorFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PublicKeyCredentialDescriptorToJson(this);
 }
 
@@ -1032,6 +1079,7 @@ class PendingResponse {
 
   factory PendingResponse.fromJson(Map<String, dynamic> json) =>
       _$PendingResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PendingResponseToJson(this);
 }
 
@@ -1056,6 +1104,7 @@ class SteamIdentityProvider
 
   factory SteamIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$SteamIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SteamIdentityProviderToJson(this);
 }
 
@@ -1088,6 +1137,7 @@ class PublicKeyCredentialCreationOptions {
   factory PublicKeyCredentialCreationOptions.fromJson(
           Map<String, dynamic> json) =>
       _$PublicKeyCredentialCreationOptionsFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$PublicKeyCredentialCreationOptionsToJson(this);
 }
@@ -1138,6 +1188,7 @@ class GroupMember {
 
   factory GroupMember.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberToJson(this);
 }
 
@@ -1153,6 +1204,7 @@ class UserUpdateEvent extends BaseEvent {
 
   factory UserUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserUpdateEventToJson(this);
 }
 
@@ -1186,6 +1238,7 @@ class LoginPreventedResponse {
 
   factory LoginPreventedResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginPreventedResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginPreventedResponseToJson(this);
 }
 
@@ -1198,6 +1251,7 @@ class EntitySearchCriteria extends BaseElasticSearchCriteria {
 
   factory EntitySearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$EntitySearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntitySearchCriteriaToJson(this);
 }
 
@@ -1213,6 +1267,7 @@ class ThemeRequest {
 
   factory ThemeRequest.fromJson(Map<String, dynamic> json) =>
       _$ThemeRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ThemeRequestToJson(this);
 }
 
@@ -1229,6 +1284,7 @@ class PasswordlessSendRequest {
 
   factory PasswordlessSendRequest.fromJson(Map<String, dynamic> json) =>
       _$PasswordlessSendRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordlessSendRequestToJson(this);
 }
 
@@ -1241,6 +1297,7 @@ class UserLoginNewDeviceEvent extends UserLoginSuccessEvent {
 
   factory UserLoginNewDeviceEvent.fromJson(Map<String, dynamic> json) =>
       _$UserLoginNewDeviceEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserLoginNewDeviceEventToJson(this);
 }
 
@@ -1256,6 +1313,7 @@ class KeyResponse {
 
   factory KeyResponse.fromJson(Map<String, dynamic> json) =>
       _$KeyResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KeyResponseToJson(this);
 }
 
@@ -1279,6 +1337,7 @@ class TwoFactorStartRequest {
 
   factory TwoFactorStartRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorStartRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorStartRequestToJson(this);
 }
 
@@ -1293,6 +1352,7 @@ class GroupCreateEvent extends BaseEvent {
 
   factory GroupCreateEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupCreateEventToJson(this);
 }
 
@@ -1308,6 +1368,7 @@ class ConnectorPolicy {
 
   factory ConnectorPolicy.fromJson(Map<String, dynamic> json) =>
       _$ConnectorPolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConnectorPolicyToJson(this);
 }
 
@@ -1347,6 +1408,7 @@ class FormField {
 
   factory FormField.fromJson(Map<String, dynamic> json) =>
       _$FormFieldFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormFieldToJson(this);
 }
 
@@ -1376,6 +1438,7 @@ class FamilyConfiguration extends Enableable {
 
   factory FamilyConfiguration.fromJson(Map<String, dynamic> json) =>
       _$FamilyConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FamilyConfigurationToJson(this);
 }
 
@@ -1393,6 +1456,7 @@ class TwitchApplicationConfiguration
 
   factory TwitchApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TwitchApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwitchApplicationConfigurationToJson(this);
 }
 
@@ -1409,6 +1473,7 @@ class DisplayableRawLogin extends RawLogin {
 
   factory DisplayableRawLogin.fromJson(Map<String, dynamic> json) =>
       _$DisplayableRawLoginFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DisplayableRawLoginToJson(this);
 }
 
@@ -1422,6 +1487,7 @@ class SAMLv2SingleLogout extends Enableable {
 
   factory SAMLv2SingleLogout.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2SingleLogoutFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SAMLv2SingleLogoutToJson(this);
 }
 
@@ -1439,6 +1505,7 @@ class OpenIdConnectApplicationConfiguration
   factory OpenIdConnectApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$OpenIdConnectApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$OpenIdConnectApplicationConfigurationToJson(this);
 }
@@ -1457,6 +1524,7 @@ class ApplicationFormConfiguration {
 
   factory ApplicationFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ApplicationFormConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationFormConfigurationToJson(this);
 }
 
@@ -1471,6 +1539,7 @@ class TimeBasedDeletePolicy extends Enableable {
 
   factory TimeBasedDeletePolicy.fromJson(Map<String, dynamic> json) =>
       _$TimeBasedDeletePolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TimeBasedDeletePolicyToJson(this);
 }
 
@@ -1487,6 +1556,7 @@ class KeySearchCriteria extends BaseSearchCriteria {
 
   factory KeySearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$KeySearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KeySearchCriteriaToJson(this);
 }
 
@@ -1514,6 +1584,7 @@ class RefreshRequest extends BaseEventRequest {
 
   factory RefreshRequest.fromJson(Map<String, dynamic> json) =>
       _$RefreshRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshRequestToJson(this);
 }
 
@@ -1533,6 +1604,7 @@ class UserLoginIdDuplicateOnCreateEvent extends BaseEvent {
   factory UserLoginIdDuplicateOnCreateEvent.fromJson(
           Map<String, dynamic> json) =>
       _$UserLoginIdDuplicateOnCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$UserLoginIdDuplicateOnCreateEventToJson(this);
 }
@@ -1555,6 +1627,7 @@ class LoginRequest extends BaseLoginRequest {
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
 }
 
@@ -1569,6 +1642,7 @@ class RecentLoginResponse {
 
   factory RecentLoginResponse.fromJson(Map<String, dynamic> json) =>
       _$RecentLoginResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RecentLoginResponseToJson(this);
 }
 
@@ -1583,6 +1657,7 @@ class UserConsentRequest {
 
   factory UserConsentRequest.fromJson(Map<String, dynamic> json) =>
       _$UserConsentRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserConsentRequestToJson(this);
 }
 
@@ -1597,6 +1672,7 @@ class FamilyEmailRequest {
 
   factory FamilyEmailRequest.fromJson(Map<String, dynamic> json) =>
       _$FamilyEmailRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FamilyEmailRequestToJson(this);
 }
 
@@ -1611,6 +1687,7 @@ class EntitySearchRequest {
 
   factory EntitySearchRequest.fromJson(Map<String, dynamic> json) =>
       _$EntitySearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntitySearchRequestToJson(this);
 }
 
@@ -1623,6 +1700,7 @@ class RequiresCORSConfiguration {
 
   factory RequiresCORSConfiguration.fromJson(Map<String, dynamic> json) =>
       _$RequiresCORSConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RequiresCORSConfigurationToJson(this);
 }
 
@@ -1637,6 +1715,7 @@ class AuditLogResponse {
 
   factory AuditLogResponse.fromJson(Map<String, dynamic> json) =>
       _$AuditLogResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogResponseToJson(this);
 }
 
@@ -1659,6 +1738,7 @@ class SteamApplicationConfiguration
 
   factory SteamApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SteamApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SteamApplicationConfigurationToJson(this);
 }
 
@@ -1675,6 +1755,7 @@ class TenantMultiFactorConfiguration {
 
   factory TenantMultiFactorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantMultiFactorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantMultiFactorConfigurationToJson(this);
 }
 
@@ -1694,6 +1775,7 @@ class XboxIdentityProvider
 
   factory XboxIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$XboxIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$XboxIdentityProviderToJson(this);
 }
 
@@ -1719,6 +1801,7 @@ class AuditLogSearchResponse {
 
   factory AuditLogSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$AuditLogSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogSearchResponseToJson(this);
 }
 
@@ -1750,6 +1833,7 @@ class GroupSearchResponse {
 
   factory GroupSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$GroupSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupSearchResponseToJson(this);
 }
 
@@ -1775,6 +1859,7 @@ class UserCommentSearchCriteria extends BaseSearchCriteria {
 
   factory UserCommentSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$UserCommentSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCommentSearchCriteriaToJson(this);
 }
 
@@ -1792,6 +1877,7 @@ class LinkedInIdentityProvider
 
   factory LinkedInIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$LinkedInIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LinkedInIdentityProviderToJson(this);
 }
 
@@ -1835,6 +1921,7 @@ class Webhook {
 
   factory Webhook.fromJson(Map<String, dynamic> json) =>
       _$WebhookFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebhookToJson(this);
 }
 
@@ -1851,6 +1938,7 @@ class TwoFactorLoginRequest extends BaseLoginRequest {
 
   factory TwoFactorLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorLoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorLoginRequestToJson(this);
 }
 
@@ -1865,6 +1953,7 @@ class EntityGrantRequest {
 
   factory EntityGrantRequest.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityGrantRequestToJson(this);
 }
 
@@ -1879,6 +1968,7 @@ class IdentityProviderLinkResponse {
 
   factory IdentityProviderLinkResponse.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLinkResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderLinkResponseToJson(this);
 }
 
@@ -1894,6 +1984,7 @@ class HistoryItem {
 
   factory HistoryItem.fromJson(Map<String, dynamic> json) =>
       _$HistoryItemFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$HistoryItemToJson(this);
 }
 
@@ -1907,6 +1998,7 @@ class BaseExportRequest {
 
   factory BaseExportRequest.fromJson(Map<String, dynamic> json) =>
       _$BaseExportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseExportRequestToJson(this);
 }
 
@@ -1923,6 +2015,7 @@ class GoogleIdentityProviderProperties {
   factory GoogleIdentityProviderProperties.fromJson(
           Map<String, dynamic> json) =>
       _$GoogleIdentityProviderPropertiesFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$GoogleIdentityProviderPropertiesToJson(this);
 }
@@ -1949,6 +2042,7 @@ class OAuthError {
 
   factory OAuthError.fromJson(Map<String, dynamic> json) =>
       _$OAuthErrorFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OAuthErrorToJson(this);
 }
 
@@ -1961,6 +2055,7 @@ class TwoFactorRecoveryCodeResponse {
 
   factory TwoFactorRecoveryCodeResponse.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorRecoveryCodeResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorRecoveryCodeResponseToJson(this);
 }
 
@@ -1988,6 +2083,7 @@ class GroupUpdateCompleteEvent extends BaseEvent {
 
   factory GroupUpdateCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupUpdateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupUpdateCompleteEventToJson(this);
 }
 
@@ -2004,6 +2100,7 @@ class LambdaSearchCriteria extends BaseSearchCriteria {
 
   factory LambdaSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$LambdaSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LambdaSearchCriteriaToJson(this);
 }
 
@@ -2033,6 +2130,7 @@ class SystemConfiguration {
 
   factory SystemConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SystemConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SystemConfigurationToJson(this);
 }
 
@@ -2055,6 +2153,7 @@ class WebhookRequest {
 
   factory WebhookRequest.fromJson(Map<String, dynamic> json) =>
       _$WebhookRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebhookRequestToJson(this);
 }
 
@@ -2070,6 +2169,7 @@ class FormFieldResponse {
 
   factory FormFieldResponse.fromJson(Map<String, dynamic> json) =>
       _$FormFieldResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormFieldResponseToJson(this);
 }
 
@@ -2101,6 +2201,7 @@ class BaseConnectorConfiguration {
 
   factory BaseConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$BaseConnectorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseConnectorConfigurationToJson(this);
 }
 
@@ -2129,6 +2230,7 @@ class FailedAuthenticationConfiguration {
   factory FailedAuthenticationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$FailedAuthenticationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$FailedAuthenticationConfigurationToJson(this);
 }
@@ -2144,6 +2246,7 @@ class TenantSearchCriteria extends BaseSearchCriteria {
 
   factory TenantSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$TenantSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantSearchCriteriaToJson(this);
 }
 
@@ -2159,6 +2262,7 @@ class TenantSCIMServerConfiguration extends Enableable {
 
   factory TenantSCIMServerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantSCIMServerConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantSCIMServerConfigurationToJson(this);
 }
 
@@ -2174,6 +2278,7 @@ class EmailAddress {
 
   factory EmailAddress.fromJson(Map<String, dynamic> json) =>
       _$EmailAddressFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailAddressToJson(this);
 }
 
@@ -2211,6 +2316,7 @@ class GenericMessengerConfiguration extends BaseMessengerConfiguration {
 
   factory GenericMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$GenericMessengerConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GenericMessengerConfigurationToJson(this);
 }
 
@@ -2254,6 +2360,7 @@ class GroupMemberSearchCriteria extends BaseSearchCriteria {
 
   factory GroupMemberSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberSearchCriteriaToJson(this);
 }
 
@@ -2295,6 +2402,7 @@ class UserRequest extends BaseEventRequest {
 
   factory UserRequest.fromJson(Map<String, dynamic> json) =>
       _$UserRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserRequestToJson(this);
 }
 
@@ -2312,6 +2420,7 @@ class UserDeleteResponse {
 
   factory UserDeleteResponse.fromJson(Map<String, dynamic> json) =>
       _$UserDeleteResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserDeleteResponseToJson(this);
 }
 
@@ -2341,6 +2450,7 @@ class ChangePasswordRequest extends BaseEventRequest {
 
   factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ChangePasswordRequestToJson(this);
 }
 
@@ -2379,6 +2489,7 @@ class SAMLv2Configuration extends Enableable {
 
   factory SAMLv2Configuration.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2ConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SAMLv2ConfigurationToJson(this);
 }
 
@@ -2397,6 +2508,7 @@ class CleanSpeakConfiguration extends Enableable {
 
   factory CleanSpeakConfiguration.fromJson(Map<String, dynamic> json) =>
       _$CleanSpeakConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CleanSpeakConfigurationToJson(this);
 }
 
@@ -2412,6 +2524,7 @@ class UserActionResponse {
 
   factory UserActionResponse.fromJson(Map<String, dynamic> json) =>
       _$UserActionResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionResponseToJson(this);
 }
 
@@ -2436,6 +2549,7 @@ class WebAuthnStartResponse {
 
   factory WebAuthnStartResponse.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnStartResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnStartResponseToJson(this);
 }
 
@@ -2451,6 +2565,7 @@ class ThemeResponse {
 
   factory ThemeResponse.fromJson(Map<String, dynamic> json) =>
       _$ThemeResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ThemeResponseToJson(this);
 }
 
@@ -2469,6 +2584,7 @@ class OAuthResponse {
 
   factory OAuthResponse.fromJson(Map<String, dynamic> json) =>
       _$OAuthResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OAuthResponseToJson(this);
 }
 
@@ -2493,6 +2609,7 @@ class EmailPlus extends Enableable {
 
   factory EmailPlus.fromJson(Map<String, dynamic> json) =>
       _$EmailPlusFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailPlusToJson(this);
 }
 
@@ -2508,6 +2625,7 @@ class FamilyResponse {
 
   factory FamilyResponse.fromJson(Map<String, dynamic> json) =>
       _$FamilyResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FamilyResponseToJson(this);
 }
 
@@ -2535,6 +2653,7 @@ class EntityTypePermission {
 
   factory EntityTypePermission.fromJson(Map<String, dynamic> json) =>
       _$EntityTypePermissionFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypePermissionToJson(this);
 }
 
@@ -2548,6 +2667,7 @@ class RateLimitedRequestConfiguration extends Enableable {
 
   factory RateLimitedRequestConfiguration.fromJson(Map<String, dynamic> json) =>
       _$RateLimitedRequestConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$RateLimitedRequestConfigurationToJson(this);
 }
@@ -2594,6 +2714,7 @@ class ReactorStatus {
 
   factory ReactorStatus.fromJson(Map<String, dynamic> json) =>
       _$ReactorStatusFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReactorStatusToJson(this);
 }
 
@@ -2619,6 +2740,7 @@ class FamilyMember {
 
   factory FamilyMember.fromJson(Map<String, dynamic> json) =>
       _$FamilyMemberFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FamilyMemberToJson(this);
 }
 
@@ -2649,6 +2771,7 @@ class CertificateInformation {
 
   factory CertificateInformation.fromJson(Map<String, dynamic> json) =>
       _$CertificateInformationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CertificateInformationToJson(this);
 }
 
@@ -2661,6 +2784,7 @@ class PasswordlessStartResponse {
 
   factory PasswordlessStartResponse.fromJson(Map<String, dynamic> json) =>
       _$PasswordlessStartResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordlessStartResponseToJson(this);
 }
 
@@ -2676,6 +2800,7 @@ class DailyActiveUserReportResponse {
 
   factory DailyActiveUserReportResponse.fromJson(Map<String, dynamic> json) =>
       _$DailyActiveUserReportResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DailyActiveUserReportResponseToJson(this);
 }
 
@@ -2688,6 +2813,7 @@ class VersionResponse {
 
   factory VersionResponse.fromJson(Map<String, dynamic> json) =>
       _$VersionResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VersionResponseToJson(this);
 }
 
@@ -2701,6 +2827,7 @@ class PreviewMessageTemplateRequest {
 
   factory PreviewMessageTemplateRequest.fromJson(Map<String, dynamic> json) =>
       _$PreviewMessageTemplateRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PreviewMessageTemplateRequestToJson(this);
 }
 
@@ -2714,6 +2841,7 @@ class IssueResponse {
 
   factory IssueResponse.fromJson(Map<String, dynamic> json) =>
       _$IssueResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IssueResponseToJson(this);
 }
 
@@ -2729,6 +2857,7 @@ class LoginReportResponse {
 
   factory LoginReportResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginReportResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginReportResponseToJson(this);
 }
 
@@ -2757,6 +2886,7 @@ class Message {
 
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 }
 
@@ -2792,6 +2922,7 @@ class BaseIdentityProvider<
 
   factory BaseIdentityProvider.fromJson(Map<String, dynamic> json) =>
       BaseIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseIdentityProviderToJson(this);
 }
 
@@ -2803,6 +2934,7 @@ class MultiFactorEmailMethod extends Enableable {
 
   factory MultiFactorEmailMethod.fromJson(Map<String, dynamic> json) =>
       _$MultiFactorEmailMethodFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MultiFactorEmailMethodToJson(this);
 }
 
@@ -2815,6 +2947,7 @@ class ConnectorRequest {
 
   factory ConnectorRequest.fromJson(Map<String, dynamic> json) =>
       _$ConnectorRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConnectorRequestToJson(this);
 }
 
@@ -2831,6 +2964,7 @@ class UserCreateCompleteEvent extends BaseEvent {
 
   factory UserCreateCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$UserCreateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCreateCompleteEventToJson(this);
 }
 
@@ -2868,6 +3002,7 @@ class SelfServiceFormConfiguration {
 
   factory SelfServiceFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SelfServiceFormConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SelfServiceFormConfigurationToJson(this);
 }
 
@@ -2880,6 +3015,7 @@ class RememberPreviousPasswords extends Enableable {
 
   factory RememberPreviousPasswords.fromJson(Map<String, dynamic> json) =>
       _$RememberPreviousPasswordsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RememberPreviousPasswordsToJson(this);
 }
 
@@ -2895,6 +3031,7 @@ class HYPRApplicationConfiguration
 
   factory HYPRApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$HYPRApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$HYPRApplicationConfigurationToJson(this);
 }
 
@@ -2908,6 +3045,7 @@ class KafkaMessengerConfiguration extends BaseMessengerConfiguration {
 
   factory KafkaMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$KafkaMessengerConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KafkaMessengerConfigurationToJson(this);
 }
 
@@ -2929,6 +3067,7 @@ class UserRegistrationCreateCompleteEvent extends BaseEvent {
   factory UserRegistrationCreateCompleteEvent.fromJson(
           Map<String, dynamic> json) =>
       _$UserRegistrationCreateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$UserRegistrationCreateCompleteEventToJson(this);
 }
@@ -2943,6 +3082,7 @@ class LoginRecordSearchRequest {
 
   factory LoginRecordSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRecordSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginRecordSearchRequestToJson(this);
 }
 
@@ -2956,6 +3096,7 @@ class KafkaConfiguration extends Enableable {
 
   factory KafkaConfiguration.fromJson(Map<String, dynamic> json) =>
       _$KafkaConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KafkaConfigurationToJson(this);
 }
 
@@ -2971,6 +3112,7 @@ class ManagedFields {
 
   factory ManagedFields.fromJson(Map<String, dynamic> json) =>
       _$ManagedFieldsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ManagedFieldsToJson(this);
 }
 
@@ -2986,6 +3128,7 @@ class MonthlyActiveUserReportResponse {
 
   factory MonthlyActiveUserReportResponse.fromJson(Map<String, dynamic> json) =>
       _$MonthlyActiveUserReportResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$MonthlyActiveUserReportResponseToJson(this);
 }
@@ -3001,6 +3144,7 @@ class IdentityProviderLinkRequest extends BaseEventRequest {
 
   factory IdentityProviderLinkRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLinkRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderLinkRequestToJson(this);
 }
 
@@ -3068,6 +3212,7 @@ class SecureGeneratorConfiguration {
 
   factory SecureGeneratorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SecureGeneratorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SecureGeneratorConfigurationToJson(this);
 }
 
@@ -3103,6 +3248,7 @@ class LDAPConnectorConfiguration extends BaseConnectorConfiguration {
 
   factory LDAPConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LDAPConnectorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LDAPConnectorConfigurationToJson(this);
 }
 
@@ -3129,6 +3275,7 @@ class ExternalJWTIdentityProvider
 
   factory ExternalJWTIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$ExternalJWTIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ExternalJWTIdentityProviderToJson(this);
 }
 
@@ -3143,6 +3290,7 @@ class LambdaRequest {
 
   factory LambdaRequest.fromJson(Map<String, dynamic> json) =>
       _$LambdaRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LambdaRequestToJson(this);
 }
 
@@ -3158,6 +3306,7 @@ class UserEmailUpdateEvent extends BaseEvent {
 
   factory UserEmailUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserEmailUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserEmailUpdateEventToJson(this);
 }
 
@@ -3175,6 +3324,7 @@ class RawLogin {
 
   factory RawLogin.fromJson(Map<String, dynamic> json) =>
       _$RawLoginFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RawLoginToJson(this);
 }
 
@@ -3190,6 +3340,7 @@ class GroupMemberSearchResponse {
 
   factory GroupMemberSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberSearchResponseToJson(this);
 }
 
@@ -3205,6 +3356,7 @@ class RefreshTokenResponse {
 
   factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshTokenResponseToJson(this);
 }
 
@@ -3226,6 +3378,7 @@ class DeviceApprovalResponse {
 
   factory DeviceApprovalResponse.fromJson(Map<String, dynamic> json) =>
       _$DeviceApprovalResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeviceApprovalResponseToJson(this);
 }
 
@@ -3255,6 +3408,7 @@ class JWT {
   JWT({this.aud, this.exp, this.iat, this.iss, this.jti, this.nbf, this.sub});
 
   factory JWT.fromJson(Map<String, dynamic> json) => _$JWTFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTToJson(this);
 }
 
@@ -3265,6 +3419,7 @@ class Tenantable {
 
   factory Tenantable.fromJson(Map<String, dynamic> json) =>
       _$TenantableFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantableToJson(this);
 }
 
@@ -3287,6 +3442,7 @@ class AuthenticatorSelectionCriteria {
 
   factory AuthenticatorSelectionCriteria.fromJson(Map<String, dynamic> json) =>
       _$AuthenticatorSelectionCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuthenticatorSelectionCriteriaToJson(this);
 }
 
@@ -3298,6 +3454,7 @@ class ApplicationWebAuthnWorkflowConfiguration extends Enableable {
   factory ApplicationWebAuthnWorkflowConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationWebAuthnWorkflowConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationWebAuthnWorkflowConfigurationToJson(this);
 }
@@ -3353,6 +3510,7 @@ class SAMLv2IdentityProvider
 
   factory SAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2IdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SAMLv2IdentityProviderToJson(this);
 }
 
@@ -3379,6 +3537,7 @@ class FacebookIdentityProvider
 
   factory FacebookIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$FacebookIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FacebookIdentityProviderToJson(this);
 }
 
@@ -3389,6 +3548,7 @@ class DomainBasedIdentityProvider {
 
   factory DomainBasedIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$DomainBasedIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DomainBasedIdentityProviderToJson(this);
 }
 
@@ -3413,6 +3573,7 @@ class EmailTemplateRequest {
 
   factory EmailTemplateRequest.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateRequestToJson(this);
 }
 
@@ -3428,6 +3589,7 @@ class WebAuthnRegisterCompleteResponse {
   factory WebAuthnRegisterCompleteResponse.fromJson(
           Map<String, dynamic> json) =>
       _$WebAuthnRegisterCompleteResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnRegisterCompleteResponseToJson(this);
 }
@@ -3451,6 +3613,7 @@ class IdentityProviderDetails {
 
   factory IdentityProviderDetails.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderDetailsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderDetailsToJson(this);
 }
 
@@ -3463,6 +3626,7 @@ class ApplicationEvent {
 
   factory ApplicationEvent.fromJson(Map<String, dynamic> json) =>
       _$ApplicationEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationEventToJson(this);
 }
 
@@ -3483,6 +3647,7 @@ class TenantRequest extends BaseEventRequest {
 
   factory TenantRequest.fromJson(Map<String, dynamic> json) =>
       _$TenantRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantRequestToJson(this);
 }
 
@@ -3496,6 +3661,7 @@ class IPAccessControlListSearchCriteria extends BaseSearchCriteria {
   factory IPAccessControlListSearchCriteria.fromJson(
           Map<String, dynamic> json) =>
       _$IPAccessControlListSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IPAccessControlListSearchCriteriaToJson(this);
 }
@@ -3521,6 +3687,7 @@ class AppleApplicationConfiguration
 
   factory AppleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$AppleApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AppleApplicationConfigurationToJson(this);
 }
 
@@ -3537,6 +3704,7 @@ class TenantWebAuthnWorkflowConfiguration extends Enableable {
   factory TenantWebAuthnWorkflowConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$TenantWebAuthnWorkflowConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$TenantWebAuthnWorkflowConfigurationToJson(this);
 }
@@ -3553,6 +3721,7 @@ class UserTwoFactorMethodRemoveEvent extends BaseEvent {
 
   factory UserTwoFactorMethodRemoveEvent.fromJson(Map<String, dynamic> json) =>
       _$UserTwoFactorMethodRemoveEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserTwoFactorMethodRemoveEventToJson(this);
 }
 
@@ -3564,6 +3733,7 @@ class UsernameModeration extends Enableable {
 
   factory UsernameModeration.fromJson(Map<String, dynamic> json) =>
       _$UsernameModerationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UsernameModerationToJson(this);
 }
 
@@ -3579,6 +3749,7 @@ class APIKeyRequest {
 
   factory APIKeyRequest.fromJson(Map<String, dynamic> json) =>
       _$APIKeyRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$APIKeyRequestToJson(this);
 }
 
@@ -3590,6 +3761,7 @@ class EventConfigurationData extends Enableable {
 
   factory EventConfigurationData.fromJson(Map<String, dynamic> json) =>
       _$EventConfigurationDataFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventConfigurationDataToJson(this);
 }
 
@@ -3607,6 +3779,7 @@ class WebAuthnAuthenticatorRegistrationResponse {
   factory WebAuthnAuthenticatorRegistrationResponse.fromJson(
           Map<String, dynamic> json) =>
       _$WebAuthnAuthenticatorRegistrationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnAuthenticatorRegistrationResponseToJson(this);
 }
@@ -3621,6 +3794,7 @@ class PasswordlessLoginRequest extends BaseLoginRequest {
 
   factory PasswordlessLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$PasswordlessLoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordlessLoginRequestToJson(this);
 }
 
@@ -3635,6 +3809,7 @@ class ConsentSearchCriteria extends BaseSearchCriteria {
 
   factory ConsentSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$ConsentSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConsentSearchCriteriaToJson(this);
 }
 
@@ -3665,6 +3840,7 @@ class JWTConfiguration extends Enableable {
 
   factory JWTConfiguration.fromJson(Map<String, dynamic> json) =>
       _$JWTConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTConfigurationToJson(this);
 }
 
@@ -3677,6 +3853,7 @@ class EmailTemplateErrors {
 
   factory EmailTemplateErrors.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateErrorsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateErrorsToJson(this);
 }
 
@@ -3691,6 +3868,7 @@ class UserLoginSuspiciousEvent extends UserLoginSuccessEvent {
 
   factory UserLoginSuspiciousEvent.fromJson(Map<String, dynamic> json) =>
       _$UserLoginSuspiciousEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserLoginSuspiciousEventToJson(this);
 }
 
@@ -3716,6 +3894,7 @@ class TestEvent extends BaseEvent {
 
   factory TestEvent.fromJson(Map<String, dynamic> json) =>
       _$TestEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TestEventToJson(this);
 }
 
@@ -3731,6 +3910,7 @@ class WebhookResponse {
 
   factory WebhookResponse.fromJson(Map<String, dynamic> json) =>
       _$WebhookResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebhookResponseToJson(this);
 }
 
@@ -3760,6 +3940,7 @@ class EventInfo {
 
   factory EventInfo.fromJson(Map<String, dynamic> json) =>
       _$EventInfoFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventInfoToJson(this);
 }
 
@@ -3775,6 +3956,7 @@ class LambdaResponse {
 
   factory LambdaResponse.fromJson(Map<String, dynamic> json) =>
       _$LambdaResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LambdaResponseToJson(this);
 }
 
@@ -3807,6 +3989,7 @@ class EventRequest {
 
   factory EventRequest.fromJson(Map<String, dynamic> json) =>
       _$EventRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventRequestToJson(this);
 }
 
@@ -3822,6 +4005,7 @@ class Integrations {
 
   factory Integrations.fromJson(Map<String, dynamic> json) =>
       _$IntegrationsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IntegrationsToJson(this);
 }
 
@@ -3836,6 +4020,7 @@ class UserPasswordUpdateEvent extends BaseEvent {
 
   factory UserPasswordUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserPasswordUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserPasswordUpdateEventToJson(this);
 }
 
@@ -3850,6 +4035,7 @@ class Errors {
   Errors({this.fieldErrors, this.generalErrors});
 
   factory Errors.fromJson(Map<String, dynamic> json) => _$ErrorsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ErrorsToJson(this);
 }
 
@@ -3863,6 +4049,7 @@ class PreviewMessageTemplateResponse {
 
   factory PreviewMessageTemplateResponse.fromJson(Map<String, dynamic> json) =>
       _$PreviewMessageTemplateResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PreviewMessageTemplateResponseToJson(this);
 }
 
@@ -3875,6 +4062,7 @@ class TenantFormConfiguration {
 
   factory TenantFormConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantFormConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantFormConfigurationToJson(this);
 }
 
@@ -3913,6 +4101,7 @@ class EventLog {
 
   factory EventLog.fromJson(Map<String, dynamic> json) =>
       _$EventLogFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogToJson(this);
 }
 
@@ -3929,6 +4118,7 @@ class Attachment {
 
   factory Attachment.fromJson(Map<String, dynamic> json) =>
       _$AttachmentFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AttachmentToJson(this);
 }
 
@@ -3958,6 +4148,7 @@ class EntityGrant {
 
   factory EntityGrant.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityGrantToJson(this);
 }
 
@@ -3973,6 +4164,7 @@ class UserCommentSearchResponse {
 
   factory UserCommentSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$UserCommentSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCommentSearchResponseToJson(this);
 }
 
@@ -4056,6 +4248,7 @@ class Application {
 
   factory Application.fromJson(Map<String, dynamic> json) =>
       _$ApplicationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationToJson(this);
 }
 
@@ -4070,6 +4263,7 @@ class SortField {
 
   factory SortField.fromJson(Map<String, dynamic> json) =>
       _$SortFieldFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SortFieldToJson(this);
 }
 
@@ -4086,6 +4280,7 @@ class SAMLv2IdPInitiatedIdentityProvider extends BaseSAMLv2IdentityProvider<
   factory SAMLv2IdPInitiatedIdentityProvider.fromJson(
           Map<String, dynamic> json) =>
       _$SAMLv2IdPInitiatedIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SAMLv2IdPInitiatedIdentityProviderToJson(this);
 }
@@ -4104,6 +4299,7 @@ class EventLogSearchCriteria extends BaseSearchCriteria {
 
   factory EventLogSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$EventLogSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogSearchCriteriaToJson(this);
 }
 
@@ -4137,6 +4333,7 @@ class JWTVendResponse {
 
   factory JWTVendResponse.fromJson(Map<String, dynamic> json) =>
       _$JWTVendResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTVendResponseToJson(this);
 }
 
@@ -4151,6 +4348,7 @@ class ReindexRequest {
 
   factory ReindexRequest.fromJson(Map<String, dynamic> json) =>
       _$ReindexRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReindexRequestToJson(this);
 }
 
@@ -4166,6 +4364,7 @@ class EntityGrantResponse {
 
   factory EntityGrantResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityGrantResponseToJson(this);
 }
 
@@ -4198,6 +4397,7 @@ class RegistrationConfiguration extends Enableable {
 
   factory RegistrationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$RegistrationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RegistrationConfigurationToJson(this);
 }
 
@@ -4210,6 +4410,7 @@ class SupportsPostBindings {
 
   factory SupportsPostBindings.fromJson(Map<String, dynamic> json) =>
       _$SupportsPostBindingsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SupportsPostBindingsToJson(this);
 }
 
@@ -4251,6 +4452,7 @@ class OAuth2Configuration {
 
   factory OAuth2Configuration.fromJson(Map<String, dynamic> json) =>
       _$OAuth2ConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OAuth2ConfigurationToJson(this);
 }
 
@@ -4274,6 +4476,7 @@ class TwoFactorSendRequest {
 
   factory TwoFactorSendRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorSendRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorSendRequestToJson(this);
 }
 
@@ -4290,6 +4493,7 @@ class ApplicationSearchCriteria extends BaseSearchCriteria {
 
   factory ApplicationSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$ApplicationSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationSearchCriteriaToJson(this);
 }
 
@@ -4307,6 +4511,7 @@ class UserRegistrationVerifiedEvent extends BaseEvent {
 
   factory UserRegistrationVerifiedEvent.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationVerifiedEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserRegistrationVerifiedEventToJson(this);
 }
 
@@ -4321,6 +4526,7 @@ class MessageTemplateRequest {
 
   factory MessageTemplateRequest.fromJson(Map<String, dynamic> json) =>
       _$MessageTemplateRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessageTemplateRequestToJson(this);
 }
 
@@ -4336,6 +4542,7 @@ class EntityTypeRequest {
 
   factory EntityTypeRequest.fromJson(Map<String, dynamic> json) =>
       _$EntityTypeRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypeRequestToJson(this);
 }
 
@@ -4348,6 +4555,7 @@ class NonTransactionalEvent {
 
   factory NonTransactionalEvent.fromJson(Map<String, dynamic> json) =>
       _$NonTransactionalEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$NonTransactionalEventToJson(this);
 }
 
@@ -4362,6 +4570,7 @@ class UserCreateEvent extends BaseEvent {
 
   factory UserCreateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCreateEventToJson(this);
 }
 
@@ -4379,6 +4588,7 @@ class ApplicationMultiFactorConfiguration {
   factory ApplicationMultiFactorConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationMultiFactorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationMultiFactorConfigurationToJson(this);
 }
@@ -4421,6 +4631,7 @@ class TwoFactorRequest extends BaseEventRequest {
 
   factory TwoFactorRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorRequestToJson(this);
 }
 
@@ -4435,6 +4646,7 @@ class UserActionReasonRequest {
 
   factory UserActionReasonRequest.fromJson(Map<String, dynamic> json) =>
       _$UserActionReasonRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionReasonRequestToJson(this);
 }
 
@@ -4479,6 +4691,7 @@ class Key {
       this.type});
 
   factory Key.fromJson(Map<String, dynamic> json) => _$KeyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KeyToJson(this);
 }
 
@@ -4493,6 +4706,7 @@ class UserBulkCreateEvent extends BaseEvent {
 
   factory UserBulkCreateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserBulkCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserBulkCreateEventToJson(this);
 }
 
@@ -4527,6 +4741,7 @@ class IdentityProviderOauth2Configuration {
   factory IdentityProviderOauth2Configuration.fromJson(
           Map<String, dynamic> json) =>
       _$IdentityProviderOauth2ConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IdentityProviderOauth2ConfigurationToJson(this);
 }
@@ -4545,6 +4760,7 @@ class RefreshTokenRevocationPolicy {
 
   factory RefreshTokenRevocationPolicy.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenRevocationPolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshTokenRevocationPolicyToJson(this);
 }
 
@@ -4557,6 +4773,7 @@ class MinimumPasswordAge extends Enableable {
 
   factory MinimumPasswordAge.fromJson(Map<String, dynamic> json) =>
       _$MinimumPasswordAgeFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MinimumPasswordAgeToJson(this);
 }
 
@@ -4571,6 +4788,7 @@ class APIKeyResponse {
 
   factory APIKeyResponse.fromJson(Map<String, dynamic> json) =>
       _$APIKeyResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$APIKeyResponseToJson(this);
 }
 
@@ -4602,6 +4820,7 @@ class GroupUpdateEvent extends BaseEvent {
 
   factory GroupUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupUpdateEventToJson(this);
 }
 
@@ -4634,6 +4853,7 @@ class Entity {
       this.type});
 
   factory Entity.fromJson(Map<String, dynamic> json) => _$EntityFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityToJson(this);
 }
 
@@ -4655,6 +4875,7 @@ class EventLogSearchRequest {
 
   factory EventLogSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$EventLogSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogSearchRequestToJson(this);
 }
 
@@ -4688,6 +4909,7 @@ class ImportRequest extends BaseEventRequest {
 
   factory ImportRequest.fromJson(Map<String, dynamic> json) =>
       _$ImportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ImportRequestToJson(this);
 }
 
@@ -4700,6 +4922,7 @@ class FormFieldValidator extends Enableable {
 
   factory FormFieldValidator.fromJson(Map<String, dynamic> json) =>
       _$FormFieldValidatorFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormFieldValidatorToJson(this);
 }
 
@@ -4714,6 +4937,7 @@ class EntityGrantSearchRequest {
 
   factory EntityGrantSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityGrantSearchRequestToJson(this);
 }
 
@@ -4729,6 +4953,7 @@ class WebhookSearchResponse {
 
   factory WebhookSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$WebhookSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebhookSearchResponseToJson(this);
 }
 
@@ -4753,6 +4978,7 @@ class AppleIdentityProvider
 
   factory AppleIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$AppleIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AppleIdentityProviderToJson(this);
 }
 
@@ -4796,6 +5022,7 @@ class UserRegistration {
 
   factory UserRegistration.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserRegistrationToJson(this);
 }
 
@@ -4839,6 +5066,7 @@ class SecureIdentity {
 
   factory SecureIdentity.fromJson(Map<String, dynamic> json) =>
       _$SecureIdentityFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SecureIdentityToJson(this);
 }
 
@@ -4853,6 +5081,7 @@ class ApplicationExternalIdentifierConfiguration {
   factory ApplicationExternalIdentifierConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationExternalIdentifierConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationExternalIdentifierConfigurationToJson(this);
 }
@@ -4870,6 +5099,7 @@ class EntityTypeResponse {
 
   factory EntityTypeResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityTypeResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypeResponseToJson(this);
 }
 
@@ -4881,6 +5111,7 @@ class LoginRecordConfiguration {
 
   factory LoginRecordConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LoginRecordConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginRecordConfigurationToJson(this);
 }
 
@@ -4894,6 +5125,7 @@ class VerifyEmailResponse {
 
   factory VerifyEmailResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyEmailResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VerifyEmailResponseToJson(this);
 }
 
@@ -4906,6 +5138,7 @@ class EventConfiguration {
 
   factory EventConfiguration.fromJson(Map<String, dynamic> json) =>
       _$EventConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventConfigurationToJson(this);
 }
 
@@ -4920,6 +5153,7 @@ class UserLoginIdDuplicateOnUpdateEvent
   factory UserLoginIdDuplicateOnUpdateEvent.fromJson(
           Map<String, dynamic> json) =>
       _$UserLoginIdDuplicateOnUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$UserLoginIdDuplicateOnUpdateEventToJson(this);
 }
@@ -4936,6 +5170,7 @@ class GroupMemberRemoveCompleteEvent extends BaseEvent {
 
   factory GroupMemberRemoveCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberRemoveCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberRemoveCompleteEventToJson(this);
 }
 
@@ -4947,6 +5182,7 @@ class EventLogConfiguration {
 
   factory EventLogConfiguration.fromJson(Map<String, dynamic> json) =>
       _$EventLogConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogConfigurationToJson(this);
 }
 
@@ -4961,6 +5197,7 @@ class IdentityProviderResponse {
 
   factory IdentityProviderResponse.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderResponseToJson(this);
 }
 
@@ -4975,6 +5212,7 @@ class WebhookSearchRequest {
 
   factory WebhookSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$WebhookSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebhookSearchRequestToJson(this);
 }
 
@@ -4990,6 +5228,7 @@ class GroupMemberAddCompleteEvent extends BaseEvent {
 
   factory GroupMemberAddCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberAddCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberAddCompleteEventToJson(this);
 }
 
@@ -5014,6 +5253,7 @@ class PasswordlessStartRequest {
 
   factory PasswordlessStartRequest.fromJson(Map<String, dynamic> json) =>
       _$PasswordlessStartRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordlessStartRequestToJson(this);
 }
 
@@ -5077,6 +5317,7 @@ class ExternalIdentifierConfiguration {
 
   factory ExternalIdentifierConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ExternalIdentifierConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ExternalIdentifierConfigurationToJson(this);
 }
@@ -5090,6 +5331,7 @@ class LoginRecordExportRequest extends BaseExportRequest {
 
   factory LoginRecordExportRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginRecordExportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginRecordExportRequestToJson(this);
 }
 
@@ -5115,6 +5357,7 @@ class EmailTemplateResponse {
 
   factory EmailTemplateResponse.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateResponseToJson(this);
 }
 
@@ -5127,6 +5370,7 @@ class TenantOAuth2Configuration {
 
   factory TenantOAuth2Configuration.fromJson(Map<String, dynamic> json) =>
       _$TenantOAuth2ConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantOAuth2ConfigurationToJson(this);
 }
 
@@ -5153,6 +5397,7 @@ class WebAuthnPublicKeyRegistrationRequest {
   factory WebAuthnPublicKeyRegistrationRequest.fromJson(
           Map<String, dynamic> json) =>
       _$WebAuthnPublicKeyRegistrationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnPublicKeyRegistrationRequestToJson(this);
 }
@@ -5177,6 +5422,7 @@ class UserResponse {
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
 
@@ -5198,6 +5444,7 @@ class DeviceInfo {
 
   factory DeviceInfo.fromJson(Map<String, dynamic> json) =>
       _$DeviceInfoFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeviceInfoToJson(this);
 }
 
@@ -5211,6 +5458,7 @@ class SMSMessageTemplate extends MessageTemplate {
 
   factory SMSMessageTemplate.fromJson(Map<String, dynamic> json) =>
       _$SMSMessageTemplateFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SMSMessageTemplateToJson(this);
 }
 
@@ -5226,6 +5474,7 @@ class UserActionReasonResponse {
 
   factory UserActionReasonResponse.fromJson(Map<String, dynamic> json) =>
       _$UserActionReasonResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionReasonResponseToJson(this);
 }
 
@@ -5239,6 +5488,7 @@ class UserTwoFactorConfiguration {
 
   factory UserTwoFactorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UserTwoFactorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserTwoFactorConfigurationToJson(this);
 }
 
@@ -5270,6 +5520,7 @@ class PendingIdPLink {
 
   factory PendingIdPLink.fromJson(Map<String, dynamic> json) =>
       _$PendingIdPLinkFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PendingIdPLinkToJson(this);
 }
 
@@ -5282,6 +5533,7 @@ class JWKSResponse {
 
   factory JWKSResponse.fromJson(Map<String, dynamic> json) =>
       _$JWKSResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWKSResponseToJson(this);
 }
 
@@ -5296,6 +5548,7 @@ class IntegrationResponse {
 
   factory IntegrationResponse.fromJson(Map<String, dynamic> json) =>
       _$IntegrationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IntegrationResponseToJson(this);
 }
 
@@ -5310,6 +5563,7 @@ class WebAuthnRegisterStartResponse {
 
   factory WebAuthnRegisterStartResponse.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnRegisterStartResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnRegisterStartResponseToJson(this);
 }
 
@@ -5326,6 +5580,7 @@ class TenantCaptchaConfiguration extends Enableable {
 
   factory TenantCaptchaConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantCaptchaConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantCaptchaConfigurationToJson(this);
 }
 
@@ -5342,6 +5597,7 @@ class ApplicationResponse {
 
   factory ApplicationResponse.fromJson(Map<String, dynamic> json) =>
       _$ApplicationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationResponseToJson(this);
 }
 
@@ -5395,6 +5651,7 @@ class OpenIdConnectIdentityProvider
 
   factory OpenIdConnectIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$OpenIdConnectIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$OpenIdConnectIdentityProviderToJson(this);
 }
 
@@ -5408,6 +5665,7 @@ class UIConfiguration {
 
   factory UIConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UIConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UIConfigurationToJson(this);
 }
 
@@ -5432,6 +5690,7 @@ class XboxApplicationConfiguration
 
   factory XboxApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$XboxApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$XboxApplicationConfigurationToJson(this);
 }
 
@@ -5447,6 +5706,7 @@ class GroupSearchCriteria extends BaseSearchCriteria {
 
   factory GroupSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$GroupSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupSearchCriteriaToJson(this);
 }
 
@@ -5459,6 +5719,7 @@ class MultiFactorSMSMethod extends Enableable {
 
   factory MultiFactorSMSMethod.fromJson(Map<String, dynamic> json) =>
       _$MultiFactorSMSMethodFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MultiFactorSMSMethodToJson(this);
 }
 
@@ -5472,6 +5733,7 @@ class MessengerResponse {
 
   factory MessengerResponse.fromJson(Map<String, dynamic> json) =>
       _$MessengerResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessengerResponseToJson(this);
 }
 
@@ -5490,6 +5752,7 @@ class UserLoginFailedEvent extends BaseEvent {
 
   factory UserLoginFailedEvent.fromJson(Map<String, dynamic> json) =>
       _$UserLoginFailedEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserLoginFailedEventToJson(this);
 }
 
@@ -5572,6 +5835,7 @@ class Tenant {
       this.webAuthnConfiguration});
 
   factory Tenant.fromJson(Map<String, dynamic> json) => _$TenantFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantToJson(this);
 }
 
@@ -5587,6 +5851,7 @@ class GroupMemberUpdateCompleteEvent extends BaseEvent {
 
   factory GroupMemberUpdateCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberUpdateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberUpdateCompleteEventToJson(this);
 }
 
@@ -5614,6 +5879,7 @@ class BaseMessengerConfiguration {
 
   factory BaseMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$BaseMessengerConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseMessengerConfigurationToJson(this);
 }
 
@@ -5628,6 +5894,7 @@ class TwoFactorStartResponse {
 
   factory TwoFactorStartResponse.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorStartResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorStartResponseToJson(this);
 }
 
@@ -5637,6 +5904,7 @@ class PasswordlessConfiguration extends Enableable {
 
   factory PasswordlessConfiguration.fromJson(Map<String, dynamic> json) =>
       _$PasswordlessConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordlessConfigurationToJson(this);
 }
 
@@ -5652,6 +5920,7 @@ class EntityGrantSearchResponse {
 
   factory EntityGrantSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityGrantSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityGrantSearchResponseToJson(this);
 }
 
@@ -5680,6 +5949,7 @@ class Theme {
       this.templates});
 
   factory Theme.fromJson(Map<String, dynamic> json) => _$ThemeFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ThemeToJson(this);
 }
 
@@ -5708,6 +5978,7 @@ class IdentityProviderLoginRequest extends BaseLoginRequest {
 
   factory IdentityProviderLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderLoginRequestToJson(this);
 }
 
@@ -5723,6 +5994,7 @@ class GroupResponse {
 
   factory GroupResponse.fromJson(Map<String, dynamic> json) =>
       _$GroupResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupResponseToJson(this);
 }
 
@@ -5738,6 +6010,7 @@ class FailedAuthenticationActionCancelPolicy {
   factory FailedAuthenticationActionCancelPolicy.fromJson(
           Map<String, dynamic> json) =>
       _$FailedAuthenticationActionCancelPolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$FailedAuthenticationActionCancelPolicyToJson(this);
 }
@@ -5782,6 +6055,7 @@ class Consent {
 
   factory Consent.fromJson(Map<String, dynamic> json) =>
       _$ConsentFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConsentToJson(this);
 }
 
@@ -5794,6 +6068,7 @@ class IPAccessControlListRequest {
 
   factory IPAccessControlListRequest.fromJson(Map<String, dynamic> json) =>
       _$IPAccessControlListRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IPAccessControlListRequestToJson(this);
 }
 
@@ -5808,6 +6083,7 @@ class SAMLv2ApplicationConfiguration
 
   factory SAMLv2ApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2ApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SAMLv2ApplicationConfigurationToJson(this);
 }
 
@@ -5820,6 +6096,7 @@ class AuditLogSearchRequest {
 
   factory AuditLogSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$AuditLogSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogSearchRequestToJson(this);
 }
 
@@ -5834,6 +6111,7 @@ class UserPasswordBreachEvent extends BaseEvent {
 
   factory UserPasswordBreachEvent.fromJson(Map<String, dynamic> json) =>
       _$UserPasswordBreachEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserPasswordBreachEventToJson(this);
 }
 
@@ -5846,6 +6124,7 @@ class ReactorMetrics {
 
   factory ReactorMetrics.fromJson(Map<String, dynamic> json) =>
       _$ReactorMetricsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReactorMetricsToJson(this);
 }
 
@@ -5871,6 +6150,7 @@ class SendRequest {
 
   factory SendRequest.fromJson(Map<String, dynamic> json) =>
       _$SendRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SendRequestToJson(this);
 }
 
@@ -5882,6 +6162,7 @@ class AuditLogConfiguration {
 
   factory AuditLogConfiguration.fromJson(Map<String, dynamic> json) =>
       _$AuditLogConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogConfigurationToJson(this);
 }
 
@@ -5897,6 +6178,7 @@ class UserDeleteEvent extends BaseEvent {
 
   factory UserDeleteEvent.fromJson(Map<String, dynamic> json) =>
       _$UserDeleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserDeleteEventToJson(this);
 }
 
@@ -5909,6 +6191,7 @@ class RegistrationDeleteRequest extends BaseEventRequest {
 
   factory RegistrationDeleteRequest.fromJson(Map<String, dynamic> json) =>
       _$RegistrationDeleteRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RegistrationDeleteRequestToJson(this);
 }
 
@@ -5937,6 +6220,7 @@ class VerifyEmailRequest extends BaseEventRequest {
 
   factory VerifyEmailRequest.fromJson(Map<String, dynamic> json) =>
       _$VerifyEmailRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VerifyEmailRequestToJson(this);
 }
 
@@ -5951,6 +6235,7 @@ class TwoFactorDisableRequest extends BaseEventRequest {
 
   factory TwoFactorDisableRequest.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorDisableRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorDisableRequestToJson(this);
 }
 
@@ -5977,6 +6262,7 @@ class GoogleIdentityProvider
 
   factory GoogleIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$GoogleIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GoogleIdentityProviderToJson(this);
 }
 
@@ -5989,6 +6275,7 @@ class FormStep {
 
   factory FormStep.fromJson(Map<String, dynamic> json) =>
       _$FormStepFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormStepToJson(this);
 }
 
@@ -6003,6 +6290,7 @@ class TenantUserDeletePolicy {
 
   factory TenantUserDeletePolicy.fromJson(Map<String, dynamic> json) =>
       _$TenantUserDeletePolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantUserDeletePolicyToJson(this);
 }
 
@@ -6020,6 +6308,7 @@ class SonyPSNApplicationConfiguration
 
   factory SonyPSNApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SonyPSNApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SonyPSNApplicationConfigurationToJson(this);
 }
@@ -6035,6 +6324,7 @@ class KeySearchRequest {
 
   factory KeySearchRequest.fromJson(Map<String, dynamic> json) =>
       _$KeySearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KeySearchRequestToJson(this);
 }
 
@@ -6094,6 +6384,7 @@ class UserActionLog {
 
   factory UserActionLog.fromJson(Map<String, dynamic> json) =>
       _$UserActionLogFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionLogToJson(this);
 }
 
@@ -6108,6 +6399,7 @@ class LoginPingRequest extends BaseLoginRequest {
 
   factory LoginPingRequest.fromJson(Map<String, dynamic> json) =>
       _$LoginPingRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginPingRequestToJson(this);
 }
 
@@ -6121,6 +6413,7 @@ class IdentityProviderLimitUserLinkingPolicy extends Enableable {
   factory IdentityProviderLimitUserLinkingPolicy.fromJson(
           Map<String, dynamic> json) =>
       _$IdentityProviderLimitUserLinkingPolicyFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IdentityProviderLimitUserLinkingPolicyToJson(this);
 }
@@ -6135,6 +6428,7 @@ class EmailUnverifiedOptions {
 
   factory EmailUnverifiedOptions.fromJson(Map<String, dynamic> json) =>
       _$EmailUnverifiedOptionsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailUnverifiedOptionsToJson(this);
 }
 
@@ -6150,6 +6444,7 @@ class BaseEventRequest {
 
   factory BaseEventRequest.fromJson(Map<String, dynamic> json) =>
       _$BaseEventRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseEventRequestToJson(this);
 }
 
@@ -6197,6 +6492,7 @@ class TenantSearchRequest {
 
   factory TenantSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$TenantSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantSearchRequestToJson(this);
 }
 
@@ -6212,6 +6508,7 @@ class PublicKeyResponse {
 
   factory PublicKeyResponse.fromJson(Map<String, dynamic> json) =>
       _$PublicKeyResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PublicKeyResponseToJson(this);
 }
 
@@ -6247,6 +6544,7 @@ class ForgotPasswordRequest extends BaseEventRequest {
 
   factory ForgotPasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ForgotPasswordRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ForgotPasswordRequestToJson(this);
 }
 
@@ -6262,6 +6560,7 @@ class IdentityProviderSearchResponse {
 
   factory IdentityProviderSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderSearchResponseToJson(this);
 }
 
@@ -6275,6 +6574,7 @@ class MetaData {
 
   factory MetaData.fromJson(Map<String, dynamic> json) =>
       _$MetaDataFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MetaDataToJson(this);
 }
 
@@ -6351,6 +6651,7 @@ class EmailConfiguration {
 
   factory EmailConfiguration.fromJson(Map<String, dynamic> json) =>
       _$EmailConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailConfigurationToJson(this);
 }
 
@@ -6363,6 +6664,7 @@ class TenantLoginConfiguration {
 
   factory TenantLoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantLoginConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantLoginConfigurationToJson(this);
 }
 
@@ -6378,6 +6680,7 @@ class ActionRequest extends BaseEventRequest {
 
   factory ActionRequest.fromJson(Map<String, dynamic> json) =>
       _$ActionRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ActionRequestToJson(this);
 }
 
@@ -6413,6 +6716,7 @@ class IdentityProviderRequest {
 
   factory IdentityProviderRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderRequestToJson(this);
 }
 
@@ -6437,6 +6741,7 @@ class Group {
       this.tenantId});
 
   factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupToJson(this);
 }
 
@@ -6449,6 +6754,7 @@ class SAMLv2AssertionConfiguration {
 
   factory SAMLv2AssertionConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2AssertionConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SAMLv2AssertionConfigurationToJson(this);
 }
 
@@ -6467,6 +6773,7 @@ class WebAuthnRegisterCompleteRequest {
 
   factory WebAuthnRegisterCompleteRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnRegisterCompleteRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnRegisterCompleteRequestToJson(this);
 }
@@ -6480,6 +6787,7 @@ class ReactorResponse {
 
   factory ReactorResponse.fromJson(Map<String, dynamic> json) =>
       _$ReactorResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReactorResponseToJson(this);
 }
 
@@ -6507,6 +6815,7 @@ class ApplicationRole {
 
   factory ApplicationRole.fromJson(Map<String, dynamic> json) =>
       _$ApplicationRoleFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationRoleToJson(this);
 }
 
@@ -6520,6 +6829,7 @@ class VerifyRegistrationResponse {
 
   factory VerifyRegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifyRegistrationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VerifyRegistrationResponseToJson(this);
 }
 
@@ -6545,6 +6855,7 @@ class CORSConfiguration extends Enableable {
 
   factory CORSConfiguration.fromJson(Map<String, dynamic> json) =>
       _$CORSConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CORSConfigurationToJson(this);
 }
 
@@ -6559,6 +6870,7 @@ class MemberRequest {
 
   factory MemberRequest.fromJson(Map<String, dynamic> json) =>
       _$MemberRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MemberRequestToJson(this);
 }
 
@@ -6573,6 +6885,7 @@ class BaseSearchCriteria {
 
   factory BaseSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$BaseSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseSearchCriteriaToJson(this);
 }
 
@@ -6583,6 +6896,7 @@ class JSONWebKeyInfoProvider {
 
   factory JSONWebKeyInfoProvider.fromJson(Map<String, dynamic> json) =>
       _$JSONWebKeyInfoProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JSONWebKeyInfoProviderToJson(this);
 }
 
@@ -6624,6 +6938,7 @@ class UserRegistrationUpdateEvent extends BaseEvent {
 
   factory UserRegistrationUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserRegistrationUpdateEventToJson(this);
 }
 
@@ -6638,6 +6953,7 @@ class EntityResponse {
 
   factory EntityResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityResponseToJson(this);
 }
 
@@ -6650,6 +6966,7 @@ class PublicKeyCredentialEntity {
 
   factory PublicKeyCredentialEntity.fromJson(Map<String, dynamic> json) =>
       _$PublicKeyCredentialEntityFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PublicKeyCredentialEntityToJson(this);
 }
 
@@ -6688,6 +7005,7 @@ class ApplicationEmailConfiguration {
 
   factory ApplicationEmailConfiguration.fromJson(Map<String, dynamic> json) =>
       _$ApplicationEmailConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationEmailConfigurationToJson(this);
 }
 
@@ -6701,6 +7019,7 @@ class IdentityProviderStartLoginResponse {
   factory IdentityProviderStartLoginResponse.fromJson(
           Map<String, dynamic> json) =>
       _$IdentityProviderStartLoginResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IdentityProviderStartLoginResponseToJson(this);
 }
@@ -6720,6 +7039,7 @@ class EpicGamesApplicationConfiguration
   factory EpicGamesApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$EpicGamesApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$EpicGamesApplicationConfigurationToJson(this);
 }
@@ -6741,6 +7061,7 @@ class UserRegistrationDeleteCompleteEvent extends BaseEvent {
   factory UserRegistrationDeleteCompleteEvent.fromJson(
           Map<String, dynamic> json) =>
       _$UserRegistrationDeleteCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$UserRegistrationDeleteCompleteEventToJson(this);
 }
@@ -6757,6 +7078,7 @@ class GroupRequest {
 
   factory GroupRequest.fromJson(Map<String, dynamic> json) =>
       _$GroupRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupRequestToJson(this);
 }
 
@@ -6772,6 +7094,7 @@ class UserCommentResponse {
 
   factory UserCommentResponse.fromJson(Map<String, dynamic> json) =>
       _$UserCommentResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCommentResponseToJson(this);
 }
 
@@ -6784,6 +7107,7 @@ class ValidateResponse {
 
   factory ValidateResponse.fromJson(Map<String, dynamic> json) =>
       _$ValidateResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ValidateResponseToJson(this);
 }
 
@@ -6808,6 +7132,7 @@ class GoogleApplicationConfiguration
 
   factory GoogleApplicationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$GoogleApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GoogleApplicationConfigurationToJson(this);
 }
 
@@ -6825,6 +7150,7 @@ class UserDeleteCompleteEvent extends BaseEvent {
 
   factory UserDeleteCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$UserDeleteCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserDeleteCompleteEventToJson(this);
 }
 
@@ -6840,6 +7166,7 @@ class PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
 
   factory PublicKeyCredentialUserEntity.fromJson(Map<String, dynamic> json) =>
       _$PublicKeyCredentialUserEntityFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PublicKeyCredentialUserEntityToJson(this);
 }
 
@@ -6868,6 +7195,7 @@ class Lambda {
       this.type});
 
   factory Lambda.fromJson(Map<String, dynamic> json) => _$LambdaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LambdaToJson(this);
 }
 
@@ -6887,6 +7215,7 @@ class SonyPSNIdentityProvider
 
   factory SonyPSNIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$SonyPSNIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SonyPSNIdentityProviderToJson(this);
 }
 
@@ -6910,6 +7239,7 @@ class BreachedPasswordTenantMetric {
 
   factory BreachedPasswordTenantMetric.fromJson(Map<String, dynamic> json) =>
       _$BreachedPasswordTenantMetricFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BreachedPasswordTenantMetricToJson(this);
 }
 
@@ -6937,6 +7267,7 @@ class NintendoApplicationConfiguration
   factory NintendoApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$NintendoApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$NintendoApplicationConfigurationToJson(this);
 }
@@ -6951,6 +7282,7 @@ class TenantUnverifiedConfiguration {
 
   factory TenantUnverifiedConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantUnverifiedConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantUnverifiedConfigurationToJson(this);
 }
 
@@ -6967,6 +7299,7 @@ class LoginRecordSearchCriteria extends BaseSearchCriteria {
 
   factory LoginRecordSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$LoginRecordSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginRecordSearchCriteriaToJson(this);
 }
 
@@ -6981,6 +7314,7 @@ class EntityTypeSearchRequest {
 
   factory EntityTypeSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$EntityTypeSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypeSearchRequestToJson(this);
 }
 
@@ -7005,6 +7339,7 @@ class JWTRefreshTokenRevokeEvent extends BaseEvent {
 
   factory JWTRefreshTokenRevokeEvent.fromJson(Map<String, dynamic> json) =>
       _$JWTRefreshTokenRevokeEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTRefreshTokenRevokeEventToJson(this);
 }
 
@@ -7038,6 +7373,7 @@ class IdentityProviderLink {
 
   factory IdentityProviderLink.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderLinkFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderLinkToJson(this);
 }
 
@@ -7057,6 +7393,7 @@ class TwitchIdentityProvider
 
   factory TwitchIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$TwitchIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwitchIdentityProviderToJson(this);
 }
 
@@ -7112,6 +7449,7 @@ class User extends SecureIdentity {
       this.twoFactor});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
@@ -7126,6 +7464,7 @@ class EntityTypeSearchCriteria extends BaseSearchCriteria {
 
   factory EntityTypeSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$EntityTypeSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypeSearchCriteriaToJson(this);
 }
 
@@ -7141,6 +7480,7 @@ class UserIdentityProviderUnlinkEvent extends BaseEvent {
 
   factory UserIdentityProviderUnlinkEvent.fromJson(Map<String, dynamic> json) =>
       _$UserIdentityProviderUnlinkEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$UserIdentityProviderUnlinkEventToJson(this);
 }
@@ -7156,6 +7496,7 @@ class WebAuthnExtensionsClientOutputs {
 
   factory WebAuthnExtensionsClientOutputs.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnExtensionsClientOutputsFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnExtensionsClientOutputsToJson(this);
 }
@@ -7171,6 +7512,7 @@ class AuthenticatorConfiguration {
 
   factory AuthenticatorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$AuthenticatorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuthenticatorConfigurationToJson(this);
 }
 
@@ -7188,6 +7530,7 @@ class TwoFactorEnableDisableSendRequest {
   factory TwoFactorEnableDisableSendRequest.fromJson(
           Map<String, dynamic> json) =>
       _$TwoFactorEnableDisableSendRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$TwoFactorEnableDisableSendRequestToJson(this);
 }
@@ -7212,6 +7555,7 @@ class TenantWebAuthnConfiguration extends Enableable {
 
   factory TenantWebAuthnConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantWebAuthnConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantWebAuthnConfigurationToJson(this);
 }
 
@@ -7226,6 +7570,7 @@ class GroupCreateCompleteEvent extends BaseEvent {
 
   factory GroupCreateCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupCreateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupCreateCompleteEventToJson(this);
 }
 
@@ -7241,6 +7586,7 @@ class WebAuthnRegistrationExtensionOptions {
   factory WebAuthnRegistrationExtensionOptions.fromJson(
           Map<String, dynamic> json) =>
       _$WebAuthnRegistrationExtensionOptionsFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnRegistrationExtensionOptionsToJson(this);
 }
@@ -7261,6 +7607,7 @@ class PasswordEncryptionConfiguration {
 
   factory PasswordEncryptionConfiguration.fromJson(Map<String, dynamic> json) =>
       _$PasswordEncryptionConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$PasswordEncryptionConfigurationToJson(this);
 }
@@ -7289,6 +7636,7 @@ class RegistrationRequest extends BaseEventRequest {
 
   factory RegistrationRequest.fromJson(Map<String, dynamic> json) =>
       _$RegistrationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RegistrationRequestToJson(this);
 }
 
@@ -7305,6 +7653,7 @@ class ApplicationRequest extends BaseEventRequest {
 
   factory ApplicationRequest.fromJson(Map<String, dynamic> json) =>
       _$ApplicationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationRequestToJson(this);
 }
 
@@ -7318,6 +7667,7 @@ class TwoFactorResponse {
 
   factory TwoFactorResponse.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorResponseToJson(this);
 }
 
@@ -7332,6 +7682,7 @@ class MultiFactorAuthenticatorMethod extends Enableable {
 
   factory MultiFactorAuthenticatorMethod.fromJson(Map<String, dynamic> json) =>
       _$MultiFactorAuthenticatorMethodFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MultiFactorAuthenticatorMethodToJson(this);
 }
 
@@ -7354,6 +7705,7 @@ class SAMLv2Logout {
 
   factory SAMLv2Logout.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2LogoutFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SAMLv2LogoutToJson(this);
 }
 
@@ -7367,6 +7719,7 @@ class RefreshTokenSlidingWindowConfiguration {
   factory RefreshTokenSlidingWindowConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$RefreshTokenSlidingWindowConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$RefreshTokenSlidingWindowConfigurationToJson(this);
 }
@@ -7384,6 +7737,7 @@ class IdentityProviderSearchCriteria extends BaseSearchCriteria {
 
   factory IdentityProviderSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderSearchCriteriaToJson(this);
 }
 
@@ -7398,6 +7752,7 @@ class JWTVendRequest {
 
   factory JWTVendRequest.fromJson(Map<String, dynamic> json) =>
       _$JWTVendRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTVendRequestToJson(this);
 }
 
@@ -7412,6 +7767,7 @@ class UserDeleteSingleRequest extends BaseEventRequest {
 
   factory UserDeleteSingleRequest.fromJson(Map<String, dynamic> json) =>
       _$UserDeleteSingleRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserDeleteSingleRequestToJson(this);
 }
 
@@ -7426,6 +7782,7 @@ class GroupSearchRequest {
 
   factory GroupSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$GroupSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupSearchRequestToJson(this);
 }
 
@@ -7448,6 +7805,7 @@ class WebAuthnAuthenticatorAuthenticationResponse {
   factory WebAuthnAuthenticatorAuthenticationResponse.fromJson(
           Map<String, dynamic> json) =>
       _$WebAuthnAuthenticatorAuthenticationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnAuthenticatorAuthenticationResponseToJson(this);
 }
@@ -7468,6 +7826,7 @@ class EpicGamesIdentityProvider
 
   factory EpicGamesIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$EpicGamesIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EpicGamesIdentityProviderToJson(this);
 }
 
@@ -7492,6 +7851,7 @@ class Form {
       this.type});
 
   factory Form.fromJson(Map<String, dynamic> json) => _$FormFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormToJson(this);
 }
 
@@ -7516,6 +7876,7 @@ class WebAuthnPublicKeyAuthenticationRequest {
   factory WebAuthnPublicKeyAuthenticationRequest.fromJson(
           Map<String, dynamic> json) =>
       _$WebAuthnPublicKeyAuthenticationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnPublicKeyAuthenticationRequestToJson(this);
 }
@@ -7563,6 +7924,7 @@ class IdentityProviderSearchRequest {
 
   factory IdentityProviderSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$IdentityProviderSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IdentityProviderSearchRequestToJson(this);
 }
 
@@ -7598,6 +7960,7 @@ class EntityRequest {
 
   factory EntityRequest.fromJson(Map<String, dynamic> json) =>
       _$EntityRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityRequestToJson(this);
 }
 
@@ -7612,6 +7975,7 @@ class SystemConfigurationResponse {
 
   factory SystemConfigurationResponse.fromJson(Map<String, dynamic> json) =>
       _$SystemConfigurationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SystemConfigurationResponseToJson(this);
 }
 
@@ -7642,6 +8006,7 @@ class ActionData {
 
   factory ActionData.fromJson(Map<String, dynamic> json) =>
       _$ActionDataFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ActionDataToJson(this);
 }
 
@@ -7653,6 +8018,7 @@ class APIKeyMetaData {
 
   factory APIKeyMetaData.fromJson(Map<String, dynamic> json) =>
       _$APIKeyMetaDataFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$APIKeyMetaDataToJson(this);
 }
 
@@ -7676,6 +8042,7 @@ class TenantRateLimitConfiguration {
 
   factory TenantRateLimitConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantRateLimitConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantRateLimitConfigurationToJson(this);
 }
 
@@ -7697,6 +8064,7 @@ class BaseLoginRequest extends BaseEventRequest {
 
   factory BaseLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$BaseLoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseLoginRequestToJson(this);
 }
 
@@ -7725,6 +8093,7 @@ class NintendoIdentityProvider
 
   factory NintendoIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$NintendoIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$NintendoIdentityProviderToJson(this);
 }
 
@@ -7740,6 +8109,7 @@ class UserUpdateCompleteEvent extends BaseEvent {
 
   factory UserUpdateCompleteEvent.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserUpdateCompleteEventToJson(this);
 }
 
@@ -7783,6 +8153,7 @@ class UserLoginSuccessEvent extends BaseEvent {
 
   factory UserLoginSuccessEvent.fromJson(Map<String, dynamic> json) =>
       _$UserLoginSuccessEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserLoginSuccessEventToJson(this);
 }
 
@@ -7798,6 +8169,7 @@ class MemberDeleteRequest {
 
   factory MemberDeleteRequest.fromJson(Map<String, dynamic> json) =>
       _$MemberDeleteRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MemberDeleteRequestToJson(this);
 }
 
@@ -7823,6 +8195,7 @@ class RegistrationResponse {
 
   factory RegistrationResponse.fromJson(Map<String, dynamic> json) =>
       _$RegistrationResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RegistrationResponseToJson(this);
 }
 
@@ -7844,6 +8217,7 @@ class UserRegistrationUpdateCompleteEvent extends BaseEvent {
   factory UserRegistrationUpdateCompleteEvent.fromJson(
           Map<String, dynamic> json) =>
       _$UserRegistrationUpdateCompleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$UserRegistrationUpdateCompleteEventToJson(this);
 }
@@ -7860,6 +8234,7 @@ class ThemeSearchResponse {
 
   factory ThemeSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$ThemeSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ThemeSearchResponseToJson(this);
 }
 
@@ -7896,6 +8271,7 @@ class DeviceResponse {
 
   factory DeviceResponse.fromJson(Map<String, dynamic> json) =>
       _$DeviceResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeviceResponseToJson(this);
 }
 
@@ -7910,6 +8286,7 @@ class EmailTemplateSearchCriteria extends BaseSearchCriteria {
 
   factory EmailTemplateSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateSearchCriteriaToJson(this);
 }
 
@@ -7921,6 +8298,7 @@ class APIKeyPermissions {
 
   factory APIKeyPermissions.fromJson(Map<String, dynamic> json) =>
       _$APIKeyPermissionsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$APIKeyPermissionsToJson(this);
 }
 
@@ -7942,6 +8320,7 @@ class BaseElasticSearchCriteria extends BaseSearchCriteria {
 
   factory BaseElasticSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$BaseElasticSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseElasticSearchCriteriaToJson(this);
 }
 
@@ -7957,6 +8336,7 @@ class IPAccessControlListSearchRequest {
   factory IPAccessControlListSearchRequest.fromJson(
           Map<String, dynamic> json) =>
       _$IPAccessControlListSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IPAccessControlListSearchRequestToJson(this);
 }
@@ -7974,6 +8354,7 @@ class LoginConfiguration {
 
   factory LoginConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LoginConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginConfigurationToJson(this);
 }
 
@@ -7989,6 +8370,7 @@ class GroupMemberAddEvent extends BaseEvent {
 
   factory GroupMemberAddEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberAddEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberAddEventToJson(this);
 }
 
@@ -8003,6 +8385,7 @@ class KeyRequest {
 
   factory KeyRequest.fromJson(Map<String, dynamic> json) =>
       _$KeyRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KeyRequestToJson(this);
 }
 
@@ -8018,6 +8401,7 @@ class EventLogSearchResponse {
 
   factory EventLogSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$EventLogSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogSearchResponseToJson(this);
 }
 
@@ -8031,6 +8415,7 @@ class TwoFactorTrust {
 
   factory TwoFactorTrust.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorTrustFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorTrustToJson(this);
 }
 
@@ -8048,6 +8433,7 @@ class ApplicationWebAuthnConfiguration extends Enableable {
   factory ApplicationWebAuthnConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationWebAuthnConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationWebAuthnConfigurationToJson(this);
 }
@@ -8076,6 +8462,7 @@ class GenericConnectorConfiguration extends BaseConnectorConfiguration {
 
   factory GenericConnectorConfiguration.fromJson(Map<String, dynamic> json) =>
       _$GenericConnectorConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GenericConnectorConfigurationToJson(this);
 }
 
@@ -8086,6 +8473,7 @@ class MessengerTransport {
 
   factory MessengerTransport.fromJson(Map<String, dynamic> json) =>
       _$MessengerTransportFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessengerTransportToJson(this);
 }
 
@@ -8100,6 +8488,7 @@ class IdentityProviderTenantConfiguration {
   factory IdentityProviderTenantConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$IdentityProviderTenantConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IdentityProviderTenantConfigurationToJson(this);
 }
@@ -8126,6 +8515,7 @@ class AuditLogSearchCriteria extends BaseSearchCriteria {
 
   factory AuditLogSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$AuditLogSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogSearchCriteriaToJson(this);
 }
 
@@ -8141,6 +8531,7 @@ class RefreshTokenImportRequest {
 
   factory RefreshTokenImportRequest.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenImportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshTokenImportRequestToJson(this);
 }
 
@@ -8156,6 +8547,7 @@ class WebAuthnCredentialResponse {
 
   factory WebAuthnCredentialResponse.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCredentialResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnCredentialResponseToJson(this);
 }
 
@@ -8169,6 +8561,7 @@ class ConnectorResponse {
 
   factory ConnectorResponse.fromJson(Map<String, dynamic> json) =>
       _$ConnectorResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConnectorResponseToJson(this);
 }
 
@@ -8202,6 +8595,7 @@ class UserConsent {
 
   factory UserConsent.fromJson(Map<String, dynamic> json) =>
       _$UserConsentFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserConsentToJson(this);
 }
 
@@ -8227,6 +8621,7 @@ class LogoutRequest extends BaseEventRequest {
 
   factory LogoutRequest.fromJson(Map<String, dynamic> json) =>
       _$LogoutRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LogoutRequestToJson(this);
 }
 
@@ -8239,6 +8634,7 @@ class LookupResponse {
 
   factory LookupResponse.fromJson(Map<String, dynamic> json) =>
       _$LookupResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LookupResponseToJson(this);
 }
 
@@ -8255,6 +8651,7 @@ class Family {
   Family({this.id, this.insertInstant, this.lastUpdateInstant, this.members});
 
   factory Family.fromJson(Map<String, dynamic> json) => _$FamilyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FamilyToJson(this);
 }
 
@@ -8270,6 +8667,7 @@ class EntityTypeSearchResponse {
 
   factory EntityTypeSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$EntityTypeSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypeSearchResponseToJson(this);
 }
 
@@ -8293,6 +8691,7 @@ class BaseSAMLv2IdentityProvider<
 
   factory BaseSAMLv2IdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$BaseSAMLv2IdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseSAMLv2IdentityProviderToJson(this);
 }
 
@@ -8311,6 +8710,7 @@ class LinkedInApplicationConfiguration
   factory LinkedInApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$LinkedInApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$LinkedInApplicationConfigurationToJson(this);
 }
@@ -8325,6 +8725,7 @@ class PreviewRequest {
 
   factory PreviewRequest.fromJson(Map<String, dynamic> json) =>
       _$PreviewRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PreviewRequestToJson(this);
 }
 
@@ -8341,6 +8742,7 @@ class RefreshTokenRevokeRequest extends BaseEventRequest {
 
   factory RefreshTokenRevokeRequest.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenRevokeRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshTokenRevokeRequestToJson(this);
 }
 
@@ -8367,6 +8769,7 @@ class Enableable {
 
   factory Enableable.fromJson(Map<String, dynamic> json) =>
       _$EnableableFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EnableableToJson(this);
 }
 
@@ -8381,6 +8784,7 @@ class EmailTemplateSearchRequest {
 
   factory EmailTemplateSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$EmailTemplateSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailTemplateSearchRequestToJson(this);
 }
 
@@ -8397,6 +8801,7 @@ class ApplicationUnverifiedConfiguration {
   factory ApplicationUnverifiedConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ApplicationUnverifiedConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ApplicationUnverifiedConfigurationToJson(this);
 }
@@ -8431,6 +8836,7 @@ class PublicKeyCredentialRequestOptions {
   factory PublicKeyCredentialRequestOptions.fromJson(
           Map<String, dynamic> json) =>
       _$PublicKeyCredentialRequestOptionsFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$PublicKeyCredentialRequestOptionsToJson(this);
 }
@@ -8447,6 +8853,7 @@ class PublicKeyCredentialRelyingPartyEntity extends PublicKeyCredentialEntity {
   factory PublicKeyCredentialRelyingPartyEntity.fromJson(
           Map<String, dynamic> json) =>
       _$PublicKeyCredentialRelyingPartyEntityFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$PublicKeyCredentialRelyingPartyEntityToJson(this);
 }
@@ -8463,6 +8870,7 @@ class UserConsentResponse {
 
   factory UserConsentResponse.fromJson(Map<String, dynamic> json) =>
       _$UserConsentResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserConsentResponseToJson(this);
 }
 
@@ -8478,6 +8886,7 @@ class BaseIdentityProviderApplicationConfiguration extends Enableable {
   factory BaseIdentityProviderApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$BaseIdentityProviderApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$BaseIdentityProviderApplicationConfigurationToJson(this);
 }
@@ -8498,6 +8907,7 @@ class JWTRefreshResponse {
 
   factory JWTRefreshResponse.fromJson(Map<String, dynamic> json) =>
       _$JWTRefreshResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTRefreshResponseToJson(this);
 }
 
@@ -8510,6 +8920,7 @@ class Count {
   Count({this.count, this.interval});
 
   factory Count.fromJson(Map<String, dynamic> json) => _$CountFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$CountToJson(this);
 }
 
@@ -8522,6 +8933,7 @@ class AuditLogExportRequest extends BaseExportRequest {
 
   factory AuditLogExportRequest.fromJson(Map<String, dynamic> json) =>
       _$AuditLogExportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$AuditLogExportRequestToJson(this);
 }
 
@@ -8537,6 +8949,7 @@ class Error {
   Error({this.code, this.data, this.message});
 
   factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ErrorToJson(this);
 }
 
@@ -8553,6 +8966,7 @@ class WebAuthnCredentialImportRequest {
 
   factory WebAuthnCredentialImportRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnCredentialImportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$WebAuthnCredentialImportRequestToJson(this);
 }
@@ -8594,6 +9008,7 @@ class ThemeSearchRequest {
 
   factory ThemeSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$ThemeSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ThemeSearchRequestToJson(this);
 }
 
@@ -8606,6 +9021,7 @@ class PasswordValidationRulesResponse {
 
   factory PasswordValidationRulesResponse.fromJson(Map<String, dynamic> json) =>
       _$PasswordValidationRulesResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$PasswordValidationRulesResponseToJson(this);
 }
@@ -8632,6 +9048,7 @@ class WebAuthnStartRequest {
 
   factory WebAuthnStartRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnStartRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnStartRequestToJson(this);
 }
 
@@ -8647,6 +9064,7 @@ class LoginRecordSearchResponse {
 
   factory LoginRecordSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginRecordSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginRecordSearchResponseToJson(this);
 }
 
@@ -8662,6 +9080,7 @@ class RegistrationReportResponse {
 
   factory RegistrationReportResponse.fromJson(Map<String, dynamic> json) =>
       _$RegistrationReportResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RegistrationReportResponseToJson(this);
 }
 
@@ -8676,6 +9095,7 @@ class IPAccessControlListSearchResponse {
   factory IPAccessControlListSearchResponse.fromJson(
           Map<String, dynamic> json) =>
       _$IPAccessControlListSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IPAccessControlListSearchResponseToJson(this);
 }
@@ -8690,6 +9110,7 @@ class TwoFactorStatusResponse {
 
   factory TwoFactorStatusResponse.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorStatusResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorStatusResponseToJson(this);
 }
 
@@ -8705,6 +9126,7 @@ class ConsentSearchResponse {
 
   factory ConsentSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$ConsentSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConsentSearchResponseToJson(this);
 }
 
@@ -8715,6 +9137,7 @@ class RefreshResponse {
 
   factory RefreshResponse.fromJson(Map<String, dynamic> json) =>
       _$RefreshResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RefreshResponseToJson(this);
 }
 
@@ -8740,6 +9163,7 @@ class MessageTemplate {
 
   factory MessageTemplate.fromJson(Map<String, dynamic> json) =>
       _$MessageTemplateFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessageTemplateToJson(this);
 }
 
@@ -8755,6 +9179,7 @@ class JWTPublicKeyUpdateEvent extends BaseEvent {
 
   factory JWTPublicKeyUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$JWTPublicKeyUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTPublicKeyUpdateEventToJson(this);
 }
 
@@ -8778,6 +9203,7 @@ class DeviceUserCodeResponse {
 
   factory DeviceUserCodeResponse.fromJson(Map<String, dynamic> json) =>
       _$DeviceUserCodeResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$DeviceUserCodeResponseToJson(this);
 }
 
@@ -8805,6 +9231,7 @@ class EntityType {
 
   factory EntityType.fromJson(Map<String, dynamic> json) =>
       _$EntityTypeFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityTypeToJson(this);
 }
 
@@ -8854,6 +9281,7 @@ class PreviewResponse {
 
   factory PreviewResponse.fromJson(Map<String, dynamic> json) =>
       _$PreviewResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PreviewResponseToJson(this);
 }
 
@@ -8868,6 +9296,7 @@ class KickstartSuccessEvent extends BaseEvent {
 
   factory KickstartSuccessEvent.fromJson(Map<String, dynamic> json) =>
       _$KickstartSuccessEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$KickstartSuccessEventToJson(this);
 }
 
@@ -8880,6 +9309,7 @@ class TenantUsernameConfiguration {
 
   factory TenantUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantUsernameConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantUsernameConfigurationToJson(this);
 }
 
@@ -8890,6 +9320,7 @@ class PasswordlessIdentityProvider {
 
   factory PasswordlessIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$PasswordlessIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordlessIdentityProviderToJson(this);
 }
 
@@ -8905,6 +9336,7 @@ class PasswordBreachDetection extends Enableable {
 
   factory PasswordBreachDetection.fromJson(Map<String, dynamic> json) =>
       _$PasswordBreachDetectionFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordBreachDetectionToJson(this);
 }
 
@@ -8923,6 +9355,7 @@ class BaseEvent {
 
   factory BaseEvent.fromJson(Map<String, dynamic> json) =>
       _$BaseEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$BaseEventToJson(this);
 }
 
@@ -8936,6 +9369,7 @@ class EmailHeader {
 
   factory EmailHeader.fromJson(Map<String, dynamic> json) =>
       _$EmailHeaderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EmailHeaderToJson(this);
 }
 
@@ -8951,6 +9385,7 @@ class FormFieldRequest {
 
   factory FormFieldRequest.fromJson(Map<String, dynamic> json) =>
       _$FormFieldRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FormFieldRequestToJson(this);
 }
 
@@ -8976,6 +9411,7 @@ class TwoFactorMethod {
 
   factory TwoFactorMethod.fromJson(Map<String, dynamic> json) =>
       _$TwoFactorMethodFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwoFactorMethodToJson(this);
 }
 
@@ -9103,6 +9539,7 @@ class TenantSearchResponse {
 
   factory TenantSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$TenantSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantSearchResponseToJson(this);
 }
 
@@ -9117,6 +9554,7 @@ class SearchRequest {
 
   factory SearchRequest.fromJson(Map<String, dynamic> json) =>
       _$SearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SearchRequestToJson(this);
 }
 
@@ -9132,6 +9570,7 @@ class LambdaSearchResponse {
 
   factory LambdaSearchResponse.fromJson(Map<String, dynamic> json) =>
       _$LambdaSearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LambdaSearchResponseToJson(this);
 }
 
@@ -9234,6 +9673,7 @@ class Templates {
 
   factory Templates.fromJson(Map<String, dynamic> json) =>
       _$TemplatesFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TemplatesToJson(this);
 }
 
@@ -9248,6 +9688,7 @@ class LambdaSearchRequest {
 
   factory LambdaSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$LambdaSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LambdaSearchRequestToJson(this);
 }
 
@@ -9262,6 +9703,7 @@ class UserPasswordResetSendEvent extends BaseEvent {
 
   factory UserPasswordResetSendEvent.fromJson(Map<String, dynamic> json) =>
       _$UserPasswordResetSendEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserPasswordResetSendEventToJson(this);
 }
 
@@ -9276,6 +9718,7 @@ class IntegrationRequest {
 
   factory IntegrationRequest.fromJson(Map<String, dynamic> json) =>
       _$IntegrationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IntegrationRequestToJson(this);
 }
 
@@ -9317,6 +9760,7 @@ class UserDeleteRequest extends BaseEventRequest {
 
   factory UserDeleteRequest.fromJson(Map<String, dynamic> json) =>
       _$UserDeleteRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserDeleteRequestToJson(this);
 }
 
@@ -9334,6 +9778,7 @@ class IdentityProviderStartLoginRequest extends BaseLoginRequest {
   factory IdentityProviderStartLoginRequest.fromJson(
           Map<String, dynamic> json) =>
       _$IdentityProviderStartLoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IdentityProviderStartLoginRequestToJson(this);
 }
@@ -9354,6 +9799,7 @@ class ExternalJWTApplicationConfiguration
   factory ExternalJWTApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$ExternalJWTApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$ExternalJWTApplicationConfigurationToJson(this);
 }
@@ -9402,6 +9848,7 @@ class LoginResponse {
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }
 
@@ -9417,6 +9864,7 @@ class SearchResponse {
 
   factory SearchResponse.fromJson(Map<String, dynamic> json) =>
       _$SearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }
 
@@ -9430,6 +9878,7 @@ class SendResponse {
 
   factory SendResponse.fromJson(Map<String, dynamic> json) =>
       _$SendResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SendResponseToJson(this);
 }
 
@@ -9443,6 +9892,7 @@ class SystemLogsExportRequest extends BaseExportRequest {
 
   factory SystemLogsExportRequest.fromJson(Map<String, dynamic> json) =>
       _$SystemLogsExportRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SystemLogsExportRequestToJson(this);
 }
 
@@ -9455,6 +9905,7 @@ class ReactorMetricsResponse {
 
   factory ReactorMetricsResponse.fromJson(Map<String, dynamic> json) =>
       _$ReactorMetricsResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReactorMetricsResponseToJson(this);
 }
 
@@ -9482,6 +9933,7 @@ class Location {
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
 
@@ -9495,6 +9947,7 @@ class TenantAccessControlConfiguration {
   factory TenantAccessControlConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$TenantAccessControlConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$TenantAccessControlConfigurationToJson(this);
 }
@@ -9509,6 +9962,7 @@ class TenantResponse {
 
   factory TenantResponse.fromJson(Map<String, dynamic> json) =>
       _$TenantResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantResponseToJson(this);
 }
 
@@ -9530,6 +9984,7 @@ class TwilioMessengerConfiguration extends BaseMessengerConfiguration {
 
   factory TwilioMessengerConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TwilioMessengerConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwilioMessengerConfigurationToJson(this);
 }
 
@@ -9553,6 +10008,7 @@ class UserTwoFactorMethodAddEvent extends BaseEvent {
 
   factory UserTwoFactorMethodAddEvent.fromJson(Map<String, dynamic> json) =>
       _$UserTwoFactorMethodAddEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserTwoFactorMethodAddEventToJson(this);
 }
 
@@ -9576,6 +10032,7 @@ class WebAuthnRegisterStartRequest {
 
   factory WebAuthnRegisterStartRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnRegisterStartRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnRegisterStartRequestToJson(this);
 }
 
@@ -9588,6 +10045,7 @@ class MaximumPasswordAge extends Enableable {
 
   factory MaximumPasswordAge.fromJson(Map<String, dynamic> json) =>
       _$MaximumPasswordAgeFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MaximumPasswordAgeToJson(this);
 }
 
@@ -9602,6 +10060,7 @@ class IPAccessControlEntry {
 
   factory IPAccessControlEntry.fromJson(Map<String, dynamic> json) =>
       _$IPAccessControlEntryFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IPAccessControlEntryToJson(this);
 }
 
@@ -9617,6 +10076,7 @@ class GroupMemberUpdateEvent extends BaseEvent {
 
   factory GroupMemberUpdateEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberUpdateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberUpdateEventToJson(this);
 }
 
@@ -9631,6 +10091,7 @@ class UserDeactivateEvent extends BaseEvent {
 
   factory UserDeactivateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserDeactivateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserDeactivateEventToJson(this);
 }
 
@@ -9645,6 +10106,7 @@ class MemberResponse {
 
   factory MemberResponse.fromJson(Map<String, dynamic> json) =>
       _$MemberResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MemberResponseToJson(this);
 }
 
@@ -9659,6 +10121,7 @@ class WebAuthnAssertResponse {
 
   factory WebAuthnAssertResponse.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnAssertResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnAssertResponseToJson(this);
 }
 
@@ -9699,6 +10162,7 @@ class ThemeSearchCriteria extends BaseSearchCriteria {
 
   factory ThemeSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$ThemeSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ThemeSearchCriteriaToJson(this);
 }
 
@@ -9727,6 +10191,7 @@ class LoginHintConfiguration extends Enableable {
 
   factory LoginHintConfiguration.fromJson(Map<String, dynamic> json) =>
       _$LoginHintConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LoginHintConfigurationToJson(this);
 }
 
@@ -9741,6 +10206,7 @@ class FamilyRequest {
 
   factory FamilyRequest.fromJson(Map<String, dynamic> json) =>
       _$FamilyRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$FamilyRequestToJson(this);
 }
 
@@ -9768,6 +10234,7 @@ class TotalsReportResponse {
 
   factory TotalsReportResponse.fromJson(Map<String, dynamic> json) =>
       _$TotalsReportResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TotalsReportResponseToJson(this);
 }
 
@@ -9782,6 +10249,7 @@ class LogHistory {
 
   factory LogHistory.fromJson(Map<String, dynamic> json) =>
       _$LogHistoryFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LogHistoryToJson(this);
 }
 
@@ -9799,6 +10267,7 @@ class UserRegistrationCreateEvent extends BaseEvent {
 
   factory UserRegistrationCreateEvent.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserRegistrationCreateEventToJson(this);
 }
 
@@ -9813,6 +10282,7 @@ class ApplicationSearchRequest {
 
   factory ApplicationSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$ApplicationSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ApplicationSearchRequestToJson(this);
 }
 
@@ -9827,6 +10297,7 @@ class ConsentRequest {
 
   factory ConsentRequest.fromJson(Map<String, dynamic> json) =>
       _$ConsentRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConsentRequestToJson(this);
 }
 
@@ -9852,6 +10323,7 @@ class FacebookApplicationConfiguration
   factory FacebookApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$FacebookApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$FacebookApplicationConfigurationToJson(this);
 }
@@ -9876,6 +10348,7 @@ class UserActionOption {
 
   factory UserActionOption.fromJson(Map<String, dynamic> json) =>
       _$UserActionOptionFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionOptionToJson(this);
 }
 
@@ -9938,6 +10411,7 @@ class UserAction {
 
   factory UserAction.fromJson(Map<String, dynamic> json) =>
       _$UserActionFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionToJson(this);
 }
 
@@ -9952,6 +10426,7 @@ class ForgotPasswordResponse {
 
   factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
       _$ForgotPasswordResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
 }
 
@@ -9975,6 +10450,7 @@ class JWTRefreshEvent extends BaseEvent {
 
   factory JWTRefreshEvent.fromJson(Map<String, dynamic> json) =>
       _$JWTRefreshEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$JWTRefreshEventToJson(this);
 }
 
@@ -9990,6 +10466,7 @@ class EntitySearchResponse {
 
   factory EntitySearchResponse.fromJson(Map<String, dynamic> json) =>
       _$EntitySearchResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntitySearchResponseToJson(this);
 }
 
@@ -10017,6 +10494,7 @@ class PasswordValidationRules {
 
   factory PasswordValidationRules.fromJson(Map<String, dynamic> json) =>
       _$PasswordValidationRulesFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PasswordValidationRulesToJson(this);
 }
 
@@ -10030,6 +10508,7 @@ class SecretResponse {
 
   factory SecretResponse.fromJson(Map<String, dynamic> json) =>
       _$SecretResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SecretResponseToJson(this);
 }
 
@@ -10048,6 +10527,7 @@ class TwitterIdentityProvider
 
   factory TwitterIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$TwitterIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TwitterIdentityProviderToJson(this);
 }
 
@@ -10062,6 +10542,7 @@ class HYPRIdentityProvider
 
   factory HYPRIdentityProvider.fromJson(Map<String, dynamic> json) =>
       _$HYPRIdentityProviderFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$HYPRIdentityProviderToJson(this);
 }
 
@@ -10076,6 +10557,7 @@ class UserPasswordResetSuccessEvent extends BaseEvent {
 
   factory UserPasswordResetSuccessEvent.fromJson(Map<String, dynamic> json) =>
       _$UserPasswordResetSuccessEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserPasswordResetSuccessEventToJson(this);
 }
 
@@ -10091,6 +10573,7 @@ class Requirable extends Enableable {
 
   factory Requirable.fromJson(Map<String, dynamic> json) =>
       _$RequirableFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RequirableToJson(this);
 }
 
@@ -10104,6 +10587,7 @@ class EntityJWTConfiguration extends Enableable {
 
   factory EntityJWTConfiguration.fromJson(Map<String, dynamic> json) =>
       _$EntityJWTConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EntityJWTConfigurationToJson(this);
 }
 
@@ -10116,6 +10600,7 @@ class ReloadRequest {
 
   factory ReloadRequest.fromJson(Map<String, dynamic> json) =>
       _$ReloadRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReloadRequestToJson(this);
 }
 
@@ -10130,6 +10615,7 @@ class UserCommentSearchRequest {
 
   factory UserCommentSearchRequest.fromJson(Map<String, dynamic> json) =>
       _$UserCommentSearchRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserCommentSearchRequestToJson(this);
 }
 
@@ -10148,6 +10634,7 @@ class WebAuthnLoginRequest extends BaseLoginRequest {
 
   factory WebAuthnLoginRequest.fromJson(Map<String, dynamic> json) =>
       _$WebAuthnLoginRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebAuthnLoginRequestToJson(this);
 }
 
@@ -10178,6 +10665,7 @@ class APIKey {
       this.tenantId});
 
   factory APIKey.fromJson(Map<String, dynamic> json) => _$APIKeyFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$APIKeyToJson(this);
 }
 
@@ -10194,6 +10682,7 @@ class WebhookSearchCriteria extends BaseSearchCriteria {
 
   factory WebhookSearchCriteria.fromJson(Map<String, dynamic> json) =>
       _$WebhookSearchCriteriaFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$WebhookSearchCriteriaToJson(this);
 }
 
@@ -10208,6 +10697,7 @@ class UserPasswordResetStartEvent extends BaseEvent {
 
   factory UserPasswordResetStartEvent.fromJson(Map<String, dynamic> json) =>
       _$UserPasswordResetStartEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserPasswordResetStartEventToJson(this);
 }
 
@@ -10222,6 +10712,7 @@ class GroupDeleteEvent extends BaseEvent {
 
   factory GroupDeleteEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupDeleteEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupDeleteEventToJson(this);
 }
 
@@ -10233,6 +10724,7 @@ class MultiFactorEmailTemplate {
 
   factory MultiFactorEmailTemplate.fromJson(Map<String, dynamic> json) =>
       _$MultiFactorEmailTemplateFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MultiFactorEmailTemplateToJson(this);
 }
 
@@ -10362,6 +10854,7 @@ class TenantSSOConfiguration {
 
   factory TenantSSOConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantSSOConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantSSOConfigurationToJson(this);
 }
 
@@ -10377,6 +10870,7 @@ class PublicKeyCredentialParameters {
 
   factory PublicKeyCredentialParameters.fromJson(Map<String, dynamic> json) =>
       _$PublicKeyCredentialParametersFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$PublicKeyCredentialParametersToJson(this);
 }
 
@@ -10392,6 +10886,7 @@ class ConsentResponse {
 
   factory ConsentResponse.fromJson(Map<String, dynamic> json) =>
       _$ConsentResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ConsentResponseToJson(this);
 }
 
@@ -10407,6 +10902,7 @@ class GroupMemberRemoveEvent extends BaseEvent {
 
   factory GroupMemberRemoveEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupMemberRemoveEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$GroupMemberRemoveEventToJson(this);
 }
 
@@ -10425,6 +10921,7 @@ class IdentityProviderPendingLinkResponse {
   factory IdentityProviderPendingLinkResponse.fromJson(
           Map<String, dynamic> json) =>
       _$IdentityProviderPendingLinkResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$IdentityProviderPendingLinkResponseToJson(this);
 }
@@ -10441,6 +10938,7 @@ class ChangePasswordResponse {
 
   factory ChangePasswordResponse.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ChangePasswordResponseToJson(this);
 }
 
@@ -10456,6 +10954,7 @@ class ActionResponse {
 
   factory ActionResponse.fromJson(Map<String, dynamic> json) =>
       _$ActionResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ActionResponseToJson(this);
 }
 
@@ -10468,6 +10967,7 @@ class Totals {
   Totals({this.logins, this.registrations, this.totalRegistrations});
 
   factory Totals.fromJson(Map<String, dynamic> json) => _$TotalsFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TotalsToJson(this);
 }
 
@@ -10482,6 +10982,7 @@ class SAMLv2IdpInitiatedConfiguration extends Enableable {
 
   factory SAMLv2IdpInitiatedConfiguration.fromJson(Map<String, dynamic> json) =>
       _$SAMLv2IdpInitiatedConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SAMLv2IdpInitiatedConfigurationToJson(this);
 }
@@ -10497,6 +10998,7 @@ class SystemConfigurationRequest {
 
   factory SystemConfigurationRequest.fromJson(Map<String, dynamic> json) =>
       _$SystemConfigurationRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SystemConfigurationRequestToJson(this);
 }
 
@@ -10511,6 +11013,7 @@ class UserActionRequest {
 
   factory UserActionRequest.fromJson(Map<String, dynamic> json) =>
       _$UserActionRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UserActionRequestToJson(this);
 }
 
@@ -10534,6 +11037,7 @@ class IPAccessControlListResponse {
 
   factory IPAccessControlListResponse.fromJson(Map<String, dynamic> json) =>
       _$IPAccessControlListResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$IPAccessControlListResponseToJson(this);
 }
 
@@ -10549,6 +11053,7 @@ class ReactorRequest {
 
   factory ReactorRequest.fromJson(Map<String, dynamic> json) =>
       _$ReactorRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$ReactorRequestToJson(this);
 }
 
@@ -10562,6 +11067,7 @@ class MessageTemplateResponse {
 
   factory MessageTemplateResponse.fromJson(Map<String, dynamic> json) =>
       _$MessageTemplateResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessageTemplateResponseToJson(this);
 }
 
@@ -10584,6 +11090,7 @@ class MessengerRequest {
 
   factory MessengerRequest.fromJson(Map<String, dynamic> json) =>
       _$MessengerRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$MessengerRequestToJson(this);
 }
 
@@ -10598,6 +11105,7 @@ class TenantDeleteRequest extends BaseEventRequest {
 
   factory TenantDeleteRequest.fromJson(Map<String, dynamic> json) =>
       _$TenantDeleteRequestFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TenantDeleteRequestToJson(this);
 }
 
@@ -10612,6 +11120,7 @@ class EventLogCreateEvent extends BaseEvent {
 
   factory EventLogCreateEvent.fromJson(Map<String, dynamic> json) =>
       _$EventLogCreateEventFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogCreateEventToJson(this);
 }
 
@@ -10626,6 +11135,7 @@ class UniqueUsernameConfiguration extends Enableable {
 
   factory UniqueUsernameConfiguration.fromJson(Map<String, dynamic> json) =>
       _$UniqueUsernameConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$UniqueUsernameConfigurationToJson(this);
 }
 
@@ -10638,6 +11148,7 @@ class SAMLv2IdPInitiatedApplicationConfiguration
   factory SAMLv2IdPInitiatedApplicationConfiguration.fromJson(
           Map<String, dynamic> json) =>
       _$SAMLv2IdPInitiatedApplicationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$SAMLv2IdPInitiatedApplicationConfigurationToJson(this);
 }
@@ -10653,6 +11164,7 @@ class EventLogResponse {
 
   factory EventLogResponse.fromJson(Map<String, dynamic> json) =>
       _$EventLogResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$EventLogResponseToJson(this);
 }
 
@@ -10665,6 +11177,7 @@ class TenantRegistrationConfiguration {
 
   factory TenantRegistrationConfiguration.fromJson(Map<String, dynamic> json) =>
       _$TenantRegistrationConfigurationFromJson(json);
+  @override
   Map<String, dynamic> toJson() =>
       _$TenantRegistrationConfigurationToJson(this);
 }
