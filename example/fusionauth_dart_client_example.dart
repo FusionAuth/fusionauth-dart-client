@@ -7,7 +7,7 @@ void main() async {
       'https://local.fusionauth.io', null);
 
   var response = await client.searchUsersByQuery(SearchRequest(
-      search: UserSearchCriteria(queryString: "email:test@example.com")));
+      search: UserSearchCriteria(queryString: 'email:test@example.com')));
 
   if (response.successResponse != null) {
     print(json.encode(response.successResponse.users));

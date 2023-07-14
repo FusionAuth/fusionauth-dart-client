@@ -19,7 +19,7 @@ void main() {
       print('Testing against [${client.host}] with key [${client.apiKey}]');
 
       var response = await client.searchUsersByQuery(SearchRequest(
-          search: UserSearchCriteria(queryString: "email:test@example.com")));
+          search: UserSearchCriteria(queryString: 'email:test@example.com')));
 
       if (response.statusCode == 200 &&
           response.successResponse.users != null &&
