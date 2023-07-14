@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, FusionAuth, All Rights Reserved
+ * Copyright (c) 2020-2023, FusionAuth, All Rights Reserved
  */
 
 import 'dart:convert';
@@ -38,9 +38,9 @@ ResponseHandler<RT, ERT> defaultErrorResponseHandlerBuilder<RT, ERT>(
 
 class FusionAuthRESTClient<ReturnType, ErrorReturnType> {
   dynamic body;
-  Map<String, String> headers = Map<String, String>();
+  Map<String, String> headers = <String, String>{};
   String method;
-  Map<String, String> parameters = Map<String, String>();
+  Map<String, String> parameters = <String, String>{};
   String uri;
   HttpClientCredentials credentials;
   String realm;

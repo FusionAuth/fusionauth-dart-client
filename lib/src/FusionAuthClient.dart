@@ -116,7 +116,7 @@ class FusionAuthClient {
   /// @returns {Promise<ClientResponse<DeviceApprovalResponse>>}
   Future<ClientResponse<DeviceApprovalResponse, Errors>> approveDevice(
       String client_id, String client_secret, String token, String user_code) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['client_id'] = client_id;
     body['client_secret'] = client_secret;
     body['token'] = token;
@@ -244,7 +244,7 @@ class FusionAuthClient {
   /// @returns {Promise<ClientResponse<AccessToken>>}
   Future<ClientResponse<AccessToken, OAuthError>> clientCredentialsGrant(
       String client_id, String client_secret, String scope) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['client_id'] = client_id;
     body['client_secret'] = client_secret;
     body['grant_type'] = 'client_credentials';
@@ -1443,7 +1443,7 @@ class FusionAuthClient {
   Future<ClientResponse<AccessToken, OAuthError>>
       exchangeOAuthCodeForAccessToken(String code, String client_id,
           String client_secret, String redirect_uri) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['code'] = code;
     body['client_id'] = client_id;
     body['client_secret'] = client_secret;
@@ -1471,7 +1471,7 @@ class FusionAuthClient {
   Future<ClientResponse<AccessToken, OAuthError>>
       exchangeOAuthCodeForAccessTokenUsingPKCE(String code, String client_id,
           String client_secret, String redirect_uri, String code_verifier) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['code'] = code;
     body['client_id'] = client_id;
     body['client_secret'] = client_secret;
@@ -1500,7 +1500,7 @@ class FusionAuthClient {
   Future<ClientResponse<AccessToken, OAuthError>>
       exchangeRefreshTokenForAccessToken(String refresh_token, String client_id,
           String client_secret, String scope, String user_code) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['refresh_token'] = refresh_token;
     body['client_id'] = client_id;
     body['client_secret'] = client_secret;
@@ -1550,7 +1550,7 @@ class FusionAuthClient {
           String client_secret,
           String scope,
           String user_code) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['username'] = username;
     body['password'] = password;
     body['client_id'] = client_id;
@@ -1775,7 +1775,7 @@ class FusionAuthClient {
   /// @returns {Promise<ClientResponse<Map<String, dynamic>>>}
   Future<ClientResponse<Map<String, dynamic>, OAuthError>>
       introspectAccessToken(String client_id, String token) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['client_id'] = client_id;
     body['token'] = token;
     return _startAnonymous<Map<String, dynamic>, OAuthError>()
@@ -1793,7 +1793,7 @@ class FusionAuthClient {
   /// @returns {Promise<ClientResponse<Map<String, dynamic>>>}
   Future<ClientResponse<Map<String, dynamic>, OAuthError>>
       introspectClientCredentialsAccessToken(String token) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['token'] = token;
     return _startAnonymous<Map<String, dynamic>, OAuthError>()
         .withUri('/oauth2/introspect')
@@ -3784,7 +3784,7 @@ class FusionAuthClient {
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, void>> retrieveUserCode(
       String client_id, String client_secret, String user_code) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['client_id'] = client_id;
     body['client_secret'] = client_secret;
     body['user_code'] = user_code;
@@ -3805,7 +3805,7 @@ class FusionAuthClient {
   /// @returns {Promise<ClientResponse<void>>}
   Future<ClientResponse<void, void>> retrieveUserCodeUsingAPIKey(
       String user_code) {
-    var body = Map<String, dynamic>();
+    var body = <String, dynamic>{};
     body['user_code'] = user_code;
     return _startAnonymous<void, void>()
         .withUri('/oauth2/device/user-code')
