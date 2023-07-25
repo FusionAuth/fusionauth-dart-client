@@ -2840,6 +2840,8 @@ SAMLv2Configuration _$SAMLv2ConfigurationFromJson(Map<String, dynamic> json) =>
           json['initiatedLogin'] as Map<String, dynamic>),
       issuer: json['issuer'] as String,
       keyId: json['keyId'] as String,
+      loginHintConfiguration: LoginHintConfiguration.fromJson(
+          json['loginHintConfiguration'] as Map<String, dynamic>),
       logout: SAMLv2Logout.fromJson(json['logout'] as Map<String, dynamic>),
       logoutURL: json['logoutURL'] as String,
       requireSignedRequests: json['requireSignedRequests'] as bool,
@@ -2863,6 +2865,7 @@ Map<String, dynamic> _$SAMLv2ConfigurationToJson(
       'initiatedLogin': instance.initiatedLogin,
       'issuer': instance.issuer,
       'keyId': instance.keyId,
+      'loginHintConfiguration': instance.loginHintConfiguration,
       'logout': instance.logout,
       'logoutURL': instance.logoutURL,
       'requireSignedRequests': instance.requireSignedRequests,

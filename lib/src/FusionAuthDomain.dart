@@ -2465,6 +2465,7 @@ class SAMLv2Configuration extends Enableable {
   SAMLv2IdPInitiatedLoginConfiguration initiatedLogin;
   String issuer;
   String keyId;
+  LoginHintConfiguration loginHintConfiguration;
   SAMLv2Logout logout;
   String logoutURL;
   bool requireSignedRequests;
@@ -2481,6 +2482,7 @@ class SAMLv2Configuration extends Enableable {
       this.initiatedLogin,
       this.issuer,
       this.keyId,
+      this.loginHintConfiguration,
       this.logout,
       this.logoutURL,
       this.requireSignedRequests,
