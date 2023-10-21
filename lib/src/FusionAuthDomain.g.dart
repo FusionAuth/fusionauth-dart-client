@@ -972,6 +972,7 @@ UserSearchCriteria _$UserSearchCriteriaFromJson(Map<String, dynamic> json) =>
       ..startRow = json['startRow'] as num
       ..accurateTotal = json['accurateTotal'] as bool
       ..ids = (json['ids'] as List<dynamic>).map((e) => e as String).toList()
+      ..nextResults = json['nextResults'] as String
       ..query = json['query'] as String
       ..queryString = json['queryString'] as String
       ..sortFields = (json['sortFields'] as List<dynamic>)
@@ -985,6 +986,7 @@ Map<String, dynamic> _$UserSearchCriteriaToJson(UserSearchCriteria instance) =>
       'startRow': instance.startRow,
       'accurateTotal': instance.accurateTotal,
       'ids': instance.ids,
+      'nextResults': instance.nextResults,
       'query': instance.query,
       'queryString': instance.queryString,
       'sortFields': instance.sortFields,
@@ -1422,6 +1424,7 @@ EntitySearchCriteria _$EntitySearchCriteriaFromJson(
       ..startRow = json['startRow'] as num
       ..accurateTotal = json['accurateTotal'] as bool
       ..ids = (json['ids'] as List<dynamic>).map((e) => e as String).toList()
+      ..nextResults = json['nextResults'] as String
       ..query = json['query'] as String
       ..queryString = json['queryString'] as String
       ..sortFields = (json['sortFields'] as List<dynamic>)
@@ -1436,6 +1439,7 @@ Map<String, dynamic> _$EntitySearchCriteriaToJson(
       'startRow': instance.startRow,
       'accurateTotal': instance.accurateTotal,
       'ids': instance.ids,
+      'nextResults': instance.nextResults,
       'query': instance.query,
       'queryString': instance.queryString,
       'sortFields': instance.sortFields,
@@ -1777,6 +1781,7 @@ Map<String, dynamic> _$ApplicationFormConfigurationToJson(
 TimeBasedDeletePolicy _$TimeBasedDeletePolicyFromJson(
         Map<String, dynamic> json) =>
     TimeBasedDeletePolicy(
+      enabledInstant: json['enabledInstant'] as num,
       numberOfDaysToRetain: json['numberOfDaysToRetain'] as num,
     )..enabled = json['enabled'] as bool;
 
@@ -1784,6 +1789,7 @@ Map<String, dynamic> _$TimeBasedDeletePolicyToJson(
         TimeBasedDeletePolicy instance) =>
     <String, dynamic>{
       'enabled': instance.enabled,
+      'enabledInstant': instance.enabledInstant,
       'numberOfDaysToRetain': instance.numberOfDaysToRetain,
     };
 
@@ -2100,6 +2106,19 @@ Map<String, dynamic> _$GroupSearchResponseToJson(
       'total': instance.total,
     };
 
+WebhookSignatureConfiguration _$WebhookSignatureConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    WebhookSignatureConfiguration(
+      signingKeyId: json['signingKeyId'] as String,
+    )..enabled = json['enabled'] as bool;
+
+Map<String, dynamic> _$WebhookSignatureConfigurationToJson(
+        WebhookSignatureConfiguration instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      'signingKeyId': instance.signingKeyId,
+    };
+
 UserCommentSearchCriteria _$UserCommentSearchCriteriaFromJson(
         Map<String, dynamic> json) =>
     UserCommentSearchCriteria(
@@ -2204,7 +2223,10 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
       insertInstant: json['insertInstant'] as num,
       lastUpdateInstant: json['lastUpdateInstant'] as num,
       readTimeout: json['readTimeout'] as num,
+      signatureConfiguration: WebhookSignatureConfiguration.fromJson(
+          json['signatureConfiguration'] as Map<String, dynamic>),
       sslCertificate: json['sslCertificate'] as String,
+      sslCertificateKeyId: json['sslCertificateKeyId'] as String,
       tenantIds:
           (json['tenantIds'] as List<dynamic>).map((e) => e as String).toList(),
       url: json['url'] as String,
@@ -2224,7 +2246,9 @@ Map<String, dynamic> _$WebhookToJson(Webhook instance) => <String, dynamic>{
       'insertInstant': instance.insertInstant,
       'lastUpdateInstant': instance.lastUpdateInstant,
       'readTimeout': instance.readTimeout,
+      'signatureConfiguration': instance.signatureConfiguration,
       'sslCertificate': instance.sslCertificate,
+      'sslCertificateKeyId': instance.sslCertificateKeyId,
       'tenantIds': instance.tenantIds,
       'url': instance.url,
     };
@@ -4001,6 +4025,17 @@ const _$IdentityProviderLoginMethodEnumMap = {
   IdentityProviderLoginMethod.UseVendorJavaScript: 'UseVendorJavaScript',
 };
 
+ExpandableRequest _$ExpandableRequestFromJson(Map<String, dynamic> json) =>
+    ExpandableRequest(
+      expand:
+          (json['expand'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+
+Map<String, dynamic> _$ExpandableRequestToJson(ExpandableRequest instance) =>
+    <String, dynamic>{
+      'expand': instance.expand,
+    };
+
 DomainBasedIdentityProvider _$DomainBasedIdentityProviderFromJson(
         Map<String, dynamic> json) =>
     DomainBasedIdentityProvider();
@@ -5293,6 +5328,7 @@ IdentityProviderOauth2Configuration
               _$ClientAuthenticationMethodEnumMap,
               json['clientAuthenticationMethod']),
           emailClaim: json['emailClaim'] as String,
+          emailVerifiedClaim: json['emailVerifiedClaim'] as String,
           issuer: json['issuer'] as String,
           scope: json['scope'] as String,
           token_endpoint: json['token_endpoint'] as String,
@@ -5310,6 +5346,7 @@ Map<String, dynamic> _$IdentityProviderOauth2ConfigurationToJson(
       'clientAuthenticationMethod': _$ClientAuthenticationMethodEnumMap[
           instance.clientAuthenticationMethod],
       'emailClaim': instance.emailClaim,
+      'emailVerifiedClaim': instance.emailVerifiedClaim,
       'issuer': instance.issuer,
       'scope': instance.scope,
       'token_endpoint': instance.token_endpoint,
@@ -5569,6 +5606,7 @@ UserRegistration _$UserRegistrationFromJson(Map<String, dynamic> json) =>
       usernameStatus:
           _$enumDecode(_$ContentStatusEnumMap, json['usernameStatus']),
       verified: json['verified'] as bool,
+      verifiedInstant: json['verifiedInstant'] as num,
     );
 
 Map<String, dynamic> _$UserRegistrationToJson(UserRegistration instance) =>
@@ -5588,6 +5626,7 @@ Map<String, dynamic> _$UserRegistrationToJson(UserRegistration instance) =>
       'username': instance.username,
       'usernameStatus': _$ContentStatusEnumMap[instance.usernameStatus],
       'verified': instance.verified,
+      'verifiedInstant': instance.verifiedInstant,
     };
 
 const _$ContentStatusEnumMap = {
@@ -5618,6 +5657,7 @@ SecureIdentity _$SecureIdentityFromJson(Map<String, dynamic> json) =>
       usernameStatus:
           _$enumDecode(_$ContentStatusEnumMap, json['usernameStatus']),
       verified: json['verified'] as bool,
+      verifiedInstant: json['verifiedInstant'] as num,
     );
 
 Map<String, dynamic> _$SecureIdentityToJson(SecureIdentity instance) =>
@@ -5641,6 +5681,7 @@ Map<String, dynamic> _$SecureIdentityToJson(SecureIdentity instance) =>
       'username': instance.username,
       'usernameStatus': _$ContentStatusEnumMap[instance.usernameStatus],
       'verified': instance.verified,
+      'verifiedInstant': instance.verifiedInstant,
     };
 
 const _$BreachedPasswordStatusEnumMap = {
@@ -8253,7 +8294,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       ..username = json['username'] as String
       ..usernameStatus =
           _$enumDecode(_$ContentStatusEnumMap, json['usernameStatus'])
-      ..verified = json['verified'] as bool;
+      ..verified = json['verified'] as bool
+      ..verifiedInstant = json['verifiedInstant'] as num;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'breachedPasswordLastCheckedInstant':
@@ -8275,6 +8317,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'username': instance.username,
       'usernameStatus': _$ContentStatusEnumMap[instance.usernameStatus],
       'verified': instance.verified,
+      'verifiedInstant': instance.verifiedInstant,
       'active': instance.active,
       'birthDate': instance.birthDate,
       'cleanSpeakId': instance.cleanSpeakId,
@@ -9173,6 +9216,7 @@ BaseElasticSearchCriteria _$BaseElasticSearchCriteriaFromJson(
     BaseElasticSearchCriteria(
       accurateTotal: json['accurateTotal'] as bool,
       ids: (json['ids'] as List<dynamic>).map((e) => e as String).toList(),
+      nextResults: json['nextResults'] as String,
       query: json['query'] as String,
       queryString: json['queryString'] as String,
       sortFields: (json['sortFields'] as List<dynamic>)
@@ -9191,6 +9235,7 @@ Map<String, dynamic> _$BaseElasticSearchCriteriaToJson(
       'startRow': instance.startRow,
       'accurateTotal': instance.accurateTotal,
       'ids': instance.ids,
+      'nextResults': instance.nextResults,
       'query': instance.query,
       'queryString': instance.queryString,
       'sortFields': instance.sortFields,
@@ -9839,6 +9884,18 @@ Map<String, dynamic> _$WebAuthnCredentialImportRequestToJson(
       'validateDbConstraints': instance.validateDbConstraints,
     };
 
+ExpandableResponse _$ExpandableResponseFromJson(Map<String, dynamic> json) =>
+    ExpandableResponse(
+      expandable: (json['expandable'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+    );
+
+Map<String, dynamic> _$ExpandableResponseToJson(ExpandableResponse instance) =>
+    <String, dynamic>{
+      'expandable': instance.expandable,
+    };
+
 ThemeSearchRequest _$ThemeSearchRequestFromJson(Map<String, dynamic> json) =>
     ThemeSearchRequest(
       search:
@@ -10238,10 +10295,12 @@ SearchRequest _$SearchRequestFromJson(Map<String, dynamic> json) =>
     SearchRequest(
       search:
           UserSearchCriteria.fromJson(json['search'] as Map<String, dynamic>),
-    );
+    )..expand =
+        (json['expand'] as List<dynamic>).map((e) => e as String).toList();
 
 Map<String, dynamic> _$SearchRequestToJson(SearchRequest instance) =>
     <String, dynamic>{
+      'expand': instance.expand,
       'search': instance.search,
     };
 
@@ -10416,6 +10475,7 @@ UserDeleteRequest _$UserDeleteRequestFromJson(Map<String, dynamic> json) =>
     UserDeleteRequest(
       dryRun: json['dryRun'] as bool,
       hardDelete: json['hardDelete'] as bool,
+      limit: json['limit'] as num,
       query: json['query'] as String,
       queryString: json['queryString'] as String,
       userIds:
@@ -10428,6 +10488,7 @@ Map<String, dynamic> _$UserDeleteRequestToJson(UserDeleteRequest instance) =>
       'eventInfo': instance.eventInfo,
       'dryRun': instance.dryRun,
       'hardDelete': instance.hardDelete,
+      'limit': instance.limit,
       'query': instance.query,
       'queryString': instance.queryString,
       'userIds': instance.userIds,
@@ -10538,14 +10599,18 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
 
 SearchResponse _$SearchResponseFromJson(Map<String, dynamic> json) =>
     SearchResponse(
+      nextResults: json['nextResults'] as String,
       total: json['total'] as num,
       users: (json['users'] as List<dynamic>)
           .map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..expandable =
+        (json['expandable'] as List<dynamic>).map((e) => e as String).toList();
 
 Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
     <String, dynamic>{
+      'expandable': instance.expandable,
+      'nextResults': instance.nextResults,
       'total': instance.total,
       'users': instance.users,
     };
@@ -11085,6 +11150,7 @@ EntitySearchResponse _$EntitySearchResponseFromJson(
       entities: (json['entities'] as List<dynamic>)
           .map((e) => Entity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      nextResults: json['nextResults'] as String,
       total: json['total'] as num,
     );
 
@@ -11092,6 +11158,7 @@ Map<String, dynamic> _$EntitySearchResponseToJson(
         EntitySearchResponse instance) =>
     <String, dynamic>{
       'entities': instance.entities,
+      'nextResults': instance.nextResults,
       'total': instance.total,
     };
 
