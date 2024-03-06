@@ -1,3 +1,5 @@
+This repo is out of date and is archived. Check out the [FusionAuth Dart Client Library docs](https://fusionauth.io/docs/sdks/dart). The dart client is being deprecated and the best path forward is to build the client from the [FusionAuth OpenAPI Specification](/docs/sdks/openapi).
+
 # FusionAuth Dart Client ![semver 2.0.0 compliant](http://img.shields.io/badge/semver-2.0.0-brightgreen.svg?style=flat-square)
 If you're integrating FusionAuth with a Dart or Flutter application, this library will speed up your development time.
 
